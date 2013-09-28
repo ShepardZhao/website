@@ -1,0 +1,274 @@
+
+/********************************      Elements styling      ********************************/
+
+
+@font-face
+{
+
+    font-family: HelveticaNeueLight;
+    src: url('../../../assets/font/HelveticaNeueLight.ttf');
+}
+
+html,body{
+    font-family:"HelveticaNeueLight";
+    height:100%;
+}
+
+a{
+    cursor: pointer;
+}
+label{color:#333;font-size:13px!important;}
+
+.achieve{
+    color:rgb(248,163,31) !important;
+}
+
+.button{
+    padding-top: 3px;
+    width: 70px;
+    height: 40px;
+    padding: 0;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    color: rgba(255,255,255,1);
+    border: none;
+    background-color: #368ee0;
+    -webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+    -moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+    box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+
+}
+.BottomBorder{
+    border-bottom:1px solid #888;
+}
+
+.checkboxclass{
+	margin:0 !important;
+}
+
+/********************************      Sidebar      ********************************/
+
+#sidebar {
+                width:250px;
+                color: #888;
+                font-size: 12px;
+                position: fixed;
+                overflow-y: scroll;
+                top: 0;
+                bottom: 0;
+                left:0
+}
+
+#sidebar::-webkit-scrollbar { 
+    display: none; 
+}
+#sidebar::-ms-overflow-style{
+	display:none;
+}
+
+
+#sidebar #sidebar-wrapper {
+                margin: 0;
+            background:#4a4d50;
+                
+                }
+
+#sidebar a,
+#sidebar a:active {
+                color:#ccc;
+                }
+
+#sidebar a:hover {
+                color:#fff;
+                }
+
+#sidebar #sidebar-title {
+                margin: 40px 0 40px 15px;
+                }
+
+#sidebar #logo {
+                margin: 40px 0 40px 0;
+                }
+
+#sidebar #profile-links {
+                padding: 0 15px 20px 15px;
+                text-align: right;
+                line-height: 1.5em;
+                }
+
+/************ Sidebar Accordion Menu ************/
+
+
+
+#sidebar #main-nav li {
+                list-style: none;
+                padding-bottom: 10px;
+                text-align: right;
+                }
+
+#sidebar #main-nav li a.nav-top-item {
+                background: #368ee0;
+                padding: 10px 15px;
+                color: #fff;
+                font-size: 14px;
+                cursor: pointer;
+                display: block;
+                text-decoration: none;
+                }
+
+#sidebar #main-nav li a.current {
+                background:#FF7F00;
+                color: #333;
+                font-weight: bold;
+                }
+                
+#sidebar #main-nav li a.current:hover {
+                color: #333;
+                }
+
+#sidebar #main-nav ul {
+                padding: 0;
+                font-size: 12px;
+                margin: 0;
+                }
+
+#sidebar #main-nav ul li {
+                list-style: none;
+                margin: 0;
+                text-align: right;
+				padding: 0;
+                }
+
+#sidebar #main-nav ul li a {
+                padding: 8px 15px;
+                display: block;
+                color: #aaa;
+                font-size: 13px;
+                line-height: 1.2em;
+                }
+
+#sidebar #main-nav ul li a:hover,
+#sidebar #main-nav ul li a.current,
+#sidebar #main-nav ul li a.current:hover {
+                color: #fff;
+                }
+
+
+
+/********************************      Main Content      ********************************/
+
+/************ Layout ************/
+.inputBg{
+    background:#f9f9f9;
+
+}
+
+
+
+#main-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:200px;
+    padding:50px 0 0 50px;
+    max-width:900px;
+
+       }
+
+/****** Table ***********/
+.table-bordered{
+    border: 2px solid #56af45;
+
+}
+.table-bordered td{
+    border-left: 0;
+
+}
+
+table>tbody>tr>td{
+
+    font-size:14px;
+
+}
+
+.thead{
+    background:#56af45; !important
+}
+.thead td{
+    font-size:16px;
+    color:#fff;
+}
+.subHead{
+    background:#d9edf7; !important
+}
+#UserTableList{
+    vertical-align: middle;
+}
+
+#UserTableList>thead>tr>th{
+    font-size:14px;
+    color:#c09853;
+
+}
+
+
+/*********************Hidden lists function*****************/
+/*Basic system setting management*/
+
+.divhead{
+    -webkit-border-top-left-radius:4px;
+    -webkit-border-top-right-radius:4px;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+    -moz-border-radius-topleft:4px;
+    -moz-border-radius-topright:4px;
+    background:#f8a31f;
+    padding-left:10px;
+
+}
+
+.divhead h4
+{ color:#fff;
+  line-height:34px;
+}
+
+.basicInfo-box{
+    background:rgb(245,245,245);
+
+    border: 2px solid #f8a31f;
+    padding:19px;
+
+
+}
+/**************************DIV GROUP(hiding for deafault)*****************************/
+#adminMangement{
+    display:none;
+}
+
+#TagsManagement{
+    display:none;
+}
+
+#basicInfo{
+
+    display:none;
+
+}
+#addsLocation{
+    display:none;
+}
+
+#LocationModify{
+    display:none;
+}
+#UserList{
+    display:none;
+
+
+}
+#Mail_Setting{
+    display:none;
+}
+
+

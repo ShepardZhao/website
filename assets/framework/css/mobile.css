@@ -1,0 +1,25 @@
+.orderMargin{
+    margin-top:80px;
+    margin-bottom:80px;
+    margin-left: 0;
+    margin-right: 0;
+    
+    
+}
+/**slide**/
+.slideMarign{
+	margin-top: 0px;
+}
+
+/*resize right tab*/
+.rightPart{
+    padding:0;
+}
+
+/*siderbar*/
+.siderbar{
+	padding-right:0;
+}
+.orderlist{
+	line-height:2.5em;
+}

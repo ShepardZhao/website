@@ -1,0 +1,746 @@
+/******The follwing css is refering to bootstrap******/
+/******Vserion:1.0*******/
+/******Design by company******/
+
+
+@font-face
+{
+  
+    font-family: HelveticaNeueLight;
+    src: url('../font/HelveticaNeueLight.ttf');
+}
+
+.container-fluid{
+	max-width:1600px!important;
+	margin: 0 auto;
+}
+
+
+body{
+    font-family:"HelveticaNeueLight", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+	background-color: #e9e9e9;/*#e9e9e9*/
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;	
+}
+
+
+.loadingImage{
+	width: 100%;
+	text-align:center;
+	margin:100px auto;
+}
+
+.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover{
+	cursor:pointer;
+	color: #0088cc;
+	transition-property: color;
+	transition-duration: 0.3s;
+	transition-timing-function: linear;  
+	position:relative;
+}
+a{
+	text-decoration: none !important;
+}
+.hide{
+    display:none;
+}
+/**commment option**/
+.radius{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+/**header part**/
+.header{ 
+	background-color: #f47063;/*rgb(255, 238, 204);*/
+	z-index: 99999;
+}
+
+.headNav{
+	margin:0
+}
+.headNav li{
+   padding-right: 10px;
+   padding-left: 10px;
+  }
+
+/*facebook setting*/
+
+.setUpFacebook{
+	padding-top: 3px;
+	width: 200px;
+	height: 40px;
+	padding: 0;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	color: rgba(255,255,255,1);
+	border: none;
+	background-color: #3498DB;
+	-webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	-moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	transition-property: background;
+	transition-duration: 1s;
+	transition-timing-function: linear;
+}
+.icon-facebook{
+    padding-right:10px;
+    margin-right: 2px;
+    border-right:1px solid;
+}
+.setUpFacebook:hover{
+   background-color: #2980b9;	
+}
+/*initial div option. which displays the pop layer while page has been loaded*/
+.initialDiv{
+	width: 600px;
+	height:400px;
+	z-index: 10;
+	position: absolute;
+	background-color: #fff;
+	display: none;
+	padding: 10px;
+    box-shadow: 0px 3px 5px #444;
+}
+
+.secondWindows {
+	width: 100%;
+	height:100%;
+	border: 1px solid rgba(229, 227, 227, 0.9);	
+}
+
+
+
+/*button setting*/
+.setUp{
+		padding-top: 3px;
+	    width: 100px;
+	    height: 40px;
+	    padding: 0;
+	    -webkit-box-sizing: content-box;
+	    -moz-box-sizing: content-box;
+	    box-sizing: content-box;
+	    color: rgba(255,255,255,1);
+	    border: none;
+	    background-color: #E74C3C;
+	    -webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	    -moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	    box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+	    transition-property: background;
+	    transition-duration: 1s;
+	    transition-timing-function: linear;	
+}
+.setUp:hover{
+	background-color: #C0392B;
+}
+
+
+/*dropdown option*/
+.formOption{
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+.dropdown-menu{
+	width: 260px;
+	z-index: 9999999;
+}
+
+/*input-group*/
+.input-group{
+	padding:3px 0 0 5px;
+	
+	margin-bottom: 0px;
+}
+.ForgetPassword{
+	padding-right: 5px;
+	text-align: right;
+}
+.ForgetPassword a{
+	text-decoration: underline;
+}
+.checkboxSetting{
+	margin-left: 2px;
+}
+
+.Go{
+		margin-left: 55px;
+}
+
+
+/**header end**/
+
+/****************************************************************************************************/
+
+/**body-waterfall:index**/
+#main{
+	overflow: hidden;
+	margin: 0;
+}
+/**
+ * Grid container
+ */
+#tiles {
+  list-style-type: none;
+  position: relative; /** Needed to ensure items are laid out relative to this container **/
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Grid items
+ */
+#tiles li {
+  width: 200px;
+  display: none; /** Hide items initially to avoid a flicker effect **/
+  cursor: pointer;
+  padding: 0px;
+  outline: 0;
+  padding: 4px;
+  }
+/*Hover part*/
+
+/*Hover part with mask*/
+.mask {
+ width: 100%;
+ height: 100%;
+ display: block;
+ overflow: hidden;
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ opacity: 0.7;
+ z-index: 1;
+ background-color: rgba(16, 15, 15, 0.62);
+ display: none;
+}
+/*Hover part with text*/
+label.text {
+width: 100%;
+height: 50px;
+line-height: 60px;
+display: block;
+overflow: hidden;
+position: absolute;
+left: 3px;
+bottom: 3px;
+padding: 0 5px;
+text-align: left;
+z-index: 2;
+color: #f2f0f0;
+}
+/*#title li added class*/
+#tiles li:hover {
+ -webkit-box-shadow: 1px 0px 18px rgba(50, 50, 50, 0.76);
+ -moz-box-shadow:    1px 0px 18px rgba(50, 50, 50, 0.76);
+ box-shadow:         1px 0px 18px rgba(50, 50, 50, 0.76);
+ 
+   }
+
+#tiles li.inactive {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#tiles li img {
+  display: block;
+  border-radius: 3px;
+     -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+
+
+
+/*register options*/
+.RegSize{
+	height:3em !important;
+}
+
+.mySubmit{
+	    width: 60px !important;
+	    height: 60px;
+	    padding: 0;
+	    -webkit-box-sizing: content-box;
+	    -moz-box-sizing: content-box;
+	    box-sizing: content-box;
+	    color: rgba(255,255,255,1);
+	    font: bold 18px/60px "Verdana";
+	    border: none;
+	    -webkit-border-radius: 60px;
+	    -moz-border-radius:60px;
+	    border-radius: 60px;
+	    background-color: rgba(32,154,230,1);
+	    transition-property: background;
+	    transition-duration: 1s;
+	    transition-timing-function: linear;	
+	
+}
+.mySubmit:hover{
+		background-color: #C0392B;
+	
+}
+
+
+/****************Order.php***********************/
+.orderMargin{
+    margin-top:80px;
+    margin-bottom:80px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+    
+}
+.orderBG{
+	background-color: #f5f5f5;
+	    padding-top: 19px;
+	    padding-bottom: 19px;
+	    padding-left: 10%;
+	    padding-right: 10%;
+
+
+}
+
+.orderBG h3{
+    font-style: italic;
+
+}
+
+.bgconnection{
+position: relative;
+	
+}
+.FrontbottonPng{
+    background: url(../front-images/jagged2.png) repeat-x 0 0;
+    position: absolute;
+    z-index: 250;
+    width: 100%;
+    height: 18px;
+    left:0;
+    bottom:-17px;
+}
+/**slide**/
+.slideMarign{
+	margin-top: 50px;
+}
+.carousel img{
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	height: 350px;
+}
+.carousel-caption h3{
+    color:#fff;
+}
+
+.favorite{
+	margin-top:20px;
+    margin-left:50px;
+    color:rgb(240,68,70);
+	
+}
+
+.slidePrice{
+	font-size: 30px;
+	color:red;
+	margin-top: 50px;
+	margin-left: 50px;
+	font-weight:600;
+}
+
+
+/**Tab switch**/
+.tabMain{
+	margin-bottom:0 !important;
+}
+.tabMain li a{
+	background:rgb(245,245,245);
+}
+.tabContent{
+	background-color:rgb(255,255,255);
+	overflow-x:hidden;
+}
+.ContentRight{
+	background-color:rgb(255,169,93);
+	
+}
+
+
+.ContentRightList{
+	margin:10px ;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.ContentRightList>li>a{
+	color: #393e46;
+}
+.ContentLeftList{
+  margin-top:10px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-bottom: 20px;
+  
+}
+.ContentLeftList li{
+	text-align:center;
+	padding-top: 18px;
+	padding-bottom:8px;
+	font-weight:600;
+	color:#fff;
+	
+}
+
+
+.nav-pills>li>a{
+	-webkit-border-radius: 5px;
+	-moz-border-radius:5px;
+	border-radius: 5px;
+	cursor:pointer;
+}
+
+.tagactive{
+	background-color: rgb(255,152,118);
+}
+
+.TagWidthOverflow{
+	overflow:hidden;
+}
+
+.TagAvailable>li>a{/*tag 1:available  */
+	border:1px solid #f6bc37;
+    box-shadow: 2px 2px 2px #888;
+}
+
+.TagCuisine>li>a{
+	border:1px solid rgb(255,34,28);
+    box-shadow: 2px 2px 2px #888;
+
+}
+
+.TagType>li>a{
+	border:1px solid rgb(109,172,210);
+    box-shadow: 2px 2px 2px #888;
+
+}
+.TagPrice>li>a{
+	border:1px solid rgb(46,204,113);
+    box-shadow: 2px 2px 2px #888;
+
+}
+
+/*Featured.php*/
+.FeaturedImage{
+	background-color: rgb(245,245,245);
+}
+#FeatureMargin{
+	padding-top: 30px;
+	
+}
+#MainFeaturedImage{
+	width: 100%;
+	min-height: 100%;
+}
+.Imagetiles {
+  list-style-type: none;
+  position: relative; /** Needed to ensure items are laid out relative to this container **/
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Grid items
+ */
+ #Imagemain {
+   position: relative;
+  
+ }
+.Imagetiles li {
+  width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #dedede;
+          border-radius: 3px;
+     -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  display: none; /** Hide items initially to avoid a flicker effect **/
+  cursor: pointer;
+  padding: 5px;
+  text-align:center;
+  transition-property: background;
+  transition-duration: 0.3s;
+  transition-timing-function: linear;  
+  position:relative;
+  
+  
+}
+.TopOptions{
+	position:absolute;
+	background:#ffffff;
+	padding:4px;
+	overflow:hidden;
+	width: 195px;
+	opacity:0.9;
+	display:none;
+	line-height:30px;
+}
+.Imagetiles li:hover{
+	background-color: rgb(255,255,255);
+	
+}
+
+
+.Imagetiles li.inactive {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.Imagetiles li img {
+  display: block;
+}
+.Imagetiles li>h6{
+ color: #888;	
+
+}
+.optionsHide{
+	display:none;
+}
+.DisplayMore{
+	bottom: 0;
+	background: rgba(242, 200, 114, 0.73);
+	position: absolute;
+
+}
+.BackgroundOfStarAndPlus{
+	color:rgb(255,85,43);
+	font-size: 16px;
+}
+.blodOfPrice{
+	color: #fb3420;
+	font-weight:600;
+}
+
+.FeatureTopBackground{
+	background:rgb(255,255,255);
+	padding: 19px;
+	
+	
+}
+.limitedWidth{
+	max-width:1039px;
+}
+.h4Title{
+	color:#e46;
+}
+.inlineLeftPadding>li{
+	padding-left:0px!important;
+}
+.rightFeature{
+	margin-top:15px;
+}
+.rightFeature h2{
+	margin-bottom: 19px;
+	color:rgb(240,68,70);
+}
+.icon-circle-arrow-down:hover{
+	color:#0088cc;
+	
+}
+
+
+.FeatureBottomBackground{
+background:rgb(245,245,245);
+padding:19px;
+}
+#DetailInterface{
+	display:none;
+}
+
+.left-position{
+	left: -10px;
+	top: 50%;
+	position: absolute;
+	display: none;
+}
+
+
+/*restaurants.php*/
+
+.RestaurantsContentRight{
+	background:rgb(227,107,95);
+}
+
+
+
+
+.ListReGroup{
+	border:none !important;
+}
+.ListHeading{
+	background:rgb(245,245,245);
+}
+
+.innerList{
+	border:none!important;
+	margin-left:70px;
+	margin-right:70px;
+}
+.innerHeading{
+	padding:19px;
+}
+
+.resetColor{
+	color: #333333;
+	
+}
+
+#toppadding{
+	padding-top:7px;
+}
+
+
+.restaurants-detailBg{
+	background:rgb(245,245,245);
+}
+
+
+/*order.php-comments*/
+
+.commentSt{
+	background:rgb(245,245,245);
+	border-top:1px dashed #888;
+	padding:19px;
+}
+
+
+.commentMarginBottom>li{
+	margin-Bottom:19px;
+}
+
+
+table>tbody>tr>td{
+  vertical-align:middle !important;
+}
+
+.relvateBottom{
+position: relative;
+background-color:rgb(245,245,245);	
+padding:19px;
+}
+
+.topTitle{
+	background-color:rgb(255,155,49);
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	height:47px;
+	
+}
+.orderlist{
+	color: #fff;
+	line-height:30px;
+}
+.orderListColor{
+	color:#999999;
+}
+
+.orderListBloder{
+	font-size: 16px;
+}
+.tabzone{
+	padding-left:5px;
+	position: relative;
+}
+.siderbar{
+	padding-right:10px;
+}
+/*Check Part*/
+.popover.left{
+  
+    color:#3a87ad;
+    background:rgb(216,237,246);
+}
+
+.address{
+   margin-top:7px;
+    color:#c09853;
+    margin-bottom:7px;
+    padding-bottom:7px;
+    
+}
+.hideAddress{
+	display: none;
+}
+.address i{
+	    font-size:13px;
+	    line-height: 0.1em;	
+}
+
+.table{
+	margin-bottom:0 !important;
+}
+.table td{
+	border:0 !important;
+	
+}
+.Delivery_Margin{
+	margin-right: 20px!important;
+}
+
+.itemname{
+	padding-top: 17px!important;
+}
+.price{
+	color: #E74C3C;
+}
+
+.number{
+	color: #c09853;
+	margin-right: 15px;
+	position: relative;
+}
+.plus{
+	position: absolute;
+	left:0;
+	top:-12px;
+}
+.plus:hover{
+	cursor:pointer;
+}
+
+.sub{
+	position: absolute;
+	left:0;
+	bottom:-12px;
+}
+
+.sub:hover{
+	cursor: pointer;
+}
+.cancel,.deliveryQestion{
+	padding-left:5px;
+}
+.cancel:hover,.deliveryQestion:hover{
+	cursor:pointer;
+}
+
+.foodWidth{
+	word-wrap:break-word;
+	width: 9.5em;
+  	
+}
+
+.delivery{
+	margin:0!important;
+}
+
+.hrline{
+	height:1px;
+	border-top:1px solid rgb(223,223,223);
+	width:100%;
+	display: block;
+	}
+
+
+
