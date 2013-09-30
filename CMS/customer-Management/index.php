@@ -1,21 +1,23 @@
 <?php include '../../header.php'?>
-<link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/style.css" />
-<div class="container-fluid business-margin">
+<script src="<?php echo GlobalPath;?>/cms/customer-Management/Customer.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/customer-Management/style.css" />
+<div class="container-fluid Customer-margin">
     <div class="row-fluid">
         <div class="span3">
             <div class="well sidebar-nav">
                 <ul class="nav nav-list">
-                    <li class="nav-header active"><a href="#MyOrder " data-toggle="tab">My Order</a></li>
+                    <li class="nav-header"><a href="#MyOrder" data-toggle="tab">My Order</a></li>
                     <li class="nav-header"><a href="#MyFaveourites" data-toggle="tab">My Faveourites</a></li>
                     <li class="nav-header"><a href="#MyAddressBook" data-toggle="tab">My Address Book</a></li>
                     <li class="nav-header"><a href="#MyRewardPoints" data-toggle="tab"> My Reward Points</a></li>
+                    <li class="nav-header"><a href="#MyPrpfile" data-toggle="tab"> My Profile</a></li>        
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
         <div class="span9 rightContent">
             <div class="tab-content">
                 <div class="tab-pane active" id="MyOrder">
-                    <p>This area displays My profile</p>
+                    <p>This area displays My order</p>
                 </div>
 
                 <div class="tab-pane" id="MyFaveourites">
@@ -80,6 +82,10 @@
                 </div>
                 <div class="tab-pane " id="MyRewardPoints">
                     <p>This area displays My MyRewardPoints</p>
+                </div>
+                
+                <div class="tab-pane " id="MyPrpfile">
+                    <p>This area displays My profile</p>
                 </div>
 
 

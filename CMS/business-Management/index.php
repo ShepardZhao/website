@@ -1,5 +1,5 @@
 <?php include '../../header.php'?>
-<link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/style.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/business-Management/style.css" />
     <div class="container-fluid business-margin">
       <div class="row-fluid">
         <div class="span3">

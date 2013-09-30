@@ -144,11 +144,11 @@ if ($user) {
                                 <img width=40 height=40 src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
                                 <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <span class="icon-sort-down icon-white"></span></button>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="#">My Order</a></li>
-                                    <li><a href="#">My Favourites</a></li>
-                                    <li><a href="#">My Address Book</a></li>
-                                    <li><a href="#">My Reward Points</a></li>
-                                    <li><a href="#">My Profile</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Address Book</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyPrpfile">My Profile</a></li>
 
                                     <li class="divider"></li>
                                     <li><a href="register/logoff.php" onclick="fb_logff();">Log Out</a></li>
