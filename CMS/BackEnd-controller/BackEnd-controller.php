@@ -1,31 +1,11 @@
 <?php
-include '../Gobal-define.php';
-include 'BackEnd-class.php';
-/**************************************Declare BasicSystemInfo ******************************************/
-$BasicSystemInfoClass=new BasicSystemInfo();
-/**************************************Declare database ******************************************/
-$Mysql_Connection=new DataBase(HostName,UserName,Password,Database); //mysql_connection is the gobal variable
-/**************************************Declare BasicSetting ******************************************/
-$BasicSettingClass=new BasicSetting($Mysql_Connection);
-/**************************************Declare Tags ******************************************/
-$TagsClass=new Tags($Mysql_Connection);
-/**************************************Declare Location ******************************************/
-$LocationClass=new Location($Mysql_Connection);
-/**************************************Declare User ******************************************/
-$UserClass=new User($Mysql_Connection);
-/**************************************Declare Login ******************************************/
-$LoginClass=new Login($Mysql_Connection);
-/**************************************Declare MailSetting*************************************/
-$MailsettingClass=new Mailsetting($Mysql_Connection);
-/**************************************Declare TempActivation***********************************/
-$TempActivationClass=new TempActivationClass($Mysql_Connection);
 
-
+include '../GobalConnection.php';
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
 /**************************************BasicSetting Controller********************************************************/
- if(isset($_POST['SiteName'])&&isset($_POST['SiteDescr'])&&isset($_POST['SiteSiteUrl'])&&isset($_POST['SiteSiteEmail'])&&isset($_POST['SiteSiteStatus'])){
-   echo  $BasicSettingClass->getSettingData($_POST['SiteName'],$_POST['SiteDescr'],$_POST['SiteSiteUrl'],$_POST['SiteSiteEmail'],$_POST['SiteSiteStatus']);
+ if(isset($_POST['SiteName'])&&isset($_POST['SiteDescr'])&&isset($_POST['SiteSiteUrl'])&&isset($_POST['SiteSiteEmail'])&&isset($_POST['SiteSiteStatus'])&&isset($_POST['SitePolicy'])){
+   echo  $BasicSettingClass->getSettingData($_POST['SiteName'],$_POST['SiteDescr'],$_POST['SiteSiteUrl'],$_POST['SiteSiteEmail'],$_POST['SiteSiteStatus'],$_POST['SitePolicy']);
  }
 
  /**************************************Tags Controller***********************************************************/

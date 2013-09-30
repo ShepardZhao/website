@@ -1,14 +1,5 @@
 <?php
-include '../Gobal-define.php';
-include 'FrontEnd-class.php';
-
-/***************************************************This file is FrontEnd controller******************************/
-/**************************************Declare database  *************/
-$Mysql_Connection=new DataBase(HostName,UserName,Password,Database); //mysql_connection is the gobal variable
-/*****************************Declare the RegisterUserClass **************/
-$RegisterUserClass=new RegisterUser($Mysql_Connection);
-
-
+include '../GobalConnection.php';
 if($_SERVER['REQUEST_METHOD']==='POST'){
     //registerUser class
     if(isset($_POST['RegisterUserMail']) && isset($_POST['RegisterUserPassWord']) && isset($_POST['RegisterCaptcha']) ){
@@ -25,6 +16,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
     }
 
+
+    //Normail user logined in
+
+    if (isset($_POST['LoginedInEmail']) && isset($_POST['LoginedInPassword'])){
+
+        echo $LoginedInClass->ValidNormalUserLogining($_POST['LoginedInEmail'],$_POST['LoginedInPassword']);
+
+    }
 
 
 

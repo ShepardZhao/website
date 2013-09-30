@@ -1,5 +1,5 @@
 <?php
-
+/***********************************************this file is Back end class****************************************/
 /************************************************DataBase Class****************************************************/
 class DataBase extends mysqli {
     public function __construct($host, $user, $pass, $db) {
@@ -41,9 +41,9 @@ class BasicSetting{ //setting up basic information for website
 
     }
 
-    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus){//update record of basicsetting
-        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? WHERE OptionID=1")){
-            $stmt->bind_param('sssss',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus);
+    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy){//update record of basicsetting
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=? WHERE OptionID=1")){
+            $stmt->bind_param('ssssss',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy);
             $stmt->execute();
             $stmt->close();
             return "Saved successfully";
@@ -57,19 +57,13 @@ class BasicSetting{ //setting up basic information for website
 
 
     public function pushSettingData(){//return valuesArray
-        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus FROM B2C.Option WHERE OptionID=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy FROM B2C.Option WHERE OptionID=1")){
             $stmt->execute();
-            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus);
-            while ($stmt->fetch()){
-                $tempArray['WebTitle']=$WebTitle;
-                $tempArray['WebDescription']=$WebDescription;
-                $tempArray['WebUrl']=$WebUrl;
-                $tempArray['EMail']=$EMail;
-                $tempArray['WebStatus']=$WebStatus;
-
-            }
+            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy);
+            $result = $stmt->get_result();
+            $object = $result->fetch_assoc();
             $stmt->close();
-            return $tempArray;
+            return $object;
 
         }
 
@@ -392,6 +386,45 @@ class User{
         $this->DataBaseCon=$DataBaseCon;
     }
 
+    public function UpdateInfoOfActivtion($UserID,$UserStatus){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserStatus=? WHERE UserID=?")){
+            $stmt->bind_param('is',$UserStatus,$UserID);
+            $stmt->execute();
+            $stmt->close();
+            return "Successfuly actived";
+        }
+        else {
+
+            return "Updated error";
+
+        }
+    }
+
+
+    public function ValidActiveion($getEncrpyUserID){//valid the userID whether exeisted
+           $jsonedArray=self::ReadAllUser();
+           $comfirmStatus=0;//default is 0, which mean the user id is not exeisted in database
+        foreach (json_decode($jsonedArray) as $key=>$Subvalue){
+            foreach ($Subvalue as $keys=>$value){
+                if($keys==='UserID'){
+                    if($getEncrpyUserID===base64_encode($value)){
+                        $comfirmStatus=1;
+                        break;
+                    }
+                }
+            }
+        }
+        if ($comfirmStatus===1){
+            return 'pass';
+        }
+        if($comfirmStatus===0){
+            return 'fail';
+        }
+
+
+    }
+
+
     public function UpdateAdministratorinfo($AdministratorID,$AdministratorName,$AdministratorPassword,$AdministratorEmail,$AdministratorPhone,$AdministratorPhotoPath,$AdministratorType){
         if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserName=?, UserPassWord=?, UserPhone=?,UserPhotoPath=?,UserMail=? WHERE UserID=? AND UserType=?")){
             $stmt->bind_param('ssissis',$AdministratorName,md5(base64_encode(($AdministratorPassword))),$AdministratorPhone,$AdministratorPhotoPath,$AdministratorEmail,$AdministratorID,$AdministratorType);
@@ -408,17 +441,39 @@ class User{
     }
 
     Public function ReadAllUser(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail FROM B2C.User")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User")){
             $stmt->execute();
-            $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail);
-            while($stmt->fetch()){
+            $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
+            $result = $stmt->get_result();
+            $object=array();
+            while ($row=$result->fetch_assoc()){
 
-
+                array_push($object,$row);
             }
-
+            $stmt->close();
+            return json_encode($object); //return all user infor by json;
         }
 
     }
+
+    public function ReadAllUserbyUserID($getUserID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserID=?")){
+            $stmt->bind_param('i',$getUserID);
+            $stmt->execute();
+            $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
+            $result = $stmt->get_result();
+            $object=array();
+            while ($row=$result->fetch_assoc()){
+
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object); //return all user infor by json;
+        }
+
+
+    }
+
 
   public function SearchUser($UserEmail){
       if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail FROM B2C.User WHERE UserMail=?")){
@@ -427,12 +482,9 @@ class User{
           $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail);
           while($stmt->fetch()){
             $TmpArray=array('UserID'=>$UserID,'UserName'=>$UserName,'UserPhone'=>$UserPhone,'UserPhotoPath'=>$UserPhotoPath,'UserMail'=>$UserMail);
-
           }
           $stmt->close();
           return $TmpArray;
-
-
       }
 
 
@@ -455,6 +507,37 @@ class User{
 
 
     }
+
+
+
+
+    //validing normal user and its password and mail, then return status
+    public function ValidNormalUserMailAndPass($GetEmail,$GetEncryedPassword){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM B2C.User WHERE UserMail=? AND UserPassWord=?")){
+            $stmt->bind_param('ss',$GetEmail,$GetEncryedPassword);
+            $stmt->execute();
+            $stmt->bind_result($UserID,$UserName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail);
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+
+            return json_encode($object); //returned condition user info by json;
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
 
 }
 
@@ -517,10 +600,45 @@ class TempActivationClass{
         $GetCurrent=time();
         $EncrpyGetCurrent=md5($GetCurrent);
         return $EncrpyGetCurrent;
+    }
+
+    public function DeleteActiveCode($GetTempCode){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM B2C.TempActiveCode WHERE TempActiveCode=?")){
+            $stmt->bind_param('s',$GetTempCode);
+            $stmt->execute();
+            $stmt->close();
+            return 1;
+        }
+
 
 
     }
-    private function GetTempActiveCode($getTempActivationCode){
+
+    public function ValideTemActiveCode($GetTempCode){
+        $jsonedArray=self::selectTempActiveCode();
+
+        $comfirmStatus=0;//default is 0, which mean the user id is not exeisted in database
+        foreach (json_decode($jsonedArray) as $key=>$Subvalue){
+            foreach ($Subvalue as $keys=>$value){
+                if($keys==='TempActiveCode'){
+                    if($GetTempCode===$value){
+                        $comfirmStatus=1;
+                        break;
+                    }
+                }
+            }
+        }
+        if ($comfirmStatus===1){
+            return 'pass';
+        }
+        if($comfirmStatus===0){
+            return 'fail';
+        }
+
+
+    }
+
+    public function GetTempActiveCode($getTempActivationCode){
         $this->GenerateActiveCode=$getTempActivationCode;
         self::InsertTempActiveCode();
 
@@ -537,12 +655,16 @@ class TempActivationClass{
         if($stmt=$this->DataBaseCon->prepare("SELECT TempActiveCode FROM B2C.TempActiveCode")){
             $stmt->execute();
             $stmt->bind_result($TempActiveCode);
-            while($stmt->fetch()){
-                $TempArray=array($TempActiveCode);
+            $object=array();
+            $result = $stmt->get_result();
+            $object=array();
+            while ($row=$result->fetch_assoc()){
 
+                array_push($object,$row);
             }
+
             $stmt->close();
-            return $TempArray;
+            return json_encode($object);
         }
 
     }
@@ -612,7 +734,7 @@ class Mailsetting{
 
     private function AddMailAndItsContent($UserMailSender,$UserMailConstructer,$UserMailActiveID,$TitleOfMail){
         if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.MailSetting SET UserMailSender=?,UserMailConstructer=?,UserMailTitle=? WHERE UserMailActiveID=?")){
-           $stmt->bind_param('sss',$UserMailSender,$UserMailConstructer,$TitleOfMail,$UserMailActiveID);
+           $stmt->bind_param('ssss',$UserMailSender,$UserMailConstructer,$TitleOfMail,$UserMailActiveID);
            $stmt->execute();
            $stmt->close();
            return 'Saved Successful';

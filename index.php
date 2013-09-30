@@ -104,9 +104,6 @@
 
 
 
-<!--register-->
-
-    <div id="register-ajax-modal" class="modal hide fade" tabindex="-1"></div>
 
 
 
@@ -119,7 +116,6 @@
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.imagesloaded.js"></script>
     <!-- Include the plug-in -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.wookmark.min.js"></script>
-    <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-waterfall.js"></script>
 <!--index js files end-->
 

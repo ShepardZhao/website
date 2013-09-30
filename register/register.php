@@ -1,10 +1,9 @@
+<?php require_once '../cms/GobalConnection.php';?>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
     <h3 class="text-center">Sign Up with Email</h3>
 </div>
 <div class="modal-body">
-
-
     <div id="SignUpForm">
 
     <div class="control-group ">
@@ -36,18 +35,7 @@
                 <h3>Data Use Policy</h3>
             </div>
             <div class="modal-body">
-                <p>Information we receive and how it is used
-                    Learn about the types of information we receive, and how that information is used.
-                    Sharing and finding you on Facebook
-                    Get to know the privacy settings that help you control your information on facebook.com.
-                    Other websites and applications
-                    Learn about things like social plugins and how information is shared with the games, applications and websites you and your friends use off Facebook.
-                    How advertising and Sponsored Stories work
-                    See how ads are served without sharing your information with advertisers, and understand how we pair ads with social context, such as newsfeed-style stories.
-                    Cookies, pixels and other system technologies
-                    Find out how cookies, pixels and tools (like local storage) are used to provide you with services, features and relevant ads and content.
-                    Some other things you need to know
-                    Learn how we make changes to this policy and more.</p>
+                <p><?php echo $BasicSettingClass->pushSettingData()['WebPolicy'];?></p>
 
             </div>
             <div class="control-group text-center">
@@ -56,7 +44,7 @@
         </div>
 
     <div class="control-group text-center">
-    <button type="botton" class="mySubmit">Next</button>
+    <button type="botton" class="mySubmit" id="mySubmit">Next</button>
     </div>
 
    </div>

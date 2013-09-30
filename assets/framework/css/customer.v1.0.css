@@ -5,10 +5,11 @@
 
 @font-face
 {
-  
+
     font-family: HelveticaNeueLight;
     src: url('../font/HelveticaNeueLight.ttf');
 }
+
 
 .container-fluid{
 	max-width:1600px!important;
@@ -30,7 +31,7 @@ body{
 	margin:100px auto;
 }
 
-.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover{
+.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover,#searchImg:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
@@ -66,7 +67,7 @@ a{
 
 /*facebook setting*/
 
-.setUpFacebook{
+.setUpFacebook,#loginedInButton{
 	padding-top: 3px;
 	width: 200px;
 	height: 40px;
@@ -89,7 +90,7 @@ a{
     margin-right: 2px;
     border-right:1px solid;
 }
-.setUpFacebook:hover{
+#loginedInButton:hover,.setUpFacebook:hover{
    background-color: #2980b9;	
 }
 /*initial div option. which displays the pop layer while page has been loaded*/
@@ -113,7 +114,7 @@ a{
 
 
 /*button setting*/
-.setUp{
+.setUp,.LoginedIn{
 		padding-top: 3px;
 	    width: 100px;
 	    height: 40px;
@@ -131,8 +132,21 @@ a{
 	    transition-duration: 1s;
 	    transition-timing-function: linear;	
 }
-.setUp:hover{
-	background-color: #C0392B;
+
+
+
+/*logoed in*/
+.LoginedIn{
+    width: 150px;
+
+}
+#loginedInButton{
+    height:30px;
+    width:70px;
+
+}
+.LoginedIn:hover,.setUp:hover{
+    background-color: #C0392B;
 }
 
 
@@ -744,3 +758,38 @@ padding:19px;
 
 
 
+/*serach css*/
+
+#search{
+    background-color: #ffffff;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    height:40px;
+    border-radius: 3px !important;
+    -moz-border-radius: 3px !important;
+    -webkit-border-radius: 3px !important;
+
+}
+
+.searchItem{
+    border: 0px solid #000000 !important;
+    height:32px !important;
+
+
+
+}
+.searchItem::-webkit-input-placeholder{
+    font-size:16px;
+}
+.searchItem::-moz-placeholder{
+    font-size:16px;
+
+}
+.searchItem::-ms-input-placeholder{
+    font-size:16px;
+
+}
+#searchImg{
+   margin-top:-5px;
+
+}

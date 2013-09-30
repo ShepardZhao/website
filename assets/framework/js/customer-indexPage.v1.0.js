@@ -1,9 +1,36 @@
 $(document).ready(function(){
+ //common modal
+    var $modal=$('#ajax-modal');
+    $(function(){
+
+        var email_str=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+//Froget password
+        $('.ForgetPassword').on('click',function(){
+            $('body').modalmanager('loading');
+            setTimeout(function(){
+                $modal.load('ForgetPasswrod/ForgetPassword.php', '', function(){
+                    $modal.modal();
+                });
+            }, 1000);
+
+        });
+
+        $modal.on('click', '#GetPassword', function(){
+            var email=$modal.find('#email').val();
+            console.log(email);
+            if(!email_str.test(email)){
+                AjaxMessageError("alert-error","The format of mail is not correct!");
+                return false;
+            }
+
+        });
+
+
+
 
 
 //register-ajax-modal
-    $(function(){
-        var $modal = $('#register-ajax-modal');
 
         $('#SignUp').on('click', function(){
             $('.initialDiv').fadeOut();
@@ -17,8 +44,7 @@ $(document).ready(function(){
             }, 1000);
         });
 
-        $modal.on('click', '.mySubmit', function(){
-            var email_str=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+        $modal.on('click', '#mySubmit', function(){
             var password_str=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}$/;
             var email=$modal.find('#email').val();
             var passowrd=$modal.find('#password').val();
@@ -120,6 +146,7 @@ $(document).ready(function(){
             });
 
             request.done(function( msg ) {
+
                 if(msg==='Captcha Error'){
                     AjaxMessageError("alert-error","The Captcha are not match");
                     return false;
@@ -142,7 +169,7 @@ $(document).ready(function(){
 
             request.fail(function( jqXHR, textStatus ) {
                 alert( "Request failed: " + textStatus );
-            })
+            });
 
 
 
@@ -172,14 +199,81 @@ $(document).ready(function(){
 
 
 //jquery bootstrap hacks
-    $('.dropdown-menu').find('form').click(function (e) {
+    $('.dropdown-menu').find('#login-area').click(function (e) {
         e.stopPropagation();
     });
 
+//jquery serach width change
+    $(function(){setTimeout(onWidthChange,1000);});
+
+    function onWidthChange()
+    {
+        if( $(window).width() > 600 ) {
+            $(function(){
+                var width=$('.container-fluid').width();
+                var serachWidth=width-440;
+                $('.searchItem').width(serachWidth);
+            });
+        }
+        setTimeout(onWidthChange,1000);
+    }
+
+
+//normal user login
+    $('#loginedInButton').click(function(){
+       $(this).empty().append('<img src="../assets/framework/img/ajax-loader.gif">');
+        var LoginedInEmail=$('#inputEmail').val();
+        var LoginedInPassword=$('#inputPassword').val();
+        if(LoginedInEmail!=='' && LoginedInPassword!=='' ){
+            var TmpArray={};
+            TmpArray['LoginedInEmail']=LoginedInEmail;
+            TmpArray['LoginedInPassword']=LoginedInPassword;
+
+            AjaxRegisterProcess(TmpArray);
+
+         }
+        else if (LoginedInEmail==='' || LoginedInPassword==='' ){
+            InfoAlert('#infoHead','Password or Mail cannot be empty!');
+            $(this).empty().append('Submit');
+
+        }
 
 
 
+        function AjaxRegisterProcess(RegisterData){
+            var request = $.ajax({
+                url: "CMS/FrontEnd-controller/FrontEnd-controller.php",
+                type: "POST",
+                data:RegisterData,
+                dataType: "html"
+            });
+            request.done(function( msg ) {
+                if(msg==='pass'){
+                $('#loginedInButton').empty().append('Wait..');
+                    console.log(1);
+                window.location.reload();//reload the page if the uer login
+                }
+                else if(msg==='NoMatch'){
+                    $('#loginedInButton').empty().append('Submit');
+                    InfoAlert('#infoHead','Sorry, Cannot find your Info');
 
+                }
+
+
+
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
+
+        function InfoAlert(id,inform){
+            $('<label class="alert alert-error" >'+inform+'</label>').insertBefore($(id)).fadeIn(200);
+            setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+
+        }
+    });
 
 
 

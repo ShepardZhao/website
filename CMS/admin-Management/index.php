@@ -1,4 +1,4 @@
-<?php include '../BackEnd-controller/BackEnd-controller.php';
+<?php require_once '../GobalConnection.php';
 session_start();
 if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmministratorName']===$UserClass->ReadAdministraorInfo()['UserName']){
 
@@ -31,6 +31,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 <div class="wrap">
     <div class="row-fluid">
         <div class="span2" id="sidebar">
+
                 <div id="sidebar-wrapper">
                     <br>
                     <!-- Sidebar Profile links -->
@@ -201,6 +202,13 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                                 </div>
                             </div>
 
+                            <div class="control-group">
+                                <label class="control-label">Policy:</label>
+                                <div class="controls">
+                                    <textarea class="span12" style="height:100px" id="SitePolicy"><?php echo $BasicSettingClass->pushSettingData()['WebPolicy'];?></textarea>
+                                </div>
+                            </div>
+
 
 
                                  <div class="control-group">
@@ -310,7 +318,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                           <button id="AddMoreSubLocation" class="button" type="button">More</button>
                       </div>
 
-                      <div class="alert">
+                      <div class="alert alertFont">
                           <button type="button" class="close" data-dismiss="alert">&times;</button>
                           <strong>Notes:</strong> Add Root Location first, then You may be able to add second level of location below
                       </div>
@@ -393,12 +401,12 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                           <div class="divhead"><h4><i class="icon-list-ul">  The construct of User's valid Email</i><h4></div>
                           <div class="basicInfo-box">
                               <input class="input-xlarge" id='ConstructOfActiveMail' type="text" disabled value="<?php echo $BasicSettingClass->pushSettingData()['EMail'];?>">
-                              <input class="input-xxlarge" id='TitleOfConstructOfActiveMail' type="text" placeholder="Please put title here (i.e: Please Click below link to complete activation)">
+                              <input class="input-xxlarge" id='TitleOfConstructOfActiveMail' type="text" value="<?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailTitle'];?>" placeholder="Please put title here (i.e: Please Click below link to complete activation)">
                               <br>
-                              <textarea class="ckeditor" cols="80" id="ConstructOfActiveMailContent" name="ConstructOfActiveMailContent" rows="10"></textarea>
+                              <textarea class="ckeditor" cols="80" id="ConstructOfActiveMailContent" name="ConstructOfActiveMailContent" rows="10"><?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailConstructer'];?></textarea>
 
                               <br>
-                              <div class="alert">This part only build the construction of User's Mail that works on when user completed registertion and needed mail to valid</div>
+                              <div class="alert alertFont">This part only build the construction of User's Mail that works on when user completed registertion and needed mail to valid</div>
                               <button id="ConstructOfActiveMailButton" class="button" type="button">Submit</button>
 
                           </div>

@@ -117,12 +117,15 @@ $(document).ready(function(){
         var ObjSiteSiteEmail="SiteSiteEmail";
         var SiteSiteStatus=$('#SiteStatus').val();
         var ObjSiteSiteStatus="SiteSiteStatus";
+        var SitePolicy=$('#SitePolicy').val();
+        var ObjSitePolicy="SitePolicy";
         var TmpArray={};
         TmpArray[ObjSiteNmae]=SiteName;
         TmpArray[ObjSiteDesc]=SiteDesc;
         TmpArray[ObjSiteUrl]=SiteSiteUrl;
         TmpArray[ObjSiteSiteEmail]=SiteSiteEmail;
         TmpArray[ObjSiteSiteStatus]=SiteSiteStatus;
+        TmpArray[ObjSitePolicy]=SitePolicy;
 
         BasicSettingAjax(TmpArray);//pass the array to ajax;
     });
