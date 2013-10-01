@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Login-Logout/login-Error.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/register/logoff.php" afterPath="$PROJECT_DIR$/Login-Logout/logoff.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/Customer.js" afterPath="$PROJECT_DIR$/CMS/customer-Management/Customer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/Facebook-Api.js" afterPath="$PROJECT_DIR$/assets/framework/js/Facebook-Api.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" afterPath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.php" afterPath="$PROJECT_DIR$/header.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/index.php" afterPath="$PROJECT_DIR$/CMS/customer-Management/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register/logoff.php" afterPath="$PROJECT_DIR$/register/logoff.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/register/register.php" afterPath="$PROJECT_DIR$/register/register.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/style.css" afterPath="$PROJECT_DIR$/CMS/customer-Management/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -35,19 +37,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="header.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="header.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="486" selection-end="486" vertical-scroll-proportion="0.49323016">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="149" column="162" selection-start="7494" selection-end="7494" vertical-scroll-proportion="-9.75">
               <folding />
             </state>
           </provider>
@@ -56,70 +49,100 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="23" selection-start="3001" selection-end="3001" vertical-scroll-proportion="-36.875">
+            <state line="291" column="34" selection-start="13834" selection-end="14666" vertical-scroll-proportion="-10.916667">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Valid.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/Valid.php">
+      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="-3.4166667">
+            <state line="168" column="30" selection-start="8654" selection-end="8654" vertical-scroll-proportion="0.013539651">
+              <folding>
+                <marker date="1380613142000" expanded="true" signature="407:12438" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="435:12418" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="465:1172" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="531:1139" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="571:1137" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1238:12406" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1276:12348" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1335:1413" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1472:1558" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1616:4315" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1663:4291" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1693:2318" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="1731:2036" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="2086:2288" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="2347:2966" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="2385:2690" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="2740:2936" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="2996:3615" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="3034:3339" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="3389:3585" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="3644:4263" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="3682:3987" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4037:4233" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4375:4462" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4556:12326" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4584:12300" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4623:8184" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4710:8181" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4765:5010" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="4864:4997" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5067:5390" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5164:5377" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5457:5798" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5557:5784" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5874:6220" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="5977:6204" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="6292:6643" placeholder="..." />
+                <marker date="1380613142000" expanded="true" signature="6391:6627" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="11" selection-start="796" selection-end="796" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="customer-indexPage.v1.0.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+      <file leaf-file-name="FrontEnd-class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="204" column="0" selection-start="6168" selection-end="6168" vertical-scroll-proportion="0.0">
+            <state line="128" column="58" selection-start="4849" selection-end="4868" vertical-scroll-proportion="-6.5306125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logoff.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/logoff.php">
+      <file leaf-file-name="Customer.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/Customer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="25" selection-start="158" selection-end="196" vertical-scroll-proportion="-4.375">
+            <state line="30" column="0" selection-start="1006" selection-end="1006" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logoff.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/logoff.php">
+      <file leaf-file-name="BackEnd-class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="22" selection-start="9" selection-end="173" vertical-scroll-proportion="-3.75">
+            <state line="462" column="78" selection-start="15901" selection-end="15901" vertical-scroll-proportion="-4.571429">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Facebook-Api.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/framework/js/Facebook-Api.js">
+      <file leaf-file-name="GobalConnection.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/register/register.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="12" selection-start="460" selection-end="460" vertical-scroll-proportion="-4.4166665">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMS-AJAX.v1.0.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="4" selection-start="1700" selection-end="1700" vertical-scroll-proportion="0.0">
+            <state line="30" column="15" selection-start="1908" selection-end="1923" vertical-scroll-proportion="-18.75">
               <folding />
             </state>
           </provider>
@@ -143,22 +166,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/CMS/admin-Management/index.php" />
-        <option value="$PROJECT_DIR$/register/register.php" />
-        <option value="$PROJECT_DIR$/ForgetPasswrod/ForgetPassword.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/footer.php" />
-        <option value="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
         <option value="$PROJECT_DIR$/CMS/GobalConnection.php" />
         <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
-        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/logoff.php" />
         <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
         <option value="$PROJECT_DIR$/register/Valid.php" />
-        <option value="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
         <option value="$PROJECT_DIR$/register/logoff.php" />
         <option value="$PROJECT_DIR$/assets/framework/js/Facebook-Api.js" />
+        <option value="$PROJECT_DIR$/Login-Logout/style.css" />
+        <option value="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
+        <option value="$PROJECT_DIR$/register/register.php" />
         <option value="$PROJECT_DIR$/header.php" />
+        <option value="$PROJECT_DIR$/Login-Logout/login-Error.php" />
+        <option value="$PROJECT_DIR$/CMS/customer-Management/style.css" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
+        <option value="$PROJECT_DIR$/CMS/customer-Management/Customer.js" />
+        <option value="$PROJECT_DIR$/CMS/customer-Management/index.php" />
       </list>
     </option>
   </component>
@@ -250,6 +273,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Login-Logout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="CMS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -268,7 +305,43 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="FrontEnd-controller" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="customer-Management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BackEnd-controller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -343,10 +416,6 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets-imgs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -361,6 +430,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Login-Logout" />
+    </key>
   </component>
   <component name="RunManager" selected="PHP Web Application.Unnamed">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -497,102 +571,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="3044" selection-end="3044" vertical-scroll-proportion="-5.979592" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="547" column="0" selection-start="18620" selection-end="18620" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/Gobal-define.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="140" column="0" selection-start="5254" selection-end="5254" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="18" selection-start="761" selection-end="779" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/footer.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="793" selection-end="793" vertical-scroll-proportion="-8.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="4" selection-start="1700" selection-end="1700" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="204" column="0" selection-start="6168" selection-end="6168" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register/Valid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="-3.4166667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="23" selection-start="3001" selection-end="3001" vertical-scroll-proportion="-36.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/logoff.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="22" selection-start="9" selection-end="173" vertical-scroll-proportion="-3.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register/register.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="12" selection-start="460" selection-end="460" vertical-scroll-proportion="-4.4166665">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/register/logoff.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="158" selection-end="196" vertical-scroll-proportion="-4.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/Facebook-Api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -600,10 +578,147 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="404" selection-end="1006" vertical-scroll-proportion="0.24187726">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Login-Logout/logoff.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="25" selection-start="158" selection-end="196" vertical-scroll-proportion="0.1981132">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/logoff.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="22" selection-start="9" selection-end="173" vertical-scroll-proportion="0.16981132">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/Facebook-Api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="-0.16984402">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/register/register.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="43" selection-start="900" selection-end="900" vertical-scroll-proportion="0.5833333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Login-Logout/login-Error.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="28" selection-start="736" selection-end="736" vertical-scroll-proportion="0.7016275">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="15" selection-start="1908" selection-end="1923" vertical-scroll-proportion="-18.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="11" selection-start="796" selection-end="796" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="25" selection-start="30" selection-end="76" vertical-scroll-proportion="0.027726432">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="58" selection-start="4849" selection-end="4868" vertical-scroll-proportion="-6.5306125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="462" column="78" selection-start="15901" selection-end="15901" vertical-scroll-proportion="-4.571429">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="291" column="34" selection-start="13834" selection-end="14666" vertical-scroll-proportion="-10.916667">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="486" selection-end="486" vertical-scroll-proportion="0.49323016">
+        <state line="149" column="162" selection-start="7494" selection-end="7494" vertical-scroll-proportion="-9.75">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/Customer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="1006" selection-end="1006" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="168" column="30" selection-start="8654" selection-end="8654" vertical-scroll-proportion="0.013539651">
+          <folding>
+            <marker date="1380613142000" expanded="true" signature="407:12438" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="435:12418" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="465:1172" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="531:1139" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="571:1137" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1238:12406" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1276:12348" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1335:1413" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1472:1558" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1616:4315" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1663:4291" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1693:2318" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="1731:2036" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="2086:2288" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="2347:2966" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="2385:2690" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="2740:2936" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="2996:3615" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="3034:3339" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="3389:3585" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="3644:4263" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="3682:3987" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4037:4233" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4375:4462" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4556:12326" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4584:12300" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4623:8184" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4710:8181" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4765:5010" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="4864:4997" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5067:5390" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5164:5377" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5457:5798" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5557:5784" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5874:6220" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="5977:6204" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="6292:6643" placeholder="..." />
+            <marker date="1380613142000" expanded="true" signature="6391:6627" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>

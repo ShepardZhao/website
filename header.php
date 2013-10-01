@@ -147,10 +147,10 @@ if ($user) {
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?id=<?php echo $_SESSION['LoginedUserID'];?>&#MyPrpfile">My Profile</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyPrpfile">My Profile</a></li>
 
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo GlobalPath;?>/register/logoff.php" onclick="fb_logff();">Log Out</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/Login-Logout/logoff.php" onclick="fb_logff();">Log Out</a></li>
 
                                 </ul>
                             </div>

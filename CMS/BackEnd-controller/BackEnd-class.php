@@ -457,10 +457,10 @@ class User{
     }
 
     public function ReadAllUserbyUserID($getUserID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserID=?")){
             $stmt->bind_param('i',$getUserID);
             $stmt->execute();
-            $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
+            $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
             $result = $stmt->get_result();
             $object=array();
             while ($row=$result->fetch_assoc()){

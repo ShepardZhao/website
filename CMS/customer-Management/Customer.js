@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var CurrentDomain=window.location.origin;
 
     // onready go to the tab requested in the page hash
    $(function(){setTimeout(gotoHashTab(),1000);});
@@ -23,4 +24,19 @@ $(document).ready(function(){
             gotoHashTab(event.target.hash);
         }
     });
+
+
+/****************************************Customer Profile************************/
+$('body').on('click','#BasicCustomerButton',function(){
+
+
+
+
+
+});
+
+
+
+
+
 });

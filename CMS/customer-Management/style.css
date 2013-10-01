@@ -4,8 +4,27 @@
 }
 .rightContent{
 	background-color: rgb(245,245,245);
-	padding: 19px;
+	padding: 29px;
 }
 #CustomerPhotoPrev{
 	padding-top: 100px;
+}
+.button{
+    padding-top: 3px;
+    width: 70px;
+    height: 40px;
+    padding: 0;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    color: rgba(255,255,255,1);
+    border: none;
+    background-color: #368ee0;
+    -webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+    -moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+    box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
+
+}
+.affix {
+    top: 80px;
 }

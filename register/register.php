@@ -19,7 +19,7 @@
     </div>
     <div class="control-group">
         <input class="input-block-level RegSize" id="captcha" type="text" placeholder="Please input below text">
-        <img src="register/captcha_code_file.php?rand=<?php echo rand();?>" id='captchaimg'><a href='javascript: refreshCaptcha();'>Can't see it? click here</a>
+        <img src="<?php echo GlobalPath;?>/register/captcha_code_file.php?rand=<?php echo rand();?>" id='captchaimg'><a href='javascript: refreshCaptcha();'>Can't see it? click here</a>
 
 
     </div>

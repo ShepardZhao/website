@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var CurrentDomain=window.location.origin;
  //common modal
     var $modal=$('#ajax-modal');
     $(function(){
@@ -9,7 +10,7 @@ $(document).ready(function(){
         $('.ForgetPassword').on('click',function(){
             $('body').modalmanager('loading');
             setTimeout(function(){
-                $modal.load('ForgetPasswrod/ForgetPassword.php', '', function(){
+                $modal.load(CurrentDomain+'/ForgetPasswrod/ForgetPassword.php', '', function(){
                     $modal.modal();
                 });
             }, 1000);
@@ -38,7 +39,7 @@ $(document).ready(function(){
             $('body').modalmanager('loading');
 
             setTimeout(function(){
-                $modal.load('register/register.php', '', function(){
+                $modal.load(CurrentDomain+'/register/register.php', '', function(){
                     $modal.modal();
                 });
             }, 1000);
@@ -139,7 +140,7 @@ $(document).ready(function(){
         }
         function AjaxRegisterProcess(RegisterData,className,info){
             var request = $.ajax({
-                url: "CMS/FrontEnd-controller/FrontEnd-controller.php",
+                url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
                 type: "POST",
                 data:RegisterData,
                 dataType: "html"
@@ -242,7 +243,7 @@ $(document).ready(function(){
 
         function AjaxRegisterProcess(RegisterData){
             var request = $.ajax({
-                url: "CMS/FrontEnd-controller/FrontEnd-controller.php",
+                url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
                 type: "POST",
                 data:RegisterData,
                 dataType: "html"
