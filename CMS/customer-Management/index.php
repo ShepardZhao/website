@@ -83,10 +83,76 @@
                 <div class="tab-pane " id="MyRewardPoints">
                     <p>This area displays My MyRewardPoints</p>
                 </div>
-                
+                <!--My Profile start-->
                 <div class="tab-pane " id="MyPrpfile">
-                    <p>This area displays My profile</p>
+				<div class="row-fluid text-center">
+				
+				
+				<div class="span6">
+				<h4 class="text-left">Basic Profile Setting</h4>
+				<div class="form-horizontal">
+				<!--Customer ID-->
+				<div class="control-group">
+				    <label class="control-label">Customer ID:</label>
+				    <div class="controls">
+				      <input type="text" id="CustomerID" disabled>
+				    </div>
+				  </div>
+				<!--Customer Name-->
+				<div class="control-group">
+				    <label class="control-label">Full Name:</label>
+				    <div class="controls">
+				      <input type="text" id="CustomerName" placeholder="Please input your Full Name">
+				    </div>
+				  </div>  
+				 <!--Customer First Name-->
+				 <div class="control-group">
+				     <label class="control-label">First Name:</label>
+				     <div class="controls">
+				       <input type="text" id="CustomerFirstName" placeholder="Please input your First Name">
+				     </div>
+				   </div>
+				   
+				   <!--Customer Last Name-->
+				   <div class="control-group">
+				       <label class="control-label">Last Name:</label>
+				       <div class="controls">
+				         <input type="text" id="CustomerLastName" placeholder="Please input your Last Name">
+				       </div>
+				     </div>
+				   
+				   <!--Customer Phone-->
+				   <div class="control-group info">
+				       <label class="control-label">Phone:</label>
+				       <div class="controls">
+				         <input type="text" id="CustomerPhone" placeholder="Please input your phone here">
+				         
+				       </div>
+				     </div>
+				   <!--Customer Photo-->
+				   <div class="control-group">
+				       <label class="control-label">Customer Photo:</label>
+				       <div class="controls">
+				         <input type="file" id="CustomerPhoto">
+				       </div>
+				     </div>
+				   
+				   </div>  
+				   
+	  
+				</div>
+				
+				
+				<div class="span6">
+					<img src="..." id="CustomerPhotoPrev" class="img-circle">
+				</div>
+				
+				</div>
+
+				
+
                 </div>
+				   				   <hr>
 
 
             </div>

@@ -15,6 +15,8 @@ fbAsyncInit = function() {
 
 function fb_logff(){
     FB.logout(function(response) {
+        FB.Auth.setAuthResponse(null, 'unknown');
+
         window.location.reload();//reload the page, if the user logoff
     });
 

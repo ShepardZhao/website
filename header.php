@@ -131,7 +131,6 @@ if ($user) {
           </ul>
 
               <?php elseif(isset($_SESSION['LoginedUserID'])): ?>
-
           <ul class="nav nav-pills headNav pull-left">
                  <li><div class="btn-group"><div id="search"><input type="text" class="searchItem"  data-provide="typeahead" placeholder="Search Items......." ><img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png "></div> </div></li>
                </ul>
@@ -148,10 +147,10 @@ if ($user) {
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyPrpfile">My Profile</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?id=<?php echo $_SESSION['LoginedUserID'];?>&#MyPrpfile">My Profile</a></li>
 
                                     <li class="divider"></li>
-                                    <li><a href="register/logoff.php" onclick="fb_logff();">Log Out</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/register/logoff.php" onclick="fb_logff();">Log Out</a></li>
 
                                 </ul>
                             </div>

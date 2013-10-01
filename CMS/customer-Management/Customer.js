@@ -12,11 +12,6 @@ $(document).ready(function(){
         
     }
     gotoHashTab();
-    
-
-    
-
-
     // when the nav item is selected update the page hash
     $('.nav a').on('shown', function (e) {
         window.location.hash = e.target.hash;

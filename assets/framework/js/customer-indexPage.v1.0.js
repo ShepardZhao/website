@@ -204,7 +204,7 @@ $(document).ready(function(){
     });
 
 //jquery serach width change
-    $(function(){setTimeout(onWidthChange,1000);});
+    $(function(){setTimeout(onWidthChange,1);});
 
     function onWidthChange()
     {
@@ -215,7 +215,7 @@ $(document).ready(function(){
                 $('.searchItem').width(serachWidth);
             });
         }
-        setTimeout(onWidthChange,1000);
+        setTimeout(onWidthChange,1);
     }
 
 
