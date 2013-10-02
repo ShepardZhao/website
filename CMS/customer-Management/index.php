@@ -25,60 +25,22 @@
                     <p>This area displays My MyFaveourites</p>
                 </div>
                 <div class="tab-pane" id="MyAddressBook">
-                    <ul class="nav nav-pills">
+                    <div class="row-fluid">
+                        <div class="span12 text-center">
+                            <h4 class="text-left">Add and Manage Address books</h4>
+                            <div class="controls controls-row">
+                                <input class="span2" type="text" id="AddNickName" placeholder="Nick Name">
+                                <input class="span3" type="text" id="AddPhone" placeholder="Phone">
+                                <input class="span6" type="text" id="AddAdress" placeholder="Address">
+                            </div>
+                            <div class="control-group text-left">
+                                <div class="controls">
+                                    <button id="AddressBookButton" class="button" type="button">Add</button>
+                                </div>
+                            </div>
 
-                        <li>
-                            <address>
-                                <strong>Twitter, Inc.</strong><br>
-                                795 Folsom Ave, Suite 600<br>
-                                San Francisco, CA 94107<br>
-                                <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                               Default Address
-                            </label>
-                        </li>
-                        <li>
-                            <address>
-                                <strong>Twitter, Inc.</strong><br>
-                                795 Folsom Ave, Suite 600<br>
-                                San Francisco, CA 94107<br>
-                                <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" >
-                                Default Address
-                            </label>
-                        </li>
-
-                        <li>
-                            <address>
-                                <strong>Twitter, Inc.</strong><br>
-                                795 Folsom Ave, Suite 600<br>
-                                San Francisco, CA 94107<br>
-                                <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" >
-                                Default Address
-                            </label>
-                        </li>
-                        <li>
-                            <address>
-                                <strong>Twitter, Inc.</strong><br>
-                                795 Folsom Ave, Suite 600<br>
-                                San Francisco, CA 94107<br>
-                                <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
-                            <label class="radio">
-                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4" >
-                                Default Address
-                            </label>
-                        </li>
-
-
-                    </ul>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="tab-pane " id="MyRewardPoints">
@@ -87,8 +49,6 @@
                 <!--My Profile start-->
                 <div class="tab-pane" id="MyPrpfile">
 				<div class="row-fluid">
-
-
 				<div class="span12 text-center">
 				<h4 class="text-left">Basic Profile Setting</h4>
 				<div class="form-horizontal">
@@ -148,7 +108,7 @@
                     <div class="control-group">
                         <label class="control-label">Address(not for delivery):</label>
                         <div class="controls text-left">
-                            <input type="text" class="span8" id="CustomerPhone" value="<?php echo $LoginedInClass->GetUsersLoginInfo($_SESSION['LoginedUserID'])->UserPhone?>" placeholder="Please input your address here">
+                            <input type="text" class="span8" id="CustomerAddress" value="<?php echo $LoginedInClass->GetUsersLoginInfo($_SESSION['LoginedUserID'])->UserAddress?>" placeholder="Please input your address here">
 
                         </div>
                     </div>

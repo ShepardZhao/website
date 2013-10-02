@@ -145,7 +145,7 @@ if ($user) {
                                 <ul class="dropdown-menu pull-right">
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Address Book</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyPrpfile">My Profile</a></li>
 

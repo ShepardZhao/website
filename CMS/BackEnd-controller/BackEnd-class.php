@@ -457,10 +457,10 @@ class User{
     }
 
     public function ReadAllUserbyUserID($getUserID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,UserPassWord, UserPhone, UserPhotoPath, UserMail,UserAddress, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserID=?")){
             $stmt->bind_param('i',$getUserID);
             $stmt->execute();
-            $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
+            $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail,$UserAddress,$UserPoints,$UserADPosition,$UserType,$UserStatus);
             $result = $stmt->get_result();
             $object=array();
             while ($row=$result->fetch_assoc()){
@@ -510,7 +510,6 @@ class User{
 
 
 
-
     //validing normal user and its password and mail, then return status
     public function ValidNormalUserMailAndPass($GetEmail,$GetEncryedPassword){
         if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM B2C.User WHERE UserMail=? AND UserPassWord=?")){
@@ -531,10 +530,76 @@ class User{
 
     }
 
+//Register user updating-basic info
+    public function UpdateRegUserBasicInfo($UserName,$UserFirstName,$UserLastName,$UserPhone,$UserMail,$UserAddress,$UserID){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserName=?, UserFirstName=?,UserLastName=?,UserPhone=?,UserMail=?, UserAddress=? WHERE UserID=?")){
+            $stmt->bind_param('sssissi',$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserMail,$UserAddress,$UserID);
+            $stmt->execute();
+            $stmt->close();
+            return "Updated successfully";
+        }
+        else {
+            return "Updated error";
+        }
+
+    }
+
+//Register user updating-password updating info
+    public function UpdateRegUserPassword($OldPassword,$Newpassword,$UserID){
+
+        if (self::RegisterPasswordChangeMatch($OldPassword,$UserID)==='pass'){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserPassWord=? WHERE UserID=?")){
+            $stmt->bind_param('si',md5(base64_encode($Newpassword)),$UserID);
+            $stmt->execute();
+            $stmt->close();
+            return "Changed password successfully";
+        }
+        else {
+            return "Updated error";
+
+        }
+       }
+        else{
+
+            return 'fail';
+        }
+
+    }
 
 
 
 
+//Register user updating-avatar
+    public function UpdateRegUserAvatar($Avatar,$UserID){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserPhotoPath=? WHERE UserID=?")){
+            $stmt->bind_param('si',$Avatar,$UserID);
+            $stmt->execute();
+            $stmt->close();
+            return "Updated avatar successfully";
+        }
+        else {
+            return "Updated error";
+
+        }
+
+    }
+
+
+//Register user password changing, the $getUserData from function ReadAllUserbyUserID
+    private function RegisterPasswordChangeMatch($Oldpassword,$userid){
+        $getTempArray=json_decode(self::ReadAllUserbyUserID($userid));
+        $a=$getTempArray[0]->UserPassWord;
+        $b=md5(base64_encode($Oldpassword));
+        if ($getTempArray[0]->UserPassWord===md5(base64_encode($Oldpassword))){
+            return 'pass';
+        }
+        else{
+            return 'fail';
+        }
+
+
+
+    }
 
 
 

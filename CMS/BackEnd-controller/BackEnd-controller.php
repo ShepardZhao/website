@@ -71,7 +71,24 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
         echo $MailsettingClass->GetParam_MailSetting($_POST['ConstructOfActiveMail'],$_POST['ConstructOfActiveMailContent'],$_POST['UserMailActiveID'],$_POST['TitleOfConstructOfActiveMail']);
 
 }
+/*************************************Register user info Update*************************************************/
+    if(isset($_POST['GetCustomerUserID'])){
 
+        if($_POST['Mode']==='1'){//register user's basic info updating
+            echo $UserClass->UpdateRegUserBasicInfo($_POST['GetCustomerName'],$_POST['GetCustomerFirstName'],$_POST['GetCustomerLastName'],$_POST['GetCustomerPhone'],$_POST['GetCustomerMail'],$_POST['GetCustomerAddress'],$_POST['GetCustomerUserID']);
+        }
+        else if($_POST['Mode']==='2'){//register User's password info updating
+            echo $UserClass->UpdateRegUserPassword($_POST['GetOldPassword'],$_POST['GetNewPassword'],$_POST['GetCustomerUserID']);
+
+        }
+        else if($_POSTp['Mode']==='3'){//register User's photo updating
+
+        }
+
+
+
+
+    }
 
 }
 

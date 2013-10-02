@@ -51,10 +51,6 @@ $(document).ready(function(){
 
     }
 
-
-
-
-
  //feathured events group
 
 //re-bind the even after AJAX
