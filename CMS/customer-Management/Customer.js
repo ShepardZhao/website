@@ -25,8 +25,116 @@ $(document).ready(function(){
         }
     });
 
-/****************************************Common Ajax*****************************/
-    function CommonAJAX(data,infoid){
+
+
+    /**************************************remove mybook address Ajax******************************/
+    function RemoveAddressAddBookAJAX(data,infoid){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:data,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            if(msg==='Error'){
+                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+            }
+            else{
+                $('.thumbnails').empty().append(msg);
+                $('<div class="alert alert-info">Removed Successfully</div>').insertAfter($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+            }
+
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+
+
+
+    }
+
+    /**************************************Set Default mybook address Ajax******************************/
+    function SetDeafultAddressAddBookAJAX(data,infoid){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:data,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            if(msg==='Error'){
+                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+            }
+            else{
+                $('.thumbnails').empty().append(msg);
+                $('<div class="alert alert-info">Successfully sets my default address book</div>').insertAfter($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+            }
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+    /****************************************Added mybook address Ajax*****************************/
+    function AddressAddBookAJAX(data,infoid){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:data,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+             if(msg==='Repeated Addressbook'){
+                $('<div class="alert alert-info">You already added these info to your address book</div>').insertBefore($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+            }
+
+            else if(msg==='Error'){
+                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+            }
+            else{
+                 $('.thumbnails').empty().append(msg);
+                 $('<div class="alert alert-info">Added new info to My addressbook</div>').insertBefore($(infoid)).fadeIn(200);
+                 setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+             }
+
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    }
+
+
+/****************************************proflie Ajax*****************************/
+    function ProfileAJAX(data,infoid){
     var request = $.ajax({
         url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
         type: "POST",
@@ -40,6 +148,12 @@ $(document).ready(function(){
             $('<div class="alert alert-info">Updated successfully</div>').insertBefore($(infoid)).fadeIn(200);
             setTimeout(function(){$('.alert-info').fadeOut(); },3000);
         }
+        else if (msg==='Successfully added myaddressbook'){
+
+            $('<div class="alert alert-info">Added new record to your address book</div>').insertBefore($(infoid)).fadeIn(200);
+            setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+        }
         else if(msg==='Changed password successfully'){
             $('<div class="alert alert-info">Changed Password successfully</div>').insertBefore($(infoid)).fadeIn(200);
             setTimeout(function(){$('.alert-info').fadeOut(); },3000);
@@ -49,11 +163,21 @@ $(document).ready(function(){
             setTimeout(function(){$('.alert-info').fadeOut(); },3000);
 
         }
+        else if(msg==='Repeated Addressbook'){
+            $('<div class="alert alert-info">You already added these info to your address book</div>').insertBefore($(infoid)).fadeIn(200);
+            setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+        }
         else if(msg==='fail'){
 
             $('<div class="alert alert-info">The old password is not match to your input</div>').insertBefore($(infoid)).fadeIn(200);
             setTimeout(function(){$('.alert-info').fadeOut(); },3000);
         }
+        else if(msg==='Error'){
+            $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
+            setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+        }
+
 
     });
 
@@ -67,7 +191,27 @@ $(document).ready(function(){
 }
 
 
+
+
+
     var GetCustomerUserID=$('#CustomerID').val();
+
+
+    /***************************************Add My address book************************************/
+        $('body').on('click','#AddressBookButton',function(){
+              var AddNickName=$('#AddNickName').val();
+              var AddPhone=$('#AddPhone').val();
+              var AddAdress=$('#AddAdress').val();
+             var tmp={};
+            tmp['AddNickName']=AddNickName;
+            tmp['AddPhone']=AddPhone;
+            tmp['AddAdress']=AddAdress;
+            tmp['GetCustomerUserID']=GetCustomerUserID;
+            AddressAddBookAJAX(tmp,'#AddressBookButton');
+        });
+
+
+
     /****************************************Customer Profile************************/
 //basic info updating
 $('body').on('click','#BasicCustomerButton',function(){
@@ -87,7 +231,7 @@ $('body').on('click','#BasicCustomerButton',function(){
     TempArray['GetCustomerAddress']=GetCustomerAddress;
     TempArray['Mode']='1';
 
-    CommonAJAX(TempArray,'#BasicCustomerButton');
+    ProfileAJAX(TempArray,'#BasicCustomerButton');
 
 
 });
@@ -102,7 +246,7 @@ $('body').on('click','#ChangePasswordButton',function(){
     TempArray['GetOldPassword']=GetOldPassword;
     TempArray['GetNewPassword']=GetNewPassword;
     TempArray['Mode']='2';
-    CommonAJAX(TempArray,'#ChangePasswordButton');
+    ProfileAJAX(TempArray,'#ChangePasswordButton');
 });
 
 //avatar upload
@@ -115,6 +259,32 @@ $('body').on('click','#avatarButton',function(){
 });
 
 
+
+//get gobal radio id
+$('body').on('click','.radioStatus',function(){
+   window.Getid=$(this).attr('id');
+
+});
+//remove the addressbook card
+
+$('body').on('click','#AddressBookRemoveButton',function(){
+    var TempArray={};
+    TempArray['GetCustomerUserID']=GetCustomerUserID;
+    TempArray['RemoveID']=Getid;
+    RemoveAddressAddBookAJAX(TempArray,'.thumbnails');
+
+});
+
+//Set selected addressbook as default
+$('body').on('click','#AddressBookDefaultButton',function(){
+
+    var TempArray={};
+    TempArray['GetCustomerUserID']=GetCustomerUserID;
+    TempArray['SetDefault']=Getid;
+    SetDeafultAddressAddBookAJAX(TempArray,'.thumbnails');
+
+
+});
 
 
 

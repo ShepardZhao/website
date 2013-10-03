@@ -605,6 +605,192 @@ class User{
 
 
 }
+/*********************************************************Addressbook Class****************************************/
+class MyaddressBook {
+    public $DataBaseCon=null;
+    private $GetUserID=null;
+    Private $GetNickName=null;
+    private $GetPhone=null;
+    private $GetAddress=null;
+    public function __construct($DataBaseCon){
+
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+    public function GetParamOfMyaddressBook($GetUserID,$GetNickName,$GetPhone,$GetAddress){
+        $this->GetUserID=$GetUserID;
+        $this->GetNickName=$GetNickName;
+        $this->GetPhone=$GetPhone;
+        $this->GetAddress=$GetAddress;
+        return self::AddMyaddressbook();
+
+    }
+
+    private function AddMyaddressbook(){
+      if (self::CompareInfo()==='pass'){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
+           $DefaultStauts=0;//default is not been taken;
+
+           $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
+           $stmt->execute();
+           $stmt->close();
+           return self::loopDisplayAddressCard($this->GetUserID);
+            }
+         else {
+             return 'Error';
+         }
+
+       }
+       else if (self::CompareInfo()==='fail'){
+           return 'Repeated Addressbook';
+       }
+
+    }
+
+    private function CompareInfo(){
+      if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM B2C.UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
+          $stmt->bind_param('isis',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress);
+          $stmt->execute();
+          $stmt->bind_result($UserID,$AddreNickName,$AddrePhone,$AddresAddress);
+          $result = $stmt->get_result();
+          $object=array();
+          while($row=$result->fetch_assoc()){
+              array_push($object,$row);
+          }
+          $stmt->close();
+
+        if (count($object)===0){
+            return 'pass';
+        }
+        else if(count($object)>0){
+            return 'fail';
+        }
+      }
+
+
+    }
+
+   private function readAllAddressbookByID($GegID){//read all record from table
+       if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM B2C.UserAddressBook WHERE UserID=?")){
+           $stmt->bind_param('i',$GegID);
+           $stmt->execute();
+           $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
+           $result = $stmt->get_result();
+           $object=array();
+           while($row=$result->fetch_assoc()){
+               array_push($object,$row);
+           }
+           $stmt->close();
+           return $object;
+       }
+
+
+   }
+
+  //Remove My address book
+  public function RemoveMyaddressBook($getUserID, $GetAddressID){
+      if($stmt=$this->DataBaseCon->prepare("DELETE FROM B2C.UserAddressBook WHERE AddressBookID=?")){
+         $stmt->bind_param('i',$GetAddressID);
+         $stmt->execute();
+         $stmt->close();
+         return  self::loopDisplayAddressCard($getUserID);
+      }
+      else{
+         return 'Error';
+      }
+  }
+  //Set default addressbook
+  public function SetMyaddressBook($getUserID, $GetAddressID){
+      //Check past default stauts
+      if (self::ResetPastDefault($getUserID)===1){
+      if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.UserAddressBook SET AddreStatus=? WHERE AddressBookID=? AND UserID=?")){
+          $AddreStatus=1;
+          $stmt->bind_param('iii',$AddreStatus,$GetAddressID,$getUserID);
+          $stmt->execute();
+          $stmt->close();
+
+          return  self::loopDisplayAddressCard($getUserID);
+      }
+      else{
+          return 'Error';
+      }
+  }
+  }
+
+ //Check past default stauts function
+  public function ResetPastDefault($GetID){
+      if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.UserAddressBook SET AddreStatus=? WHERE UserID=?")){
+          $AddreStatus=0;
+          $stmt->bind_param('ii',$AddreStatus,$GetID);
+          $stmt->execute();
+          $stmt->close();
+
+          return  1;
+      }
+      else{
+          return 0;
+      }
+
+
+  }
+
+  //Display the content by UserID
+  public function loopDisplayAddressCard($getUserID){
+      $getAddressCard=self::readAllAddressbookByID($getUserID);
+       foreach ($getAddressCard as $key=>$subArray){
+           echo '<li class="DescideCheck text-left">';
+           echo '<a class="thumbnail AddressCardStyle">';
+           echo '<address>';
+           foreach($subArray as $key=>$value){
+
+              if($key==='AddreNickName'){
+               echo "<h4>Name: $value</h4>";
+              }
+              elseif($key==='AddrePhone'){
+               echo "<abbr title='Phone'>Phone: $value";
+
+              }
+              elseif($key==='AddresAddress'){
+               echo  "<p style='margin-top:9px;'>Delivery Address: $value</p>";
+              }
+              elseif($key==='AddreStatus'){
+                  if($value===1){
+                  $CheckStatus='Checked';
+                  }
+                  elseif($value===0){
+                      $CheckStatus='';
+
+                  }
+               }
+
+              elseif ($key==='AddressBookID'){
+
+               echo '<div class="RaidoPositon">';
+               echo '<label class="radio">';
+
+               echo "<input type='radio' name='Default' class='radioStatus' $CheckStatus id=$value>Default";
+
+               echo '</label>';
+               echo '</div>';
+              }
+           }
+           echo '</address>';
+           echo '</a>';
+           echo '</li>';
+       }
+
+
+
+  }
+
+
+
+
+
+
+}
+
+
 
 /**********************************************************Login Class*********************************************/
 class Login extends User{
@@ -816,5 +1002,9 @@ class Mailsetting{
 
 
 }
+
+
+
+
 
 ?>

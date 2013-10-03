@@ -29,7 +29,8 @@ $TempActivationClass=new TempActivationClass($Mysql_Connection);
 $RegisterUserClass=new RegisterUser($Mysql_Connection);
 /***********************************Declare LoginedIN class*************************/
 $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal user
-
+/***********************************Declare UserAddressBook*************************/
+$MyaddressBookClass=new MyaddressBook($Mysql_Connection);
 
 
 

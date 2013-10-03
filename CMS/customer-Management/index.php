@@ -38,10 +38,25 @@
                                     <button id="AddressBookButton" class="button" type="button">Add</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                    <br>
+                    <div class="row-fluid">
+                        <div class="span12 text-center">
+                            <h4 class="text-left">Select default Address or Remove it</h4>
+                        <ul class="thumbnails">
+                            <?php $MyaddressBookClass->loopDisplayAddressCard($_SESSION['LoginedUserID']);?>
+                        </ul>
+                            <div class="control-group text-left">
+                                <div class="controls">
+                                    <button id="AddressBookDefaultButton" class="button" type="button">Confirm</button>
+                                    <button id="AddressBookRemoveButton" class="button" type="button">Remove</button>
 
+                                </div>
+                            </div>
+
+                      </div>
+                    </div>
                 </div>
                 <div class="tab-pane " id="MyRewardPoints">
                     <p>This area displays My MyRewardPoints</p>

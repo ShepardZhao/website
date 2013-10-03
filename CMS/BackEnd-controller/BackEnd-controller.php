@@ -74,6 +74,22 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 /*************************************Register user info Update*************************************************/
     if(isset($_POST['GetCustomerUserID'])){
 
+        //Add My location book
+        if(isset($_POST['AddNickName']) && isset($_POST['AddPhone']) && isset($_POST['AddAdress'])){
+           echo $MyaddressBookClass->GetParamOfMyaddressBook($_POST['GetCustomerUserID'],$_POST['AddNickName'],$_POST['AddPhone'],$_POST['AddAdress']);
+
+        }
+        if(isset($_POST['RemoveID'])){
+            echo $MyaddressBookClass->RemoveMyaddressBook($_POST['GetCustomerUserID'],$_POST['RemoveID']);
+
+        }
+        if(isset($_POST['SetDefault'])){
+
+            echo $MyaddressBookClass->SetMyaddressBook($_POST['GetCustomerUserID'],$_POST['SetDefault']);
+
+
+        }
+
         if($_POST['Mode']==='1'){//register user's basic info updating
             echo $UserClass->UpdateRegUserBasicInfo($_POST['GetCustomerName'],$_POST['GetCustomerFirstName'],$_POST['GetCustomerLastName'],$_POST['GetCustomerPhone'],$_POST['GetCustomerMail'],$_POST['GetCustomerAddress'],$_POST['GetCustomerUserID']);
         }
