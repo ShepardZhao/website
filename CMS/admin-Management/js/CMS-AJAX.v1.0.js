@@ -2,7 +2,6 @@
 
 
 $(document).ready(function(){
-
     /*******************************************Login Management**************************************/
      $('body').on('click','#loginSubmit',function(){
         var tmpLoginUserName=$('#LoginUserName').val();
@@ -209,7 +208,8 @@ $(document).ready(function(){
             $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#submitPic')).fadeIn(200);
 
             var tmp={};
-            tmp['Input_AdministratorPhoto']='Input_AdministratorPhoto';
+            tmp['Input_Photo']='Input_AdministratorPhoto';
+            tmp['Mode_UserPic']='AdministratorPhoto';
             imageUpload('Input_AdministratorPhoto',tmp);
 
 
@@ -513,15 +513,18 @@ $(document).ready(function(){
 
 
         var RootLocation= $("input[name='RootLocation']").val();
-        var SubLocation=returnInputArray("SubLocation");
+        var RootLocationID=$("input[name='RootLocationID']").val();
+        var TemporaryArray={};
+        TemporaryArray[RootLocationID]=RootLocation;
+        var SubLocation=returnInputArray("SubLocation","SubLocationID");
         if (RootLocation!==""){
             var name1 = "RootLocation";
-            var value1 =RootLocation;
             var name2 = "SubLocation";
             var value2 =SubLocation;
             var dataObj = {};
-            dataObj[name1]=value1;
+            dataObj[name1]=TemporaryArray;
             dataObj[name2]=value2;
+            console.log(dataObj);
             Ajax('#AddLocationButton',dataObj);
 
 
@@ -538,21 +541,36 @@ $(document).ready(function(){
         }
 
 
+
     });
 
 
     $('body').on('click','#AddMoreSubLocation',function(){
-        $('<div class="control-group"><label class="control-label">Sub Location:</label><div class="controls"><input type="text" class="input-xlarge" name="SubLocation[]" placeholder="i.e: please one of sub levels of locations" ></div></div>').insertAfter('#MarkRootLocation').fadeIn(200);
+        $('<div class="control-group"><label class="control-label">Sub Location:</label><div class="controls"><input type="text" class="input-xlarge" name="SubLocation[]" placeholder="i.e: one of sub levels of locations" > <input type="text" class="input" name="SubLocationID[]" placeholder="XX: The sub location ID" ></div></div>').insertAfter('#MarkRootLocation').fadeIn(200);
 
     });
 
 
-    function returnInputArray(inputArray){
-        var TemporaryArray=[];
-        $('input[name="' + inputArray + '[]"]').each(function() {
-            TemporaryArray.push($(this).val());
+    function returnInputArray(inputArrayName,inputArrayID){
+        var TemporaryArray1=[];
+        var TemporaryArray2=[];
+        var ReturnArray={};
+        $('input[name="' + inputArrayName + '[]"]').each(function() {
+            TemporaryArray1.push($(this).val());
         });
-        return TemporaryArray;
+
+        $('input[name="' + inputArrayID + '[]"]').each(function() {
+            TemporaryArray2.push($(this).val());
+        });
+
+        for (var i=0; i<TemporaryArray1.length;i++){
+            ReturnArray[TemporaryArray2[i]]=TemporaryArray1[i];
+
+
+        }
+
+        return ReturnArray;
+
     }
 
 
@@ -647,11 +665,19 @@ $(document).ready(function(){
     $('body').on('click','.ChangeLocationButton',function(){//here is using click function instead of submit because of security
 
         var GetID=$(this).attr('id');
-        var ChangeRootLocation= $("input[name='ChangeRootLocation']").val();
-        var ChangeSubLocation=returnInputArray("ChangeSubLocation");
 
+        var ChangeRootLocation=$("#ChangeRootLocation").val();
+        console.log(ChangeRootLocation);
+
+
+        var ChangeRootLocationID=$("#ChangeRootLocationID").val();
+        var TemporaryArray={};
+        TemporaryArray[ChangeRootLocationID]=ChangeRootLocation;
+
+
+        var ChangeSubLocation=returnInputArray("ChangeSubLocation","ChangeSubLocationID");
         var name1 = "ChangeRootLocation";
-        var value1 =ChangeRootLocation;
+        var value1 =TemporaryArray;
         var name2 = "ChangeSubLocation";
         var value2 =ChangeSubLocation;
         var name3 = "GetID";
@@ -661,8 +687,7 @@ $(document).ready(function(){
         dataObj[name1]=value1;
         dataObj[name2]=value2;
         dataObj[name3]=value3;
-
-        ModifyAndDeleteAjax(dataObj);
+       ModifyAndDeleteAjax(dataObj);
 
 
 
@@ -687,7 +712,7 @@ $(document).ready(function(){
                 ReFreshLocationTable();
             }
             else if(content==="Modified successfully"){
-                $('<div class="alert alert-info"><strong>Modify successful</div>').insertBefore($('#LocationlistTable')).fadeIn(200);
+                $('<br><div class="alert alert-info"><strong>Modify successful</div>').insertBefore($('#LocationlistTable')).fadeIn(200);
                 setTimeout(function(){$('.alert-info').fadeOut(); },5000);
                 $('.LocationModify').empty().fadeOut();
                 ReFreshLocationTable();
@@ -705,7 +730,6 @@ $(document).ready(function(){
 
 
 
-    CKEDITOR.replace('ConstructOfActiveMailContent');//active the Ckeditor plugs via element
 
 
 });

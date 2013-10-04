@@ -313,6 +313,8 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                           <label class="control-label" >Please Input Root Location:</label>
                           <div class="controls">
                               <input type="text"  id="RootLocation" class="input-xlarge" name="RootLocation" placeholder="i.e: Sydney Hospital">
+                              <input type="text"  id="RootLocationID" class="input" name="RootLocationID" placeholder="RR:The Root Location ID">
+
                           </div>
                           <br>
                           <button id="AddMoreSubLocation" class="button" type="button">More</button>
@@ -326,7 +328,9 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                           <div id="MarkRootLocation" class="control-group">
                               <label class="control-label">Sub Location:</label>
                               <div class="controls">
-                                  <input type="text" class="input-xlarge" name="SubLocation[]" placeholder="i.e: please one of sub levels of locations" >
+                                  <input type="text" class="input-xlarge" name="SubLocation[]" placeholder="i.e: one of sub levels of locations" >
+                                  <input type="text" class="input" name="SubLocationID[]" placeholder="XX: The sub location ID" >
+
                               </div>
                           </div>
                           </div>
@@ -404,7 +408,9 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                               <input class="input-xxlarge" id='TitleOfConstructOfActiveMail' type="text" value="<?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailTitle'];?>" placeholder="Please put title here (i.e: Please Click below link to complete activation)">
                               <br>
                               <textarea class="ckeditor" cols="80" id="ConstructOfActiveMailContent" name="ConstructOfActiveMailContent" rows="10"><?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailConstructer'];?></textarea>
-
+                              <script>
+                                  CKEDITOR.replace('ConstructOfActiveMailContent');//active the Ckeditor plugs via element
+                              </script>
                               <br>
                               <div class="alert alertFont">This part only build the construction of User's Mail that works on when user completed registertion and needed mail to valid</div>
                               <button id="ConstructOfActiveMailButton" class="button" type="button">Submit</button>

@@ -249,14 +249,136 @@ $('body').on('click','#ChangePasswordButton',function(){
     ProfileAJAX(TempArray,'#ChangePasswordButton');
 });
 
-//avatar upload
 
-$('body').on('click','#avatarButton',function(){
+    /*******************************************avatar upload**************************************/
+        //cp pic into special folder and get return path
+
+    function imageUpload(Input_Photo,dataset)
+    {
+        $('#submitPic').html('Submitting.....');
+
+        $.ajaxFileUpload
+        (
+            {
+                url:CurrentDomain+'/cms/BackEnd-controller/AjaxImage-controller.php',
+                secureuri:false,
+                fileElementId:Input_Photo,
+                dataType: 'html',
+                data:dataset,
+                success: function (data, status)
+                {
+                    $('#submitPic').html('done');
+                    var tmpPath= $('#gobalPath').val();
+
+                    var savedPath=tmpPath+data;
+                    $('#CustomerImagePath').removeClass('placeholder');
+                    $('#CustomerImagePath').val(savedPath);
+                    $('<img class="img-circle" src='+tmpPath+data +'>').insertAfter($('#Input_Customeravatar')).fadeIn(200);
+
+                },
+                error: function (data, status, e)
+                {
+                    alert(e);
+                }
+            }
+        )
+
+        return false;
+
+    }
 
 
 
 
-});
+    $('body').on('click','#submitPic',function() {
+        if($("#Input_Customeravatar")[0].files[0]!==undefined){
+            var file = $("#Input_Customeravatar")[0].files[0];
+            var fileName = file.name;
+            var fileSize = file.size;
+            var fileType = file.type;
+            $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#submitPic')).fadeIn(200);
+
+            var tmp={};
+            tmp['Input_Photo']='Input_Customeravatar';
+            tmp['Mode_UserPic']='CustomerPhoto';
+            imageUpload('Input_Customeravatar',tmp);
+
+
+
+        }
+        else if($(this).html()==='done'){
+            $('<label id="exeisted-alert" style="color:red">You already submited the head photo</label>').insertAfter($('#submitPic')).fadeIn(200);
+            setTimeout(function(){$('#exeisted-alert').fadeOut(); },5000);
+            return false;
+
+        }
+        else
+        {
+            $('<label id="File-alert" style="color:red">Please select file first</label>').insertAfter($('#submitPic')).fadeIn(200);
+            setTimeout(function(){$('#File-alert').fadeOut(); },5000);
+
+
+
+        }
+
+
+
+    });
+
+
+
+    //update the Photo path
+    $('body').on('click','#avatarButton',function(){
+           if($('#CustomerImagePath').length>0){
+               var CustomerPhotoPath=$('#CustomerImagePath').val();
+               var tmp={};
+               tmp['GetCustomerUserID']=GetCustomerUserID;
+               tmp['CustomerPhotoPath']=CustomerPhotoPath;
+               tmp['Mode']='3';
+               PhotoPathUpdatingAjax(tmp,'#avatarButton');
+
+           }
+
+     function PhotoPathUpdatingAjax(data,infoid){
+            var request = $.ajax({
+                url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+                type: "POST",
+                data:data,
+                dataType: "html"
+            });
+
+            request.done(function( msg ) {
+                 if(msg==='Error'){
+                    $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
+                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+
+                }
+                else{
+                    $('<div class="alert alert-info">Your avatar has been updated</div>').insertBefore($(infoid)).fadeIn(200);
+                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                }
+
+
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+
+
+
+        }
+
+
+
+
+    });
+
+
+
+
+
+
 
 
 
@@ -285,6 +407,15 @@ $('body').on('click','#AddressBookDefaultButton',function(){
 
 
 });
+
+
+
+
+
+
+
+
+
 
 
 

@@ -216,8 +216,7 @@ class Location{
             $stmt->bind_result($LocationID, $levelOne, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>$levelOne,'LevelTwo'=>unserialize($LevelTwo));
+                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
 
             }
 
@@ -234,7 +233,7 @@ class Location{
             $stmt->bind_result($LocationID, $levelOne, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>$levelOne,'LevelTwo'=>unserialize($LevelTwo));
+                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
 
             }
 
@@ -292,18 +291,26 @@ class Location{
                     $getid=$value;
                 }
                 else if($key==="LevelOne"){
+                    foreach($value as $key=>$getvalue){
                     echo  "<div class='control-group'>";
                     echo  "<label class='control-label'>Please Change Root Location:</label>";
                     echo "<div class='controls'>";
-                    echo "<input type='text'  id='ChangeRootLocation' class='input-xlarge' name='ChangeRootLocation' value='$value'>";
+                    echo "<input type='text'  id='ChangeRootLocation' class='input-xlarge' name='ChangeRootLocation[]' value='$getvalue'>";
+                    echo " <input type='text'  id='ChangeRootLocationID' class='input-xlarge' name='ChangeRootLocationID[]' value='$key'>";
                     echo "</div>";
                     echo "</div>";
+                    }
+                    echo "<br>";
+                    echo  "<label class='control-label'>Please Change Sub Location:</label>";
+
                 }
                 else if($key==="LevelTwo"){
-                    foreach($value as $finalvalue){
+                    foreach($value as $key=>$finalvalue){
+
                         echo "<div class='control-group'>";
                         echo "<div class='controls'>";
                         echo  "<input type='text' class='input-xlarge' name='ChangeSubLocation[]' value='$finalvalue' >";
+                        echo  " <input type='text' class='input-xlarge' name='ChangeSubLocationID[]' value='$key' >";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -351,14 +358,15 @@ class Location{
 
                 else if($key==="LevelTwo"){
                     echo '<td>';
-                    foreach($subarray as $value){
-                        echo '<p>'.$value.'</p>';
+                    foreach($subarray as $key=>$value){
+                        echo "<p>ID($key)  Name($value)</p>";
                     }
                     echo '</td>';
                 }
-                else{
-
-                    echo '<td>'.$subarray.'</td>';
+                else if($key==="LevelOne"){
+                    foreach($subarray as $key=>$value){
+                        echo "<td>ID ($key)  Name($value)</td>";
+                    }
                 }
 
 

@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 if(isset($_POST['RootLocation'])||isset($_POST['SubLocation'])){
    $RootLocation=$_POST['RootLocation'];
    $SubLocation=$_POST['SubLocation'];
-   echo $LocationClass->GetAddLocation($RootLocation,serialize($SubLocation)); //add new Location into the database
+   echo $LocationClass->GetAddLocation(serialize($RootLocation),serialize($SubLocation)); //add new Location into the database
 }
 
 if($_POST['ReFreshList']==="ReFreshLocation"){
@@ -51,7 +51,7 @@ if(isset($_POST['GetID']) && isset($_POST['ChangeRootLocation']) && isset($_POST
     $GetModifyLocationID=$_POST['GetID'];
     $GetNewRootLocation=$_POST['ChangeRootLocation'];
     $GetNewRootSubLocation=$_POST['ChangeSubLocation'];
-    echo $LocationClass->pushModifyLocation($GetNewRootLocation,serialize($GetNewRootSubLocation),$GetModifyLocationID);
+    echo $LocationClass->pushModifyLocation(serialize($GetNewRootLocation),serialize($GetNewRootSubLocation),$GetModifyLocationID);
 
 }
 
@@ -97,10 +97,10 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
             echo $UserClass->UpdateRegUserPassword($_POST['GetOldPassword'],$_POST['GetNewPassword'],$_POST['GetCustomerUserID']);
 
         }
-        else if($_POSTp['Mode']==='3'){//register User's photo updating
+        else if($_POST['Mode']==='3'){//register User's photo updating
+            echo $UserClass->UpdateRegUserAvatar($_POST['CustomerPhotoPath'],$_POST['GetCustomerUserID']);
 
         }
-
 
 
 

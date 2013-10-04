@@ -1,5 +1,6 @@
 <?php require_once '../../header.php'?>
 <?php session_start(); if(isset($_GET['CustomerID'])&&isset($_SESSION['LoginedUserID'])):?>
+<script src="<?php echo GlobalPath;?>/cms/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
 <script src="<?php echo GlobalPath;?>/cms/customer-Management/Customer.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/customer-Management/style.css" />
 <div class="container-fluid Customer-margin">
@@ -31,6 +32,7 @@
                             <div class="controls controls-row">
                                 <input class="span2" type="text" id="AddNickName" placeholder="Nick Name">
                                 <input class="span3" type="text" id="AddPhone" placeholder="Phone">
+
                                 <input class="span6" type="text" id="AddAdress" placeholder="Address">
                             </div>
                             <div class="control-group text-left">
@@ -186,7 +188,7 @@
                      <div class="control-group">
                          <label class="control-label">Photo:</label>
                          <div class="controls text-left">
-                                 <input type="text" style="position:absolute" id="AdministratorImagePath" placeholder="Broswer file">
+                                 <input type="text" style="position:absolute" id="CustomerImagePath" placeholder="Broswer file">
                                  <input type="hidden" id="gobalPath" value="<?php echo GlobalPath;?>">
 
                                  <form id="adminForm" method="POST" enctype="multipart/form-data">

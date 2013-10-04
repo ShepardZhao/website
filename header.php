@@ -15,7 +15,7 @@ if ($user) {
         // Proceed knowing you have a logged in user who's authenticated.
         $user_profile = $facebook->api('/me');
         $logoutUrl = $facebook->getLogoutUrl();
-
+        $userPhoto='https://graph.facebook.com/'.$user_profile['id'].'/picture';
         if($RegisterUserClass->MatchUserFacebookID($user_profile['id'])===1){
             $LoginedInClass->FacebookLogininWithSession($user_profile['id'],$user_profile['name']);
         }else{$RegisterUserClass->DirectlyRegisterFacebook($user_profile['id'],$user_profile['name'],$user_profile['first_name'],$user_profile['last_name'],$user_profile['email'],$userPhoto,1,'Facebook');}

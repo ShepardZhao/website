@@ -15,7 +15,7 @@
                     </ul>
 
                     <ul class="inline clearfix">
-                        <li class="pull-left orderListColor orderListBloder">Sydney Hospital</li>
+                        <li class="pull-left orderListColor orderListBloder">My Address book:</li>
                         <li class="pull-right orderListColor"><a id="switchArrow"><i class="icon-chevron-sign-right"></i></a></li>
                     </ul>
                 </div>

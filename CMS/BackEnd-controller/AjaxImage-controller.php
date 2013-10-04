@@ -1,12 +1,34 @@
 <?php
 
 $path =$_SERVER['DOCUMENT_ROOT'];
-$paths=$path.'/B2C/assets/assets-imgs/UserPic/'; // this part should be changed while new server using
+if(isset($_POST['Mode_UserPic'])){
+
+//this is return the usrPic
+$paths=$path.'/assets/assets-imgs/UserPic/'; // this part should be changed while new server using
 $returPath='/assets/assets-imgs/UserPic/';//this needed to be change on gobal-define page
+}
+//this is return the Other Pic
+elseif(isset($_POST['Mode_Other'])){
+$paths=$path.'/assets/assets-imgs/Other/'; // this part should be changed while new server using
+$returPath='/assets/assets-imgs/Other/';//this needed to be change on gobal-define page
+}
+//this is return the CuisinePic
+elseif(isset($_POST['Mode_CuisinePic'])){
+$paths=$path.'/assets/assets-imgs/CuisinePic/'; // this part should be changed while new server using
+$returPath='/assets/assets-imgs/CuisinePic/';//this needed to be change on gobal-define page
+}
+//this is return the RestaurantsPic
+elseif(isset($_POST['Mode_RestaurantPic'])){
+$paths=$path.'/assets/assets-imgs/RestaurantPic/'; // this part should be changed while new server using
+$returPath='/assets/assets-imgs/RestaurantPic/';//this needed to be change on gobal-define page
+}
+
+
+
 $valid_formats = array("jpg", "png", "gif", "bmp","jpeg");
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 {
-    $fileElementName = $_POST['Input_AdministratorPhoto'];
+    $fileElementName = $_POST['Input_Photo'];
 
     $name = $_FILES[$fileElementName]['name'];
     $size = $_FILES[$fileElementName]['size'];
@@ -39,6 +61,7 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
         echo "Error:Please select image..!";
     exit;
 }
+
 ?>
 
 
