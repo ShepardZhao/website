@@ -190,13 +190,13 @@ class Location{
 
     }
 
-    public function GetAddLocation($getRootLocation,$GetSubLocationArray){//check whether has same value that is in the database
+    public function GetAddLocation($getRootLocationPic,$getRootLocation,$GetSubLocationArray){//check whether has same value that is in the database
         if( self::PushValueCompared($getRootLocation)==="existed"){
             return "repeated";
         }
 
-        else if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Location (LevelOne, LevelTwo) VALUE (?,?)")){
-            $stmt->bind_param('ss',$getRootLocation,$GetSubLocationArray);
+        else if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Location (LevelOnePic,LevelOne, LevelTwo) VALUE (?,?,?)")){
+            $stmt->bind_param('sss',$getRootLocationPic,$getRootLocation,$GetSubLocationArray);
             $stmt->execute();
             $stmt->close();
             return "Successed";
@@ -211,12 +211,12 @@ class Location{
 
     public function GetLocationNoParma(){//This function only return the array without Condition
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOne, LevelTwo FROM B2C.Location")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic, LevelOne, LevelTwo FROM B2C.Location")){
             $stmt->execute();
-            $stmt->bind_result($LocationID, $levelOne, $LevelTwo);
+            $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
+                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOnePic'=>$LevelOnePic,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
 
             }
 
@@ -227,13 +227,13 @@ class Location{
     }
 
     public function GetLocationWithParma($getID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOne, LevelTwo FROM B2C.Location WHERE LocationID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic,LevelOne, LevelTwo FROM B2C.Location WHERE LocationID=?")){
             $stmt->bind_param('i',$getID);
             $stmt->execute();
-            $stmt->bind_result($LocationID, $levelOne, $LevelTwo);
+            $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
+                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOnePic'=>$LevelOnePic, 'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
 
             }
 
@@ -334,7 +334,7 @@ class Location{
         echo '<table  class="table table-striped">';
         echo  '<thead>';
         echo '<tr class="thead">';
-        // echo '<td><h4>Select Status</h4></td>';
+        echo '<td><h6>Root Location photo</h6></td>';
         echo '<td><h6>Location ID</h6></td>';
         echo '<td><h6>Root Location</h6></td>';
         echo '<td><h6>Sub Location</h6></td>';
@@ -353,6 +353,11 @@ class Location{
                     //echo "<td><label class='checkbox'><input name='Locationcheckbox[$subarray]' id=".$subarray." type='checkbox'></label></td>";
                     echo '<td>'.$subarray.'</td>';
 
+
+                }
+                elseif ($key==='LevelOnePic'){
+
+                    echo "<td><img src='$subarray' style='width:150px;height:90px;'></td>";
 
                 }
 
@@ -448,6 +453,124 @@ class User{
 
     }
 
+//delete user by user id
+    public function DeleteUserByID($getArray){
+        if(self::_DeleteUserByID($getArray)==='completed'){
+            $getJson_DecodeUserArray=json_decode(self::ReadAllUser($GetEmail));
+            return self::ListAllUsers($getJson_DecodeUserArray);
+        }
+
+    }
+
+
+
+
+
+//Get external email to display the user list
+    public function DisplayUserListByEmail($GetEmail){
+        if ($GetEmail==='All'){
+            $getJson_DecodeUserArray=json_decode(self::ReadAllUser($GetEmail));
+            return self::ListAllUsers($getJson_DecodeUserArray);
+        }
+        else{
+            $getJson_DecodeUserArray=json_decode(self::SearchUser($GetEmail));
+            return self::ListAllUsers($getJson_DecodeUserArray);
+
+        }
+    }
+
+
+    //No condition to Display all user's
+    public function DisplayDefaultUserList(){
+
+        $json_decode_UserArray=json_decode(self::ReadAllUser());
+        self::ListAllUsers($json_decode_UserArray);
+
+    }
+
+
+    //delete user the UserID(one or more)
+    private function _DeleteUserByID($array){
+       foreach ($array as $value){
+       if($stmt=$this->DataBaseCon->prepare("DELETE FROM B2C.User WHERE UserID = ?")){
+           $stmt->bind_param('s',$value);
+           $stmt->execute();
+           $stmt->close();
+
+       }
+       }
+        return 'completed';
+
+    }
+
+    //List and Dispaly All Users
+    private function ListAllUsers($Get_Json_decode_array){
+        $json_decode_UserArray=$Get_Json_decode_array;
+        echo "<table class='table table-striped' id='UserTableList'>";
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>User ID</th>";
+        echo "<th>User Name</th>";
+        echo "<th>User Phone</th>";
+        echo "<th>User Pic</th>";
+        echo "<th>User Mail</th>";
+        echo "<th>User Points</th>";
+        echo "<th>User AD Position</th>";
+        echo "<th>User Type</th>";
+        echo "<th>Delete</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        foreach ($json_decode_UserArray as $key=>$subArray)
+        {
+            echo '<tr>';
+            foreach($subArray as $subKey=>$value){
+                if($subKey==='UserID'){
+                    echo "<td>$value</td>";
+                    $GetUserID=$value;
+                }
+                else if($subKey==='UserName'){
+                    echo "<td>$value</td>";
+                }
+                else if($subKey==='UserPhone'){
+                    echo "<td>$value</td>";
+                }
+                else if($subKey==='UserPhotoPath'){
+                    echo "<td><img src=$value class='img-circle' style='width:65px;height:65px'></td>";
+                }
+                else if($subKey==='UserMail'){
+                    echo "<td>$value</td>";
+                }
+                else if($subKey==='UserPoints'){
+                    echo "<td>$value</td>";
+                }
+                else if($subKey==='UserADPosition'){
+                    echo "<td>$value</td>";
+                }
+                else if($subKey==='UserType'){
+                    echo "<td>$value</td>";
+                }
+
+
+            }
+            echo "<td> <input type='checkbox' value=$GetUserID name='SelectUser' class='checkboxclass'></td>";
+
+            echo '</tr>';
+        }
+
+        echo "</tbody>";
+
+        echo "</table>";
+
+    }
+
+
+
+
+
+
+
+
     Public function ReadAllUser(){
         if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User")){
             $stmt->execute();
@@ -484,15 +607,18 @@ class User{
 
 
   public function SearchUser($UserEmail){
-      if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail FROM B2C.User WHERE UserMail=?")){
+      if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User WHERE UserMail=?")){
           $stmt->bind_param('s',$UserEmail);
           $stmt->execute();
-          $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail);
-          while($stmt->fetch()){
-            $TmpArray=array('UserID'=>$UserID,'UserName'=>$UserName,'UserPhone'=>$UserPhone,'UserPhotoPath'=>$UserPhotoPath,'UserMail'=>$UserMail);
+          $stmt->bind_result($UserID, $UserName, $UserPhone, $UserPhotoPath, $UserMail, $UserPoints, $UserADPosition, $UserType, $UserStatus);
+          $result = $stmt->get_result();
+          $object=array();
+          while ($row=$result->fetch_assoc()){
+
+              array_push($object,$row);
           }
           $stmt->close();
-          return $TmpArray;
+          return json_encode($object); //return all user infor by json;
       }
 
 

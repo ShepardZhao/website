@@ -8,9 +8,9 @@ $paths=$path.'/assets/assets-imgs/UserPic/'; // this part should be changed whil
 $returPath='/assets/assets-imgs/UserPic/';//this needed to be change on gobal-define page
 }
 //this is return the Other Pic
-elseif(isset($_POST['Mode_Other'])){
-$paths=$path.'/assets/assets-imgs/Other/'; // this part should be changed while new server using
-$returPath='/assets/assets-imgs/Other/';//this needed to be change on gobal-define page
+elseif(isset($_POST['Mode_Location'])){
+$paths=$path.'/assets/assets-imgs/LocationPic/'; // this part should be changed while new server using
+$returPath='/assets/assets-imgs/LocationPic/';//this needed to be change on gobal-define page
 }
 //this is return the CuisinePic
 elseif(isset($_POST['Mode_CuisinePic'])){

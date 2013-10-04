@@ -26,10 +26,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 /**************************************Location Controller********************************************************/
 
-if(isset($_POST['RootLocation'])||isset($_POST['SubLocation'])){
+if((isset($_POST['RootLocationPic']) && isset($_POST['RootLocation'])) ||isset($_POST['SubLocation'])){
    $RootLocation=$_POST['RootLocation'];
    $SubLocation=$_POST['SubLocation'];
-   echo $LocationClass->GetAddLocation(serialize($RootLocation),serialize($SubLocation)); //add new Location into the database
+   echo $LocationClass->GetAddLocation($_POST['RootLocationPic'],serialize($RootLocation),serialize($SubLocation)); //add new Location into the database
 }
 
 if($_POST['ReFreshList']==="ReFreshLocation"){
@@ -102,7 +102,15 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 
         }
 
+    }
 
+/************************************************User list*********************************************************/
+    if(isset($_POST['GetUserEmail'])){//search userlist by mail
+       echo $UserClass->DisplayUserListByEmail($_POST['GetUserEmail']);
+    }
+
+    if(isset($_POST['DeleteUserID'])){//delete User by userID
+        echo $UserClass->DeleteUserByID($_POST['DeleteUserID']);
 
     }
 

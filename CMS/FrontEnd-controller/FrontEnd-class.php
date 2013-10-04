@@ -63,15 +63,17 @@ class RegisterUser extends User{
 
     private function MatchEmail($InputEmail){//this function is only works on normal register user
       $RepatedMail=0;
-      $getArray=parent::SearchUser($InputEmail);
-      foreach ($getArray as $key=>$value){
-          if($key==='UserMail'){
+      $getArray=json_decode(parent::SearchUser($InputEmail));
+      foreach ($getArray as $key=>$subvalueArray){
+          foreach($subvalueArray as $subKey=>$value){
+          if($subKey==='UserMail'){
               if($value===$InputEmail){
                   $RepatedMail=1;
                   break;
               }
 
           }
+      }
 
       }
     if($RepatedMail===1){

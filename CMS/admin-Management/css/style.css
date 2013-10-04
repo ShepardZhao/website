@@ -167,7 +167,10 @@ label{color:#333;font-size:13px!important;}
 
 }
 
+#ShowMoreUsers{
+    cursor:pointer;
 
+}
 
 #main-content {
     position: absolute;
@@ -207,12 +210,18 @@ table>tbody>tr>td{
 }
 #UserTableList{
     vertical-align: middle;
+    ;
 }
 
 #UserTableList>thead>tr>th{
     font-size:14px;
     color:#c09853;
 
+}
+
+
+#UserTableList>tbody>tr{
+    display:none;
 }
 
 
@@ -267,11 +276,12 @@ table>tbody>tr>td{
 }
 #UserList{
     display:none;
-
-
+    width:970px !important;
 }
+
 #Mail_Setting{
     display:none;
 }
+
 
 

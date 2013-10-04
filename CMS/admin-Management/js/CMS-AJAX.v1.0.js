@@ -2,6 +2,7 @@
 
 
 $(document).ready(function(){
+    var CurrentDomain=window.location.origin;
     /*******************************************Login Management**************************************/
      $('body').on('click','#loginSubmit',function(){
         var tmpLoginUserName=$('#LoginUserName').val();
@@ -233,16 +234,6 @@ $(document).ready(function(){
 
 
     });
-
-
-
-
-
-
-
-
-
-
 
 
     //Ajax all data through the class and insert into database
@@ -508,11 +499,85 @@ $(document).ready(function(){
 
     /************************************Add Location blocks**************************************************/
 
+    //upload the pic
+    function LocationimageUpload(Input_LocationPhoto,dataset)
+    {
+        $('#LocationsubmitPic').html('Submitting.....');
+
+        $.ajaxFileUpload
+        (
+            {
+                url:'../BackEnd-controller/AjaxImage-controller.php',
+                secureuri:false,
+                fileElementId:Input_LocationPhoto,
+                dataType: 'html',
+                data:dataset,
+                success: function (data, status)
+                {
+                    $('#LocationsubmitPic').html('done');
+                    var tmpPath= $('#LocalHidePath').val();
+                    var savedPath=tmpPath+data;
+                    $('#LocationImagePath').removeClass('placeholder');
+                    $('#LocationImagePath').val(savedPath);
+                    $('#LocationIMG').attr("src",tmpPath+data);
+                },
+                error: function (data, status, e)
+                {
+                    alert(e);
+                }
+            }
+        )
+
+        return false;
+
+    }
+
+
+
+
+    $('body').on('click','#LocationsubmitPic',function() {
+        if($("#Input_LocationPhoto")[0].files[0]!==undefined){
+            var file = $("#Input_LocationPhoto")[0].files[0];
+            var fileName = file.name;
+            var fileSize = file.size;
+            var fileType = file.type;
+
+            $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#LocationsubmitPic')).fadeIn(200);
+            var tmp={};
+            tmp['Input_Photo']='Input_LocationPhoto';
+            tmp['Mode_Location']='AdministratorPhoto';
+            LocationimageUpload('Input_LocationPhoto',tmp);
+
+
+
+        }
+        else if($(this).html()==='done'){
+            $('<label id="exeisted-alert" style="color:red">You already submited the head photo</label>').insertAfter($('#LocationsubmitPic')).fadeIn(200);
+            setTimeout(function(){$('#exeisted-alert').fadeOut(); },5000);
+            return false;
+
+        }
+        else
+        {
+            $('<label id="File-alert" style="color:red">Please select file first</label>').insertAfter($('#LocationsubmitPic')).fadeIn(200);
+            setTimeout(function(){$('#File-alert').fadeOut(); },5000);
+
+
+
+        }
+
+
+
+    });
+
+
+
 
     $('body').on('click','#AddLocationButton',function(){//here is using click function instead of submit because of security
 
 
         var RootLocation= $("input[name='RootLocation']").val();
+        var RootLocationPic=$("#LocationImagePath").val();
         var RootLocationID=$("input[name='RootLocationID']").val();
         var TemporaryArray={};
         TemporaryArray[RootLocationID]=RootLocation;
@@ -520,11 +585,14 @@ $(document).ready(function(){
         if (RootLocation!==""){
             var name1 = "RootLocation";
             var name2 = "SubLocation";
+            var name3="RootLocationPic";
+            var value3=RootLocationPic;
             var value2 =SubLocation;
             var dataObj = {};
             dataObj[name1]=TemporaryArray;
             dataObj[name2]=value2;
-            console.log(dataObj);
+            dataObj[name3]=value3;
+
             Ajax('#AddLocationButton',dataObj);
 
 
@@ -728,8 +796,72 @@ $(document).ready(function(){
 
 
 
+/*******************************************User list*************************************************/
+Loading_more();
+function Loading_more(){
+    size_tr = $("#UserTableList>tbody>tr").size();
+    x=3;
+    $('#UserTableList>tbody>tr:lt('+x+')').show();
+    $('#ShowMoreUsers').click(function () {
+        x= (x+5 <= size_tr) ? x+5 : size_tr;
+        $('#UserTableList>tbody>tr:lt('+x+')').show();
+        if(x == size_tr){
+            $('#ShowMoreUsers').hide();
+        }
+    });
+}
 
 
+
+//checkbox check and delete element
+
+
+$('body').on('click','#UserListDelete',function(){
+    var values = $('input:checkbox:checked.checkboxclass').map(function () {
+        return this.value;//return each value
+    }).get();
+    var tmp={};
+    tmp['DeleteUserID']=values;
+   UserListAJAX(tmp,'#Input-Search');
+
+});
+
+//search user by email
+
+  $('body').on('click','#UserListSearch',function(){
+    if($('#Input-Search').val()!==''){
+      var GetUserEmail=$('#Input-Search').val();
+      var tmp={};
+      tmp['GetUserEmail']=GetUserEmail;
+      UserListAJAX(tmp,'#Input-Search');
+    }
+    else if($('#Input-Search').val()===''){
+
+        var GetUserEmail=$('#Input-Search').val();
+        var tmp={};
+        tmp['GetUserEmail']='All';
+        UserListAJAX(tmp,'#Input-Search');
+
+    }
+
+
+  });
+
+
+    function UserListAJAX(dataObj,InfoID){//search and delete functions
+        $('#TableListWrap').empty().append('<img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>')
+        var request= $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            data:dataObj,
+            dataType: "html"
+        });
+        request.done(function(content){
+                $('#TableListWrap').empty().append(content);
+            Loading_more();
+            });
+    }
 
 
 });
