@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MTU1NC5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MTUxMi5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MjM5NC5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MjMwMy5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MjQ4MS5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MjQzNS5qcGc=" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/UserPic/MTM4MDg2MjUzNi5qcGc=" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/AjaxImage-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/AjaxImage-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" afterPath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/index.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/css/style.css" afterPath="$PROJECT_DIR$/CMS/admin-Management/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="" />
     <ignored path="website.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/BackEnd-class.php" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380353905817" ignored="false" />
@@ -63,7 +47,7 @@
       <file leaf-file-name="captcha_code_file.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/register/captcha_code_file.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="22" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.18625678">
+            <state line="51" column="18" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.34900543">
               <folding />
             </state>
           </provider>
@@ -484,7 +468,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="22" width="1254" height="723" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -855,7 +839,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/register/captcha_code_file.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="22" selection-start="1328" selection-end="1328" vertical-scroll-proportion="0.18625678">
+        <state line="51" column="18" selection-start="1563" selection-end="1563" vertical-scroll-proportion="0.34900543">
           <folding />
         </state>
       </provider>
