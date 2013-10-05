@@ -283,5 +283,10 @@ table>tbody>tr>td{
     display:none;
 }
 
-
+#addedRestaurant{
+    display:none;
+}
+#addedCuisines{
+    display:none;
+}
 

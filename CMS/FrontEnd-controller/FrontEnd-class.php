@@ -184,5 +184,152 @@ class LoginedIn extends User{
 
 }
 
+class InitialLocationSelect extends Location{
+
+    public function __construct($DataBaseConnetcion){
+        parent::__construct($DataBaseConnetcion);
+    }
+
+
+
+    public function GetLocation(){
+
+       $GetLocationArray=parent::GetLocationNoParma();
+       return self::InitialDisplay('LoginedIn',$GetLocationArray);
+    }
+
+    //sub location display
+    public function GetSubLoaction($getID){
+        $GetSubLocationArray=parent::GetLocationWithParma($getID);
+        return self::InitialSubLocationDispaly($GetSubLocationArray);
+
+    }
+
+
+    //according RootID gets its name
+    public function GetsRootLocalName($getRootid){
+       $GetLocation=parent::GetLocationWithParma($getRootid);
+        foreach ($GetLocation as $Rootkey=>$SubArray){
+            foreach($SubArray as $secondkey=>$SecondArray){
+                if($secondkey==='LevelOne'){
+                    foreach ($SecondArray as $key=>$value){
+                        return $value;
+                    }
+               }
+            }
+
+        }
+    }
+
+
+
+
+    //according SubID gets its name
+    public function GetsSubLocalName($getRootid,$GetSubLocalID){
+        $GetLocations=parent::GetLocationWithParma($getRootid);
+        foreach ($GetLocations as $Rootkey=>$SubArray){
+            foreach($SubArray as $secondkey=>$SecondArray){
+                if($secondkey==='LevelTwo'){
+                    foreach ($SecondArray as $key=>$value){
+                        if($key===$GetSubLocalID){
+                            return $value;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+    //Sub location display
+    private function InitialSubLocationDispaly($GetSubLocationArray){
+       echo '<h3>Select Your Sub Address</h3>';
+       echo '<div class="row-fluid">';
+       echo '<div class="span12">';
+       echo '<ul class="nav nav-pills SubLocationGroup">';
+        foreach ($GetSubLocationArray as $Rootkey=>$SubArray){
+            foreach($SubArray as $secondkey=>$SecondArray){
+                if($secondkey==='LevelTwo'){
+                    foreach ($SecondArray as $key=>$value){
+                        echo "<li id='$key'><a href='#'>$value</a></li>";
+
+                    }
+                }
+            }
+        }
+     echo '</ul>';
+     echo '</div>';
+     echo  '<div class="control-group text-center">';
+     echo  '<button type="botton" class="mySubmit" id="SelectSubLocation">Next</button>';
+     echo  '</div>';
+     echo '</div>';
+    }
+
+
+
+
+    //root location display
+    private function InitialDisplay($LoginStatus,$GetLocationArray){//display initial location selection with loginedIn condition
+       // initial layer
+    echo '<div class="initialDiv radius hidden-phone">';
+    echo '<div class="secondWindows text-center">';
+    echo '<div class="thumbnailsWrap">';
+        if ($LoginStatus==='LoginedIn'){
+       echo '<h3>Select Your Address</h3>';
+
+    }
+    else if($LoginStatus==='SignUp'){
+        echo '<h3>Select Default Address To Complete Sign Up</h3>';
+
+    }
+    echo  '<div class="row-fluid">';
+    echo  '<ul class="thumbnails thumClick">';
+    foreach ($GetLocationArray as $key=>$SubArray){
+        echo  '<li class="span6">';
+        echo  '<div class="thumbnail">';
+        foreach ($SubArray as $secondKey=>$SecondValue){
+        if($secondKey==='LocationID'){
+        echo "<input type='hidden' class='hidenLocationID' id='$SecondValue'>";
+        }
+        if($secondKey==='LevelOnePic'){
+            echo  "<img data-src='holder.js/300x200' alt='$SecondValue' style='width: 300px; height: 200px;' src=$SecondValue>";
+        }
+        if($secondKey==='LevelOne'){
+            echo  '<div class="caption">';
+        foreach ($SecondValue as $subKEY=>$value){
+                echo  "<h4>$value</h4>";
+
+        }
+        echo  '</div>';
+        }
+        }
+        echo  '</div>';
+        echo  '</li>';
+    }
+    echo  '</ul>';
+    echo  '<div class="control-group text-center">';
+    echo  '<button type="botton" class="mySubmit" id="SelectRootLocation">Next</button>';
+    echo  '</div>';
+    echo  '</div>';
+    echo  '</div>';
+    echo  '</div>';
+    echo  '</div>';
+
+    }
+
+
+    public function hiddenInitialLocation(){
+        echo '<script type="text/javascript">';
+        echo '$(document).ready(function(){$(".initialDiv").hide();});';
+        echo '</script>';
+    }
+
+
+}
+
+
 
 ?>

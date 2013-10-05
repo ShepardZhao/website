@@ -31,6 +31,8 @@ $RegisterUserClass=new RegisterUser($Mysql_Connection);
 $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal user
 /***********************************Declare UserAddressBook*************************/
 $MyaddressBookClass=new MyaddressBook($Mysql_Connection);
+/**********************************Initial location display************************/
+$InitialLocationSelectClass=new InitialLocationSelect($Mysql_Connection);
 
 
 

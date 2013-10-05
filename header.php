@@ -48,6 +48,7 @@ if ($user) {
     <!-- include jQuery -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery-1.10.2.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
 
 
 
@@ -159,8 +160,11 @@ if ($user) {
 
                    </li>
               </ul>
+
               <?php endif ?>
-</div>
+        <?php  echo $InitialLocationSelectClass->GetLocation();?>
+
+    </div>
       </div><!--/.nav-collapse -->
     </div>
   </div>

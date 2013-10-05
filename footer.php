@@ -18,7 +18,6 @@
 <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap-modal.js"></script>
 <!-- Include the plug-in -->
 <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap-modalmanager.js"></script>
-<script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
 
 </html>
 

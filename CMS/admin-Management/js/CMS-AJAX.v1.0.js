@@ -92,6 +92,19 @@ $(document).ready(function(){
 
     });
 
+    $('body').on('click','#AddedRestaurants-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#addedRestaurant').fadeIn(200);// when #addsRestaurant-clicked is cliked, the #addedCuisines will be showing
+
+    });
+    $('body').on('click','#AddedCuisines-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#addedCuisines').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+
+    });
+
     function __hidenDiv(){
         $('#main-nav li').find('.Nav-list li a').removeClass('achieve');
         $('#initialPage').fadeOut(200); //hiding the initial page
@@ -101,6 +114,8 @@ $(document).ready(function(){
         $('#adminMangement').fadeOut(200);//hiding the adminMangement page
         $('#UserList').fadeOut(200);//hiding the UserList page
         $('#Mail_Setting').fadeOut(200);//hiding the Mail_Setting page
+        $('#addedRestaurant').fadeOut(200);//hiding the addsRestaurant page
+        $('#addedCuisines').fadeOut(200);//hiding the addedCuisines page
     }
 
 
@@ -618,6 +633,10 @@ $(document).ready(function(){
 
     });
 
+    $('body').on('click','.ChangeLocationButton_AddMore',function(){
+        $('<div class="control-group"><div class="controls"><input type="text" class="input-xlarge" name="ChangeSubLocation[]" placeholder="i.e: one of sub levels of locations" > <input type="text" class="input" name="ChangeSubLocationID[]" placeholder="XX: The sub location ID" ></div></div>').insertAfter('.changeSubGroup:last').fadeIn(200);
+
+    });
 
     function returnInputArray(inputArrayName,inputArrayID){
         var TemporaryArray1=[];

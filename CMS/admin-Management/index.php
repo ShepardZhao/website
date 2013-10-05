@@ -66,6 +66,8 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                             <!-- Add the class "current" to current menu item -->
                             Manage Restaurants&Cuisines </a>
                         <ul class="Nav-list">
+                            <li id="AddedRestaurants-clicked"><a title="Added Restaurants">Add Restaurants</a></li><!--An able to add the new restaurants-->
+                            <li id="AddedCuisines-clicked"><a title="Added Cuisines">Add Cuisines</a></li><!--An able to add the new Cuisines for one of restaurants-->
                             <li id="Restaurants-clicked"><a title="Displayed All Restaurants">Restaurants List</a></li><!--Restaurants list that shows all restaurants that located at database-->
                             <li id="Cuisines-clicked"><a title="Displayed All Cuisine">Cuisines List</a></li><!--Restaurants list that shows all restaurants that located at database-->
 
@@ -156,9 +158,32 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                 </table>
             </div>
 
+ <!-----------------------------------------Restaurant&Cuisines Management--------------------------------------------------->
+    <!------------------Added Restaurant------------------->
+              <div id="addedRestaurant">
+              <div class="row-fluid">
+              <div class="span12">
+              <div class="divhead"><h4><i class="icon-list-ul">  Please Added the Restaurant</i><h4></div>
+              <div class="basicInfo-box">
 
 
+              </div>
+              </div>
+              </div>
+              </div>
 
+    <!------------------Added Cuisines------------------->
+              <div id="addedCuisines">
+                  <div class="row-fluid">
+                      <div class="span12">
+                          <div class="divhead"><h4><i class="icon-list-ul">  Please Added the Cuisines</i><h4></div>
+                          <div class="basicInfo-box">
+
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
 
 

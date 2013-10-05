@@ -96,13 +96,52 @@ a{
 /*initial div option. which displays the pop layer while page has been loaded*/
 .initialDiv{
 	width: 600px;
-	height:400px;
 	z-index: 10;
 	position: absolute;
 	background-color: #fff;
 	display: none;
 	padding: 10px;
     box-shadow: 0px 3px 5px #444;
+
+}
+.thumClick>li>.thumbnail{
+    border:none!important;
+    padding:0;
+    cursor:pointer;
+
+}
+.thumbnailsWrap{
+    padding:9px;
+}
+
+.SelectThumClick{
+    background-color: rgb(248,110,103);
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    border:none;
+
+}
+.SelectThumClick .caption{
+    color:#fff!important;
+}
+
+.SubLocationGroup>li>a{
+    border: 1px solid rgb(245,245,245);
+
+}
+
+
+.Sublocation_style{
+    background-color: rgb(248,110,103);
+
+}
+.Sublocation_style{
+    color:#fff !important;
+}
+.Sublocation_style:hover{
+    color:#fff !important;
+    background-color:  rgb(248,110,103)!important;
 }
 
 .secondWindows {

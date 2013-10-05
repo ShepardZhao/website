@@ -1,4 +1,13 @@
 <?php include 'header.php'?>
+<?php  $InitialLocationSelectClass->hiddenInitialLocation();
+    if ($_GET['RootID']!=='' && $_GET['SubID']!==''){
+        session_start();
+        //according RootID and SubID to get their names
+        $_SESSION['RootLocation']=$InitialLocationSelectClass->GetsRootLocalName($_GET['RootID']);
+        $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_GET['RootID'],$_GET['SubID']);
+    }
+
+?>
     <!--Container-->
      <div class="row-fluid"><!--ad zone-->
          <div class="span12 slideMarign hidden-phone"><!--key line for phone visiable-->

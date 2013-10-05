@@ -25,7 +25,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
     }
 
-
+    //select sub level of location
+    if(isset($_POST['RootIDSelection'])){
+        echo $InitialLocationSelectClass->GetSubLoaction($_POST['RootIDSelection']);
+    }
 
 
 }

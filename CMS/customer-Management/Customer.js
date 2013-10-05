@@ -202,12 +202,20 @@ $(document).ready(function(){
               var AddNickName=$('#AddNickName').val();
               var AddPhone=$('#AddPhone').val();
               var AddAdress=$('#AddAdress').val();
+              var AddSubLocation=$('#AddSubLocation').val();
+              var AddRootLocation=$('#AddRootLocation').val();
+            if(AddNickName===''||AddPhone==='' || AddAdress===''){
+                $('<div class="alert alert-error">You have to fill all fields</div>').insertBefore($('#AddressBookButton')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },3000);
+            }
+            else{
              var tmp={};
             tmp['AddNickName']=AddNickName;
             tmp['AddPhone']=AddPhone;
-            tmp['AddAdress']=AddAdress;
+            tmp['AddAdress']=AddAdress+', '+AddSubLocation+', '+AddRootLocation;
             tmp['GetCustomerUserID']=GetCustomerUserID;
             AddressAddBookAJAX(tmp,'#AddressBookButton');
+        }
         });
 
 

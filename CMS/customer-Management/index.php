@@ -1,4 +1,5 @@
 <?php require_once '../../header.php'?>
+<?php $InitialLocationSelectClass->hiddenInitialLocation();?>
 <?php session_start(); if(isset($_GET['CustomerID'])&&isset($_SESSION['LoginedUserID'])):?>
 <script src="<?php echo GlobalPath;?>/cms/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
 <script src="<?php echo GlobalPath;?>/cms/customer-Management/Customer.js" type="text/javascript"></script>
@@ -31,9 +32,12 @@
                             <h4 class="text-left">Add and Manage Address books</h4>
                             <div class="controls controls-row">
                                 <input class="span2" type="text" id="AddNickName" placeholder="Nick Name">
-                                <input class="span3" type="text" id="AddPhone" placeholder="Phone">
+                                <input class="span2" type="text" id="AddPhone" placeholder="Phone">
+                                <input class="span2" type="text" id="AddAdress" placeholder="Address">
+                                <input class="span3" type="text" id="AddSubLocation" value="<?php echo $_SESSION['SubLocation'];?>" disabled>
+                                <input class="span3" type="text" id="AddRootLocation" value="<?php echo $_SESSION['RootLocation'];?>" disabled>
 
-                                <input class="span6" type="text" id="AddAdress" placeholder="Address">
+
                             </div>
                             <div class="control-group text-left">
                                 <div class="controls">

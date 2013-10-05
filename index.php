@@ -65,48 +65,6 @@
 		</div><!--waterfall end-->
 </div><!--bodywrap end-->
 
-<!-- initial layer-->
-<div class="initialDiv radius hidden-phone">
-    <div class="secondWindows text-center">
-        <h3>Select Your Address</h3>
-        <div class="row-fluid">
-        <div class="span6">
-            <ul class="thumbnails">
-                <li class="span6">
-                    <a href="#" class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
-                    </a>
-                </li>
-                ...
-            </ul>
-
-
-        </div>
-
-        <div class="span6">
-
-            <ul class="thumbnails">
-                <li class="span6">
-                    <a href="#" class="thumbnail">
-                        <img data-src="holder.js/300x200" alt="">
-                    </a>
-                </li>
-                ...
-            </ul>
-
-
-        </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
 <!--index js files begin -->
 
   <!--marquee-->

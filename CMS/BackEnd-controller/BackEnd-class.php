@@ -306,8 +306,7 @@ class Location{
                 }
                 else if($key==="LevelTwo"){
                     foreach($value as $key=>$finalvalue){
-
-                        echo "<div class='control-group'>";
+                        echo "<div class='control-group changeSubGroup'>";
                         echo "<div class='controls'>";
                         echo  "<input type='text' class='input-xlarge' name='ChangeSubLocation[]' value='$finalvalue' >";
                         echo  " <input type='text' class='input-xlarge' name='ChangeSubLocationID[]' value='$key' >";
@@ -318,6 +317,7 @@ class Location{
             }
         }
         echo "</div>";
+        echo "<button class='button ChangeLocationButton_AddMore' type='button'>More</button> ";
         echo "<button id='$getid' class='button ChangeLocationButton' type='button'>Change</button>";
         echo "</div>";
         echo "</div>";
@@ -334,8 +334,8 @@ class Location{
         echo '<table  class="table table-striped">';
         echo  '<thead>';
         echo '<tr class="thead">';
-        echo '<td><h6>Root Location photo</h6></td>';
         echo '<td><h6>Location ID</h6></td>';
+        echo '<td><h6>Root Location photo</h6></td>';
         echo '<td><h6>Root Location</h6></td>';
         echo '<td><h6>Sub Location</h6></td>';
         echo '<td><h6>Change</h6></td>';

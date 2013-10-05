@@ -196,6 +196,61 @@ $(document).ready(function(){
         popupName.css({"left": _posiLeft + "px","top":_posiTop + "px","display":"block"});
     }
 
+    //initial select root location
+    $('body').on('click','.thumClick li',function(){
+        $('.thumClick li').removeClass('SelectThumClick');
+        $(this).addClass('SelectThumClick');
+
+    });
+    //initial select sub location
+    $('body').on('click','.SubLocationGroup>li>a',function(){
+        $('.SubLocationGroup>li>a').removeClass('Sublocation_style');
+        $(this).addClass('Sublocation_style');
+
+    });
+
+    //Select sub array
+
+    $('body').on('click','.thumClick>li',function(){
+        window.ID=$(this).find('.hidenLocationID').attr('id');
+
+    });
+
+
+    $('body').on('click','.SubLocationGroup>li',function(){
+        window.SubID=$(this).attr('id');
+
+    });
+
+    //pass parameters to order
+    $('body').on('click','#SelectSubLocation',function(){
+        window.location = CurrentDomain+'/order.php?RootID='+ID+'&SubID='+SubID;
+
+    });
+
+
+
+    $('body').on('click','#SelectRootLocation',function(){
+        var tmp={};
+        tmp['RootIDSelection']=ID;
+        $('.thumbnailsWrap').empty().append('<img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>');
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
+            type: "POST",
+            data:tmp,
+            dataType: "html"
+        });
+        request.done(function( msg ) {
+
+            $('.thumbnailsWrap').empty().append(msg);
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+    });
+
 
 
 
