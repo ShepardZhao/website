@@ -6,5 +6,5 @@ define("UserName",'root');//usename for datebase
 define("Password",'4414463');//password for database
 define("Database",'B2C');//selected database for database
 //set the session time framwork
-session_set_cookie_params('1000');
+//session_set_cookie_params('1000');
 ?>

@@ -751,24 +751,39 @@ class MyaddressBook {
         $this->DataBaseCon=$DataBaseCon;
     }
 
-    public function GetParamOfMyaddressBook($GetUserID,$GetNickName,$GetPhone,$GetAddress){
+    public function GetParamOfMyaddressBook($GetUserID,$GetNickName,$GetPhone,$GetAddress,$DefaultStauts){
         $this->GetUserID=$GetUserID;
         $this->GetNickName=$GetNickName;
         $this->GetPhone=$GetPhone;
         $this->GetAddress=$GetAddress;
-        return self::AddMyaddressbook();
+        if (self::AddMyaddressbook($DefaultStauts)==='ok'){
+            return self::loopDisplayAddressCard($this->GetUserID);
+
+        }
+        else{
+            return self::AddMyaddressbook($DefaultStauts);
+        }
 
     }
 
-    private function AddMyaddressbook(){
+    public function GetParamOfMyaddressBookForFrontEndAddress($GetUserID,$GetNickName,$GetPhone,$GetAddress,$DefaultStauts){
+        $this->GetUserID=$GetUserID;
+        $this->GetNickName=$GetNickName;
+        $this->GetPhone=$GetPhone;
+        $this->GetAddress=$GetAddress;
+        return self::AddMyaddressbook($DefaultStauts);
+
+    }
+
+
+    private function AddMyaddressbook($DefaultStauts){
       if (self::CompareInfo()==='pass'){
         if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
-           $DefaultStauts=0;//default is not been taken;
-
+           //default is not been taken;
            $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
            $stmt->execute();
            $stmt->close();
-           return self::loopDisplayAddressCard($this->GetUserID);
+            return 'ok';
             }
          else {
              return 'Error';
@@ -780,6 +795,9 @@ class MyaddressBook {
        }
 
     }
+
+
+
 
     private function CompareInfo(){
       if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM B2C.UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
@@ -804,7 +822,7 @@ class MyaddressBook {
 
     }
 
-   private function readAllAddressbookByID($GegID){//read all record from table
+   protected function readAllAddressbookByID($GegID){//read all record from table
        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM B2C.UserAddressBook WHERE UserID=?")){
            $stmt->bind_param('i',$GegID);
            $stmt->execute();
@@ -820,6 +838,28 @@ class MyaddressBook {
 
 
    }
+
+//Get Default address
+    protected function readAllAddressbookByIDAndDefaultStauts($GegID,$Default){//read all record from table
+        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM B2C.UserAddressBook WHERE UserID=? AND AddreStatus=?")){
+            $stmt->bind_param('ii',$GegID,$Default);
+            $stmt->execute();
+            $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return $object;
+        }
+
+
+    }
+
+
+
+
 
   //Remove My address book
   public function RemoveMyaddressBook($getUserID, $GetAddressID){

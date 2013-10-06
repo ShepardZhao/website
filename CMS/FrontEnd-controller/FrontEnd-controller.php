@@ -31,6 +31,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
 
 
+    //added new address for user
+    if(isset($_POST['AddedUserID']) && isset($_POST['AddedNickName']) && isset($_POST['AddedPhone']) && isset($_POST['AddedAddress'])){
+        echo  $LoginedInClass->AddedNewAddress($_POST['AddedUserID'],$_POST['AddedNickName'],$_POST['AddedPhone'],$_POST['AddedAddress'],1);
+    }
+
+
 }
 
 

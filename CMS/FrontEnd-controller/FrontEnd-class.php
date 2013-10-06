@@ -3,13 +3,13 @@
 
 /**************************************************Extended user class***********************/
 class RegisterUser extends User{
-   private $RegisterUserID=null;
-   private $RegisterUserPass=null;
-   private $RegisterEmail=null;
-   private $RegisterUserType=null;
-   private $RegisterUserStatus=null;
-     public function __construct($DataBaseConnetcion){
-         parent::__construct($DataBaseConnetcion);
+    private $RegisterUserID=null;
+    private $RegisterUserPass=null;
+    private $RegisterEmail=null;
+    private $RegisterUserType=null;
+    private $RegisterUserStatus=null;
+    public function __construct($DataBaseConnetcion){
+        parent::__construct($DataBaseConnetcion);
     }
 
     Public function GetUserRegisterData($RegisterUserID,$RegisterEmail,$RegisterUserPass,$RegisterUserType){
@@ -62,41 +62,41 @@ class RegisterUser extends User{
 
 
     private function MatchEmail($InputEmail){//this function is only works on normal register user
-      $RepatedMail=0;
-      $getArray=json_decode(parent::SearchUser($InputEmail));
-      foreach ($getArray as $key=>$subvalueArray){
-          foreach($subvalueArray as $subKey=>$value){
-          if($subKey==='UserMail'){
-              if($value===$InputEmail){
-                  $RepatedMail=1;
-                  break;
-              }
+        $RepatedMail=0;
+        $getArray=json_decode(parent::SearchUser($InputEmail));
+        foreach ($getArray as $key=>$subvalueArray){
+            foreach($subvalueArray as $subKey=>$value){
+                if($subKey==='UserMail'){
+                    if($value===$InputEmail){
+                        $RepatedMail=1;
+                        break;
+                    }
 
-          }
-      }
+                }
+            }
 
-      }
-    if($RepatedMail===1){
-        return 'Repeated UserMail';
+        }
+        if($RepatedMail===1){
+            return 'Repeated UserMail';
+        }
+        else if($RepatedMail===0){
+
+            return self::InsertRegistrerToDatabase();
+
+        }
+
     }
-    else if($RepatedMail===0){
 
-        return self::InsertRegistrerToDatabase();
+
+
+    public function GenerateRandomUserID(){//this function is generated to UserID, which is according to current time and random
+        $currentTime=time();
+        $random=rand();
+        $currentTimes=$currentTime*$random;
+        $FinalUserID=substr($currentTimes,-11,-1);
+        return $FinalUserID;
 
     }
-
-    }
-
-
-
-   public function GenerateRandomUserID(){//this function is generated to UserID, which is according to current time and random
-       $currentTime=time();
-       $random=rand();
-       $currentTimes=$currentTime*$random;
-       $FinalUserID=substr($currentTimes,-11,-1);
-       return $FinalUserID;
-
-   }
 
     public function ActiveAccount($UserID,$ActiveStatus){
 
@@ -122,8 +122,9 @@ class RegisterUser extends User{
 
 class LoginedIn extends User{
 
-
+    private $DataBaseConnetcion=null;
     public function __construct($DataBaseConnetcion){
+        $this->DataBaseConnetcion=$DataBaseConnetcion;
         parent::__construct($DataBaseConnetcion);
     }
 
@@ -176,9 +177,28 @@ class LoginedIn extends User{
             return 'NoMatch';
         }
 
+    }
+
+
+    //loginedIn user added new address whtere located at sidebar
+    public function AddedNewAddress($UserID,$UserNickName,$UserPhone,$UserAddress,$SetDefaultStatus){
+        #call MyaddressBook and InitialUserMyaddressBook two classes that to perform different functions
+        $MyaddressBookcalass=new MyaddressBook($this->DataBaseConnetcion);
+        $InitialUserMyaddressBookClass=new InitialUserMyaddressBook($this->DataBaseConnetcion);
+
+        if ($MyaddressBookcalass->ResetPastDefault($UserID)===1){//if ResetPastDefault equal 1 then set all address to default according to user id
+            if ($MyaddressBookcalass->GetParamOfMyaddressBookForFrontEndAddress($UserID,$UserNickName,$UserPhone,$UserAddress,$SetDefaultStatus)==='Repeated Addressbook'){
+                return 'Repeated Addressbook';// check replated addressbook, return error to ajax
+            }
+            else{
+                return $InitialUserMyaddressBookClass->DisplayAddressBookByUID($UserID);// re-display all address under current user id
+            }
+        }
 
 
     }
+
+
 
 
 
@@ -192,10 +212,10 @@ class InitialLocationSelect extends Location{
 
 
 
-    public function GetLocation(){
+    public function GetLocation($getCondition){
 
-       $GetLocationArray=parent::GetLocationNoParma();
-       return self::InitialDisplay('LoginedIn',$GetLocationArray);
+        $GetLocationArray=parent::GetLocationNoParma();
+        return self::InitialDisplay($getCondition,$GetLocationArray);
     }
 
     //sub location display
@@ -208,14 +228,14 @@ class InitialLocationSelect extends Location{
 
     //according RootID gets its name
     public function GetsRootLocalName($getRootid){
-       $GetLocation=parent::GetLocationWithParma($getRootid);
+        $GetLocation=parent::GetLocationWithParma($getRootid);
         foreach ($GetLocation as $Rootkey=>$SubArray){
             foreach($SubArray as $secondkey=>$SecondArray){
                 if($secondkey==='LevelOne'){
                     foreach ($SecondArray as $key=>$value){
                         return $value;
                     }
-               }
+                }
             }
 
         }
@@ -246,10 +266,10 @@ class InitialLocationSelect extends Location{
 
     //Sub location display
     private function InitialSubLocationDispaly($GetSubLocationArray){
-       echo '<h3>Select Your Sub Address</h3>';
-       echo '<div class="row-fluid">';
-       echo '<div class="span12">';
-       echo '<ul class="nav nav-pills SubLocationGroup">';
+        echo '<h3>Select Your Sub Address</h3>';
+        echo '<div class="row-fluid">';
+        echo '<div class="span12">';
+        echo '<ul class="nav nav-pills SubLocationGroup">';
         foreach ($GetSubLocationArray as $Rootkey=>$SubArray){
             foreach($SubArray as $secondkey=>$SecondArray){
                 if($secondkey==='LevelTwo'){
@@ -260,12 +280,12 @@ class InitialLocationSelect extends Location{
                 }
             }
         }
-     echo '</ul>';
-     echo '</div>';
-     echo  '<div class="control-group text-center">';
-     echo  '<button type="botton" class="mySubmit" id="SelectSubLocation">Next</button>';
-     echo  '</div>';
-     echo '</div>';
+        echo '</ul>';
+        echo '</div>';
+        echo  '<div class="control-group text-center">';
+        echo  '<button type="botton" class="mySubmit" id="SelectSubLocation">Next</button>';
+        echo  '</div>';
+        echo '</div>';
     }
 
 
@@ -273,50 +293,54 @@ class InitialLocationSelect extends Location{
 
     //root location display
     private function InitialDisplay($LoginStatus,$GetLocationArray){//display initial location selection with loginedIn condition
-       // initial layer
-    echo '<div class="initialDiv radius hidden-phone">';
-    echo '<div class="secondWindows text-center">';
-    echo '<div class="thumbnailsWrap">';
+        // initial layer
+        echo '<div class="initialDiv radius hidden-phone">';
+        echo '<div class="secondWindows text-center">';
+        echo '<div class="thumbnailsWrap">';
         if ($LoginStatus==='LoginedIn'){
-       echo '<h3>Select Your Address</h3>';
-
-    }
-    else if($LoginStatus==='SignUp'){
-        echo '<h3>Select Default Address To Complete Sign Up</h3>';
-
-    }
-    echo  '<div class="row-fluid">';
-    echo  '<ul class="thumbnails thumClick">';
-    foreach ($GetLocationArray as $key=>$SubArray){
-        echo  '<li class="span6">';
-        echo  '<div class="thumbnail">';
-        foreach ($SubArray as $secondKey=>$SecondValue){
-        if($secondKey==='LocationID'){
-        echo "<input type='hidden' class='hidenLocationID' id='$SecondValue'>";
-        }
-        if($secondKey==='LevelOnePic'){
-            echo  "<img data-src='holder.js/300x200' alt='$SecondValue' style='width: 300px; height: 200px;' src=$SecondValue>";
-        }
-        if($secondKey==='LevelOne'){
-            echo  '<div class="caption">';
-        foreach ($SecondValue as $subKEY=>$value){
-                echo  "<h4>$value</h4>";
+            echo '<h3>Select Your Address</h3>';
 
         }
+        else if($LoginStatus==='SignUp'){
+            echo '<h3>Select Default Address To Complete Sign Up</h3>';
+
+        }
+        else if($LoginStatus==='NoParam'){
+            echo '<h3>Please Selest Location First</h3>';
+
+        }
+        echo  '<div class="row-fluid">';
+        echo  '<ul class="thumbnails thumClick">';
+        foreach ($GetLocationArray as $key=>$SubArray){
+            echo  '<li class="span6">';
+            echo  '<div class="thumbnail">';
+            foreach ($SubArray as $secondKey=>$SecondValue){
+                if($secondKey==='LocationID'){
+                    echo "<input type='hidden' class='hidenLocationID' id='$SecondValue'>";
+                }
+                if($secondKey==='LevelOnePic'){
+                    echo  "<img data-src='holder.js/300x200' alt='$SecondValue' style='width: 300px; height: 200px;' src=$SecondValue>";
+                }
+                if($secondKey==='LevelOne'){
+                    echo  '<div class="caption">';
+                    foreach ($SecondValue as $subKEY=>$value){
+                        echo  "<h4>$value</h4>";
+
+                    }
+                    echo  '</div>';
+                }
+            }
+            echo  '</div>';
+            echo  '</li>';
+        }
+        echo  '</ul>';
+        echo  '<div class="control-group text-center">';
+        echo  '<button type="botton" class="mySubmit" id="SelectRootLocation">Next</button>';
         echo  '</div>';
-        }
-        }
         echo  '</div>';
-        echo  '</li>';
-    }
-    echo  '</ul>';
-    echo  '<div class="control-group text-center">';
-    echo  '<button type="botton" class="mySubmit" id="SelectRootLocation">Next</button>';
-    echo  '</div>';
-    echo  '</div>';
-    echo  '</div>';
-    echo  '</div>';
-    echo  '</div>';
+        echo  '</div>';
+        echo  '</div>';
+        echo  '</div>';
 
     }
 
@@ -326,9 +350,63 @@ class InitialLocationSelect extends Location{
         echo '$(document).ready(function(){$(".initialDiv").hide();});';
         echo '</script>';
     }
+    public function ShowInitialLocation(){
+        echo '<script type="text/javascript">';
+        echo '$(document).ready(function(){$(".initialDiv").css("display","block");});';
+        echo '</script>';
+    }
 
 
 }
+
+
+class InitialUserMyaddressBook extends MyaddressBook{
+
+    public function __construct($DataBaseConnetcion){
+        parent::__construct($DataBaseConnetcion);
+    }
+
+    public function DisplayAddressBookByUID($getUID){
+        $GetArray=parent::readAllAddressbookByIDAndDefaultStauts($getUID,0);
+        $GetArrayWithDefault=parent::readAllAddressbookByIDAndDefaultStauts($getUID,1);
+        return self::DisplayMyaddressbook($GetArray,$GetArrayWithDefault);
+    }
+
+    public function DisplayMyaddressbook($MyaddressBookArray,$MyaddressBookArrayWithDefault){
+        //list default address that has the default property
+        foreach ($MyaddressBookArrayWithDefault as $key=>$subArray){
+            foreach ($subArray as $subKey=>$value){
+                if($subKey==='AddresAddress'){
+                    echo '<label class="radio">';
+                    echo "<input type='radio' name='optionsRadios' value='$value' checked>";
+                    echo "Default: <i>$value</i>";
+                    echo "</label>";
+                }
+            }
+        }
+
+        //other hidden address
+        echo '<div class="hideAddress">';
+        foreach ($MyaddressBookArray as $key=>$subArray){
+            foreach ($subArray as $subKey=>$value){
+                if($subKey==='AddresAddress'){
+                    echo '<label class="radio">';
+                    echo "<input type='radio' name='optionsRadios' value='$value'>";
+                    echo "<i>$value</i>";
+                    echo '</label>';
+                }
+            }
+        }
+        echo '<div class="btn-group">';
+        echo '<button class="setUp radius AddedNewAddress" type="button" data-toggle="modal" href="#static"><h6>New Address</h6>';
+        echo '</button>';
+        echo '</div>';
+        echo '</div>';
+    }
+
+
+}
+
 
 
 

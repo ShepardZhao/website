@@ -4,7 +4,7 @@
     <h3 class="text-center">Sign Up with Email</h3>
 </div>
 <div class="modal-body">
-    <div id="SignUpForm">
+    <form id="SignUpForm">
 
     <div class="control-group ">
     <input class="input-block-level RegSize" id="email" type="email" placeholder="E-mail">
@@ -47,7 +47,7 @@
     <button type="botton" class="mySubmit" id="mySubmit">Next</button>
     </div>
 
-   </div>
+   </form>
 
 </div>
 

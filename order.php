@@ -1,12 +1,11 @@
 <?php include 'header.php'?>
-<?php  $InitialLocationSelectClass->hiddenInitialLocation();
-    if ($_GET['RootID']!=='' && $_GET['SubID']!==''){
+<?php
+    if (isset($_GET['RootID']) && isset($_GET['SubID'])){
+        $InitialLocationSelectClass->hiddenInitialLocation();
         session_start();
         //according RootID and SubID to get their names
         $_SESSION['RootLocation']=$InitialLocationSelectClass->GetsRootLocalName($_GET['RootID']);
         $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_GET['RootID'],$_GET['SubID']);
-    }
-
 ?>
     <!--Container-->
      <div class="row-fluid"><!--ad zone-->
@@ -93,6 +92,17 @@
 </div>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-Ajax.v1.0.js"></script>
 
+<?php
+    }
+else if($_GET['RootID']==='' || $_GET['SubID']===''){
+?>
+    <?php
+    echo $InitialLocationSelectClass->GetLocation('NoParam');
+    ?>
+
+<?php
+}
+?>
 
 
 <?php include 'footer.php'?>

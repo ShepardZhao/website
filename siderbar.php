@@ -21,23 +21,8 @@
                 </div>
 
                 <div class="span12 address">
-                    <label class="radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                        <b>Default: </b><i>795 Folsom Ave, Suite 600 San Francisco</i>
-                    </label>
-                    <div class="hideAddress">
-                        <label class="radio">
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                            <i>795 Folsom Ave, Suite 600 San Francisco</i>
-                        </label>
-
-                        <div class="btn-group">
-                            <button class="setUp radius" id="SignUp" type="button" data-toggle="modal" href="#static"><h6>New Address</h6>
-                            </button>
-                        </div>
-
-                    </div>
-
+                        <!--display user's addressbook that is according to UID-->
+                <?php echo $InitialUserMyaddressBookClass->DisplayAddressBookByUID($_SESSION['LoginedUserID']);?>
                 </div>
             </section><!--address section ends-->
 

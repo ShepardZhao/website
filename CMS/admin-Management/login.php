@@ -24,8 +24,7 @@
         <input id="LoginUserPassword" class="inputbox password" type="password" placeholder="Password" />
         <p><br><a id='loginSubmit' class="button" data-loading-text="Loginning...">Login <i class="icon-paper-plane"></i></a></p>
       </form>
-      <p>Forget password? It's ok. <a href="#section">Click here &raquo;</a></p>
-  
+
 <!--END: Login Section-->
 
 

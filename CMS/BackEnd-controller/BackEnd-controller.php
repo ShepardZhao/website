@@ -76,7 +76,7 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 
         //Add My location book
         if(isset($_POST['AddNickName']) && isset($_POST['AddPhone']) && isset($_POST['AddAdress'])){
-           echo $MyaddressBookClass->GetParamOfMyaddressBook($_POST['GetCustomerUserID'],$_POST['AddNickName'],$_POST['AddPhone'],$_POST['AddAdress']);
+           echo $MyaddressBookClass->GetParamOfMyaddressBook($_POST['GetCustomerUserID'],$_POST['AddNickName'],$_POST['AddPhone'],$_POST['AddAdress'],0);
 
         }
         if(isset($_POST['RemoveID'])){

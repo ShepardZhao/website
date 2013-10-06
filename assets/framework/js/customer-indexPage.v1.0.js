@@ -19,13 +19,75 @@ $(document).ready(function(){
 
         $modal.on('click', '#GetPassword', function(){
             var email=$modal.find('#email').val();
-            console.log(email);
             if(!email_str.test(email)){
                 AjaxMessageError("alert-error","The format of mail is not correct!");
                 return false;
             }
 
         });
+
+
+        $('body').on('click','.AddedNewAddress',function(){
+            $('body').modalmanager('loading');
+            setTimeout(function(){
+                $modal.load(CurrentDomain+'/cms/customer-Management/AddedNewAddress.php', '', function(){
+                    $modal.modal();
+                });
+            }, 1000);
+
+        });
+     $modal.on('submit','#addNewAddressForm',function(e){
+         var AddedUserID=$('#GetUserID').val();
+         var AddedNickName=$('#AddedNickName').val();
+         var AddedPhone=$('#AddedPhone').val();
+         var AddedExactlyAddress=$('#AddedExactlyAddress').val();
+         var AddedSubAddress=$('#AddedSubAddress').val();
+         var AddedRootAddress=$('#AddedRootAddress').val();
+
+         if(AddedPhone==='' || AddedRootAddress==='' || AddedExactlyAddress===''){
+             AjaxMessageError("alert-error","You have to fill all fields");
+             return false;
+         }
+         else{
+             var AddedNewAddressData={};
+             AddedNewAddressData['AddedUserID']=AddedUserID;
+             AddedNewAddressData['AddedNickName']=AddedNickName;
+             AddedNewAddressData['AddedPhone']=AddedPhone;
+             AddedNewAddressData['AddedAddress']=AddedExactlyAddress+', '+AddedSubAddress+', '+AddedRootAddress;
+
+
+             $('.address').empty().append('<img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>').fadeIn();
+             var request = $.ajax({
+                 url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
+                 type: "POST",
+                 data:AddedNewAddressData,
+                 dataType: "html"
+             });
+
+             request.done(function( msg ) {
+                 if (msg==='Repeated Addressbook'){
+                     AjaxMessageError("alert-error","Repeated Addressbook");
+                      return false;
+                 }
+                 else {
+                     AjaxMessageSuccess('alert-info','You have successfully added an new address!');
+                     setTimeout(function(){$('#ajax-modal').modal('hide');},3000);
+                     $('.address').empty().append(msg);
+
+                 }
+             });
+             request.fail(function( jqXHR, textStatus ) {
+                 alert( "Request failed: " + textStatus );
+             });
+
+
+         }
+
+
+         return false;
+
+
+     });
 
 
 
@@ -45,7 +107,7 @@ $(document).ready(function(){
             }, 1000);
         });
 
-        $modal.on('click', '#mySubmit', function(){
+        $modal.on('submit', '#SignUpForm', function(e){
             var password_str=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}$/;
             var email=$modal.find('#email').val();
             var passowrd=$modal.find('#password').val();
@@ -111,7 +173,7 @@ $(document).ready(function(){
 
             }
 
-
+        return false;
 
         });
         function AjaxMessageError(className,info){
@@ -209,22 +271,25 @@ $(document).ready(function(){
 
     });
 
-    //Select sub array
+    //select root location
 
     $('body').on('click','.thumClick>li',function(){
         window.ID=$(this).find('.hidenLocationID').attr('id');
 
     });
 
+    //Select sub array
 
     $('body').on('click','.SubLocationGroup>li',function(){
         window.SubID=$(this).attr('id');
 
     });
 
+
     //pass parameters to order
     $('body').on('click','#SelectSubLocation',function(){
-        window.location = CurrentDomain+'/order.php?RootID='+ID+'&SubID='+SubID;
+
+        window.location = CurrentDomain+'/order?RootID='+ID+'&SubID='+SubID;
 
     });
 
@@ -276,8 +341,8 @@ $(document).ready(function(){
 
 
 //normal user login
-    $('#loginedInButton').click(function(){
-       $(this).empty().append('<img src="../assets/framework/img/ajax-loader.gif">');
+    $('#login-area').submit(function(e){
+       $('#loginedInButton').empty().append('<img src="../assets/framework/img/ajax-loader.gif">');
         var LoginedInEmail=$('#inputEmail').val();
         var LoginedInPassword=$('#inputPassword').val();
         if(LoginedInEmail!=='' && LoginedInPassword!=='' ){
@@ -290,7 +355,7 @@ $(document).ready(function(){
          }
         else if (LoginedInEmail==='' || LoginedInPassword==='' ){
             InfoAlert('#infoHead','Password or Mail cannot be empty!');
-            $(this).empty().append('Submit');
+            $('#loginedInButton').empty().append('Submit');
 
         }
 
@@ -329,6 +394,9 @@ $(document).ready(function(){
             setTimeout(function(){$('.alert-error').fadeOut(); },5000);
 
         }
+
+        return false;
+
     });
 
 

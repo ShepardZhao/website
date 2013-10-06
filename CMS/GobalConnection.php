@@ -33,7 +33,8 @@ $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal
 $MyaddressBookClass=new MyaddressBook($Mysql_Connection);
 /**********************************Initial location display************************/
 $InitialLocationSelectClass=new InitialLocationSelect($Mysql_Connection);
-
+/**********************************Initial User Address Book************************/
+$InitialUserMyaddressBookClass=new InitialUserMyaddressBook($Mysql_Connection);
 
 
 

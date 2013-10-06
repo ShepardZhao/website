@@ -88,7 +88,7 @@ if ($user) {
                       <button  class="dropdown-toggle setUp radius" type="button" data-toggle="dropdown">Sign In <i class="icon-sort-down icon-white"></i>
                       </button>
                       <ul class="dropdown-menu pull-right">
-                            <div id="login-area">
+                            <form id="login-area">
                               <div class="control-group input-group">
                                   <div class="controls">
                                       <div class="input-prepend ">
@@ -118,13 +118,13 @@ if ($user) {
 
                               <div class="input-prepend input-group Go">
 
-                                  <button type="button" id="loginedInButton">Sign in</button>
+                                  <button type="submit" id="loginedInButton">Sign in</button>
                               </div>
                             </div>
 
 
 
-                </div>
+                </form>
                       </ul>
                   </div>
 
@@ -155,14 +155,11 @@ if ($user) {
 
                                 </ul>
                             </div>
-
-
-
                    </li>
               </ul>
 
               <?php endif ?>
-        <?php  echo $InitialLocationSelectClass->GetLocation();?>
+        <?php  echo $InitialLocationSelectClass->GetLocation('LoginedIn');?>
 
     </div>
       </div><!--/.nav-collapse -->
