@@ -149,10 +149,17 @@ class LoginedIn extends User{
         $Result=json_decode(parent::ValidNormalUserMailAndPass($GetNuerMail,md5(base64_encode($GetNuerMailPass))));
         if (count($Result)>0){
             session_start();
+
+
+
+
             //saving current user ID,username,photo to session
             $_SESSION['LoginedUserID']=$Result[0]->UserID;
             $TmpName=$Result[0]->UserName;
             $TmpPhoto=$Result[0]->UserPhotoPath;
+            $TmpType=$Result[0]->UserType;
+            $_SESSION['LoginedUserType']=$TmpType;
+           if($TmpType==='Facebook' || $TmpType==='Users'){
 
             if (!isset($TmpName)){
                 $_SESSION['LoginedUserName']=$Result[0]->UserMail;
@@ -168,10 +175,30 @@ class LoginedIn extends User{
             else if(isset($TmpPhoto)){
                 $_SESSION['LoginedUserPhoto']=$TmpPhoto;
             }
+                return 'pass';
+          }
+            else if($TmpType==='Restaturant'){
+                //if UserID exeisted in the restaruant, then return value
+                $tmpRestaurantValues=json_decode(parent::ValidSameUserIDInRestaurant($Result[0]->UserID));
+                $_SESSION['RestaruantID']=$tmpRestaurantValues[0]->RestID;
+
+                if (!isset($tmpRestaurantValues[0]->ResName)){
+                    $_SESSION['LoginedUserName']=$tmpRestaurantValues[0]->UserMail;
+                }
+                else{
+                    $_SESSION['LoginedUserName']=$tmpRestaurantValues[0]->ResName;
+
+                }
+                if(!isset($tmpRestaurantValues[0]->ResPicPath)){
+                    $_SESSION['LoginedUserPhoto']=GlobalPath.'/assets/framework/front-images/avatar_vendor_default_profile.png';
+                }
+                else{
+                    $_SESSION['LoginedUserPhoto']=$tmpRestaurantValues[0]->ResPicPath;
+                }
+                return 'pass';
+            }
 
 
-
-            return 'pass';
         }
         else if(count($Result)===0){
             return 'NoMatch';

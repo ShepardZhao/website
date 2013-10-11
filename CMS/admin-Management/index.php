@@ -66,7 +66,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                             <!-- Add the class "current" to current menu item -->
                             Manage Restaurants&Cuisines </a>
                         <ul class="Nav-list">
-                            <li id="AddedRestaurants-clicked"><a title="Added Restaurants">Add Restaurants</a></li><!--An able to add the new restaurants-->
+                            <li id="AddedRestaurants-clicked" ><a title="Registered New Restaurants's account">Added A New Restaurant</a></li><!--An able to add the new restaurants-->
                             <li id="AddedCuisines-clicked"><a title="Added Cuisines">Add Cuisines</a></li><!--An able to add the new Cuisines for one of restaurants-->
                             <li id="Restaurants-clicked"><a title="Displayed All Restaurants">Restaurants List</a></li><!--Restaurants list that shows all restaurants that located at database-->
                             <li id="Cuisines-clicked"><a title="Displayed All Cuisine">Cuisines List</a></li><!--Restaurants list that shows all restaurants that located at database-->
@@ -163,8 +163,36 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
               <div id="addedRestaurant">
               <div class="row-fluid">
               <div class="span12">
-              <div class="divhead"><h4><i class="icon-list-ul">  Please Added the Restaurant</i><h4></div>
+              <div class="divhead"><h4><i class="icon-list-ul"> Register A New Restaurant</i><h4></div>
               <div class="basicInfo-box">
+                  <form id="MyRestaurant">
+                      <div class="span12 text-center">
+                          <div class="form-horizontal">
+                              <!--Restarurant UserName-->
+                              <div class="control-group">
+                                  <label class="control-label">Restarurant's Email(As LoginedUserName):</label>
+                                  <div class="controls text-left">
+                                      <input type="email" class="span8" id="RestaruantEmail" >
+                                  </div>
+                              </div>
+                              <!--Restarurant Name-->
+                              <div class="control-group">
+                                  <label class="control-label">Restarurant's Password:</label>
+                                  <div class="controls text-left">
+                                      <input type="password" class="span8" id="RestarurantPassword" value="">
+                                  </div>
+                              </div>
+                              <!--Restarurant Phone-->
+                              <div class="control-group">
+                                  <label class="control-label">Restarurant's Phone:</label>
+                                  <div class="controls text-left">
+                                      <input type="text" class="span8" id="RestarurantPhone" value="">
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <button id="RestaurantResSubmit" class="button" type="submit">Submit</button>
+                  </form>
 
 
               </div>
@@ -395,6 +423,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
 
 
+
 <!-----------------------------------------------User List---------------------------------------------------->
               <div id="UserList">
               <div class="row-fluid">
@@ -410,9 +439,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                              <input type="email" class="input-block-level" id="Input-Search" placeholder="Search User By Email" >
                              <button id="UserListSearch" class="button" type="button">Search</button>
                              <button id="UserListDelete" class="button" type="button">Delete</button>
-
                          </div>
-
                 </div>
                  </div>
               </div>
@@ -430,7 +457,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                               <input class="input-xxlarge" id='TitleOfConstructOfActiveMail' type="text" value="<?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailTitle'];?>" placeholder="Please put title here (i.e: Please Click below link to complete activation)">
                               <br>
                               <textarea class="ckeditor" cols="80" id="ConstructOfActiveMailContent" name="ConstructOfActiveMailContent" rows="10"><?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailConstructer'];?></textarea>
-                              <script>
+                              <script type="text/javascript">
                                   CKEDITOR.replace('ConstructOfActiveMailContent');//active the Ckeditor plugs via element
                               </script>
                               <br>
@@ -449,53 +476,12 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
               <!-----------------------------------------------Tags Management---------------------------------------------------->
              <div id="TagsManagement">
-                     <div class="row-fluid">
-                         <div class="span12">
-          <!---------------------------Restaurants's tag---------------------->
-                             <div class="divhead"><h4><i class="icon-list-ul">  Restaurants's Tags Setting</i><h4></div>
-                             <div class="basicInfo-box">
-                                 <div class="row-fluid">
-                                        <div class="span5 offset1">
-
-                                            <div class="input-prepend">
-                                                <span class="add-on">Availability</span>
-                                                <input class="span7" id="InputResAvailability" type="text" placeholder="New Availability">
-
-                                            </div>
-                                            <div id="RestaurantAvailabilityTagsList">
-                                            <?php $TagsClass->outPutRestaurantTags("Availability","B2C.RestaurantTags");?>
-                                            </div>
-                                            <br>
-                                            <button id="AddResAvailabilityButton" class="button" type="button">Add</button>
-                                            <button id="RemoveResAvailabilityButton" class="button" type="button">Reomve</button>
-
-                                        </div>
-
-
-                                     <div class="span5 offset1">
-                                         <div class="input-prepend">
-                                             <span class="add-on">Cuisine</span>
-                                             <input class="span9" id="InputResCuisine" type="text" placeholder="New Cuisine">
-
-                                         </div>
-                                         <div id="RestaurantCuisineTagsList">
-                                         <?php $TagsClass->outPutRestaurantTags("Cuisine","B2C.RestaurantTags");?>
-                                         </div>
-                                         <br>
-                                         <button id="AddResCuisineButton" class="button" type="button">Add</button>
-                                         <button id="RemoveResCuisineButton" class="button" type="button">Remove</button>
-
-                                     </div>
-
-                                 </div>
-                             </div>
-                         </div>
 
             <!---------------------------Cuisine tags--------------------------->
                          <div id="display_info" class="row-fluid"><div class="span12"></div></div>
                          <div class="row-fluid">
                          <div class="span12">
-                             <div class="divhead"><h4><i class="icon-list-ul">  Cuisine's Tags Setting</i><h4></div>
+                             <div class="divhead"><h4><i class="icon-list-ul">  Cuisine's and Restaurants's Tags Setting</i><h4></div>
                              <div class="basicInfo-box">
                                  <div class="row-fluid">
                                      <div class="span5 offset1">
@@ -506,7 +492,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
                                          </div>
                                          <div id="CuisineAvailabilityTagsList">
-                                         <?php $TagsClass->outPutRestaurantTags("Availability","B2C.CuisineTags");?>
+                                         <?php $TagsClass->outPutTags("Availability","B2C.CuisineTags");?>
                                          </div>
                                          <br>
                                          <button id="AddCuisAvailabilityButton" class="button" type="button">Add</button>
@@ -522,14 +508,24 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
                                          </div>
                                          <div id="CuisineCuisineTagsList">
-                                         <?php $TagsClass->outPutRestaurantTags("Cuisine","B2C.CuisineTags");?>
+                                         <?php $TagsClass->outPutTags("Cuisine","B2C.CuisineTags");?>
                                          </div>
                                          <br>
                                          <button id="AddCuisCuisineButton" class="button" type="button">Add</button>
                                          <button id="RemoveCuisCuisineButton" class="button" type="button">Remove</button>
 
                                      </div>
-                                     <div class="row-fluid"><div class="span12"></div></div>
+                                     <!--notes-->
+
+
+                                     <div class="row-fluid">
+                                         <div class="span12">
+                                             <br>
+                                             <div class="alert alert-info">
+                                                Notes: The tags of Avaliability and Cuisine are some as been used in the Restaurants's tags
+                                             </div>
+                                        </div>
+                                     </div>
 
                                     <div class="row-fluid">
                                      <div class="span5 offset1">
@@ -539,7 +535,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
                                          </div>
                                          <div id="CuisineTypeTagsList">
-                                         <?php $TagsClass->outPutRestaurantTags("Type","B2C.CuisineTags");?>
+                                         <?php $TagsClass->outPutTags("Type","B2C.CuisineTags");?>
                                          </div>
                                          <br>
                                          <button id="AddCuisTypeButton" class="button" type="button">Add</button>
@@ -554,7 +550,7 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
 
                                             </div>
                                             <div id="CuisinePriceTagsList">
-                                            <?php $TagsClass->outPutRestaurantTags("Price","B2C.CuisineTags");?>
+                                            <?php $TagsClass->outPutTags("Price","B2C.CuisineTags");?>
                                             </div>
                                             <br>
                                             <button id="AddCuisPriceButton" class="button" type="button">Add</button>
@@ -577,6 +573,9 @@ if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmminist
                          </div>
 
                          </div>
+
+
+
 
              </div>
 

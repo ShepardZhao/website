@@ -223,7 +223,7 @@ $(document).ready(function(){
                 }
                 else if(msg==='Repeated UserMail'){
 
-                    AjaxMessageError("alert-error","The Email your filled that already existed");
+                    AjaxMessageError("alert-error","The Email your filled that already existed, if you have facebook acctount you can login in straight away.");
                     return false;
                 }
 
@@ -371,9 +371,9 @@ $(document).ready(function(){
             request.done(function( msg ) {
                 if(msg==='pass'){
                 $('#loginedInButton').empty().append('Wait..');
-                    console.log(1);
                 window.location.reload();//reload the page if the uer login
                 }
+
                 else if(msg==='NoMatch'){
                     $('#loginedInButton').empty().append('Submit');
                     InfoAlert('#infoHead','Sorry, Cannot find your Info');

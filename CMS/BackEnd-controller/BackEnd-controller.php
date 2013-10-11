@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
     /********************************Refresh Data*************************************/
  if($_POST['RefreshTagsTableName'] && $_POST['RefreshTagsName']){
-        echo $TagsClass->outPutRestaurantTags($_POST['RefreshTagsName'],$_POST['RefreshTagsTableName']);
+        echo $TagsClass->outPutTags($_POST['RefreshTagsName'],$_POST['RefreshTagsTableName']);
     }
     /********************************Set Tags******************************/
  else if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['TagsValue'])&& $_POST['DeleteCondition']==='False' && isset($_POST['IndexID'])){
@@ -25,6 +25,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 
 /**************************************Location Controller********************************************************/
+
 
 if((isset($_POST['RootLocationPic']) && isset($_POST['RootLocation'])) ||isset($_POST['SubLocation'])){
    $RootLocation=$_POST['RootLocation'];
@@ -112,6 +113,27 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['DeleteUserID'])){//delete User by userID
         echo $UserClass->DeleteUserByID($_POST['DeleteUserID']);
 
+    }
+
+
+/***********************************************Restaruant regisation*********************************************/
+    if(isset($_POST['RegResturantEmail']) && isset($_POST['RegGetResturantPass']) && isset($_POST['RegisterStatus']) && isset($_POST['RegisterType'])){
+        $ResturantRegisterID=$RegisterUserClass->GenerateRandomUserID();
+
+        echo $ResturantsRegClass->ResturantRegisation($ResturantRegisterID,$_POST['RegResturantEmail'],$_POST['RegGetResturantPass'],$_POST['RegisterStatus'],$_POST['RegisterType']);
+    }
+
+/***********************************************Restaruant password changing***************************************/
+    if(isset($_POST['BusAccount']) && isset($_POST['BusOldPassword']) && isset($_POST['BusNewPassword'])){
+        echo $UserClass->UpdateRegUserPassword($_POST['BusOldPassword'],$_POST['BusNewPassword'],$_POST['BusAccount']);
+    }
+/*********************************************Restaruant info edit************************************************/
+    if(isset($_POST['MyRestaurantEdit'])){
+        echo $RestartuantClass->GetRestartuantParam($_POST['MyResUID'],$_POST['MyResID'],$_POST['MyResName'],$_POST['MyResAddress'],$_POST['MyResContactName'],$_POST['MyResContactNumber'],$_POST['MyResAvailabilityTag'],$_POST['MyResCuisineTag'],$_POST['MyResOpeningHours'],$_POST['MyResReview']);
+    }
+/*********************************************Restaruant photo uploading******************************************/
+    if(isset($_POST['RestaruantUID'])&& isset($_POST['RestaruantID']) && isset($_POST['RestaruantPhotoPath'])){
+        echo $RestartuantClass->RestaruantPhotoUploader($_POST['RestaruantUID'],$_POST['RestaruantID'],$_POST['RestaruantPhotoPath']);
     }
 
 }

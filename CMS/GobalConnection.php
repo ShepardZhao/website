@@ -29,12 +29,17 @@ $TempActivationClass=new TempActivationClass($Mysql_Connection);
 $RegisterUserClass=new RegisterUser($Mysql_Connection);
 /***********************************Declare LoginedIN class*************************/
 $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal user
-/***********************************Declare UserAddressBook*************************/
+/***********************************Declare Restaurant class************************/
+$ResturantsRegClass=new ResturantsReg($Mysql_Connection);
+/***********************************Declare UserAddressBook class*************************/
 $MyaddressBookClass=new MyaddressBook($Mysql_Connection);
-/**********************************Initial location display************************/
+/**********************************Initial location display class ************************/
 $InitialLocationSelectClass=new InitialLocationSelect($Mysql_Connection);
-/**********************************Initial User Address Book************************/
+/**********************************Initial User Address Book class ************************/
 $InitialUserMyaddressBookClass=new InitialUserMyaddressBook($Mysql_Connection);
+/*********************************Restartuant class***************************************/
+$RestartuantClass=new Restartuant($Mysql_Connection);
+
 
 
 

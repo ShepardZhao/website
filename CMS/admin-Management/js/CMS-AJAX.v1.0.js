@@ -330,15 +330,7 @@ $(document).ready(function(){
     }
 
     function refreshTagsList(dataObj){
-        //RestaurantTags
-        if(dataObj['TagsTableName']==='B2C.RestaurantTags'&& dataObj['TagsID']==='Availability'){
-            refreshTagslistAJAX('B2C.RestaurantTags','Availability','#RestaurantAvailabilityTagsList');
-        }
-        else if(dataObj['TagsTableName']==='B2C.RestaurantTags'&& dataObj['TagsID']==='Cuisine'){
-            refreshTagslistAJAX('B2C.RestaurantTags','Cuisine','#RestaurantCuisineTagsList');
-        }
-        //Cuisine
-        else if(dataObj['TagsTableName']==='B2C.CuisineTags'&& dataObj['TagsID']==='Availability'){
+        if(dataObj['TagsTableName']==='B2C.CuisineTags'&& dataObj['TagsID']==='Availability'){
             refreshTagslistAJAX('B2C.CuisineTags','Availability','#CuisineAvailabilityTagsList');
         }
         else if(dataObj['TagsTableName']==='B2C.CuisineTags'&& dataObj['TagsID']==='Cuisine'){
@@ -405,18 +397,7 @@ $(document).ready(function(){
         return window.TmpDeleteArray;
     });
 
-//Restarurant
-    $('body').on('click','#RemoveResAvailabilityButton',function(){//remove Availability in Restarurant function
-        window.TmpDeleteArray['IndexID']='RestaurantTagsID';
-        TagAjax(window.TmpDeleteArray);
-    });
-
-    $('body').on('click','#RemoveResCuisineButton',function(){//remove Cuisine in Restaruant function
-        window.TmpDeleteArray['IndexID']='RestaurantTagsID';
-        TagAjax(window.TmpDeleteArray);
-    });
-
-//Cuisine
+//remove tags
     $('body').on('click','#RemoveCuisAvailabilityButton',function(){//remove Availability in Availability function
         window.TmpDeleteArray['IndexID']='CuisineTagesID';
         TagAjax(window.TmpDeleteArray);
@@ -440,20 +421,10 @@ $(document).ready(function(){
 
 
 
-    /***********************************************Add Restaruants Tags*****************************************/
-        //This containts Availability in Restaruant
-    $('body').on('click','#AddResAvailabilityButton',function(){
 
-        TagAjax(TmpArray('Availability',$('#InputResAvailability').val(),'B2C.RestaurantTags','False','RestaurantTagsID'));
-    });
+    /***********************************************Add Tags*****************************************/
 
-    //This containts Cuisine in Restaruant
-    $('body').on('click','#AddResCuisineButton',function(){
 
-        TagAjax(TmpArray('Cuisine',$('#InputResCuisine').val(),'B2C.RestaurantTags','False','RestaurantTagsID'));
-    });
-
-    /***********************************************Add Cuisine Tags*****************************************/
         //This containts Availability in Cuisine
     $('body').on('click','#AddCuisAvailabilityButton',function(){
         TagAjax(TmpArray('Availability',$('#InputCuisAvailability').val(),'B2C.CuisineTags','False','CuisineTagesID'));
@@ -881,6 +852,44 @@ $('body').on('click','#UserListDelete',function(){
             Loading_more();
             });
     }
+/***************************************************Restaurant registation****************************/
+    $('body').on('submit','#MyRestaurant',function(e){
+        var GetResturantEmail=$('#RestaruantEmail').val();
+        var GetResturantPass=$('#RestarurantPassword').val();
+        var RegisterStatus=1;
+        var RegisterType="Restaturant";
+        var tmp={};
+        tmp['RegResturantEmail']=GetResturantEmail;
+        tmp['RegGetResturantPass']=GetResturantPass;
+        tmp['RegisterStatus']=1;
+        tmp['RegisterType']=RegisterType;
 
+        var request= $.ajax({
+            url:CurrentDomain+'/cms/BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            data:tmp,
+            dataType: "html"
+        });
+        request.done(function(content){
+            if(content==='Repeated UserMail'){
+                $('<div class="alert alert-error"><strong>Sorry Repeated Mail address</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+
+            else if(content==='successed'){
+                $('<div class="alert alert-info"><strong>added a new restaurant</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                setTimeout(function(){$('.alert-info').fadeOut(); },5000);
+            }
+            else if(content==='error'){
+                $('<div class="alert alert-error"><strong>sorry, there is an error happended on database, please try it later</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+
+        });
+
+
+        return false;
+    });
 
 });

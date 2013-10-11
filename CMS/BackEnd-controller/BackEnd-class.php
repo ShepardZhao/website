@@ -108,7 +108,7 @@ Class Tags{
 
     }
 
-    public function outPutRestaurantTags($Tags,$Table){//display the Tags via html
+    public function outPutTags($Tags,$Table){//display the Tags via html
         $tmpArray=self::getTags($Tags,$Table);
         echo "<select id='$Tags' class='tagslist' multiple='multiple'>";
         foreach ($tmpArray as $values){
@@ -158,6 +158,24 @@ Class Tags{
             return unserialize($tmpArry);
         }
     }
+
+
+    //put the tags into the selct option
+    public function OupPutTagBySelecOption($NameOfTags,$Table){
+        $tmpArray=self::getTags($NameOfTags,$Table);
+        echo "<select id='$NameOfTags' class='span2 MyResttagslist'>";
+        foreach ($tmpArray as $values){
+            if($values!=''){
+                echo "<option value='$values' id='$Table'>$values</option>";
+            }
+        }
+        echo "</select>";
+
+
+    }
+
+
+
 
 }
 
@@ -270,6 +288,34 @@ class Location{
             return "Modified error";
 
         }
+
+
+    }
+
+
+
+
+    public function GetRootLocationBySelectOption(){
+        $GetLocationArray=self::GetLocationNoParma();
+        echo "<select id='MyRestartuant' class='span4 MyResRootAddress'>";
+        foreach ($GetLocationArray as $key=>$subArray){
+            foreach ($subArray as $Secondkey=>$secondvalue){
+                if($Secondkey==='LevelOne'){
+                    foreach($secondvalue as $finalKey=>$value)
+                echo "<option value='$value' id='$value'>$value</option>";
+            }
+            }
+
+        }
+        echo "</select>";
+
+
+
+
+
+
+
+
 
 
     }
@@ -566,11 +612,6 @@ class User{
 
 
 
-
-
-
-
-
     Public function ReadAllUser(){
         if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM B2C.User")){
             $stmt->execute();
@@ -646,10 +687,10 @@ class User{
 
     //validing normal user and its password and mail, then return status
     public function ValidNormalUserMailAndPass($GetEmail,$GetEncryedPassword){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM B2C.User WHERE UserMail=? AND UserPassWord=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail, UserType FROM B2C.User WHERE UserMail=? AND UserPassWord=?")){
             $stmt->bind_param('ss',$GetEmail,$GetEncryedPassword);
             $stmt->execute();
-            $stmt->bind_result($UserID,$UserName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail);
+            $stmt->bind_result($UserID,$UserName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail,$UserType);
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -663,6 +704,28 @@ class User{
 
 
     }
+
+//validation same UserID in Restaruant
+    public function ValidSameUserIDInRestaurant($UserID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserID, User.UserName, User.UserPassWord, User.UserPhone, User.UserPhotoPath, User.UserMail, User.UserType, Restaurants.RestID, Restaurants.ResPicPath, Restaurants.ResName FROM B2C.User LEFT JOIN B2C.Restaurants ON User.UserID=Restaurants.UserID WHERE Restaurants.UserID=?")){
+            $stmt->bind_param('s',$UserID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+
+            return json_encode($object); //returned condition user info by json;
+
+        }
+
+
+    }
+
+
+
 
 //Register user updating-basic info
     public function UpdateRegUserBasicInfo($UserName,$UserFirstName,$UserLastName,$UserPhone,$UserMail,$UserAddress,$UserID){
@@ -1011,6 +1074,88 @@ class Login extends User{
 
 }
 
+/***************************************************Resturants Regisation (not front registation, cms only)***********************************************/
+class ResturantsReg extends User{
+    private $ResturantRegisterID=null;
+    private $ResturantRegisterPass=null;
+    private $ResturantRegisterEmail=null;
+    private $ResturantRegisterType=null;
+    private $ResturantRegisterStatus=null;
+
+    public function __construct($DataBaseCon){
+        parent::__construct($DataBaseCon);
+    }
+
+    public function ResturantRegisation($ResturantRegisterID,$ResturantRegisterEmail,$ResturantRegisterPass,$ResturantRegisterStatus,$ResturantRegisterType){
+        $this->ResturantRegisterID=$ResturantRegisterID;
+        $this->ResturantRegisterEmail=$ResturantRegisterEmail;
+        $this->ResturantRegisterPass=$ResturantRegisterPass;
+        $this->ResturantRegisterStatus=$ResturantRegisterStatus;
+        $this->ResturantRegisterType=$ResturantRegisterType;
+        return self::MartchEmail($this->ResturantRegisterEmail);
+    }
+    private function MartchEmail($GetEmail){
+        $RepatedMail=0;
+        $getArray=json_decode(parent::SearchUser($InputEmail));
+        foreach ($getArray as $key=>$subvalueArray){
+            foreach($subvalueArray as $subKey=>$value){
+                if($subKey==='UserMail'){
+                    if($value===$InputEmail){
+                        $RepatedMail=1;
+                        break;
+                    }
+
+                }
+            }
+
+        }
+        if($RepatedMail===1){
+            return 'Repeated UserMail';
+        }
+        else if($RepatedMail===0){
+
+            return self::InsertRestaurantToDatabase();
+
+        }
+
+    }
+private function InsertRestaurantToDatabase(){
+
+         $condition1=0;
+         $condition2=0;
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.User (UserID,UserMail,UserPassWord,UserStatus,UserType) VALUES (?,?,?,?,?)")){
+            $stmt->bind_param('issis',$this->ResturantRegisterID,$this->ResturantRegisterEmail,md5(base64_encode($this->ResturantRegisterPass)),$this->ResturantRegisterStatus,$this->ResturantRegisterType);
+            $stmt->execute();
+            $stmt->close();
+            $condition1=1;
+          }
+
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Restaurants (UserID,RestID) VALUES (?,?)")){
+            $ResID='R'.$this->ResturantRegisterID;
+            $stmt->bind_param('is',$this->ResturantRegisterID,$ResID);
+            $stmt->execute();
+            $stmt->close();
+            $condition2=1;
+        }
+
+    if($condition1===1 && $condition2===1){
+        return 'successed';
+    }
+    else{
+        return 'error';
+    }
+
+
+
+}
+
+
+
+}
+
+
+
+
 
 /**************************************************Temp Activation class************************************************/
 class TempActivationClass{
@@ -1177,8 +1322,91 @@ class Mailsetting{
 
 }
 
+/**********************************************Restartuant class**********************************************************/
+class Restartuant {
+    private  $DataBaseCon=null;
+    private  $ResUID=null;
+    private  $ResID=null;
+    private  $ResName=null;
+    private  $ResAddress=null;
+    private  $ResContactName=null;
+    private  $ResContactPhone=null;
+    private  $ResAvailabilityTag=null;
+    private  $ResCuisineTag=null;
+    private  $ResOpeningHours=null;
+    private  $ResReview=null;
+
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+    public function GetRestartuantParam($ResUID,$ResID,$ResName,$ResAddress,$ResContactName,$ResContactPhone,$ResAvailabilityTag,$ResCuisineTag,$ResOpeningHours,$ResReview){
+
+        $this->ResUID=$ResUID;
+        $this->ResID=$ResID;
+        $this->ResName=$ResName;
+        $this->ResAddress=$ResAddress;
+        $this->ResContactName=$ResContactName;
+        $this->ResContactPhone=$ResContactPhone;
+        $this->ResAvailabilityTag=$ResAvailabilityTag;
+        $this->ResCuisineTag=$ResCuisineTag;
+        $this->ResOpeningHours=serialize($ResOpeningHours);
+        $this->ResReview=$ResReview;
+        return self::InsertRestaruantRecord();
+
+    }
+
+    private function InsertRestaruantRecord(){
+       //user table
+        $Condition1=0;
+       //restaruant table
+        $Condition2=0;
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.User SET UserName=?, UserPhone=? WHERE UserID=?")){
+           $stmt->bind_param('sii',$this->ResContactName,$this->ResContactPhone,$this->ResUID);
+           $stmt->execute();
+           $stmt->close();
+           $Condition1=1;
+        }
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Restaurants SET ResName=?, ResAddress=?, ResAvaliability=?, ResCuisine=?, ResOpenTime=?, ResReview=? WHERE RestID=?")){
+            $stmt->bind_param('sssssis',$this->ResName,$this->ResAddress,$this->ResAvailabilityTag,$this->ResCuisineTag,$this->ResOpeningHours,$this->ResReview,$this->ResID);
+            $stmt->execute();
+            $stmt->close();
+            $Condition2=1;
+
+        }
+
+        if($Condition1===1 && $Condition2===1){
+
+            return 'Successed';
+        }
+        else{
+            return 'Error';
+        }
+
+    }
+
+//Restaruant's photo uploading
+    public function RestaruantPhotoUploader($UID,$ResID,$ResPhotoPath){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Restaurants SET ResPicPath=? WHERE RestID=? AND UserID=?")){
+            $stmt->bind_param('ssi',$ResPhotoPath,$ResID,$UID);
+            $stmt->execute();
+            $stmt->close();
+            return 'Successed';
+        }
+        else {
+            return 'Error';
+        }
+    }
 
 
+
+
+
+
+
+
+
+}
 
 
 ?>

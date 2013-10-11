@@ -132,6 +132,7 @@ if ($user) {
           </ul>
 
               <?php elseif(isset($_SESSION['LoginedUserID'])): ?>
+
           <ul class="nav nav-pills headNav pull-left">
                  <li><div class="btn-group"><div id="search"><input type="text" class="searchItem"  data-provide="typeahead" placeholder="Search Items......." ><img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png "></div> </div></li>
                </ul>
@@ -141,15 +142,21 @@ if ($user) {
 
           <li>
                             <div class="btn-group">
-                                <img width=40 height=40 src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
+                               <img style="width:40px; height:40px;"src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
                                 <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <span class="icon-sort-down icon-white"></span></button>
                                 <ul class="dropdown-menu pull-right">
+                                   <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyPrpfile">My Profile</a></li>
+                                   <?php }
+                                   elseif($_SESSION['LoginedUserType']==='Restaturant'){
+                                   ?>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/business-Management/?UID=<?php echo base64_encode($_SESSION['LoginedUserID'])?>&RestID=<?php echo base64_encode($_SESSION['RestaruantID']);?>">Manage My Restaturant</a></li>
 
+                                   <?php }?>
                                     <li class="divider"></li>
                                     <li><a href="<?php echo GlobalPath;?>/Login-Logout/logoff.php" onclick="fb_logff();">Log Out</a></li>
 

@@ -204,7 +204,6 @@ jQuery.extend({
           
         // Get the JavaScript object, if JSON is used.
         if ( type == "json" ){
-        	 /*** 如果返回的是字符串(JSON格式字符串)，下面会报错，导致无法走入sucess方法 加上\"  ***/
         	 // eval( "data = " + data );
         	 eval("data = \" "+data+" \" ");
         }
