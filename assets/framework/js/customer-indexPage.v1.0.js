@@ -30,7 +30,7 @@ $(document).ready(function(){
         $('body').on('click','.AddedNewAddress',function(){
             $('body').modalmanager('loading');
             setTimeout(function(){
-                $modal.load(CurrentDomain+'/cms/customer-Management/AddedNewAddress.php', '', function(){
+                $modal.load(CurrentDomain+'/cms/customer-Management/SubPages/AddedNewAddress.php', '', function(){
                     $modal.modal();
                 });
             }, 1000);

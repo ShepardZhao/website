@@ -1074,85 +1074,6 @@ class Login extends User{
 
 }
 
-/***************************************************Resturants Regisation (not front registation, cms only)***********************************************/
-class ResturantsReg extends User{
-    private $ResturantRegisterID=null;
-    private $ResturantRegisterPass=null;
-    private $ResturantRegisterEmail=null;
-    private $ResturantRegisterType=null;
-    private $ResturantRegisterStatus=null;
-
-    public function __construct($DataBaseCon){
-        parent::__construct($DataBaseCon);
-    }
-
-    public function ResturantRegisation($ResturantRegisterID,$ResturantRegisterEmail,$ResturantRegisterPass,$ResturantRegisterStatus,$ResturantRegisterType){
-        $this->ResturantRegisterID=$ResturantRegisterID;
-        $this->ResturantRegisterEmail=$ResturantRegisterEmail;
-        $this->ResturantRegisterPass=$ResturantRegisterPass;
-        $this->ResturantRegisterStatus=$ResturantRegisterStatus;
-        $this->ResturantRegisterType=$ResturantRegisterType;
-        return self::MartchEmail($this->ResturantRegisterEmail);
-    }
-    private function MartchEmail($GetEmail){
-        $RepatedMail=0;
-        $getArray=json_decode(parent::SearchUser($InputEmail));
-        foreach ($getArray as $key=>$subvalueArray){
-            foreach($subvalueArray as $subKey=>$value){
-                if($subKey==='UserMail'){
-                    if($value===$InputEmail){
-                        $RepatedMail=1;
-                        break;
-                    }
-
-                }
-            }
-
-        }
-        if($RepatedMail===1){
-            return 'Repeated UserMail';
-        }
-        else if($RepatedMail===0){
-
-            return self::InsertRestaurantToDatabase();
-
-        }
-
-    }
-private function InsertRestaurantToDatabase(){
-
-         $condition1=0;
-         $condition2=0;
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.User (UserID,UserMail,UserPassWord,UserStatus,UserType) VALUES (?,?,?,?,?)")){
-            $stmt->bind_param('issis',$this->ResturantRegisterID,$this->ResturantRegisterEmail,md5(base64_encode($this->ResturantRegisterPass)),$this->ResturantRegisterStatus,$this->ResturantRegisterType);
-            $stmt->execute();
-            $stmt->close();
-            $condition1=1;
-          }
-
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Restaurants (UserID,RestID) VALUES (?,?)")){
-            $ResID='R'.$this->ResturantRegisterID;
-            $stmt->bind_param('is',$this->ResturantRegisterID,$ResID);
-            $stmt->execute();
-            $stmt->close();
-            $condition2=1;
-        }
-
-    if($condition1===1 && $condition2===1){
-        return 'successed';
-    }
-    else{
-        return 'error';
-    }
-
-
-
-}
-
-
-
-}
-
 
 
 
@@ -1322,6 +1243,88 @@ class Mailsetting{
 
 }
 
+
+/***************************************************Resturants Regisation (not front registation, cms only)***********************************************/
+class ResturantsReg extends User{
+    private $ResturantRegisterID=null;
+    private $ResturantRegisterPass=null;
+    private $ResturantRegisterEmail=null;
+    private $ResturantRegisterType=null;
+    private $ResturantRegisterStatus=null;
+
+    public function __construct($DataBaseCon){
+        parent::__construct($DataBaseCon);
+    }
+
+    public function ResturantRegisation($ResturantRegisterID,$ResturantRegisterEmail,$ResturantRegisterPass,$ResturantRegisterStatus,$ResturantRegisterType){
+        $this->ResturantRegisterID=$ResturantRegisterID;
+        $this->ResturantRegisterEmail=$ResturantRegisterEmail;
+        $this->ResturantRegisterPass=$ResturantRegisterPass;
+        $this->ResturantRegisterStatus=$ResturantRegisterStatus;
+        $this->ResturantRegisterType=$ResturantRegisterType;
+        return self::MartchEmail($this->ResturantRegisterEmail);
+    }
+    private function MartchEmail($GetEmail){
+        $RepatedMail=0;
+        $getArray=json_decode(parent::SearchUser($InputEmail));
+        foreach ($getArray as $key=>$subvalueArray){
+            foreach($subvalueArray as $subKey=>$value){
+                if($subKey==='UserMail'){
+                    if($value===$InputEmail){
+                        $RepatedMail=1;
+                        break;
+                    }
+
+                }
+            }
+
+        }
+        if($RepatedMail===1){
+            return 'Repeated UserMail';
+        }
+        else if($RepatedMail===0){
+
+            return self::InsertRestaurantToDatabase();
+
+        }
+
+    }
+
+
+
+
+    private function InsertRestaurantToDatabase(){
+
+        $condition1=0;
+        $condition2=0;
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.User (UserID,UserMail,UserPassWord,UserStatus,UserType) VALUES (?,?,?,?,?)")){
+            $stmt->bind_param('issis',$this->ResturantRegisterID,$this->ResturantRegisterEmail,md5(base64_encode($this->ResturantRegisterPass)),$this->ResturantRegisterStatus,$this->ResturantRegisterType);
+            $stmt->execute();
+            $stmt->close();
+            $condition1=1;
+        }
+
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Restaurants (UserID,RestID) VALUES (?,?)")){
+            $ResID='R'.$this->ResturantRegisterID;
+            $stmt->bind_param('is',$this->ResturantRegisterID,$ResID);
+            $stmt->execute();
+            $stmt->close();
+            $condition2=1;
+        }
+
+        if($condition1===1 && $condition2===1){
+            return 'successed';
+        }
+        else{
+            return 'error';
+        }
+
+    }
+
+}
+
+
+
 /**********************************************Restartuant class**********************************************************/
 class Restartuant {
     private  $DataBaseCon=null;
@@ -1400,9 +1403,46 @@ class Restartuant {
 
 
 
+//fetch the all keys and values from Restaruant table by sepcial parameter
+    public function GetRestaruantWithParm($ResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Restaurants WHERE RestID=?")){
+            $stmt->bind_param('s',$ResID);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
 
+//fetch the all keys and values from Restaruant table
+  public function GetRestaruant(){
+      if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Restaurants")){
+          $stmt->execute();
+          $stmt->bind_result();
+          $result = $stmt->get_result();
+          $object=array();
+          while($row=$result->fetch_assoc()){
+              array_push($object,$row);
+          }
+          $stmt->close();
+          return json_encode($object);
+      }
+  }
 
+ //split time
+ public function explodeTime($GetArray){
 
+     foreach ($GetArray as $key=>$value){
+         $date[$key]=explode('-',$value);
+     }
+     return json_encode($date);
+
+ }
 
 
 

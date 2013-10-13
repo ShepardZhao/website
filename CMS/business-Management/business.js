@@ -141,7 +141,7 @@ $(document).ready(function(){
         //opening hour
         var Sunday="Sunday";
         var Monday="Monday";
-        var Tuesday="Tueday";
+        var Tuesday="Tuesday";
         var Wednesday="Wednesday";
         var Thursday="Thursday";
         var Friday="Friday";

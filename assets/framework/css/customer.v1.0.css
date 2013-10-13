@@ -177,6 +177,8 @@ a{
 /*logoed in*/
 .LoginedIn{
     width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
 }
 #loginedInButton{
