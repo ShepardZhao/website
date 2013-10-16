@@ -39,6 +39,8 @@ $InitialLocationSelectClass=new InitialLocationSelect($Mysql_Connection);
 $InitialUserMyaddressBookClass=new InitialUserMyaddressBook($Mysql_Connection);
 /*********************************Restartuant class***************************************/
 $RestartuantClass=new Restartuant($Mysql_Connection);
+/*********************************Cuisine class******************************************/
+$CuisineClass=new Cuisine($Mysql_Connection);
 
 
 

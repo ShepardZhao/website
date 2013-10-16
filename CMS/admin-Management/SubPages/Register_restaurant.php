@@ -27,9 +27,18 @@
                                     <input type="text" class="span8" id="RestarurantPhone" value="">
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
-                    <button id="RestaurantResSubmit" class="button" type="submit">Submit</button>
+                    <div id="infozone">
+                            <button id="RestaurantResSubmit" class="button" type="submit">Submit</button>
+                        <br>
+                        <br>
+
+                    </div>
+
+
                 </form>
 
 

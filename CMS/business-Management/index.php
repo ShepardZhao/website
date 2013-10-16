@@ -19,11 +19,12 @@
         <div class="row-fluid">
             <!--sidebar-->
             <?php require_once 'SubPages/Sidebar.php'?>
-            <div class="span9 rightContent">
+            <div class="span10 rightContent">
                 <div class="tab-content">
                     <!--My restaurant-->
                     <div class="tab-pane active" id="Dishes">
                         <!--Dishes-->
+                        <?php require_once 'SubPages/DishesPack/Dishes.php' ?>
                     </div>
 
                     <div class="tab-pane" id="Promotion">
@@ -75,5 +76,5 @@
 <?php else:?>
     <?php require_once '../../Login-Logout/login-Error.php';?>
 <?php endif ?>
-<?php include '../../footer.php'?>
+<?php require_once '../../footer.php'?>
 

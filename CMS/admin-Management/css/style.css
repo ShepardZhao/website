@@ -24,20 +24,23 @@ label{color:#333;font-size:13px!important;}
 }
 
 .button{
-    padding-top: 3px;
-    width: 70px;
-    height: 40px;
-    padding: 0;
+    padding:9px;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     color: rgba(255,255,255,1);
     border: none;
-    background-color: #368ee0;
+    background-color: #60b7e1;
     -webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
     -moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
     box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
 
+}
+.button:hover{
+    background-color: #237dac;
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
 }
 .BottomBorder{
     border-bottom:1px solid #888;

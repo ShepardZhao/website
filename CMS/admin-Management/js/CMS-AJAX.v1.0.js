@@ -863,7 +863,11 @@ $('body').on('click','#UserListDelete',function(){
         tmp['RegGetResturantPass']=GetResturantPass;
         tmp['RegisterStatus']=1;
         tmp['RegisterType']=RegisterType;
-
+        if(GetResturantEmail==='' || GetResturantPass===''){
+            $('<div class="alert alert-error"><strong>Sorry, you have to fill all fields</div>').insertAfter($('#infozone')).fadeIn(200);
+            setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+        }
+        else{
         var request= $.ajax({
             url:CurrentDomain+'/cms/BackEnd-controller/BackEnd-controller.php',
             type: "POST",
@@ -873,20 +877,21 @@ $('body').on('click','#UserListDelete',function(){
         });
         request.done(function(content){
             if(content==='Repeated UserMail'){
-                $('<div class="alert alert-error"><strong>Sorry Repeated Mail address</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                $('<div class="alert alert-error"><strong>Sorry Repeated Mail address</div>').insertAfter($('#infozone')).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
             }
 
             else if(content==='successed'){
-                $('<div class="alert alert-info"><strong>added a new restaurant</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                $('<div class="alert alert-info"><strong>added a new restaurant</div>').insertAfter($('#infozone')).fadeIn(200);
                 setTimeout(function(){$('.alert-info').fadeOut(); },5000);
             }
             else if(content==='error'){
-                $('<div class="alert alert-error"><strong>sorry, there is an error happended on database, please try it later</div>').insertBefore($('#RestaurantResSubmit')).fadeIn(200);
+                $('<div class="alert alert-error"><strong>sorry, there is an error happended on database, please try it later</div>').insertAfter($('#infozone')).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
             }
 
         });
+        }
 
 
         return false;

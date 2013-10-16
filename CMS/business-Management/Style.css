@@ -1,3 +1,7 @@
+.floatstyle{
+    float:left;
+}
+
 .business-margin{
 	margin-top: 80px;
 	margin-bottom: 20px;
@@ -20,20 +24,74 @@
     box-shadow: 0 1px 4px rgba(0,0,0,.065);
 }
 .button{
-    padding-top: 3px;
-    width: 70px;
-    height: 40px;
-    padding: 0;
+    padding:9px;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     color: rgba(255,255,255,1);
     border: none;
-    background-color: #368ee0;
+    background-color: #60b7e1;
     -webkit-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
     -moz-box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
     box-shadow: rgba(128,128,128,1) -100px -100px 0px -50px, inset rgba(255,255,255,0.4) 4px 1px 92px -7px;
 
+}
+.subbutton:hover,.button:hover{
+    background-color: #237dac;
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+}
+
+.button-delete{
+    background-color: #e74c3c;
+    padding:3px;
+}
+
+.button-delete:hover{
+    background-color: #c0392b;
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+}
+.subbutton{
+    padding:3px;
+}
+
+.SecondTitleWrap{
+    background:rgb(245,245,245);
+    padding:19px;
+}
+.SecondLevelModal{
+
+    width:650px !important;
+    margin-left: -330px !important;
+}
+
+.SecondLevelModalControl{
+    margin-left:40px !important;
+    margin-right:69px !important;
+
+}
+.SecondLevelModalLabel{
+    width:69px !important;
+    padding-top:7px !important;
+}
+.SecondLevelCheckbox{
+    margin-left:69px;
+}
+.SubSecondstyle{
+    margin-left:69px;
+
+}
+.SubSecondInputName{
+    width:170px;
+}
+.SubSecondInputPrice{
+    width:80px;
+}
+.SubCancel{
+    background:#e74c3c;
 }
 .affix {
     top: 80px;
@@ -110,3 +168,33 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
     background: #f2f2f2;
 }
+
+
+/************************************CusinesTable*******************************/
+#CusinesTable{
+    margin-top:19px;
+}
+.TableCheckBoxMargin{
+    margin-bottom:0 !important;
+}
+.TableButtonStyle{
+    padding:2px !important;
+}
+.initalHidden{
+    display:none;
+}
+.AjaxLoading{
+    text-align:center;
+    padding:100px;
+
+}
+.ReChooseTags{
+    color:#c09853;
+}
+.ReChooseTagsBackgroundWarning{
+    background:#fcf8e3;
+}
+.RepeatedOrder{
+    color:#b94a48;
+}
+

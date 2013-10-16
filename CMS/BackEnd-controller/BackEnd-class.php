@@ -1449,4 +1449,269 @@ class Restartuant {
 }
 
 
+/*************************************************Cuisine Class***********************************************/
+
+class Cuisine{
+    private  $DataBaseCon=null;
+    private  $CurrentCusineID=null;
+    private  $CurrentResID=null;
+    private  $CurrentCuisineName=null;
+    private  $CurrentCuisineDes=null;
+    private  $CurrentCuisinePrice=null;
+    private  $CurrentCuisineAvali=null;
+    private  $CurrentAvaliTag=null;
+    private  $CurrentCusinTag=null;
+    private  $CurrentCusinTypeTag=null;
+    private  $CurrentCusinPriceTag=null;
+    private  $CurrentCusinOrder=null;
+
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+    public function getParamOfCuisine($CurrentCusineID,$CurrentResID,$CurrentCuisineName,$CurrentCuisineDes,$CurrentCuisinePrice,$CurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$CurrentCusinOrder){
+        $this->CurrentCusineID=$CurrentCusineID;
+        $this->CurrentResID=$CurrentResID;
+        $this->CurrentCuisineName=$CurrentCuisineName;
+        $this->CurrentCuisineDes=$CurrentCuisineDes;
+        $this->CurrentCuisinePrice=$CurrentCuisinePrice;
+        $this->CurrentCuisineAvali=$CurrentCuisineAvali;
+        $this->CurrentAvaliTag=$CurrentAvaliTag;
+        $this->CurrentCusinTag=$CurrentCusinTag;
+        $this->CurrentCusinTypeTag=$CurrentCusinTypeTag;
+        $this->CurrentCusinPriceTag=$CurrentCusinPriceTag;
+        $this->CurrentCusinOrder=$CurrentCusinOrder;
+        return self::InsertFirstLevelCuisine();
+    }
+
+
+    //Order check
+    public function CuisineOrderCheck($GetOrder){
+        if(count(json_decode(self::CuisineOrderCheckDatabase($GetOrder)))>0){
+            return 'Repeated Order';
+        }
+        else {
+            return 'Current Order is available';
+        }
+       }
+    //Order check from database
+    private function CuisineOrderCheckDatabase($GetOrder){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Cuisine WHERE CuOrder=?")){
+            $stmt->bind_param('i',$GetOrder);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
+
+    //Cuisine First Level insert function
+    private function InsertFirstLevelCuisine(){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.Cuisine (CuID,CuName,CuDescr,Avaliability,CuAvaliability,CuCuisine,CuType, CuPrice, RestID, CuReview,CuOrder,Price,CuRating) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+            $CuReview=0;
+            $CuRating=0;
+            $stmt->bind_param('sssssssssiidi',$this->CurrentCusineID,$this->CurrentCuisineName,$this->CurrentCuisineDes,$this->CurrentCuisineAvali,$this->CurrentAvaliTag,$this->CurrentCusinTag,$this->CurrentCusinTypeTag,$this->CurrentCusinPriceTag,$this->CurrentResID,$CuReview,$this->CurrentCusinOrder,$this->CurrentCuisinePrice,$CuRating);
+            $stmt->execute();
+            $stmt->close();
+            return 'Submit successful';
+        }
+        else{
+            return 'Error';
+        }
+    }
+ //Insert record into Second Level of current cuisine: table name is SecondLevelofCuisine
+    public function CuisineSecondLevel($SecondLevelTitle,$PassCuid,$SubSecondLevel){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
+            $stmt->bind_param('sss',$SecondLevelTitle,serialize($SubSecondLevel),$PassCuid);
+            $stmt->execute();
+            $stmt->close();
+            return 'Submit successful';
+        }
+        else{
+            return 'Error';
+        }
+
+
+    }
+
+    //Delete Current Cuisine
+    public function DeleteCuisine($GetDeleteID){
+        $condition1=0;
+        $condition2=0;
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM B2C.Cuisine WHERE B2C.Cuisine.CuID=?")){
+            $stmt->bind_param('s',$GetDeleteID);
+            $stmt->execute();
+            $stmt->close();
+            $condition1=1;
+           }
+        else{
+            return 'Error';
+        }
+
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM B2C.SecondLevelofCuisine WHERE B2C.SecondLevelofCuisine.CuID=?")){
+            $stmt->bind_param('s',$GetDeleteID);
+            $stmt->execute();
+            $stmt->close();
+            $condition2=1;
+        }
+        else{
+            return 'Error';
+        }
+
+        if($condition1===1 && $condition2===1){
+            return 'Delete Successful';
+        }
+
+
+    }
+
+
+
+    //public Cuisine First Level updating
+    public function UpdateFirstLevelCuisine($UpCurrentCusineID,$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$CurrentCusinOrder){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Cuisine SET CuName=?,CuDescr=?, Price=?, Avaliability=?, CuAvaliability=?, CuCuisine=?, CuType=?, CuPrice=?, CuOrder=? WHERE CuID=?")){
+            $stmt->bind_param('ssdsssssis',$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$CurrentCusinOrder,$UpCurrentCusineID);
+            $stmt->execute();
+            $stmt->close();
+            return 'Update successful';
+        }
+        else{
+            return 'Error';
+        }
+    }
+
+    //return normal dataset of cuisine
+    private function ReturnDataOfNormalCuisine(){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Avaliability,CuName,CuPicPath,CuDescr,Price,CuAvaliability,CuCuisine,CuType,CuPrice,CuID FROM B2C.Cuisine ORDER BY CuOrder")){
+            $stmt->execute();
+            $stmt->bind_result($CuOrder,$Avaliability,$CuName,$CuPicPath,$CuDescr,$Price,$CuAvaliability,$CuCuisine,$CuType,$CuPrice,$CuID);
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
+    //return second dataset level of cuisine
+    private function ReturnDataOfSecondCuisine($getCuID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Cuisine LEFT JOIN B2C.SecondLevelofCuisine ON Cuisine.CuID=SecondLevelofCuisine.CuID WHERE SecondLevelofCuisine.CuID=?")){
+            $stmt->bind_param('s',$getCuID);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+
+
+    }
+
+
+    //return normal dataset of cuisine by CUID
+    public function ReturnDataOfNormalCuisineByID($GetCUID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Cuisine WHERE CuID=?")){
+            $stmt->bind_param('s',$GetCUID);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
+
+
+    //list cuisine into table
+    public function listCuisineTable(){
+        $GetNormalDataset=json_decode(self::ReturnDataOfNormalCuisine());
+       echo '<table class="table table-striped" id="CusinesTable">';
+       echo '<thead>';
+       echo '<tr>';
+       echo '<th>Order</th>';
+       echo '<th>Avaliable</th>';
+       echo '<th>Name</th>';
+       echo '<th>Picture</th>';
+       echo '<th>Description</th>';
+       echo '<th>Price</th>';
+       echo '<th>Tags</th>';
+       echo '<th>Second Level</th>';
+       echo '<th></th>';
+       echo '</tr>';
+       echo '</thead>';
+       echo '<tbody>';
+
+        foreach ($GetNormalDataset as $Rootkey=>$SubArray){
+            echo "<tr id=$Rootkey>";
+            foreach ($SubArray as $key=>$value){
+            if($key==='CuOrder'){
+            echo '<td>'.$value.'</td>';
+            }
+            if($key==='Avaliability'){
+                echo '<td>'.$value.'</td>';
+            }
+            if($key==='CuName'){
+                echo "<td class='CuName' id='$value'>$value</td>";
+            }
+            if($key==='CuPicPath'){
+                if(isset($value)){
+                echo "<td><img style='width:50px;height:50px' src='$value'></td>";
+                }
+                else{
+                    echo '<td><button class="btn TableButtonStyle" type="button">Uploads Photo</button></td>';
+
+                }
+            }
+            if($key==='CuDescr'){
+                echo '<td>'.$value.'</td>';
+            }
+            if($key==='Price'){
+                echo '<td>$'.$value.'</td>';
+            }
+
+            if($key==='CuID'){
+                echo "<td><button class='btn TableButtonStyle ShowTags' id='$value' type='button'>Shows Tags</button></td>";
+                if(count(json_decode(self::ReturnDataOfSecondCuisine($value)))>0){
+                echo "<td><button class='btn TableButtonStyle ShowSecondLevel' id='$value' type='button'>Shows Second level</button></td>";
+                }
+                else{
+                echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Adds Second Level</button></td>";
+                }
+                echo '<td>';
+                echo '<div class="form-inline">';
+                echo "<button class='button subbutton subAddNewBotton EditCusine' id='$value' type='button' >Edit</button> ";
+                echo "<button class='button text-right button-delete' id='$value' type='button'>Delete</button>";
+                echo '</div>';
+                echo '</td>';
+
+
+             }
+
+
+            }
+            echo '</tr>';
+        }
+
+       echo '</tbody>';
+       echo '</table>';
+
+    }
+
+
+}
+
+
 ?>

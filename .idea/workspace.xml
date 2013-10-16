@@ -2,39 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/AccountManagement.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/ContactUs.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/customer-Management/SubPages/MyAddressBook.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/customer-Management/SubPages/MyProfile.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/initialpage.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/customer-Management/SubPages/sidebar.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CMS/customer-Management/AddedNewAddress.php" afterPath="$PROJECT_DIR$/CMS/customer-Management/SubPages/AddedNewAddress.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" afterPath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" afterPath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/Customer.js" afterPath="$PROJECT_DIR$/CMS/customer-Management/Customer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/GobalConnection.php" afterPath="$PROJECT_DIR$/CMS/GobalConnection.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/Style.css" afterPath="$PROJECT_DIR$/CMS/business-Management/Style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/assets/framework/css/bootstrap.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/business.js" afterPath="$PROJECT_DIR$/CMS/business-Management/business.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" afterPath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" afterPath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.php" afterPath="$PROJECT_DIR$/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/index.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/index.php" afterPath="$PROJECT_DIR$/CMS/business-Management/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/index.php" afterPath="$PROJECT_DIR$/CMS/customer-Management/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/css/style.css" afterPath="$PROJECT_DIR$/CMS/admin-Management/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/style.css" afterPath="$PROJECT_DIR$/CMS/customer-Management/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="website.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/BackEnd-class.php" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380353905817" ignored="false" />
     <file path="/customer-indexPage.v1.0.js" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380454442755" ignored="false" />
-    <file path="/Dummy.txt" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380950429351" ignored="false" />
+    <file path="/Dummy.txt" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1381804698465" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +47,123 @@
     <favorites_list name="website" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="BackEnd-class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1566" column="20" selection-start="51668" selection-end="51685" vertical-scroll-proportion="-4.5510206">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="business.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/business.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="141" column="48" selection-start="4995" selection-end="4995" vertical-scroll-proportion="0.6104651">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SecondLevel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="150" selection-start="1637" selection-end="1648" vertical-scroll-proportion="-4.1836734">
+              <folding>
+                <marker date="1381837692000" expanded="true" signature="97:256" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="338:2421" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="370:2408" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="403:2392" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="449:2371" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="513:2186" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="685:870" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1019:1173" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1239:1870" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1275:1454" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1490:1710" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1919:2159" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="1980:2128" placeholder="..." />
+                <marker date="1381837692000" expanded="true" signature="2453:2713" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addDishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="56" selection-start="1138" selection-end="1145" vertical-scroll-proportion="-10.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditDishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="71" column="53" selection-start="3198" selection-end="3322" vertical-scroll-proportion="-11.541667">
+              <folding>
+                <marker date="1381811670000" expanded="true" signature="1010:1216" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="1281:1473" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="1545:1953" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="1622:1938" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="2047:2686" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="2753:3335" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="2822:3196" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="2866:3177" placeholder="..." />
+                <marker date="1381811670000" expanded="true" signature="3383:3484" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="customer-indexPage.v1.0.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="346" column="39" selection-start="10903" selection-end="10908" vertical-scroll-proportion="-5.64">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMS-AJAX.v1.0.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="610" column="0" selection-start="22735" selection-end="22735" vertical-scroll-proportion="-14.04">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BackEnd-controller.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="143" column="207" selection-start="8942" selection-end="8942" vertical-scroll-proportion="-3.2653062">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="164" selection-start="312" selection-end="312" vertical-scroll-proportion="-1.875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/Style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="90" column="11" selection-start="1982" selection-end="1982" vertical-scroll-proportion="-7.48">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -71,22 +181,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/index.php" />
-        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/ContactUs.php" />
-        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php" />
-        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/AccountManagement.php" />
+        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/CMS/customer-Management/Customer.js" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php" />
+        <option value="$PROJECT_DIR$/CMS/GobalConnection.php" />
         <option value="$PROJECT_DIR$/CMS/business-Management/index.php" />
-        <option value="$PROJECT_DIR$/CMS/customer-Management/SubPages/MyAddressBook.php" />
-        <option value="$PROJECT_DIR$/CMS/customer-Management/SubPages/MyProfile.php" />
-        <option value="$PROJECT_DIR$/CMS/customer-Management/SubPages/sidebar.php" />
-        <option value="$PROJECT_DIR$/CMS/customer-Management/index.php" />
-        <option value="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
-        <option value="$PROJECT_DIR$/header.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/Style.css" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/business.js" />
       </list>
     </option>
   </component>
@@ -98,7 +208,6 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="php" />
   <component name="PhpXdebugProxy" ide_key="PHPSTORM" host="b2c.com.au" port="9000" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-34" />
     <option name="y" value="22" />
     <option name="width" value="1254" />
     <option name="height" value="723" />
@@ -110,7 +219,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -189,82 +298,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="FrontEnd-controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="customer-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="customer-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SubPages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commons-js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="business-Management" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -288,6 +321,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SubPages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="business-Management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SubPages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DishesPack" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -324,28 +383,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="admin-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SubPages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -424,50 +461,6 @@
               <option name="myItemId" value="framework" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -491,16 +484,17 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="Configurable.PHP.Debug" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="Configurable.PHP.Debug" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack" />
       <recent name="$PROJECT_DIR$/CMS/customer-Management/SubPages" />
       <recent name="$PROJECT_DIR$/Login-Logout" />
     </key>
@@ -574,15 +568,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-34" y="22" width="1254" height="723" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1254" height="723" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.272351" sideWeight="0.77280265" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22719735" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27731788" sideWeight="0.7735537" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22644629" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -664,118 +658,141 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="406" />
+      <option name="time" value="478" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="30" selection-start="3923" selection-end="3923" vertical-scroll-proportion="-12.083333">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="6" selection-start="2837" selection-end="2837" vertical-scroll-proportion="-38.125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="6" selection-start="3194" selection-end="3194" vertical-scroll-proportion="-7.6530614">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="6" selection-start="13174" selection-end="13174" vertical-scroll-proportion="-101.875">
+        <state line="40" column="35" selection-start="2095" selection-end="2095" vertical-scroll-proportion="-6.875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/ContactUs.php">
+    <entry file="file://$PROJECT_DIR$/phpMyAdmin/js/jquery/src/jquery/outro.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="6" selection-start="1734" selection-end="1734" vertical-scroll-proportion="-25.0">
-          <folding />
-        </state>
+        <state line="3" column="24" selection-start="184" selection-end="184" vertical-scroll-proportion="0.027173912" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="18" selection-start="784" selection-end="784" vertical-scroll-proportion="-8.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/AccountManagement.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="6" selection-start="1396" selection-end="1396" vertical-scroll-proportion="-20.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyAddressBook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="6" selection-start="1512" selection-end="1512" vertical-scroll-proportion="-21.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="50" selection-start="563" selection-end="563" vertical-scroll-proportion="-4.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="0" selection-start="1626" selection-end="1626" vertical-scroll-proportion="-19.375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/AddedNewAddress.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyProfile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="6" selection-start="7206" selection-end="7206" vertical-scroll-proportion="4.1650486">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="172" selection-start="7861" selection-end="7861" vertical-scroll-proportion="0.3883495">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="76" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.59590316">
+        <state line="123" column="23" selection-start="3271" selection-end="3271" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/business-Management/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="37" selection-start="1517" selection-end="1517" vertical-scroll-proportion="-0.67286247">
+        <state line="76" column="26" selection-start="2961" selection-end="3024" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="13" selection-start="2864" selection-end="2877" vertical-scroll-proportion="-5.8333335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="67" selection-start="420" selection-end="420" vertical-scroll-proportion="-3.75">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="164" selection-start="312" selection-end="312" vertical-scroll-proportion="-1.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/Style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="11" selection-start="1982" selection-end="1982" vertical-scroll-proportion="-7.48">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="346" column="39" selection-start="10903" selection-end="10908" vertical-scroll-proportion="-5.64">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="143" column="207" selection-start="8942" selection-end="8942" vertical-scroll-proportion="-3.2653062">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="150" selection-start="1637" selection-end="1648" vertical-scroll-proportion="-4.1836734">
+          <folding>
+            <marker date="1381837692000" expanded="true" signature="97:256" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="338:2421" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="370:2408" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="403:2392" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="449:2371" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="513:2186" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="685:870" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1019:1173" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1239:1870" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1275:1454" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1490:1710" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1919:2159" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="1980:2128" placeholder="..." />
+            <marker date="1381837692000" expanded="true" signature="2453:2713" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="56" selection-start="1138" selection-end="1145" vertical-scroll-proportion="-10.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="53" selection-start="3198" selection-end="3322" vertical-scroll-proportion="-11.541667">
+          <folding>
+            <marker date="1381811670000" expanded="true" signature="1010:1216" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="1281:1473" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="1545:1953" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="1622:1938" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="2047:2686" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="2753:3335" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="2822:3196" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="2866:3177" placeholder="..." />
+            <marker date="1381811670000" expanded="true" signature="3383:3484" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="610" column="0" selection-start="22735" selection-end="22735" vertical-scroll-proportion="-14.04">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1566" column="20" selection-start="51668" selection-end="51685" vertical-scroll-proportion="-4.5510206">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/business.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="48" selection-start="4995" selection-end="4995" vertical-scroll-proportion="0.6104651">
           <folding />
         </state>
       </provider>

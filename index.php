@@ -79,14 +79,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 <?php include 'footer.php'?>

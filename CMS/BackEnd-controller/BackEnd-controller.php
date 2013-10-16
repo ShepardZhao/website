@@ -136,6 +136,32 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
         echo $RestartuantClass->RestaruantPhotoUploader($_POST['RestaruantUID'],$_POST['RestaruantID'],$_POST['RestaruantPhotoPath']);
     }
 
+
+/*********************************************Cuisine uploading*************************************************************/
+    if(isset($_POST['CurrentResID']) && isset($_POST['CurrentCuisineName']) && isset($_POST['CurrentCuisineDes']) && isset($_POST['CurrentCuisinePrice']) && isset($_POST['CurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag']) && isset($_POST['CurrentCusinOrder'])){
+        $tempCode=$RegisterUserClass->GenerateRandomUserID();
+        $CuisineID='C'.$tempCode;
+        echo $CuisineClass->getParamOfCuisine($CuisineID,$_POST['CurrentResID'],$_POST['CurrentCuisineName'],$_POST['CurrentCuisineDes'],$_POST['CurrentCuisinePrice'],$_POST['CurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag'],$_POST['CurrentCusinOrder']);
+    }
+
+/********************************************Cuisine modifying uploading*****************************************************/
+    if(isset($_POST['UpCurrentCuisineID']) && isset($_POST['UpCurrentCuisineName']) && isset($_POST['UpCurrentCuisineDes']) && isset($_POST['UpCurrentCuisinePrice']) && isset($_POST['UpCurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag']) && isset($_POST['CurrentCusinOrder'])){
+        echo $CuisineClass->UpdateFirstLevelCuisine($_POST['UpCurrentCuisineID'],$_POST['UpCurrentCuisineName'],$_POST['UpCurrentCuisineDes'],$_POST['UpCurrentCuisinePrice'],$_POST['UpCurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag'],$_POST['CurrentCusinOrder']);
+    }
+
+/********************************************list Cuisine's data***************************************************/
+    if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable();}
+
+/********************************************Cuisine order check***************************************************/
+    if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder']);}
+/********************************************Second Cuisine Submit*************************************************/
+    if(isset($_POST['SecondLevelTitle'])){echo $CuisineClass->CuisineSecondLevel($_POST['SecondLevelTitle'],$_POST['PassCuid'],$_POST['SubSecondLevel']);}
+/********************************************Delete current Cuisine inclduing second level**************************/
+    if(isset($_POST['CuisineDeleteID'])){echo $CuisineClass->DeleteCuisine($_POST['CuisineDeleteID']);}
+
+
+
+
 }
 
 
