@@ -7,6 +7,7 @@ $facebook = new Facebook(array(
     'secret' => '2bd1f1a4a93855a30c661f52b39a01c9',
 ));
 
+
 // See if there is a user from a cookie
 $user = $facebook->getUser();
 
@@ -18,10 +19,12 @@ if ($user) {
         $userPhoto='https://graph.facebook.com/'.$user_profile['id'].'/picture';
         if($RegisterUserClass->MatchUserFacebookID($user_profile['id'])===1){
             $LoginedInClass->FacebookLogininWithSession($user_profile['id'],$user_profile['name']);
+
         }else{$RegisterUserClass->DirectlyRegisterFacebook($user_profile['id'],$user_profile['name'],$user_profile['first_name'],$user_profile['last_name'],$user_profile['email'],$userPhoto,1,'Facebook');}
         //saving facebook user's info into database
     } catch (FacebookApiException $e) {
         $user = null;
+
     }
 }
 
@@ -54,124 +57,125 @@ if ($user) {
 
 </head>
 <body>
-<header><!--header begin-->
-<div class="navbar navbar-fixed-top ">
-  <div class="header">
-    <div class="container-fluid">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class=" brand" href="<?php echo GlobalPath;?>/index.php" alt="home"><img src="<?php echo GlobalPath;?>/assets/framework/front-images/logo.png" /></a>
-      <div class="nav-collapse collapse">
+<header id="header-controller"><!--header begin-->
+    <div class="navbar navbar-fixed-top ">
+        <div class="header">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class=" brand" href="<?php echo GlobalPath;?>/index.php" alt="home"><img src="<?php echo GlobalPath;?>/assets/framework/front-images/logo.png" /></a>
+                <div class="nav-collapse collapse">
 
-              <?php if ( !isset($_SESSION['LoginedUserID'])):?>
-          <ul class="nav nav-pills headNav pull-right ">
+                    <?php if (empty($_SESSION['LoginedUserID'])):?>
+                        <ul class="nav nav-pills headNav pull-right ">
 
-          <li>
-                  <div class="btn-group">
+                            <li>
+                                <div class="btn-group">
 
-                     <button onclick="fb_login()" class="setUpFacebook radius"  type="button" id="FacebookLogin" ><i class="icon-facebook icon-white"></i> SignUp with Facebook</button>
+                                    <button onclick="fb_login()" class="setUpFacebook radius"  type="button" id="FacebookLogin" ><i class="icon-facebook icon-white"></i> SignUp with Facebook</button>
 
-                  </div>
+                                </div>
 
-              </li>
-              <li>
-                  <div class="btn-group">
-                      <button  class="setUp radius" id="SignUp" type="button" data-toggle="modal"  >Sign Up
-                      </button>
-                  </div>
-              </li>
-              <li>
-                  <div class="btn-group">
-                      <button  class="dropdown-toggle setUp radius" type="button" data-toggle="dropdown">Sign In <i class="icon-sort-down icon-white"></i>
-                      </button>
-                      <ul class="dropdown-menu pull-right">
-                            <form id="login-area">
-                              <div class="control-group input-group">
-                                  <div class="controls">
-                                      <div class="input-prepend ">
-                                          <span class="add-on"><i class="icon-envelope"></i></span>
-                                          <input type="email" id="inputEmail" placeholder="Email">
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="control-group input-group">
-                                  <div class="controls">
-                                      <div class="input-prepend ">
-                                          <span class="add-on"><i class="icon-lock"></i></span>
-                                          <input type="password" id="inputPassword" placeholder="Password">
-                                      </div>
-                                  </div>
-                              </div>
-                              <div  class="ForgetPassword" data-toggle="modal"><label><h6>Forget Password?</h6></label></div>
+                            </li>
+                            <li>
+                                <div class="btn-group">
+                                    <button  class="setUp radius" id="SignUp" type="button" data-toggle="modal"  >Sign Up
+                                    </button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="btn-group">
+                                    <button  class="dropdown-toggle setUp radius" type="button" data-toggle="dropdown">Sign In <i class="icon-sort-down icon-white"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right">
+                                        <form id="login-area">
+                                            <div class="control-group input-group">
+                                                <div class="controls">
+                                                    <div class="input-prepend ">
+                                                        <span class="add-on"><i class="icon-envelope"></i></span>
+                                                        <input type="email" id="inputEmail" placeholder="Email">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="control-group input-group">
+                                                <div class="controls">
+                                                    <div class="input-prepend ">
+                                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                                        <input type="password" id="inputPassword" placeholder="Password">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div  class="ForgetPassword" data-toggle="modal"><label><h6>Forget Password?</h6></label></div>
 
-                            <div id="infoHead">
-                            <div class="input-prepend input-group">
-                                  <div class="controls">
-                                      <label class="checkbox checkboxSetting">
-                                          <input type="checkbox"> Remember me
-                                      </label>
-                                  </div>
-                              </div>
+                                            <div id="infoHead">
+                                                <div class="input-prepend input-group">
+                                                    <div class="controls">
+                                                        <label class="checkbox checkboxSetting">
+                                                            <input type="checkbox"> Remember me
+                                                        </label>
+                                                    </div>
+                                                </div>
 
-                              <div class="input-prepend input-group Go">
+                                                <div class="input-prepend input-group Go">
 
-                                  <button type="submit" id="loginedInButton">Sign in</button>
-                              </div>
-                            </div>
+                                                    <button type="submit" id="loginedInButton">Sign in</button>
+                                                </div>
+                                            </div>
 
 
 
-                </form>
-                      </ul>
-                  </div>
+                                        </form>
+                                    </ul>
+                                </div>
 
-              </li>
-          </ul>
+                            </li>
+                        </ul>
 
-              <?php elseif(isset($_SESSION['LoginedUserID'])): ?>
+                    <?php elseif(isset($_SESSION['LoginedUserID'])): ?>
 
-          <ul class="nav nav-pills headNav pull-left">
-                 <li><div class="btn-group"><div id="search"><input type="text" class="searchItem"  data-provide="typeahead" placeholder="Search Items......." ><img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png "></div> </div></li>
-               </ul>
-        </div>
+                    <ul class="nav nav-pills headNav pull-left">
+                        <li><div class="btn-group"><div id="search"><input type="text" class="searchItem"  data-provide="typeahead" placeholder="Search Items......." ><img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png "></div> </div></li>
+                    </ul>
+                </div>
 
-                  <ul class="nav nav-pills headNav pull-right">
+                <ul class="nav nav-pills headNav pull-right">
 
-          <li>
-                            <div class="btn-group">
-                               <img style="width:40px; height:40px;"src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
-                                <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <span class="icon-sort-down icon-white"></span></button>
-                                <ul class="dropdown-menu pull-right">
-                                   <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
+                    <li>
+                        <div class="btn-group">
+                            <img style="width:40px; height:40px;"src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
+                            <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <span class="icon-sort-down icon-white"></span></button>
+                            <ul class="dropdown-menu pull-right">
+                                <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyProfile">My Profile</a></li>
-                                   <?php }
-                                   elseif($_SESSION['LoginedUserType']==='Restaturant'){
-                                   ?>
+                                <?php }
+                                elseif($_SESSION['LoginedUserType']==='Restaturant'){
+                                    ?>
                                     <li><a href="<?php echo GlobalPath;?>/cms/business-Management/?UID=<?php echo base64_encode($_SESSION['LoginedUserID'])?>&RestID=<?php echo base64_encode($_SESSION['RestaruantID']);?>">Manage My Restaturant</a></li>
 
-                                   <?php }?>
-                                    <li class="divider"></li>
-                                    <li><a href="<?php echo GlobalPath;?>/Login-Logout/logoff.php" onclick="fb_logff();">Log Out</a></li>
+                                <?php }?>
+                                <li class="divider"></li>
+                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://b2c.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
 
-                                </ul>
-                            </div>
-                   </li>
-              </ul>
 
-              <?php endif ?>
-        <?php  echo $InitialLocationSelectClass->GetLocation('LoginedIn');?>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
 
+                <?php endif ?>
+                <?php  echo $InitialLocationSelectClass->GetLocation('LoginedIn');?>
+
+            </div>
+        </div><!--/.nav-collapse -->
     </div>
-      </div><!--/.nav-collapse -->
     </div>
-  </div>
-</div>
+    </div>
 
 </header><!--header end-->

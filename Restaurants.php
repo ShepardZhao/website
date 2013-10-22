@@ -53,7 +53,7 @@
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne" >
                 <div class="row-fluid innerHeading">
                     <div class="span2 text-right">
-                      <img style="width:130px;height:130px;" src="http://10.1.1.9/B2C/assets/framework/img/pic.jpeg">
+                      <img style="width:130px;height:130px;" src="">
                     </div>
                     <div class="span4 text-left">
                        <h4 class="RestaurantsName" id="123">Pancake on the Rocks</h4>
@@ -118,7 +118,7 @@
 
                     <div class="row-fluid innerHeading">
                         <div class="span2 text-right">
-                            <img style="width:130px;height:130px;" src="http://10.1.1.9/B2C/assets/framework/img/pic.jpeg">
+                            <img style="width:130px;height:130px;" src="">
                         </div>
                         <div class="span4 text-left">
                             <h4>Pancake on the Rocks</h4>

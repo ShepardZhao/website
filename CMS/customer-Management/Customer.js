@@ -1,7 +1,4 @@
 $(document).ready(function(){
-    var CurrentDomain=window.location.origin;
-
-
     // onready go to the tab requested in the page hash
     $(function(){setTimeout(gotoHashTab(),1000);});
 
@@ -39,14 +36,11 @@ $(document).ready(function(){
 
         request.done(function( msg ) {
             if(msg==='Error'){
-                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay("Data Base Error","alert-error");
             }
             else{
                 $('.thumbnails').empty().append(msg);
-                $('<div class="alert alert-info">Removed Successfully</div>').insertAfter($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Removed Successfully","alert-info");
             }
 
 
@@ -72,14 +66,11 @@ $(document).ready(function(){
 
         request.done(function( msg ) {
             if(msg==='Error'){
-                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay(">Data Base Error","alert-error");
             }
             else{
                 $('.thumbnails').empty().append(msg);
-                $('<div class="alert alert-info">Successfully sets my default address book</div>').insertAfter($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Successfully sets my default address book","alert-info");
             }
         });
 
@@ -110,19 +101,16 @@ $(document).ready(function(){
 
         request.done(function( msg ) {
             if(msg==='Repeated Addressbook'){
-                $('<div class="alert alert-info">You already added these info to your address book</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("You already added these info to your address book","alert-error");
             }
 
             else if(msg==='Error'){
-                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay("Sorry, DataBase Error","alert-error");
             }
             else{
                 $('.thumbnails').empty().append(msg);
-                $('<div class="alert alert-info">Added new info to My addressbook</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Added new info to My addressbook","alert-info");
+
             }
 
 
@@ -146,37 +134,25 @@ $(document).ready(function(){
         request.done(function( msg ) {
 
             if(msg==='Updated successfully'){
-                $('<div class="alert alert-info">Updated successfully</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Updated successfully","alert-info");
             }
             else if (msg==='Successfully added myaddressbook'){
-
-                $('<div class="alert alert-info">Added new record to your address book</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay("Added new record to your address book","alert-success");
             }
             else if(msg==='Changed password successfully'){
-                $('<div class="alert alert-info">Changed Password successfully</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Changed Password successfully","alert-success");
             }
             else if(msg==='Updated error'){
-                $('<div class="alert alert-info">Updated Error</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay("Sorry,Updated Error","alert-error");
             }
             else if(msg==='Repeated Addressbook'){
-                $('<div class="alert alert-info">You already added these info to your address book</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Sorry,You already added these info to your address book","alert-error");
             }
             else if(msg==='fail'){
-
-                $('<div class="alert alert-info">The old password is not match to your input</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                InformationDisplay("Sorry,The old password is not match to your input","alert-error");
             }
             else if(msg==='Error'){
-                $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                InformationDisplay("Sorry,The Data Base Error","alert-error");
             }
 
 
@@ -206,8 +182,7 @@ $(document).ready(function(){
         var AddSubLocation=$('#AddSubLocation').val();
         var AddRootLocation=$('#AddRootLocation').val();
         if(AddNickName===''||AddPhone==='' || AddAdress===''){
-            $('<div class="alert alert-error">You have to fill all fields</div>').insertBefore($('#AddressBookButton')).fadeIn(200);
-            setTimeout(function(){$('.alert-error').fadeOut(); },3000);
+            InformationDisplay("Sorry, You have to fill all fields","alert-error");
         }
         else{
             var tmp={};
@@ -316,18 +291,12 @@ $(document).ready(function(){
 
         }
         else if($(this).html()==='done'){
-            $('<label id="exeisted-alert" style="color:red">You already submited the head photo</label>').insertAfter($('#submitPic')).fadeIn(200);
-            setTimeout(function(){$('#exeisted-alert').fadeOut(); },5000);
+            InformationDisplay("Sorry, You already submited the head photo","alert-error");
             return false;
-
         }
         else
         {
-            $('<label id="File-alert" style="color:red">Please select file first</label>').insertAfter($('#submitPic')).fadeIn(200);
-            setTimeout(function(){$('#File-alert').fadeOut(); },5000);
-
-
-
+            InformationDisplay("Sorry, Please select file first","alert-error");
         }
 
 
@@ -358,13 +327,10 @@ $(document).ready(function(){
 
             request.done(function( msg ) {
                 if(msg==='Error'){
-                    $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
-
+                    InformationDisplay("Sorry, Data Base Error","alert-error");
                 }
                 else{
-                    $('<div class="alert alert-info">Your avatar has been updated</div>').insertBefore($(infoid)).fadeIn(200);
-                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                    InformationDisplay("Sorry, Your avatar has been updated","alert-success");
                 }
 
 

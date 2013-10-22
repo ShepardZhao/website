@@ -1,10 +1,257 @@
 $(document).ready(function(){
-    var CurrentDomain=window.location.origin;
+    //common variables
     var GetAccount=$('#HidenUserID').val();
     var getRestaurantID=$('#RestaruantID').val();
     //common modal
     var $modal=$('#ajax-modal');
+    var $modalphoto=$('#ajax-modal-cuisine-photo');
     var tmpContainter;
+    //image variables;
+    var resizeOldWidth;
+    var resizeOldHeight;
+
+
+    /************************************** Cuisine phtoto uploading*************************************************/
+
+    $('body').on('click','#submitCuisinePic',function() {
+        if($("#Input_Cuisineavatar")[0].files[0]!==undefined){
+            var file = $("#Input_Cuisineavatar")[0].files[0];
+            var fileName = file.name;
+            var fileSize = file.size;
+            var fileType = file.type;
+            $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#Input_Cuisineavatar')).fadeIn(200);
+            var tmp={};
+            tmp['Input_Photo']='Input_Cuisineavatar';
+            tmp['Mode_CuisinePic']='CuisinePhoto';
+            CuisineimageUpload('Input_Cuisineavatar',tmp);
+
+        }
+        else if($(this).html()==='done'){
+            InformationDisplay("Sorry, You already submited the avatar","alert-error");
+            return false;
+
+        }
+        else
+        {
+            InformationDisplay("Sorry, Please select file first","alert-error");
+
+        }
+
+
+
+    });
+    /*******************************************Cuisine avatar upload**************************************/
+        //cp pic into special folder and get return path
+
+    function CuisineimageUpload(Input_Photo,dataset)
+    {
+        $('#submitCuisinePic').html('Submitting.....');
+        $.ajaxFileUpload
+        (
+            {
+                url:CurrentDomain+'/cms/BackEnd-controller/AjaxImage-controller.php',
+                secureuri:false,
+                fileElementId:Input_Photo,
+                dataType: 'html',
+                data:dataset,
+                success: function (data, status)
+                {
+                    //data that form AjaxImage-controller.php is string, it contains two urls
+                    //by using split of jquery to spearate it as two array, 0 is absolute path, 1 is relative path
+                    var urlArray=data.split(',');
+                    $('#submitCuisinePic').html('done');
+                    var tmpPath= $('#gobalPath').val();
+                    var savedPath=tmpPath+urlArray[1];
+                    $('#CuisineImagePath').removeClass('placeholder');
+                    $('#absolutePath').val(urlArray[0]);//set up absolute path;
+                    $('#encryptedName').val(urlArray[2]);//set up EncryptedName;
+                    $('#CuisineImagePath').val(savedPath);
+                    $('#showsCuisinePhoto').addClass('ClassCuisinePhoto');
+                    $('.ClassCuisinePhoto').attr("src",savedPath);
+                },
+                error: function (data, status, e)
+                {
+                    alert(e);
+                }
+            }
+        )
+
+        return false;
+    }
+
+
+
+    /************************************** pic uploading modal*************************************************/
+
+        //WaterMarker check
+    $modalphoto.on('click','#WaterMarkerCheckbox',function(){
+        if($(this).is(':checked')){
+            $(this).val('yes');
+            $('input[name=WaterMarkerPosition]').removeAttr('disabled');
+        }
+        else{
+            $(this).val('no');
+            $('input[name=WaterMarkerPosition]').attr('disabled','true');
+
+        }
+
+
+    });
+
+    //position select
+    $modalphoto.on('click','input[name=WaterMarkerPosition]',function(){
+        window.GetWaterMarkerPosition=$(this).val();
+
+    });
+    $('body').on('click','.UploadCuisPhoto',function(){
+        var getCuID=$(this).parent().parent().find('.button-delete').attr('id');
+        $('body').modalmanager('loading');
+        setTimeout(function(){
+            $modalphoto.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/PhotoUploading.php?CuID='+getCuID, '', function(){
+                $modalphoto.modal();
+            });
+        }, 1000);
+    });
+
+    //crop and upload the image
+    $modalphoto.on('click','#ConfrimSelection',function(e){
+        if (parseInt($('#w').val())) {
+           var resizeOldWidth=$('.ClassCuisinePhoto').css('width');
+           var resizeOldHeight=$('.ClassCuisinePhoto').css('height');
+            $('')
+            var CuisineX=$('#x').val();
+            var CuisineY=$('#y').val();
+            var CuisineW=$('#w').val();
+            var CuisineH=$('#h').val();
+            var GetCurrentCuid=$('#GetCurrentCuid').val();
+            var GetWaterMarkerCheckbox=$('#WaterMarkerCheckbox').val();
+            var tmp={};
+            tmp['WaterMarkerStatus']=$('#WaterMarkerCheckbox').val();
+            tmp['WaterMarkerPositon']=GetWaterMarkerPosition;
+            tmp['GetCurrentCuid']=GetCurrentCuid;
+            tmp['resizeOldWidth']=resizeOldWidth;
+            tmp['resizeOldHeight']=resizeOldHeight;
+            tmp['CropedCuisine']="CropedCuisine";
+            tmp['Mode_CuisinePic']="Mode_CuisinePic";
+            tmp['CuisineOldImagePath']=$('#absolutePath').val();
+            tmp['EncryptedName']=$('#encryptedName').val();
+            tmp['CuisineX']=CuisineX;
+            tmp['CuisineY']=CuisineY;
+            tmp['CuisineW']=CuisineW;
+            tmp['CuisineH']=CuisineH;
+            CuisineCropImage(tmp);
+
+
+            return true;
+        }else{
+            InformationDisplay("Sorry, Please select a crop region then press Save","alert-error");
+            return false;}
+
+    return false;
+    });
+    //CropImage uploading
+    function CuisineCropImage(tmp){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/AjaxImage-controller.php",
+            type: "POST",
+            data:tmp,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            $('#GetFinalPhotoPath').val($('#gobalPath').val()+$.trim(msg));
+            $('#PreviewSelectedImage').removeAttr('disabled');
+                $('#PreviewSelectedImage').click(function(){
+                    if($(this).attr('disabled')===undefined){
+                        $('#PreviewCuisinePhoto').attr('src',$('#gobalPath').val()+$.trim(msg));
+
+                    }
+
+                });
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+    }
+
+//crop function
+    $('body').on('mouseenter','.ClassCuisinePhoto',function(){
+
+        $(this).Jcrop({
+            maxSize: [ 223 , 0 ],
+            minSize: [ 220 , 0 ],
+            onSelect: updateCoords,
+            bgFade: true, // use fade effect
+            bgOpacity: .3 // fade opacity
+        });
+        function updateCoords(c)
+        {
+            $('#x').val(c.x);
+            $('#y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        };
+
+
+
+
+    });
+
+
+    $modalphoto.on('change','#Input_Cuisineavatar',function(){
+        if($(this)[0].files[0]!==undefined){
+            var file = $(this)[0].files[0];
+            var fileName = file.name;
+            $('#CuisineImagePath').val(fileName);
+        }
+
+    });
+
+
+   //final cuisine photo uploading
+    $modalphoto.on('click','#CuisinePhotoUploading',function(){
+        var tmp={};
+        tmp['CuisinePhotoUploading']='CuisinePhotoUploading';
+        tmp['CuisineCuid']=$('#GetCurrentCuid').val();
+        tmp['CuisinePhotoPath']=$('#GetFinalPhotoPath').val();
+        tmp['OldPhotoPath']=$('#absolutePath').val();
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:tmp,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            if(msg==='You have successfully uploaded photo'){
+                $modalphoto.modal('loading');
+                setTimeout(function(){
+                    $modalphoto
+                        .modal('loading')
+                        .find('.modal-body').empty()
+                        .prepend("<div class='alert alert-success fade in'>" + msg + "</div>");
+
+                }, 1000);
+                setTimeout(function(){$('#ajax-modal-cuisine-photo').modal('hide'); CuisineAJAXList();},3000);
+            }
+            else if(msg==='Database Error'){
+                InformationDisplay("Sorry, Database Error","alert-error");
+
+
+            }
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    });
+
+
+
+
+
     /******************************************Add second level of current cuisine****************/
     $('body').on('click','.AddSecondLevel',function(){
 
@@ -116,8 +363,6 @@ $(document).ready(function(){
                 $modal.modal();
             });
         }, 1000);
-
-
     });
     //delete current cuisine
     $('body').on('click','.button-delete',function(){
@@ -136,12 +381,8 @@ $(document).ready(function(){
 
         request.done(function( msg ) {
             if (msg==='Delete Successful'){
-
-
-                TempParent.empty().append('<td colspan="8"><div class="alert alert-warning">'+msg+'</div></td>');
-                setTimeout(function(){TempParent.remove(); CuisineAJAXList(); },3000);
-
-
+                    TempParent.empty().append('<td colspan="8"><div class="alert alert-warning">'+msg+'</div></td>');
+                    setTimeout(function(){TempParent.remove(); CuisineAJAXList(); },3000);
             }
             else if(msg==='Current Order is available'){
                 CuisineAjax(CuisineArray);
@@ -152,17 +393,89 @@ $(document).ready(function(){
         request.fail(function( jqXHR, textStatus ) {
             alert( "Request failed: " + textStatus );
         });
-
-
-
-
-
-
-
     });
 
 
     /******************************************Cuisine order controller****************************/
+   //change the order status that adds 1 from base
+    $('body').on('click','#icon-caret-up-table',function(){
+       var OrNumber=parseInt($(this).parent().find('h5').html());
+       $(this).parent().find('h5').html(OrNumber+1);
+   });
+    //chage the order status that subs 1 from base
+    $('body').on('click','#icon-caret-down-table',function(){
+        var OrNumber=parseInt($(this).parent().find('h5').html());
+        $(this).parent().find('h5').html(OrNumber-1);
+    });
+
+    //button that changes the order, but it will check replated order then impletes the rest of part
+    $('body').on('click','#ChangeNewOrder',function(){
+        var TotalIndex=$('#CusinesTable tbody tr').length;
+        var tmp={};
+        var passNewOrder={};
+        var tmpStore=[];
+        //save order only
+        for (var x=0;x<TotalIndex;x++){
+            tmpStore.push($('#CusinesTable tbody').find('tr').eq(x).find('td').eq(0).find('h5').html());
+        }
+
+        if(checkReplatedOrder(tmpStore)===1){
+
+            InformationDisplay("Sorry, there is exeisting repleated order","alert-error");
+        }
+        else{
+          for (var i=0;i<TotalIndex;i++){
+           tmp[$('#CusinesTable tbody').find('tr').eq(i).find('.button-delete').attr('id')]=$('#CusinesTable tbody').find('tr').eq(i).find('td').eq(0).find('h5').html();
+          }
+            passNewOrder['UpdateCuisineOrder']='UpdateCuisineOrder';
+            passNewOrder['ArrayOfCuisineOrder']=tmp;
+            AJAXupdateCuisineOrder(passNewOrder);
+
+        }
+
+    //compare all order, if there is the replated one, then error displed
+    function checkReplatedOrder(tmpStore){
+        var nary=tmpStore.sort();
+        var repleated=0;
+        for(var i=0;i<tmpStore.length;i++){
+            if (nary[i]==nary[i+1]){
+                repleated=1;
+
+            }
+
+        }
+        return repleated;
+
+    }
+
+    });
+
+    //update cuisine's order
+    function AJAXupdateCuisineOrder(getOrderArray){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:getOrderArray,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            if(msg==='1'){
+                InformationDisplay("Sorry, Database error","alert-error");
+            }
+            else if(msg==='0'){
+                InformationDisplay("The new order has been Successfully updated","alert-success");
+                CuisineAJAXList();
+            }
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    }
+
+
     $(".modal").on('shown', function() {
       $(this).find("#CuName").focus();
     });
@@ -249,8 +562,7 @@ $(document).ready(function(){
         var CurrentCusinTag=$('#Cuisine').val();
         var CurrentCusinTypeTag=$('#Type').val();
         var CurrentCusinPriceTag=$('#Price').val();
-        var CurrentCusinOrder=$('.NumberOfOrder').val();
-        if(UpCurrentCuisineID!=='' && UpCurrentCuisineName!=='' && UpCurrentCuisineDes!=='' && UpCurrentCuisinePrice!=='' && UpCurrentCuisineAvali!=='' && CurrentAvaliTag!=='' && CurrentCusinTag!=='' && CurrentCusinTypeTag!=='' && CurrentCusinPriceTag !=='' && CurrentCusinOrder!==''){
+        if(UpCurrentCuisineID!=='' && UpCurrentCuisineName!=='' && UpCurrentCuisineDes!=='' && UpCurrentCuisinePrice!=='' && UpCurrentCuisineAvali!=='' && CurrentAvaliTag!=='' && CurrentCusinTag!=='' && CurrentCusinTypeTag!=='' && CurrentCusinPriceTag !==''){
             var tmp={};
             tmp['UpCurrentCuisineID']=UpCurrentCuisineID;
             tmp['UpCurrentCuisineName']=UpCurrentCuisineName;
@@ -261,9 +573,8 @@ $(document).ready(function(){
             tmp['CurrentCusinTag']=CurrentCusinTag;
             tmp['CurrentCusinTypeTag']=CurrentCusinTypeTag;
             tmp['CurrentCusinPriceTag']=CurrentCusinPriceTag;
-            tmp['CurrentCusinOrder']=CurrentCusinOrder;
 
-            OrderCheckAJAX(CurrentCusinOrder,tmp);
+            CuisineAjax(tmp);
 
         }
         else {
@@ -282,9 +593,9 @@ $(document).ready(function(){
         var CurrentResID=$('#CurrentResID').val();
         var CurrentCuisineName=$('#CuName').val();
         var CurrentCuisineDes=$('#CuDescr').val();
+        var CurrentAvaliTag=$('#Availability').val();
         var CurrentCuisinePrice=$('#CuPrice').val();
         var CurrentCuisineAvali=$('#CuAvaliability').val();
-        var CurrentAvaliTag=$('#Availability').val();
         var CurrentCusinTag=$('#Cuisine').val();
         var CurrentCusinTypeTag=$('#Type').val();
         var CurrentCusinPriceTag=$('#Price').val();
@@ -394,13 +705,12 @@ function CuisineAjax(data){
 
 
 
-    /*******************************************avatar upload**************************************/
+    /*******************************************Restaurant avatar upload**************************************/
         //cp pic into special folder and get return path
 
     function imageUpload(Input_Photo,dataset)
     {
         $('#submitPic').html('Submitting.....');
-
         $.ajaxFileUpload
         (
             {
@@ -413,14 +723,11 @@ function CuisineAjax(data){
                 {
                     $('#submitPic').html('done');
                     var tmpPath= $('#gobalPath').val();
-
                     var savedPath=tmpPath+data;
                     $('#RestaurantImagePath').removeClass('placeholder');
                     $('#RestaurantImagePath').val(savedPath);
                     $('#RestaruantPic').attr("src",savedPath);
                     $('#RestaruantPic').css("margin-top","-125px");
-
-
                 },
                 error: function (data, status, e)
                 {
@@ -430,9 +737,19 @@ function CuisineAjax(data){
         )
 
         return false;
-
     }
     //temp upload
+
+    $('body').on('change','#Input_Restaurantavatar',function(){
+        if($("#Input_Restaurantavatar")[0].files[0]!==undefined){
+            var file = $("#Input_Restaurantavatar")[0].files[0];
+            var fileName = file.name;
+            $('#RestaurantImagePath').val(fileName);
+        }
+
+    });
+
+
 
     $('body').on('click','#submitPic',function() {
         if($("#Input_Restaurantavatar")[0].files[0]!==undefined){
@@ -441,7 +758,6 @@ function CuisineAjax(data){
             var fileSize = file.size;
             var fileType = file.type;
             $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#submitPic')).fadeIn(200);
-
             var tmp={};
             tmp['Input_Photo']='Input_Restaurantavatar';
             tmp['Mode_RestaurantPic']='RestaurantPhoto';
@@ -451,26 +767,19 @@ function CuisineAjax(data){
 
         }
         else if($(this).html()==='done'){
-            $('<label id="exeisted-alert" style="color:red">You already submited the head photo</label>').insertAfter($('#submitPic')).fadeIn(200);
-            setTimeout(function(){$('#exeisted-alert').fadeOut(); },5000);
+            InformationDisplay("Sorry, You already submited the head photo","alert-error");
             return false;
 
         }
         else
         {
-            $('<label id="File-alert" style="color:red">Please select file first</label>').insertAfter($('#submitPic')).fadeIn(200);
-            setTimeout(function(){$('#File-alert').fadeOut(); },5000);
-
-
+            InformationDisplay("Sorry, Please select file first","alert-error");
 
         }
 
 
 
     });
-
-
-
 
     //Restaurant photo uploading
     $('body').on('click','#UploadRestaurantPhoto',function(){
@@ -494,13 +803,11 @@ function CuisineAjax(data){
 
             request.done(function( msg ) {
                 if(msg==='Error'){
-                    $('<div class="alert alert-info">Data Base Error</div>').insertBefore($(infoid)).fadeIn(200);
-                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                    InformationDisplay("Sorry, Data Base Error","alert-error");
 
                 }
                 else{
-                    $('<div class="alert alert-info">Your avatar has been updated</div>').insertBefore($(infoid)).fadeIn(200);
-                    setTimeout(function(){$('.alert-info').fadeOut(); },3000);
+                    InformationDisplay("Your avatar has been updated","alert-success");
                 }
 
 
@@ -582,7 +889,7 @@ else{
         });
         request.done(function( msg ) {
             if(msg==='Successed'){
-                SuccessInfo(msg,'#MyRestaruantSubmit');
+                SuccessInfo('Successfully updated','#MyRestaruantSubmit');
 
             }
             else {
@@ -642,23 +949,39 @@ else{
     }
 
     function SuccessInfo(content,id){
-        $('<label class="alert alert-info" >'+content+'</label>').insertBefore($(id)).fadeIn(200);
-        setTimeout(function(){$('.alert-info').fadeOut(); },5000);
+        InformationDisplay(content,"alert-info");
     }
     function ErrorInfo(content,id){
-        $('<label class="alert alert-error" >'+content+'</label>').insertBefore($(id)).fadeIn(200);
-        setTimeout(function(){$('.alert-error').fadeOut(); },5000);
-
-
+        InformationDisplay(content,"alert-error");
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //time picker
 
     $('.TimePicker').timepicker();
 
-
     //tips
     $('#ChangeNewOrder').tooltip();
+
+    //jquery bootstrap hacks
+    $('body').on('click','.dropdown-menu li',function(e){
+        e.stopPropagation();
+    });
+
+    //oricon-caret-up-table
 
 
 });

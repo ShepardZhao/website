@@ -13,7 +13,7 @@ if (isset($getCssId)){
 
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img class="media-object" src="http://127.0.0.1/B2C/assets/framework/img/pic.jpeg">
+                    <img class="media-object" src="">
                 </a>
                 <div class="media-body">
                     <h5 class="media-heading">Media heading</h5>
@@ -71,7 +71,7 @@ else {
 
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="http://127.0.0.1/B2C/assets/framework/img/pic.jpeg">
+                        <img class="media-object" src="">
                     </a>
                     <div class="media-body">
                         <h5 class="media-heading">Media heading</h5>

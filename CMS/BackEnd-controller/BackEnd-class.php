@@ -1494,6 +1494,22 @@ class Cuisine{
             return 'Current Order is available';
         }
        }
+
+    //Upload and update photo
+    public function CuisinePhotoUploadingAndUpdating($CurrentCuid,$PicPath,$DeleteOldPhotoPath){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Cuisine SET CuPicPath=? WHERE CuID=?")){
+           $stmt->bind_param('ss',$PicPath,$CurrentCuid);
+           $stmt->execute();
+           $stmt->close();
+           unlink($DeleteOldPhotoPath);
+           return 'You have successfully uploaded photo';
+        }
+        else{
+           return 'Database Error';
+        }
+    }
+
+
     //Order check from database
     private function CuisineOrderCheckDatabase($GetOrder){
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM B2C.Cuisine WHERE CuOrder=?")){
@@ -1573,9 +1589,9 @@ class Cuisine{
 
 
     //public Cuisine First Level updating
-    public function UpdateFirstLevelCuisine($UpCurrentCusineID,$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$CurrentCusinOrder){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Cuisine SET CuName=?,CuDescr=?, Price=?, Avaliability=?, CuAvaliability=?, CuCuisine=?, CuType=?, CuPrice=?, CuOrder=? WHERE CuID=?")){
-            $stmt->bind_param('ssdsssssis',$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$CurrentCusinOrder,$UpCurrentCusineID);
+    public function UpdateFirstLevelCuisine($UpCurrentCusineID,$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Cuisine SET CuName=?,CuDescr=?, Price=?, Avaliability=?, CuAvaliability=?, CuCuisine=?, CuType=?, CuPrice=? WHERE CuID=?")){
+            $stmt->bind_param('ssdssssss',$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$UpCurrentCusineID);
             $stmt->execute();
             $stmt->close();
             return 'Update successful';
@@ -1634,6 +1650,74 @@ class Cuisine{
         }
     }
 
+    //return tags only
+
+    private function ReturnTagsOnly($GetCuid){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuAvaliability,CuCuisine,CuType,CuPrice FROM B2C.Cuisine WHERE CuID=?")){
+            $stmt->bind_param('s',$GetCuid);
+            $stmt->execute();
+            $stmt->bind_result($CuAvaliability,$CuCuisine,$CuType,$CuPrice);
+            while($stmt->fetch()){
+                $tempArray= array('Avaliability'=>$CuAvaliability,'Cuisine'=>$CuCuisine,'Type'=>$CuType,'Price'=>$CuPrice);
+            }
+            $stmt->close();
+            return $tempArray;
+        }
+    }
+
+
+    //reset and update order of cuisine
+    public function RestAndUpdateOrderofCuisine($getArrayOfNewOrder){
+        $error=0;
+        foreach($getArrayOfNewOrder as $key=>$value){
+            if($stmt=$this->DataBaseCon->prepare("UPDATE B2C.Cuisine SET CuOrder=? WHERE CuID=?")){
+                $stmt->bind_param('is',$value,$key);
+                $stmt->execute();
+                $stmt->close();
+            }
+            else{
+                $error=1;
+            }
+        }
+        if($error===1){
+            return 1;//means that there was error be happended.
+        }
+        else{
+            return 0;//means that there was not error be happaed.
+        }
+
+    }
+
+
+    //display the second level info pnly
+    public function DisplaySecondLevel($getCuid){
+        $getSecondLevelKeyAndValue=json_decode(self::ReturnDataOfSecondCuisine($getCuid));
+        foreach($getSecondLevelKeyAndValue as $TotalKey=>$SubArray){
+            foreach($SubArray as $key=>$value){
+               if($key==='SeLevelTitle'){
+                   echo "<h5>$value</h5>";
+               }
+
+               if($key==='SeLevelMultiple'){
+                   $finalValue=unserialize($value);
+                   foreach ($finalValue as $subkey=>$subvalue){
+                      foreach ($subvalue as $lastKey=>$lastValue){
+                          echo "<p>$lastKey: $lastValue </p>";
+
+                      }
+
+
+                   }
+
+
+               }
+
+            }
+        }
+
+
+
+    }
 
     //list cuisine into table
     public function listCuisineTable(){
@@ -1658,34 +1742,41 @@ class Cuisine{
             echo "<tr id=$Rootkey>";
             foreach ($SubArray as $key=>$value){
             if($key==='CuOrder'){
-            echo '<td>'.$value.'</td>';
+            echo '<td id="OrderPostion"><i id="icon-caret-up-table" class="icon-caret-up"></i><h5>'.$value.'</h5><i id="icon-caret-down-table" class="icon-caret-down"></i></td>';
             }
             if($key==='Avaliability'){
                 echo '<td>'.$value.'</td>';
             }
             if($key==='CuName'){
-                echo "<td class='CuName' id='$value'>$value</td>";
+                echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
             }
             if($key==='CuPicPath'){
                 if(isset($value)){
-                echo "<td><img style='width:50px;height:50px' src='$value'></td>";
+                echo "<td><a href='$value'><img style='width:50px;height:50px' src='$value'></a><button class='btn TableButtonStyle UploadCuisPhoto' type='button'>Edit</button></td>";
+
+
                 }
                 else{
-                    echo '<td><button class="btn TableButtonStyle" type="button">Uploads Photo</button></td>';
+                    echo '<td><button class="btn TableButtonStyle UploadCuisPhoto" type="button">Uploads Photo</button></td>';
 
                 }
             }
             if($key==='CuDescr'){
-                echo '<td>'.$value.'</td>';
+                echo "<td><div class='TablePreventOverflow' title='$value'>$value</div></td>";
             }
             if($key==='Price'){
                 echo '<td>$'.$value.'</td>';
             }
 
             if($key==='CuID'){
-                echo "<td><button class='btn TableButtonStyle ShowTags' id='$value' type='button'>Shows Tags</button></td>";
+                echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Shows Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
+                foreach (self::ReturnTagsOnly($value) as $TagKeys=>$Tagvalue){
+                echo "<li><a tabindex='-1'>$TagKeys:$Tagvalue</a></li>";
+                }
+                echo '</ul></td>';
+
                 if(count(json_decode(self::ReturnDataOfSecondCuisine($value)))>0){
-                echo "<td><button class='btn TableButtonStyle ShowSecondLevel' id='$value' type='button'>Shows Second level</button></td>";
+                echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'>Edit&Show</button>  <button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu dropdown-menu-Cuisine-table'><li><a tabindex='-1' data-toggle='popover' class='showtagsPopover' id='$value'>Shows Second level</a></li><li class='divider'></li><li><a tabindex='-1' id='$value' class='AddSecondLevel'>Edits Second Level</a></li></ul></div>";
                 }
                 else{
                 echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Adds Second Level</button></td>";
@@ -1709,6 +1800,403 @@ class Cuisine{
        echo '</table>';
 
     }
+
+
+}
+
+
+
+/**********************************************Img watermark*******************************************/
+
+class waterMarker{
+
+    private $imgPath;
+
+    public function __construct($path){
+        $this->imgPath = $path;
+    }
+
+    public function waterInfo($ground,$water,$pos=0,$prefix="lee_",$tm=50){
+        $allPathGround  = $this->imgPath.$ground;
+        $allPathWater   = $this->imgPath.$water;
+        $groundInfo = $this->imgInfo($allPathGround);
+        $waterInfo  = $this->imgInfo($allPathWater);
+
+
+        if(!$newPos=$this->imgPos($groundInfo,$waterInfo,$pos)){
+            echo "Your WaterMarker is too large";
+            return false;
+        }
+
+        //open sources
+        $groundRes=$this->imgRes($allPathGround,$groundInfo['mime']);
+        $waterRes=$this->imgRes($allPathWater,$waterInfo['mime']);
+
+        //Intergrate sources
+        $newGround=$this->imgCopy($groundRes,$waterRes,$newPos,$waterInfo,$tm);
+
+        //Save sources
+        $this->saveImg($newGround,$ground,$groundInfo['mime'],$prefix);
+
+    }
+
+    private function saveImg($img,$ground,$info,$prefix){
+        $path=$this->imgPath.$prefix.$ground;
+        switch($info){
+            case "image/jpg":
+            case "image/jpeg":
+            case "image/pjpeg":
+                imagejpeg($img,$path);
+                break;
+            case "image/gif":
+                imagegif($img,$path);
+                break;
+            case "image/png":
+                imagepng($img,$path);
+                break;
+            default:
+                imagegd2($img,$path);
+        }
+    }
+
+    private function imgCopy($ground,$water,$pos,$waterInfo,$tm){
+        imagecopymerge($ground,$water,$pos[0],$pos[1],0,0,$waterInfo[0],$waterInfo[1],$tm);
+        return $ground;
+    }
+
+    private function imgRes($img,$imgType){
+        switch($imgType){
+            case "image/jpg":
+            case "image/jpeg":
+            case "image/pjpeg":
+                $res=imagecreatefromjpeg($img);
+                break;
+            case "image/gif":
+                $res=imagecreatefromgif($img);
+                break;
+            case "image/png":
+                $res=imagecreatefrompng($img);
+                break;
+            case "image/wbmp":
+                $res=imagecreatefromwbmp($img);
+                break;
+            default:
+                $res=imagecreatefromgd2($img);
+        }
+        return $res;
+    }
+
+    //Position 1.Top left 2.Middle and Top 3. Top right 4. Bottom left 5 Bottom right
+    private function imgPos($ground,$water,$pos){
+        if($ground[0]<$water[0] || $ground[1]<$water[1])  //if WaterMarker small than original iage then return false
+        return false;
+        switch($pos){
+            case 1:
+                $x=0;
+                $y=0;
+                break;
+            case 2:
+                $x=ceil(($ground[0]-$water[0])/2);
+                $y=0;
+                break;
+            case 3:
+                $x=$ground[0]-$water[0];
+                $y=0;
+                break;
+            case 4:
+                $x=0;
+                $y=ceil(($ground[1]-$water[1])/2);
+                break;
+            case 5:
+                $x=ceil(($ground[0]-$water[0])/2);
+                $y=ceil(($ground[1]-$water[1])/2);
+                break;
+            case 6:
+                $x=$ground[0]-$water[0];
+                $y=ceil(($ground[1]-$water[1])/2);
+                break;
+            case 7:
+                $x=0;
+                $y=$ground[1]-$water[1];
+                break;
+            case 8:
+                $x=ceil($ground[0]-$water[0]/2);
+                $y=$ground[1]-$water[1];
+                break;
+            case 9:
+                $x=$ground[0]-$water[0];
+                $y=$ground[1]-$water[1];
+                break;
+            case 0:
+            default:
+                $x=rand(0,$ground[0]-$water[0]);
+                $y=rand(0,$ground[1]-$water[1]);
+        }
+        $xy[]=$x;
+        $xy[]=$y;
+        return $xy;
+    }
+
+    // 获取图片信息的函数
+    private function imgInfo($img){
+        return getimagesize($img);
+    }
+}
+
+
+/**********************************************Img resize**********************************************/
+class resize
+{
+    // *** Class variables
+    private $image;
+    private $width;
+    private $height;
+    private $imageResized;
+
+    function __construct($fileName)
+    {
+        // *** Open up the file
+        $this->image = $this->openImage($fileName);
+
+        // *** Get width and height
+        $this->width  = imagesx($this->image);
+        $this->height = imagesy($this->image);
+    }
+
+    ## --------------------------------------------------------
+
+    private function openImage($file)
+    {
+        // *** Get extension
+        $extension = strtolower(strrchr($file, '.'));
+
+        switch($extension)
+        {
+            case '.jpg':
+            case '.jpeg':
+                $img = @imagecreatefromjpeg($file);
+                break;
+            case '.gif':
+                $img = @imagecreatefromgif($file);
+                break;
+            case '.png':
+                $img = @imagecreatefrompng($file);
+                break;
+            default:
+                $img = false;
+                break;
+        }
+        return $img;
+    }
+
+    ## --------------------------------------------------------
+
+    public function resizeImage($newWidth, $newHeight, $option="auto")
+    {
+        // *** Get optimal width and height - based on $option
+        $optionArray = $this->getDimensions($newWidth, $newHeight, $option);
+
+        $optimalWidth  = $optionArray['optimalWidth'];
+        $optimalHeight = $optionArray['optimalHeight'];
+
+
+        // *** Resample - create image canvas of x, y size
+        $this->imageResized = imagecreatetruecolor($optimalWidth, $optimalHeight);
+        imagecopyresampled($this->imageResized, $this->image, 0, 0, 0, 0, $optimalWidth, $optimalHeight, $this->width, $this->height);
+
+
+        // *** if option is 'crop', then crop too
+        if ($option == 'crop') {
+            $this->crop($optimalWidth, $optimalHeight, $newWidth, $newHeight);
+        }
+    }
+
+    ## --------------------------------------------------------
+
+    private function getDimensions($newWidth, $newHeight, $option)
+    {
+
+        switch ($option)
+        {
+            case 'exact':
+                $optimalWidth = $newWidth;
+                $optimalHeight= $newHeight;
+                break;
+            case 'portrait':
+                $optimalWidth = $this->getSizeByFixedHeight($newHeight);
+                $optimalHeight= $newHeight;
+                break;
+            case 'landscape':
+                $optimalWidth = $newWidth;
+                $optimalHeight= $this->getSizeByFixedWidth($newWidth);
+                break;
+            case 'auto':
+                $optionArray = $this->getSizeByAuto($newWidth, $newHeight);
+                $optimalWidth = $optionArray['optimalWidth'];
+                $optimalHeight = $optionArray['optimalHeight'];
+                break;
+            case 'crop':
+                $optionArray = $this->getOptimalCrop($newWidth, $newHeight);
+                $optimalWidth = $optionArray['optimalWidth'];
+                $optimalHeight = $optionArray['optimalHeight'];
+                break;
+        }
+        return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
+    }
+
+    ## --------------------------------------------------------
+
+    private function getSizeByFixedHeight($newHeight)
+    {
+        $ratio = $this->width / $this->height;
+        $newWidth = $newHeight * $ratio;
+        return $newWidth;
+    }
+
+    private function getSizeByFixedWidth($newWidth)
+    {
+        $ratio = $this->height / $this->width;
+        $newHeight = $newWidth * $ratio;
+        return $newHeight;
+    }
+
+    private function getSizeByAuto($newWidth, $newHeight)
+    {
+        if ($this->height < $this->width)
+            // *** Image to be resized is wider (landscape)
+        {
+            $optimalWidth = $newWidth;
+            $optimalHeight= $this->getSizeByFixedWidth($newWidth);
+        }
+        elseif ($this->height > $this->width)
+            // *** Image to be resized is taller (portrait)
+        {
+            $optimalWidth = $this->getSizeByFixedHeight($newHeight);
+            $optimalHeight= $newHeight;
+        }
+        else
+            // *** Image to be resizerd is a square
+        {
+            if ($newHeight < $newWidth) {
+                $optimalWidth = $newWidth;
+                $optimalHeight= $this->getSizeByFixedWidth($newWidth);
+            } else if ($newHeight > $newWidth) {
+                $optimalWidth = $this->getSizeByFixedHeight($newHeight);
+                $optimalHeight= $newHeight;
+            } else {
+                // *** Sqaure being resized to a square
+                $optimalWidth = $newWidth;
+                $optimalHeight= $newHeight;
+            }
+        }
+
+        return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
+    }
+
+    ## --------------------------------------------------------
+
+    private function getOptimalCrop($newWidth, $newHeight)
+    {
+
+        $heightRatio = $this->height / $newHeight;
+        $widthRatio  = $this->width /  $newWidth;
+
+        if ($heightRatio < $widthRatio) {
+            $optimalRatio = $heightRatio;
+        } else {
+            $optimalRatio = $widthRatio;
+        }
+
+        $optimalHeight = $this->height / $optimalRatio;
+        $optimalWidth  = $this->width  / $optimalRatio;
+
+        return array('optimalWidth' => $optimalWidth, 'optimalHeight' => $optimalHeight);
+    }
+
+    ## --------------------------------------------------------
+
+    private function crop($optimalWidth, $optimalHeight, $newWidth, $newHeight)
+    {
+        // *** Find center - this will be used for the crop
+        $cropStartX = ( $optimalWidth / 2) - ( $newWidth /2 );
+        $cropStartY = ( $optimalHeight/ 2) - ( $newHeight/2 );
+
+        $crop = $this->imageResized;
+        //imagedestroy($this->imageResized);
+
+        // *** Now crop from center to exact requested size
+        $this->imageResized = imagecreatetruecolor($newWidth , $newHeight);
+        imagecopyresampled($this->imageResized, $crop , 0, 0, $cropStartX, $cropStartY, $newWidth, $newHeight , $newWidth, $newHeight);
+    }
+
+    ## --------------------------------------------------------
+
+    public function saveImage($savePath, $imageQuality="100")
+    {
+        // *** Get extension
+        $extension = strrchr($savePath, '.');
+        $extension = strtolower($extension);
+
+        switch($extension)
+        {
+            case '.jpg':
+            case '.jpeg':
+                if (imagetypes() & IMG_JPG) {
+                    imagejpeg($this->imageResized, $savePath, $imageQuality);
+                }
+                break;
+
+            case '.gif':
+                if (imagetypes() & IMG_GIF) {
+                    imagegif($this->imageResized, $savePath);
+                }
+                break;
+
+            case '.png':
+                // *** Scale quality from 0-100 to 0-9
+                $scaleQuality = round(($imageQuality/100) * 9);
+
+                // *** Invert quality setting as 0 is best, not 9
+                $invertScaleQuality = 9 - $scaleQuality;
+
+                if (imagetypes() & IMG_PNG) {
+                    imagepng($this->imageResized, $savePath, $invertScaleQuality);
+                }
+                break;
+
+            // ... etc
+
+            default:
+                // *** No extension - No save.
+                break;
+        }
+
+        imagedestroy($this->imageResized);
+    }
+   ##----------------------------------------------
+        public function OnselectSave($CuisineOldImagePath,$targ_w,$targ_h,$CuisineX,$CuisineY,$CuisineW,$CuisineH,$CuisineOldImagePath,$savePath,$jpeg_quality,$returPath,$WaterMarkerStatus,$WaterMarkerPositon){
+            $pos=strripos($savePath,'/');
+            $getpath=substr($savePath,0,$pos+1);//path
+            $getFileName=substr($savePath,$pos+1);
+            $changedName='small-'.$getFileName;
+            $finalSavePath=$getpath.$changedName;
+            $img_r = imagecreatefromjpeg($CuisineOldImagePath);
+            $dst_r = ImageCreateTrueColor($targ_w,$targ_h);
+            imagecopyresampled($dst_r,$img_r,0,0,$CuisineX,$CuisineY,$targ_w,$targ_h,$CuisineW,$CuisineH);
+            //unlink($CuisineOldImagePath);
+            header('Content-type: image/jpeg');
+            imagejpeg($dst_r,$finalSavePath,$jpeg_quality);
+            //return path
+            $ReturnFullPath=$returPath.$changedName;
+            if($WaterMarkerStatus==='yes'){
+               $waterMarker=new waterMarker($getpath);
+               $waterMarker->waterInfo($getpath.'IMG_0021.jpg',$getpath.'WaterMarket.jpeg',$WaterMarkerPositon,"Small-Cuisine",20);
+            }
+
+
+
+            return $ReturnFullPath;
+        }
 
 
 }

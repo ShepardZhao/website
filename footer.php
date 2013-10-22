@@ -4,10 +4,11 @@
 
 
 
-
+<!--information display-->
+<div class="information-bar"></div>
 <!--register--><!--&&--><!--password found-->
-
 <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
+<div id="ajax-modal-cuisine-photo" class="modal hide fade large" tabindex="-1"></div>
 <!--facebook element-->
 <div id="fb-root"></div>
 <script src="<?php echo GlobalPath;?>/assets/framework/js/Facebook-Api.js" type="text/javascript"></script>

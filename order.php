@@ -68,14 +68,14 @@
                 <li><a href="#Dishes" data-toggle="tab" id="Dishes-tab">Dishes</a></li>
             </ul>
             <div class="tab-content tabContent"><!--tab selection-->
-                <div class="tab-pane active" id="Featured">
+                <div class="tab-pane fade in active" id="Featured">
                     <?php include 'Feathured.php'?>
 
                 </div>
-                <div class="tab-pane" id="Restaurants">
+                <div class="tab-pane fade" id="Restaurants">
                     <?php include 'Restaurants.php'?>
                 </div>
-                <div class="tab-pane" id="Dishes">
+                <div class="tab-pane fade" id="Dishes">
                     <?php include 'Dishes.php'?>
                 </div>
             </div>

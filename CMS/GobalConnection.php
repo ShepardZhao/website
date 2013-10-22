@@ -46,6 +46,7 @@ $CuisineClass=new Cuisine($Mysql_Connection);
 
 
 
+
 /**************************************Extaned define******************************************/
 //Gobal path: this is very much important for global path setting. it contorls the global css and js
 define("GlobalPath",$BasicSettingClass->pushSettingData()['WebUrl']); //http://127.0.0.1/B2C has to have changed while website has been unveiled

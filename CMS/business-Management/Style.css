@@ -1,3 +1,6 @@
+a,#icon-caret-up-table:hover,#icon-caret-down-table:hover{
+cursor: pointer;
+}
 .floatstyle{
     float:left;
 }
@@ -172,10 +175,25 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 /************************************CusinesTable*******************************/
 #CusinesTable{
-    margin-top:19px;
+    margin-top:39px;
 }
-.TableCheckBoxMargin{
-    margin-bottom:0 !important;
+.TablePreventOverflow{
+    max-width: 100px;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+#OrderPostion{
+    position: relative;
+
+}
+#icon-caret-up-table{
+	position: absolute;
+	top: 3px;
+}
+#icon-caret-down-table{
+	position: absolute;
+	bottom: 3px;
+	left: 8px;
 }
 .TableButtonStyle{
     padding:2px !important;
@@ -198,3 +216,22 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     color:#b94a48;
 }
 
+.dropdown-menu-Cuisine-table{
+    width:100% !important;
+}
+.popover{
+    top: -20.5px !important;
+    left: -280px !important;
+}
+.popover.left{
+    background:#fff;
+    color:#333;
+}
+.popover.left .arrow:after{
+    border-left-color:#fff !important;
+}
+/**********************************************Modal**************************************************************/
+.modal.large {
+    width: 700px; /* respsonsive width */
+    margin-left:-350px; /* width/2) */
+}

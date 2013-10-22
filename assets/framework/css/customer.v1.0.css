@@ -16,7 +16,6 @@
 	margin: 0 auto;
 }
 
-
 body{
     font-family:"HelveticaNeueLight", Helvetica, Arial, "Lucida Grande", sans-serif !important;
 	background-color: #e9e9e9;/*#e9e9e9*/
@@ -52,9 +51,20 @@ a{
 	border-radius: 3px;
 }
 /**header part**/
+#header-controller{
+	position: relative;
+}
 .header{ 
 	background-color: #f47063;/*rgb(255, 238, 204);*/
 	z-index: 99999;
+}
+
+.information-bar{
+    z-index: 10000;
+    position:fixed;
+    left:50%;
+    top:50px;
+    display:none;
 }
 
 .headNav{

@@ -58,19 +58,7 @@ session_start();
         </div>
 
 
-        <!--Cuisine Order-->
-        <div class="control-group">
-            <h5>Order</h5>
-            <div class="form-horizontal">
-                <div class="control-group">
-                    <button type="botton" class="btn minbutton"> - </button>
-                    <input class="span1 text-center NumberOfOrder" type="number" value="<?php echo $GetCuisineData[0]->CuOrder;?>">
-                    <button type="botton" class="btn plusbutton"> + </button>
 
-                </div>
-            </div>
-            <label class="alert alert-info">Note: This function is helping you to set up different order of Cuisine</label>
-        </div>
         <div class="control-group text-center">
             <button type="submit" class="mySubmit" id="SumitModifyDish">Next</button>
         </div>

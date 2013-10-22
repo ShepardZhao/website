@@ -21,7 +21,7 @@ $(document).ready(function(){
 
         request.done(function(msg) {
 
-              $(ContentId).empty().append(msg).stop().fadeIn(200);
+              $(ContentId).empty().append(msg).fadeIn();
 
             if(mode===1){//display image according to picID
                 active();
@@ -104,10 +104,9 @@ $('body').on('click','#Featured-tab',function(){//to prevent water conflict, eac
 
     //step:1. wipe out other two contents of tabs.
         inactive();
-        $('#Restaurants').empty();
-        $('#Dishes').empty();
+      //  $('#Restaurants').empty();
+        //$('#Dishes').empty();
         AjaxFunction("#Featured",dataObj("getMode","mode1"),"Feathured.php",0);
-        $('#Featured').css('opacity',100);//change opacity to show the content
 
 
 });
@@ -120,7 +119,6 @@ $('body').on('click','#Restaurants-tab',function(){//to prevent water conflict, 
     $('#Featured').empty();
     $('#Dishes').empty();
     AjaxFunction("#Restaurants",dataObj("getMode","mode1"),"Restaurants.php",0);
-    $('#Restaurants').css('opacity',100);//change opacity to show the content
 
 
 
@@ -133,7 +131,6 @@ $('body').on('click','#Dishes-tab',function(){//to prevent water conflict, each 
     inactive();
     $('#Featured').empty();
     $('#Restaurants').empty();
-    $('#Dishes').css('opacity',100);//change opacity to show the content
 
 });
 

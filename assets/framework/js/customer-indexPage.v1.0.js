@@ -1,5 +1,15 @@
 $(document).ready(function(){
-    var CurrentDomain=window.location.origin;
+   window.CurrentDomain=window.location.origin;
+ //common area
+    //infformation display that whaterever message with error or waring or other things
+   window.InformationDisplay=function (_content,_class){
+    $('<div class="alert '+_class+'">'+_content+'</div>').fadeIn().appendTo($('.information-bar'));
+       var getwidth=$('.information-bar').width()/2;
+       $('.information-bar').css('margin-left','-'+ getwidth+'px');
+       $('.information-bar').css('display','block');
+       setTimeout(function(){$('.'+_class).fadeOut();$('.information-bar').fadeOut();},5000);
+    }
+
  //common modal
     var $modal=$('#ajax-modal');
     $(function(){
@@ -315,8 +325,6 @@ $(document).ready(function(){
         });
 
     });
-
-
 
 
 //jquery bootstrap hacks

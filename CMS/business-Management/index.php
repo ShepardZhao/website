@@ -11,6 +11,8 @@
     <script src="<?php echo GlobalPath;?>/cms/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
     <script src="<?php echo GlobalPath;?>/cms/Commons-js/jquery.timepicker.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/business-Management/style.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo GlobalPath;?>/cms/Commons-css/jquery.Jcrop.min.css" />
+    <script type="text/javascript" src="<?php echo GlobalPath;?>/cms/Commons-js/jquery.Jcrop.min.js"></script>
     <script src="<?php echo GlobalPath;?>/cms/business-Management/business.js" type="text/javascript"></script>
 
     <!--hidden field to store the UID-->

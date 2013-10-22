@@ -145,8 +145,8 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 
 /********************************************Cuisine modifying uploading*****************************************************/
-    if(isset($_POST['UpCurrentCuisineID']) && isset($_POST['UpCurrentCuisineName']) && isset($_POST['UpCurrentCuisineDes']) && isset($_POST['UpCurrentCuisinePrice']) && isset($_POST['UpCurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag']) && isset($_POST['CurrentCusinOrder'])){
-        echo $CuisineClass->UpdateFirstLevelCuisine($_POST['UpCurrentCuisineID'],$_POST['UpCurrentCuisineName'],$_POST['UpCurrentCuisineDes'],$_POST['UpCurrentCuisinePrice'],$_POST['UpCurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag'],$_POST['CurrentCusinOrder']);
+    if(isset($_POST['UpCurrentCuisineID']) && isset($_POST['UpCurrentCuisineName']) && isset($_POST['UpCurrentCuisineDes']) && isset($_POST['UpCurrentCuisinePrice']) && isset($_POST['UpCurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag'])){
+        echo $CuisineClass->UpdateFirstLevelCuisine($_POST['UpCurrentCuisineID'],$_POST['UpCurrentCuisineName'],$_POST['UpCurrentCuisineDes'],$_POST['UpCurrentCuisinePrice'],$_POST['UpCurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag']);
     }
 
 /********************************************list Cuisine's data***************************************************/
@@ -154,11 +154,14 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 
 /********************************************Cuisine order check***************************************************/
     if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder']);}
+/********************************************Cuisine order reset***************************************************/
+    if(isset($_POST['UpdateCuisineOrder']) && isset($_POST['ArrayOfCuisineOrder'])){echo $CuisineClass->RestAndUpdateOrderofCuisine($_POST['ArrayOfCuisineOrder']);}
 /********************************************Second Cuisine Submit*************************************************/
     if(isset($_POST['SecondLevelTitle'])){echo $CuisineClass->CuisineSecondLevel($_POST['SecondLevelTitle'],$_POST['PassCuid'],$_POST['SubSecondLevel']);}
 /********************************************Delete current Cuisine inclduing second level**************************/
     if(isset($_POST['CuisineDeleteID'])){echo $CuisineClass->DeleteCuisine($_POST['CuisineDeleteID']);}
-
+/********************************************Cuisine photo uploading************************************************/
+    if(isset($_POST['CuisinePhotoUploading'])&&isset($_POST['CuisineCuid'])&&isset($_POST['CuisinePhotoPath'])){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath']);}
 
 
 

@@ -1,8 +1,9 @@
 <?php if(isset($_GET['CuID']) && isset($_GET['CuName'])):?>
 <div class="modal-header text-center">
-        <input type="hidden" id="GetCuid" value="<?php echo $_GET['CuID']?>">
-        <h3 id="TitleOfSecondLevel"><?php echo $_GET['CuName']?></h3>
-    </div>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <input type="hidden" id="GetCuid" value="<?php echo $_GET['CuID']?>">
+    <h3 id="TitleOfSecondLevel"><?php echo $_GET['CuName']?></h3>
+</div>
     <form id="SecondLevelForm">
     <div class="modal-body" id="SecondLevelWrap">
         <div class="row-fluid">
@@ -37,15 +38,9 @@
                         </div>
                     </div>
                     <label class="alert alert-info">Note: Please clicking 'saving' to save current title fields then you may be able to add a New Title </label>
-
                 </div>
-
-
             </div>
-
         </div>
-
-
     </div>
 
     <div class="modal-footer">

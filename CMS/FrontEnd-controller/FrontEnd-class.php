@@ -136,6 +136,9 @@ class LoginedIn extends User{
 
     public function FacebookLogininWithSession($Id,$Name){
         $userPhoto='https://graph.facebook.com/'.$Id.'/picture';
+        unset($_SESSION['LoginedUserID']);
+        unset($_SESSION['LoginedUserName']);
+        unset($_SESSION['LoginedUserPhoto']);
         $_SESSION['LoginedUserID']=$Id;
         $_SESSION['LoginedUserName']=$Name;
         $_SESSION['LoginedUserPhoto']=$userPhoto;

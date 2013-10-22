@@ -1,0 +1,1 @@
+<?php unlink("/assets/assets-imgs/CuisinePic/2.jpg");?>
