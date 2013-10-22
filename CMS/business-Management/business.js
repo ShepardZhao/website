@@ -99,6 +99,7 @@ $(document).ready(function(){
     });
 
     //position select
+    window.GetWaterMarkerPosition='';
     $modalphoto.on('click','input[name=WaterMarkerPosition]',function(){
         window.GetWaterMarkerPosition=$(this).val();
 
@@ -140,7 +141,6 @@ $(document).ready(function(){
             tmp['CuisineW']=CuisineW;
             tmp['CuisineH']=CuisineH;
             CuisineCropImage(tmp);
-
 
             return true;
         }else{

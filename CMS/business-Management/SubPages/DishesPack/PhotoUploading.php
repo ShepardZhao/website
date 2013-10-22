@@ -35,7 +35,7 @@
                             <label class="alert alert-waring">Step 2: Select the area that you want to use (the selected area has been setup to fixed 240px of  width. After you confirm your selction, you should click bleow 'save' button to save the crop image)</label>
 
                             <label class="checkbox">
-                            <input type="checkbox" id="WaterMarkerCheckbox">
+                            <input type="checkbox" id="WaterMarkerCheckbox" value="no">
                                     Whether added WaterMarker
                              </label>
 

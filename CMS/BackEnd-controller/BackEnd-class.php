@@ -1501,7 +1501,7 @@ class Cuisine{
            $stmt->bind_param('ss',$PicPath,$CurrentCuid);
            $stmt->execute();
            $stmt->close();
-           unlink($DeleteOldPhotoPath);
+           unlink($DeleteOldPhotoPath);//delete old photo
            return 'You have successfully uploaded photo';
         }
         else{
@@ -2190,12 +2190,17 @@ class resize
             $ReturnFullPath=$returPath.$changedName;
             if($WaterMarkerStatus==='yes'){
                $waterMarker=new waterMarker($getpath);
-               $waterMarker->waterInfo($getpath.'IMG_0021.jpg',$getpath.'WaterMarket.jpeg',$WaterMarkerPositon,"Small-Cuisine",20);
+               $waterMarker->waterInfo($changedName,'WaterMarker/WaterMarker.png',$WaterMarkerPositon,"WaterMarker",20);
+               unlink($finalSavePath);
+               return  $returPath.'WaterMarker'.$changedName;
+            }
+            else if($WaterMarkerStatus==='no'){
+                return $ReturnFullPath;
+
             }
 
 
 
-            return $ReturnFullPath;
         }
 
 

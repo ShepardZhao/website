@@ -6,13 +6,13 @@
  
 class water{
  
-    private $imgPath; // 图片路径
+    private $imgPath; // The path of image
      
     public function __construct($imgPath){
         $this->imgPath = $imgPath;
     }
  
-    // 写水印动作
+    //Generate watermarker
     public function waterInfo($ground,$water,$pos=0,$prefix="lee_",$tm=50){
         $allPathGround  = $this->imgPath.$ground;
         $allPathWater   = $this->imgPath.$water;
@@ -145,7 +145,7 @@ class water{
 }
 
 
-$water=new water('/Users/zhaoxun321/website/assets/assets-imgs/CuisinePic/');
+$water=new water('./');
  
 // 参数：
 // 1.  源图  
@@ -158,7 +158,7 @@ $water=new water('/Users/zhaoxun321/website/assets/assets-imgs/CuisinePic/');
 // 0 随机位置
  // 4. 保存添加水印图片的文件名前缀  
 //  5. 透明度
-$water->waterInfo("1.jpg","2.png",9,"haha",20);
+$water->waterInfo("small.jpg","WaterMarker/ok.png",9,"haha",20);
 
 
 
