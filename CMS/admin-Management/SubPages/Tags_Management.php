@@ -13,7 +13,7 @@
 
                         </div>
                         <div id="CuisineAvailabilityTagsList">
-                            <?php $TagsClass->outPutTags("Availability","B2C.CuisineTags");?>
+                            <?php $TagsClass->outPutTags("Availability","client_b2c.CuisineTags");?>
                         </div>
                         <br>
                         <button id="AddCuisAvailabilityButton" class="button" type="button">Add</button>
@@ -29,7 +29,7 @@
 
                         </div>
                         <div id="CuisineCuisineTagsList">
-                            <?php $TagsClass->outPutTags("Cuisine","B2C.CuisineTags");?>
+                            <?php $TagsClass->outPutTags("Cuisine","client_b2c.CuisineTags");?>
                         </div>
                         <br>
                         <button id="AddCuisCuisineButton" class="button" type="button">Add</button>
@@ -56,7 +56,7 @@
 
                             </div>
                             <div id="CuisineTypeTagsList">
-                                <?php $TagsClass->outPutTags("Type","B2C.CuisineTags");?>
+                                <?php $TagsClass->outPutTags("Type","client_b2c.CuisineTags");?>
                             </div>
                             <br>
                             <button id="AddCuisTypeButton" class="button" type="button">Add</button>
@@ -71,7 +71,7 @@
 
                             </div>
                             <div id="CuisinePriceTagsList">
-                                <?php $TagsClass->outPutTags("Price","B2C.CuisineTags");?>
+                                <?php $TagsClass->outPutTags("Price","client_b2c.CuisineTags");?>
                             </div>
                             <br>
                             <button id="AddCuisPriceButton" class="button" type="button">Add</button>

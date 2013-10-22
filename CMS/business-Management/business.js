@@ -19,7 +19,7 @@ $(document).ready(function(){
             var fileName = file.name;
             var fileSize = file.size;
             var fileType = file.type;
-            $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertAfter($('#Input_Cuisineavatar')).fadeIn(200);
+            $('<label class="fileinfo">'+fileName+', '+ fileSize+' bytes FileType: ' +fileType+' </label>').insertBefore($('#submitCuisinePic')).fadeIn(200);
             var tmp={};
             tmp['Input_Photo']='Input_Cuisineavatar';
             tmp['Mode_CuisinePic']='CuisinePhoto';
@@ -159,6 +159,7 @@ $(document).ready(function(){
         });
 
         request.done(function( msg ) {
+
             $('#GetFinalPhotoPath').val($('#gobalPath').val()+$.trim(msg));
             $('#PreviewSelectedImage').removeAttr('disabled');
                 $('#PreviewSelectedImage').click(function(){
@@ -398,12 +399,12 @@ $(document).ready(function(){
 
     /******************************************Cuisine order controller****************************/
    //change the order status that adds 1 from base
-    $('body').on('click','#icon-caret-up-table',function(){
+    $('body').on('click','.icon-caret-up-table',function(){
        var OrNumber=parseInt($(this).parent().find('h5').html());
        $(this).parent().find('h5').html(OrNumber+1);
    });
     //chage the order status that subs 1 from base
-    $('body').on('click','#icon-caret-down-table',function(){
+    $('body').on('click','.icon-caret-down-table',function(){
         var OrNumber=parseInt($(this).parent().find('h5').html());
         $(this).parent().find('h5').html(OrNumber-1);
     });

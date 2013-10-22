@@ -39,7 +39,7 @@ class RegisterUser extends User{
 
     private function InsertRegistrerToDatabase(){
 
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.User (UserID,UserPassWord,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.User (UserID,UserPassWord,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?)")){
             $stmt->bind_param('isssi',$this->RegisterUserID,md5(base64_encode($this->RegisterUserPass)),$this->RegisterEmail, $this->RegisterUserType,$this->RegisterUserStatus);
             $stmt->execute();
             $stmt->close();
@@ -108,7 +108,7 @@ class RegisterUser extends User{
 
     //this function is getting facebook user's infomation straght away
     public function DirectlyRegisterFacebook($FBID,$FBUserName,$FBFirstName,$FBLastName,$FBMail,$FBPhoto,$FBstatus,$UserType){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO B2C.User (UserID,UserName,UserFirstName,UserLastName,UserPhotoPath,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.User (UserID,UserName,UserFirstName,UserLastName,UserPhotoPath,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?,?,?,?)")){
             $stmt->bind_param('issssssi',$FBID,$FBUserName,$FBFirstName,$FBLastName,$FBPhoto,$FBMail,$UserType,$FBstatus);
             $stmt->execute();
             $stmt->close();

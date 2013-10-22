@@ -15,11 +15,14 @@
                 <div class="form-horizontal">
                     <!--Restarurant Photo-->
                     <div class="control-group text-left">
-                            <input type="text" class="span9" style="position:absolute" id="CuisineImagePath" placeholder="Broswer file">
                             <input type="hidden" id="gobalPath" value="<?php echo GlobalPath;?>">
-                            <form id="CuisinePhotoForm" method="POST" enctype="multipart/form-data">
-                                <input type="file" class="span9" name="Input_Cuisineavatar" style="opacity:0; position:relative" id="Input_Cuisineavatar">
-                                <br>
+
+                        <form id="CuisinePhotoForm" method="POST" enctype="multipart/form-data">
+
+                            <input type="file" class="span9" name="Input_Cuisineavatar" style="opacity:0; position:relative;z-index:1000;margin-bottom:9px" id="Input_Cuisineavatar">
+                            <input type="text" class="span9" style="position:absolute;left:1em;" id="CuisineImagePath" placeholder="Broswer file">
+
+                            <br>
                                 <button type="button" id="submitCuisinePic" class="btn">Upload</button>
                                 <br>
                                 <br>
@@ -95,7 +98,7 @@
         </div>
         <div class="modal-body">
         <div class="text-center">
-            <img id="PreviewCuisinePhoto">
+            <img id="PreviewCuisinePhoto"/>
         </div>
 
         </div>
