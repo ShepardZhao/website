@@ -34,8 +34,8 @@
                          </h2>
                         <h2>
                         <ul class="inline favorite text-right">
-                            <li><i class="icon-heart-empty"></i></li>
-                            <li><i class="icon-plus"></i></li>
+                            <li><i class="fa fa-heart-o"></i></li>
+                            <li><i class="fa fa-plus"></i></li>
 
                         </ul>
                          </h2>
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <h1 class="left-position" id="Feathred-left-position"> <i class="icon-circle-arrow-left"></i></h1>
+        <h1 class="left-position" id="Feathred-left-position"> <i class="fa fa-arrow-left"></i></h1>
 
     </div>
     </section>

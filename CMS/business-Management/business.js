@@ -213,40 +213,47 @@ $(document).ready(function(){
 
    //final cuisine photo uploading
     $modalphoto.on('click','#CuisinePhotoUploading',function(){
-        var tmp={};
-        tmp['CuisinePhotoUploading']='CuisinePhotoUploading';
-        tmp['CuisineCuid']=$('#GetCurrentCuid').val();
-        tmp['CuisinePhotoPath']=$('#GetFinalPhotoPath').val();
-        tmp['OldPhotoPath']=$('#absolutePath').val();
-        var request = $.ajax({
-            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
-            type: "POST",
-            data:tmp,
-            dataType: "html"
-        });
+        if($('#CuisineImagePath').val()!==''){
+            var tmp={};
+            tmp['CuisinePhotoUploading']='CuisinePhotoUploading';
+            tmp['CuisineCuid']=$('#GetCurrentCuid').val();
+            tmp['CuisinePhotoPath']=$('#GetFinalPhotoPath').val();
+            tmp['OldPhotoPath']=$('#absolutePath').val();
+            var request = $.ajax({
+                url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+                type: "POST",
+                data:tmp,
+                dataType: "html"
+            });
 
-        request.done(function( msg ) {
-            if(msg==='You have successfully uploaded photo'){
-                $modalphoto.modal('loading');
-                setTimeout(function(){
-                    $modalphoto
-                        .modal('loading')
-                        .find('.modal-body').empty()
-                        .prepend("<div class='alert alert-success fade in'>" + msg + "</div>");
+            request.done(function( msg ) {
+                if(msg==='You have successfully uploaded photo'){
+                    $modalphoto.modal('loading');
+                    setTimeout(function(){
+                        $modalphoto
+                            .modal('loading')
+                            .find('.modal-body').empty()
+                            .prepend("<div class='alert alert-success fade in'>" + msg + "</div>");
 
-                }, 1000);
-                setTimeout(function(){$('#ajax-modal-cuisine-photo').modal('hide'); CuisineAJAXList();},3000);
-            }
-            else if(msg==='Database Error'){
-                InformationDisplay("Sorry, Database Error","alert-error");
+                    }, 1000);
+                    setTimeout(function(){$('#ajax-modal-cuisine-photo').modal('hide'); CuisineAJAXList();},3000);
+                }
+                else if(msg==='Database Error'){
+                    InformationDisplay("Sorry, Database Error","alert-error");
 
 
-            }
-        });
+                }
+            });
 
-        request.fail(function( jqXHR, textStatus ) {
-            alert( "Request failed: " + textStatus );
-        });
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
+       else{
+            InformationDisplay("Sorry, You cannot save the crop photo due empty file path","alert-error");
+        }
+        return false;
+
     });
 
 

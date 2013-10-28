@@ -409,6 +409,22 @@ $(document).ready(function(){
 
 
 
+    /*****************************************Order jquery**********************************/
+    //nav tags
+    $(function(){
+        var getTagWrapWidth=$('.TagWrapUI').width();
+        var finalTagWrapUIWidth=getTagWrapWidth-60;
+        $('.TagWidthOverflow').css('width',finalTagWrapUIWidth+'px');
+
+
+
+    });
+
+
+
+
+
+
 });
 
 

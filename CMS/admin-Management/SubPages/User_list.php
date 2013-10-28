@@ -1,7 +1,7 @@
 <div id="UserList">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul"> User List</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt"> User List</i><h4></div>
             <div class="basicInfo-box">
                 <div id="TableListWrap" class="text-center">
                     <?php $UserClass->DisplayDefaultUserList();?>

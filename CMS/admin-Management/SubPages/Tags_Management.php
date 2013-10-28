@@ -2,7 +2,7 @@
     <div id="display_info" class="row-fluid"><div class="span12"></div></div>
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul">  Cuisine's and Restaurants's Tags Setting</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  Cuisine's and Restaurants's Tags Setting</i><h4></div>
             <div class="basicInfo-box">
                 <div class="row-fluid">
                     <div class="span5 offset1">
@@ -10,7 +10,6 @@
                         <div class="input-prepend">
                             <span class="add-on">Availability</span>
                             <input class="span7" id="InputCuisAvailability" type="text" placeholder="New Availabilty">
-
                         </div>
                         <div id="CuisineAvailabilityTagsList">
                             <?php $TagsClass->outPutTags("Availability","client_b2c.CuisineTags");?>
@@ -21,12 +20,10 @@
 
                     </div>
 
-
                     <div class="span5 offset1">
                         <div class="input-prepend">
                             <span class="add-on">Cuisine</span>
                             <input class="span9" id="InputCuisCuisine" type="text" placeholder="New Cuisine">
-
                         </div>
                         <div id="CuisineCuisineTagsList">
                             <?php $TagsClass->outPutTags("Cuisine","client_b2c.CuisineTags");?>

@@ -1,7 +1,7 @@
 <div id="basicInfo">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul">  Basic System Management</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  Basic System Management</i><h4></div>
             <div class="basicInfo-box">
                 <div class="form-horizontal">
 

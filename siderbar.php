@@ -10,13 +10,13 @@
             <section class="clearfix"><!--addresss section begins-->
                 <div class="span12">
                     <ul class="inline text-center">
-                        <li><a id="QuestionMark" data-toggle="popover" data-placement="left" data-content="Click below arrow to collapse all address"><i class="icon-question-sign"></i></a></li>
+                        <li><a id="QuestionMark" data-toggle="popover" data-placement="left" data-content="Click below arrow to collapse all address"><i class="fa fa-question-circle"></i></a></li>
                         <li><h5 class=" orderListColor">DELIVERY TO:</h5></li>
                     </ul>
 
                     <ul class="inline clearfix">
                         <li class="pull-left orderListColor orderListBloder">My Address book:</li>
-                        <li class="pull-right orderListColor"><a id="switchArrow"><i class="icon-chevron-sign-right"></i></a></li>
+                        <li class="pull-right orderListColor"><a id="switchArrow"><i class="fa fa-arrow-circle-o-right"></i></a></li>
                     </ul>
                 </div>
 
@@ -36,13 +36,13 @@
                             <td><div class="well well-small">Sea food with itemname number something plus something itemname</div></td>
                             <td><h5><span class="number">1<i class="plus icon-expand-alt"></i><i class="sub icon-collapse-alt"></i></span></h5></td>
                             <td><span class="price"><i>$127.0</i></span></td>
-                            <td><i class="cancel icon-remove"></i></td>
+                            <td><i class="fa fa-times"></i></td>
                         </tr>
                         <tr>
                             <td><div class="well well-small">Sea food with itemname number something plus something itemname</div></td>
                             <td><h5><span class="number">1<i class="plus icon-expand-alt"></i><i class="sub icon-collapse-alt"></i></span></h5></td>
                             <td><span class="price"><i>$127.0</i></span></td>
-                            <td><i class="cancel icon-remove"></i></td>
+                            <td><i class="fa fa-times"></i></td>
                         </tr>
 
                     </table>
@@ -64,7 +64,7 @@
                              <tr>
                                  <td> <h5>Delivery Fee:</h5></td>
                                  <td></td>
-                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i class="Delivery_Margin">$3.0</i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel icon-question-sign"></i></a></span></h5></td>
+                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i class="Delivery_Margin">$3.0</i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel fa fa-question-circle"></i></a></span></h5></td>
 
                              </tr>
 

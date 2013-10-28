@@ -438,6 +438,28 @@ class InitialUserMyaddressBook extends MyaddressBook{
 }
 
 
+/******************************************OrderSelectionTags*************************************************/
+class OrderSelectionTags extends Tags{
+    public function __construct($DataBaseConnetcion){
+        parent::__construct($DataBaseConnetcion);
+    }
+
+    public function FrontEndDisplayTags($Tags,$Table){
+        $tmpArray=parent::getTags($Tags,$Table);
+        foreach($tmpArray as $key=>$value){
+        echo "<li class='$key'><a>$value</a></li>";
+        }
+
+    }
+
+
+
+
+
+
+}
+
+
 
 
 ?>

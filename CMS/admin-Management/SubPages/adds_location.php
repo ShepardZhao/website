@@ -1,7 +1,7 @@
 <div id="addsLocation">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul">  Please Added Location below</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  Please Added Location below</i><h4></div>
             <div class="basicInfo-box">
                 <div class="form-horizontal">
                     <div class="control-group">

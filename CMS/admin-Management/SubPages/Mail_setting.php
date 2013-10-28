@@ -1,7 +1,7 @@
 <div id="Mail_Setting">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul">  The construct of User's valid Email</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  The construct of User's valid Email</i><h4></div>
             <div class="basicInfo-box">
                 <input class="input-xlarge" id='ConstructOfActiveMail' type="text" disabled value="<?php echo $BasicSettingClass->pushSettingData()['EMail'];?>">
                 <input class="input-xxlarge" id='TitleOfConstructOfActiveMail' type="text" value="<?php echo $MailsettingClass->GetMailContentViaParam('ActivactionMail')['UserMailTitle'];?>" placeholder="Please put title here (i.e: Please Click below link to complete activation)">

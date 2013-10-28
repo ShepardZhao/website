@@ -30,7 +30,7 @@ body{
 	margin:100px auto;
 }
 
-.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover,#searchImg:hover{
+.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover,#searchImg:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
@@ -38,6 +38,7 @@ body{
 	transition-timing-function: linear;  
 	position:relative;
 }
+
 a{
 	text-decoration: none !important;
 }
@@ -448,8 +449,8 @@ position: relative;
 }
 .ContentLeftList li{
 	text-align:center;
-	padding-top: 18px;
-	padding-bottom:8px;
+	padding-top: 16px;
+	padding-bottom:9px;
 	font-weight:600;
 	color:#fff;
 	
@@ -468,7 +469,9 @@ position: relative;
 }
 
 .TagWidthOverflow{
-	overflow:hidden;
+	overflow:auto;
+    height:35px;
+    white-space:nowrap;
 }
 
 .TagAvailable>li>a{/*tag 1:available  */
@@ -494,6 +497,18 @@ position: relative;
 }
 
 /*Featured.php*/
+
+.TagsArrowDown{
+    font-size: 2em;
+    margin: 4px;
+    color:rgb(244,112,99);
+
+}
+.TagsArrowUp{
+    font-size: 2em;
+    margin: 4px;
+    color:rgb(255,115,49);
+}
 .FeaturedImage{
 	background-color: rgb(245,245,245);
 }

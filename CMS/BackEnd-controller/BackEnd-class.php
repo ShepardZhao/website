@@ -1742,7 +1742,7 @@ class Cuisine{
             echo "<tr id=$Rootkey>";
             foreach ($SubArray as $key=>$value){
             if($key==='CuOrder'){
-            echo '<td id="OrderPostion"><i class="icon-caret-up-table icon-caret-up"></i><h5>'.$value.'</h5><i class="icon-caret-down-table icon-caret-down"></i></td>';
+            echo '<td id="OrderPostion"><i class="icon-caret-up-table fa fa-caret-up"></i><h5>'.$value.'</h5><i class="icon-caret-down-table fa fa-caret-down"></i></td>';
             }
             if($key==='Avaliability'){
                 echo '<td>'.$value.'</td>';

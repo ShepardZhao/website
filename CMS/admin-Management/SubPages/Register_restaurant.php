@@ -1,7 +1,7 @@
 <div id="addedRestaurant">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul"> Register A New Restaurant</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt"> Register A New Restaurant</i><h4></div>
             <div class="basicInfo-box">
                 <form id="MyRestaurant">
                     <div class="span12 text-center">

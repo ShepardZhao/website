@@ -75,7 +75,7 @@ if ($user) {
                             <li>
                                 <div class="btn-group">
 
-                                    <button onclick="fb_login()" class="setUpFacebook radius"  type="button" id="FacebookLogin" ><i class="icon-facebook icon-white"></i> SignUp with Facebook</button>
+                                    <button onclick="fb_login()" class="setUpFacebook radius"  type="button" id="FacebookLogin" ><i class="fa fa-facebook icon-white"></i> SignUp with Facebook</button>
 
                                 </div>
 
@@ -88,14 +88,14 @@ if ($user) {
                             </li>
                             <li>
                                 <div class="btn-group">
-                                    <button  class="dropdown-toggle setUp radius" type="button" data-toggle="dropdown">Sign In <i class="icon-sort-down icon-white"></i>
+                                    <button  class="dropdown-toggle setUp radius" type="button" data-toggle="dropdown">Sign In <i class="fa fa-sort-asc icon-white"></i>
                                     </button>
                                     <ul class="dropdown-menu pull-right">
                                         <form id="login-area">
                                             <div class="control-group input-group">
                                                 <div class="controls">
                                                     <div class="input-prepend ">
-                                                        <span class="add-on"><i class="icon-envelope"></i></span>
+                                                        <span class="add-on"><i class="fa fa-envelope-o"></i></span>
                                                         <input type="email" id="inputEmail" placeholder="Email">
                                                     </div>
                                                 </div>
@@ -103,7 +103,7 @@ if ($user) {
                                             <div class="control-group input-group">
                                                 <div class="controls">
                                                     <div class="input-prepend ">
-                                                        <span class="add-on"><i class="icon-lock"></i></span>
+                                                        <span class="add-on"><i class="fa fa-lock"></i></span>
                                                         <input type="password" id="inputPassword" placeholder="Password">
                                                     </div>
                                                 </div>

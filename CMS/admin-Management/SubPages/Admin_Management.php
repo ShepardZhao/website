@@ -1,7 +1,7 @@
 <div id="adminMangement">
     <div class="row-fluid">
         <div class="span12">
-            <div class="divhead"><h4><i class="icon-list-ul">  Administrator Management</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  Administrator Management</i><h4></div>
             <div class="basicInfo-box">
                 <div class="form-horizontal">
                     <div class="control-group">

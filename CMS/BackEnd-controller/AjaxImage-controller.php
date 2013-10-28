@@ -89,7 +89,7 @@ function retrunImage($GetCurrentID,$OldWidth,$OldHeight,$CuisineW,$CuisineH,$Cui
 try{
     $targ_w = $CuisineW;
     $targ_h = $CuisineH;
-    $jpeg_quality = 2000;
+    $jpeg_quality = 3000;
     $savePath=$savePath.$EncryptedName;
     //using class to crop image first
     $resizeObj = new resize($CuisineOldImagePath);
