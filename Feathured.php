@@ -14,35 +14,39 @@
         <div class="span10">
             <ul class="nav nav-pills nav-stacked ContentRightList TagWrapUI">
                 <li>
+                <div id="TagAvailableRelative">
                     <ul class="nav nav-pills ContentRightList TagAvailable TagWidthOverflow"><!--Availablity-->
                         <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Availability","client_b2c.CuisineTags");?>
-                        <i class="TagsArrowDown fa fa-arrow-circle-o-down"></i>
-                        <i class="TagsArrowUp fa fa-arrow-circle-o-up"></i>
-
-
                     </ul>
+                <div id="TagAvailablepPosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                </div>
                 </li>
+
                 <li>
+                <div id="TagCuisineRelative">
                     <ul class="nav nav-pills ContentRightList TagCuisine TagWidthOverflow"><!--Cuisine-->
                         <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Cuisine","client_b2c.CuisineTags");?>
-                        <i class="TagsArrowDown fa fa-arrow-circle-o-down"></i>
-                        <i class="TagsArrowUp fa fa-arrow-circle-o-up"></i>
                     </ul>
+                <div id="TagCuisinePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                </div>
                 </li>
+
                 <li>
+                <div id="TagTypeRelative">
                     <ul class="nav nav-pills ContentRightList TagType TagWidthOverflow"><!--Type-->
                         <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Type","client_b2c.CuisineTags");?>
-                        <i class="TagsArrowDown fa fa-arrow-circle-o-down"></i>
-                        <i class="TagsArrowUp fa fa-arrow-circle-o-up"></i>
-
                     </ul>
+                <div id="TagTypePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                </div>
                 </li>
+
                 <li>
+                <div id="TagPriceRelative">
                     <ul class="nav nav-pills ContentRightList TagPrice TagWidthOverflow"><!--price-->
                         <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Price","client_b2c.CuisineTags");?>
-                        <i class="TagsArrowDown fa fa-arrow-circle-o-down"></i>
-                        <i class="TagsArrowUp fa fa-arrow-circle-o-up"></i>
                     </ul>
+                <div id="TagPricePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                </div>
                 </li>
             </ul>
         </div>

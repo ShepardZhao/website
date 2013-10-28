@@ -1,3 +1,5 @@
+
+//once html has been loaded up then executed the following thing
 $(document).ready(function(){
    window.CurrentDomain=window.location.origin;
  //common area
@@ -409,19 +411,94 @@ $(document).ready(function(){
 
 
 
-    /*****************************************Order jquery**********************************/
-    //nav tags
-    $(function(){
-        var getTagWrapWidth=$('.TagWrapUI').width();
-        var finalTagWrapUIWidth=getTagWrapWidth-60;
-        $('.TagWidthOverflow').css('width',finalTagWrapUIWidth+'px');
 
+
+});
+
+$(window).load(function(){
+
+    /***************************************Feature part************************************************/
+
+    var TagAvailableWidth=getMaxLiWidth('.TagAvailable li');
+    var TagCuisineWidth=getMaxLiWidth('.TagCuisine li');
+    var TagTypeWidth=getMaxLiWidth('.TagType li');
+    var TagPriceWidth=getMaxLiWidth('.TagPrice li');
+
+
+    if (TagAvailableWidth>$('.TagAvailable').width()){
+        $('#TagAvailablepPosition').fadeIn();
+    }
+    if (TagCuisineWidth>$('.TagCuisine').width()){
+        $('#TagCuisinePosition').fadeIn();
+    }
+    if (TagTypeWidth>$('.TagType').width()){
+        $('#TagTypePosition').fadeIn();
+    }
+    if (TagPriceWidth>$('.TagPrice').width()){
+        $('#TagPricePosition').fadeIn();
+
+    }
+
+
+    //get total width
+    function getMaxLiWidth(getli){
+        var totalWidth=0;
+        $(getli).each(function() {
+            totalWidth += parseInt($(this).width());
+        });
+        return totalWidth;
+    }
+
+    //scroll down
+    $('body').on('click','.fa-arrow-circle-o-down',function(){
+
+        //TagAvailable
+        if($(this).parent().parent().find('.TagAvailable')){
+            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "100px"},500);
+        }
+        //TagCuisine switch
+        if($(this).parent().parent().find('.TagCuisine')){
+            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "100px"},500);
+        }
+
+        //TagType switch
+        if($(this).parent().parent().find('.TagType')){
+            $(this).parent().parent().find('.TagType').animate({scrollTop  : "100px"},500);
+        }
+
+        //TagPrice switch
+        if($(this).parent().parent().find('.TagPrice')){
+            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "100px"},500);
+        }
 
 
     });
 
 
+    //scroll up
+    $('body').on('click','.fa-arrow-circle-o-up',function(){
+        //TagAvailable
+        if($(this).parent().parent().find('.TagAvailable')){
+            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "-100px"},500);
+        }
 
+        //TagCuisine switch
+        if($(this).parent().parent().find('.TagCuisine')){
+            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "-100px"},500);
+        }
+
+        //TagType
+        if($(this).parent().parent().find('.TagType')){
+            $(this).parent().parent().find('.TagType').animate({scrollTop  : "-100px"},500);
+        }
+
+        //TagPrice
+        if($(this).parent().parent().find('.TagPrice')){
+            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "-100px"},500);
+        }
+
+
+    });
 
 
 

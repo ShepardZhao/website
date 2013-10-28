@@ -469,7 +469,7 @@ position: relative;
 }
 
 .TagWidthOverflow{
-	overflow:auto;
+	overflow:hidden;
     height:35px;
     white-space:nowrap;
 }
@@ -497,6 +497,54 @@ position: relative;
 }
 
 /*Featured.php*/
+
+#TagPriceRelative{
+	position: relative;
+}
+
+#TagPricePosition{
+	display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+
+#TagTypeRelative{
+    position: relative;
+}
+#TagTypePosition{
+	display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+
+#TagCuisineRelative{
+    position: relative;
+}
+
+#TagCuisinePosition{
+	display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#TagAvailableRelative{
+    position: relative;
+}
+
+#TagAvailablepPosition{
+	display: none;
+position:absolute;
+    top: 0;
+    right: 0;
+}
+
+
+
 
 .TagsArrowDown{
     font-size: 2em;

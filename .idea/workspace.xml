@@ -2,66 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382412968.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382413586.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382413686.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382426533.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449055.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449089.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449175.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449190.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449193.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449205.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449277.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449278.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449396.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449438.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449513.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449706.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449741.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382449817.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/1382450286.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/WaterMarkersmall-1382412635.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/WaterMarkersmall-1382412734.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/WaterMarkersmall-1382412843.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/WaterMarkersmall-1382412871.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/WaterMarkersmall-1382412968.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382412615.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382413686.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382426533.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382426561.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382438581.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382449438.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/assets-imgs/CuisinePic/small-1382450286.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" afterPath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/AjaxImage-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/AjaxImage-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" afterPath="$PROJECT_DIR$/CMS/admin-Management/js/CMS-AJAX.v1.0.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Feathured.php" afterPath="$PROJECT_DIR$/Feathured.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/GobalConnection.php" afterPath="$PROJECT_DIR$/CMS/GobalConnection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/business.js" afterPath="$PROJECT_DIR$/CMS/business-Management/business.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" afterPath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" afterPath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/assets/framework/css/font-awesome.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.php" afterPath="$PROJECT_DIR$/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order.php" afterPath="$PROJECT_DIR$/order.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siderbar.php" afterPath="$PROJECT_DIR$/siderbar.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="website.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/BackEnd-class.php" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380353905817" ignored="false" />
-    <file path="/customer-indexPage.v1.0.js" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1380454442755" ignored="false" />
-    <file path="/Dummy.txt" changelist="179ea54e-118b-4955-b8aa-326260dbada8" time="1382529276143" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +31,7 @@
       <file leaf-file-name="BackEnd-class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="-1.0416666">
+            <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="-0.0" vertical-offset="26160" max-vertical-offset="33225">
               <folding />
             </state>
           </provider>
@@ -93,17 +40,27 @@
       <file leaf-file-name="FrontEnd-class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="-7.5">
+            <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7050">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Feathured.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Feathured.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Feathured.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="24" selection-start="722" selection-end="722" vertical-scroll-proportion="0.31578946">
-              <folding />
+            <state line="17" column="74" selection-start="696" selection-end="708" vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="1140">
+              <folding>
+                <marker date="1382932429000" expanded="true" signature="584:892" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="726:890" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="1118:1412" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="1256:1411" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="1636:2117" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="1768:1917" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="2139:2625" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="2273:2424" placeholder="..." />
+                <marker date="1382932429000" expanded="true" signature="2718:2866" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -111,25 +68,16 @@
       <file leaf-file-name="User_list.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="-1.875">
+            <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="360">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="customer.v1.0.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="customer.v1.0.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/framework/css/customer.v1.0.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="470" column="17" selection-start="8416" selection-end="8432" vertical-scroll-proportion="-3.76">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="customer-indexPage.v1.0.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="417" column="0" selection-start="13386" selection-end="13386" vertical-scroll-proportion="0.0">
+            <state line="827" column="23" selection-start="13269" selection-end="13269" vertical-scroll-proportion="0.5077821" vertical-offset="12144" max-vertical-offset="13725">
               <folding />
             </state>
           </provider>
@@ -138,7 +86,7 @@
       <file leaf-file-name="Mail_setting.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.9183673">
+            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="375">
               <folding />
             </state>
           </provider>
@@ -147,7 +95,7 @@
       <file leaf-file-name="Tags_Management.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="-10.0">
+            <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="-0.0" vertical-offset="315" max-vertical-offset="1365">
               <folding />
             </state>
           </provider>
@@ -156,7 +104,7 @@
       <file leaf-file-name="Sidebar.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="-2.7551022">
+            <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1005">
               <folding>
                 <marker date="1381639184000" expanded="true" signature="98:373" placeholder="..." />
                 <marker date="1381639184000" expanded="true" signature="396:653" placeholder="..." />
@@ -183,7 +131,7 @@
       <file leaf-file-name="adds_location.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.9183673">
+            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.0" vertical-offset="45" max-vertical-offset="1035">
               <folding />
             </state>
           </provider>
@@ -220,9 +168,9 @@
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php" />
+        <option value="$PROJECT_DIR$/Feathured.php" />
         <option value="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
         <option value="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
-        <option value="$PROJECT_DIR$/Feathured.php" />
       </list>
     </option>
   </component>
@@ -235,6 +183,7 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="php" />
   <component name="PhpXdebugProxy" ide_key="PHPSTORM" host="b2c.com.au" port="9000" />
   <component name="ProjectFrameBounds">
+    <option name="x" value="235" />
     <option name="y" value="22" />
     <option name="width" value="1254" />
     <option name="height" value="723" />
@@ -457,13 +406,13 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="preferences.fileTypes" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -541,15 +490,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1254" height="723" extended-state="0" />
+    <frame x="235" y="22" width="1254" height="723" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28725165" sideWeight="0.694859" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30514097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29801324" sideWeight="0.694859" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30514097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -569,58 +519,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="CHECK_NEW_TODO" value="true" />
     <option name="myTodoPanelSettings">
-      <value>
-        <are-packages-shown value="false" />
-        <are-modules-shown value="false" />
-        <flatten-packages value="false" />
-        <is-autoscroll-to-source value="false" />
-      </value>
+      <TodoPanelSettings />
     </option>
-    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
-    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
-    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
-    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
-    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
-    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
-    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
-    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
-    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
-    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
-    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
-    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
-    <option name="LIMIT_HISTORY" value="true" />
-    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
-    <option name="UPDATE_FILTER_SCOPE_NAME" />
-    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
-    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
-    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="" />
-    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
-    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
-    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
-    <option name="ACTIVE_VCS_NAME" />
-    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
-    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
-    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
-    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
-    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -695,91 +597,65 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="140" selection-start="4201" selection-end="4201" vertical-scroll-proportion="-3.1836734">
-          <folding />
-        </state>
+        <state line="90" column="140" selection-start="4201" selection-end="4201" vertical-scroll-proportion="-3.1836734" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/siderbar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="53" selection-start="2536" selection-end="2536" vertical-scroll-proportion="-4.5306125">
-          <folding />
-        </state>
+        <state line="44" column="53" selection-start="2536" selection-end="2536" vertical-scroll-proportion="-4.5306125" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="144" selection-end="144" vertical-scroll-proportion="-0.9183673">
-          <folding />
-        </state>
+        <state line="3" column="61" selection-start="144" selection-end="144" vertical-scroll-proportion="-0.9183673" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="139" selection-end="139" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
+        <state line="3" column="61" selection-start="139" selection-end="139" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/initialpage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="33" selection-start="607" selection-end="609" vertical-scroll-proportion="-5.897959">
-          <folding />
-        </state>
+        <state line="20" column="33" selection-start="607" selection-end="609" vertical-scroll-proportion="-5.897959" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="145" selection-end="145" vertical-scroll-proportion="-1.875">
-          <folding />
-        </state>
+        <state line="3" column="61" selection-start="145" selection-end="145" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="-1.875">
+        <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="360">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.9183673">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.9183673">
+        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="375">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="-1.0416666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="-10.0">
+        <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="0.0" vertical-offset="26160" max-vertical-offset="33225">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="-7.5">
+        <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7050">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="-2.7551022">
+        <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1005">
           <folding>
             <marker date="1381639184000" expanded="true" signature="98:373" placeholder="..." />
             <marker date="1381639184000" expanded="true" signature="396:653" placeholder="..." />
@@ -802,23 +678,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/css/customer.v1.0.css">
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="470" column="17" selection-start="8416" selection-end="8432" vertical-scroll-proportion="-3.76">
+        <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1365">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="417" column="0" selection-start="13386" selection-end="13386" vertical-scroll-proportion="0.0">
+        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1035">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Feathured.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="24" selection-start="722" selection-end="722" vertical-scroll-proportion="0.31578946">
+        <state line="17" column="74" selection-start="696" selection-end="708" vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="1140">
+          <folding>
+            <marker date="1382932429000" expanded="true" signature="584:892" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="726:890" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="1118:1412" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="1256:1411" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="1636:2117" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="1768:1917" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="2139:2625" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="2273:2424" placeholder="..." />
+            <marker date="1382932429000" expanded="true" signature="2718:2866" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="481" column="57" selection-start="15194" selection-end="15194" vertical-scroll-proportion="0.60040987" vertical-offset="6922" max-vertical-offset="7710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/css/customer.v1.0.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="827" column="23" selection-start="13269" selection-end="13269" vertical-scroll-proportion="0.5077821" vertical-offset="12144" max-vertical-offset="13725">
           <folding />
         </state>
       </provider>
