@@ -12,7 +12,9 @@
                     <div class="control-group SecondTitleWrap">
                         <label class="control-label SecondLevelModalLabel ">Title:</label>
                         <div class="controls text-left SecondLevelModalControl">
-                            <input type="text" class="span9 SecondTitle" name="SecondLevelTitle" placeholder="Second level dish's type. i.e: pizza base">
+                            <input type="text" class="span9 SecondTitle" name="SecondLevelTitle[]" placeholder="Second level dish's type. i.e: pizza base">
+                            <button class="button text-right button-delete SecondLevelButton-delete" type="button">Delete</button>
+
                         </div>
                         <!--SecondLevelCheckbox-->
                         <br>
@@ -31,23 +33,21 @@
                             <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button>
                         </div>
 
-                        <div class="row-fluid">
+                        <div class="row-fluid AddNewButtonZone">
                             <div class="span12 text-center">
                                 <button class="button subbutton subAddNewBotton"  type="button">Add New</button>
                             </div>
                         </div>
                     </div>
-                    <label class="alert alert-info">Note: Please clicking 'saving' to save current title fields then you may be able to add a New Title </label>
+                    <label class="alert alert-info">Note: If you want to add new name and pric for current title, please click 'Add New' with bule button </label>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal-footer">
-
         <button type="button" class="button floatstyle addedNewTitle">Add New Title</button>
-
-        <button type="submit"  class="button">Saving</button>
+        <button type="submit"  id="AddSecondLevelForm" class="button">Saving</button>
         <button type="button" data-dismiss="modal" class="button SubCancel">Cancel</button>
     </div>
   </form>

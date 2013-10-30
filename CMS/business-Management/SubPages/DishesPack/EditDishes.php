@@ -48,13 +48,13 @@ session_start();
         <div class="control-group ReChooseTagsBackgroundWarning">
             <h5>Tags<small class='ReChooseTags'>--Please choose new tags below</small></h5>
             <label>Avaliability Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Availability","B2C.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Availability","client_b2c.CuisineTags");?>
             <label>Cuisine Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","B2C.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","client_b2c.CuisineTags");?>
             <label>Cuisine Type Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Type","B2C.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Type","client_b2c.CuisineTags");?>
             <label>Cuisine Price Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Price","B2C.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Price","client_b2c.CuisineTags");?>
         </div>
 
 

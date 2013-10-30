@@ -5,10 +5,12 @@ $(document).ready(function(){
     //common modal
     var $modal=$('#ajax-modal');
     var $modalphoto=$('#ajax-modal-cuisine-photo');
-    var tmpContainter;
     //image variables;
     var resizeOldWidth;
     var resizeOldHeight;
+    var tmpWrapContainter="<div class='row-fluid'><div class='span12'><div class='form-horizontal'><div class='control-group SecondTitleWrap'><label class='control-label SecondLevelModalLabel'>Title: </label><div class='controls text-left SecondLevelModalControl'><input type='text' class='span9 SecondTitle' name='SecondLevelTitle[]' placeholder='Second level dishs type. i.e: pizza base'> <button class='button text-right button-delete SecondLevelButton-delete' type='button'>Delete</button></div><br><label class='checkbox SecondLevelCheckbox'><input type='checkbox' id='SecondLevelCheckbox'>Multiple choice</label><div class='form-inline SubSecondstyle'><label>Name: <input type='text' class='SubSecondInput span8' name='SubLevelOfName[]' placeholder='i.e: extra cheese'> </label> <label> Price: <input class='SubSecondInputPrice' type='number' pattern='[0-9]+([\,|\.][0-9]+)?' name='SubLevelOfPrice[]' step='0.01' placeholder='i.e: $2.00'></label> <button class='button text-right button-delete SubSecondButton-delete' type='button'>Delete</button></div><div class='row-fluid AddNewButtonZone'><div class='span12 text-center'><button class='button subbutton subAddNewBotton'  type='button'>Add New</button></div></div></div><label class='alert alert-info'>Note: If you want to add new name and pric for current title, please click 'Add New' with bule button </label> </div></div></div>";
+   var tmpNameAndPriceContainter='<div class="form-inline SubSecondstyle"><label>Name: <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" placeholder="i.e: extra cheese"> </label> <label> Price: <input type="text" class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2.00"></label> <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button></div>';
+
 
 
     /************************************** Cuisine phtoto uploading*************************************************/
@@ -256,12 +258,8 @@ $(document).ready(function(){
 
     });
 
-
-
-
-
-    /******************************************Add second level of current cuisine****************/
-    $('body').on('click','.AddSecondLevel',function(){
+    /******************************************Manage second level of current cuisine****************/
+    $('body').on('click','.AddSecondLevel',function(){ //AddSecondLevel
 
         var getCuID=$(this).attr('id');
         var getCuName=$(this).parent().parent().find('.CuName').attr('id');
@@ -269,51 +267,140 @@ $(document).ready(function(){
         setTimeout(function(){
             $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/SecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
                 $modal.modal();
-                tmpContainter=$('#SecondLevelWrap').html();
+            });
+        }, 1000);
+
+    });
+
+    $('body').on('click','.EditSecondLevel',function(){ //EditSecondLevel
+
+        var getCuID=$(this).attr('id');
+        var getCuName=$(this).parent().parent().parent().parent().parent().find('.CuName').attr('id');
+        $('body').modalmanager('loading');
+        setTimeout(function(){
+            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditSecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
+                $modal.modal();
             });
         }, 1000);
 
     });
 
 
+
+    //delete current second level
+    $modal.on('click','.SecondLevelButton-delete',function(){
+        $(this).parent().parent().parent().parent().parent().remove();//remove and empty current sub box
+        //if currently is adding new record, then false, otherwise return true
+        if($(this).parent().parent().parent().parent().parent().find('.UpdateKey').length>0){
+            var value=$(this).parent().parent().parent().parent().parent().find('.UpdateKey').val();
+            var tmp={};
+            tmp['SecondLevelWrapDelete']=value;
+            var request = $.ajax({
+                url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+                type: "POST",
+                data:tmp,
+                dataType: "html"
+            });
+
+            request.done(function( result ) {
+                InformationDisplay(result,"alert-waring");
+                CuisineAJAXList();
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
+
+    });
+
+
     //basic function of sub level
     $modal.on('click','.subAddNewBotton',function(){
-      if($('#SecondLevelCheckbox').is(':checked')){
-        $('<div class="form-inline SubSecondstyle"><label>Name: <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" placeholder="i.e: extra cheese"> </label> <label> Price: <input type="text" class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2"></label> <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button></div>').insertAfter('.SecondLevelCheckbox').fadeIn();
+      if($(this).parent().parent().parent().find('#SecondLevelCheckbox').is(':checked')){
+        $(tmpNameAndPriceContainter).fadeIn().insertBefore($(this).parent().parent().parent().find('.AddNewButtonZone'));
       }
     });
+    //delete function of sub level
     $modal.on('click','.SubSecondButton-delete',function(){
         $(this).parent().empty();
     });
 
-
+    //add a new title
     $modal.on('click','.addedNewTitle',function(){
-        $('#SecondLevelWrap').empty().append(tmpContainter);
+        $(tmpWrapContainter).appendTo($('#SecondLevelWrap'));
 
     });
-    $modal.on('submit','#SecondLevelForm',function(e){
-       var getSecondLevelNameAndPrice = returnInputArray('SubLevelOfName','SubLevelOfPrice');
-       var getSecondTtile=$('.SecondTitle').val();
-       var getCuid=$('#GetCuid').val();
-       var tmp={};
 
-       tmp['SecondLevelTitle']=getSecondTtile;
-       tmp['PassCuid']=getCuid;
-       tmp['SubSecondLevel']=getSecondLevelNameAndPrice;
-       CuisineAjax(tmp);
+    //submit the form with add new second level
+    $modal.on('click','#AddSecondLevelForm',function(e){
+
+       var getCount=$('.SecondTitleWrap').length;//get current length of second titles
+       var tmp={};//second level includs titles and sub contents
+       var passtmp={};//includes Current CuisineID and tmp;
+        //loop and fill into array
+       for (var i=0; i<getCount;i++){
+           if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
+           tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
+           }
+           else{
+               InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
+                return false;
+           }
+       }
+       var getCuid=$('#GetCuid').val();
+
+        passtmp['SetUpSecondLevel']="Setup";
+        passtmp['PassCuid']=getCuid;
+        passtmp['SecondLevelTitleAndContent']=tmp;
+        CuisineAjax(passtmp);
        return false;
     });
 
 
-    function returnInputArray(SubLevelOfName,SubLevelOfPrice){
+    //submit the form with update second level
+    $modal.on('click','#UpdateSecondLevelForm',function(e){
+
+        var getCount=$('.SecondTitleWrap').length;//get current length of second titles
+        var tmp={};//second level includs titles and sub contents
+        var passtmp={};//includes Current CuisineID and tmp;
+        //loop and fill into array
+        for (var i=0; i<getCount;i++){
+            if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
+                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
+            }
+            else{
+                InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
+                return false;
+            }
+        }
+        var getCuid=$('#GetCuid').val();
+
+        passtmp['updateSetUpSecondLevel']="Setup";
+        passtmp['updatePassCuid']=getCuid;
+        passtmp['updateKey']=ReturnUpdateKey("UpdateKey");
+        passtmp['updateSecondLevelTitleAndContent']=tmp;
+        CuisineAjax(passtmp);
+        return false;
+    });
+    function ReturnUpdateKey(UpdateKey){
+        var Temp=[];
+        $('input[name="' + UpdateKey + '[]"]').each(function() {
+            Temp.push($(this).val());
+        });
+        return Temp;
+    }
+
+
+    function returnInputArray(i,SubLevelOfName,SubLevelOfPrice){
         var TemporaryArray1=[];
         var TemporaryArray2=[];
         var PrepareArray={};
         var ReturnArray={};
-        $('input[name="' + SubLevelOfName + '[]"]').each(function() {
+        $('.SecondTitleWrap').eq(i).find('input[name="' + SubLevelOfName + '[]"]').each(function() {
             TemporaryArray1.push($(this).val());
         });
-        $('input[name="' + SubLevelOfPrice + '[]"]').each(function() {
+        $('.SecondTitleWrap').eq(i).find('input[name="' + SubLevelOfPrice + '[]"]').each(function() {
             TemporaryArray2.push($(this).val());
         });
         for (var i=0; i<TemporaryArray1.length;i++){
@@ -647,6 +734,7 @@ function CuisineAjax(data){
     });
 
     request.done(function( result ) {
+        console.log(result);
         if(result==='Error'){
             AjaxMessageError('alert-error','Submit Error, please contact to admin');
         }
@@ -963,20 +1051,6 @@ else{
         InformationDisplay(content,"alert-error");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //time picker
 
     $('.TimePicker').timepicker();
@@ -989,7 +1063,6 @@ else{
         e.stopPropagation();
     });
 
-    //oricon-caret-up-table
 
 
 });

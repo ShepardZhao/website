@@ -156,10 +156,16 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder']);}
 /********************************************Cuisine order reset***************************************************/
     if(isset($_POST['UpdateCuisineOrder']) && isset($_POST['ArrayOfCuisineOrder'])){echo $CuisineClass->RestAndUpdateOrderofCuisine($_POST['ArrayOfCuisineOrder']);}
-/********************************************Second Cuisine Submit*************************************************/
-    if(isset($_POST['SecondLevelTitle'])){echo $CuisineClass->CuisineSecondLevel($_POST['SecondLevelTitle'],$_POST['PassCuid'],$_POST['SubSecondLevel']);}
+/********************************************Second Cuisine Submit Width Add new*************************************************/
+    if(isset($_POST['SetUpSecondLevel'])){echo $CuisineClass->CuisineSecondLevel($_POST['PassCuid'],$_POST['SecondLevelTitleAndContent']);}
+/********************************************Second Cuisine Submit Width update*************************************************/
+    if(isset($_POST['updateSetUpSecondLevel'])){echo $CuisineClass->CuisineSecondLevelWidthUpdate($_POST['updatePassCuid'],$_POST['updateKey'],$_POST['updateSecondLevelTitleAndContent']);}
 /********************************************Delete current Cuisine inclduing second level**************************/
     if(isset($_POST['CuisineDeleteID'])){echo $CuisineClass->DeleteCuisine($_POST['CuisineDeleteID']);}
+/********************************************Delete second level with Wrap (including title, and its names and prices)**************************/
+    if(isset($_POST['SecondLevelWrapDelete'])){echo $CuisineClass->DeleteSecondWrap($_POST['SecondLevelWrapDelete']);}
+
+
 /********************************************Cuisine photo uploading************************************************/
     if(isset($_POST['CuisinePhotoUploading'])&&isset($_POST['CuisineCuid'])&&isset($_POST['CuisinePhotoPath'])){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath']);}
 

@@ -302,8 +302,8 @@ class Location{
             foreach ($subArray as $Secondkey=>$secondvalue){
                 if($Secondkey==='LevelOne'){
                     foreach($secondvalue as $finalKey=>$value)
-                echo "<option value='$value' id='$value'>$value</option>";
-            }
+                        echo "<option value='$value' id='$value'>$value</option>";
+                }
             }
 
         }
@@ -338,13 +338,13 @@ class Location{
                 }
                 else if($key==="LevelOne"){
                     foreach($value as $key=>$getvalue){
-                    echo  "<div class='control-group'>";
-                    echo  "<label class='control-label'>Please Change Root Location:</label>";
-                    echo "<div class='controls'>";
-                    echo "<input type='text'  id='ChangeRootLocation' class='input-xlarge' name='ChangeRootLocation[]' value='$getvalue'>";
-                    echo " <input type='text'  id='ChangeRootLocationID' class='input-xlarge' name='ChangeRootLocationID[]' value='$key'>";
-                    echo "</div>";
-                    echo "</div>";
+                        echo  "<div class='control-group'>";
+                        echo  "<label class='control-label'>Please Change Root Location:</label>";
+                        echo "<div class='controls'>";
+                        echo "<input type='text'  id='ChangeRootLocation' class='input-xlarge' name='ChangeRootLocation[]' value='$getvalue'>";
+                        echo " <input type='text'  id='ChangeRootLocationID' class='input-xlarge' name='ChangeRootLocationID[]' value='$key'>";
+                        echo "</div>";
+                        echo "</div>";
                     }
                     echo "<br>";
                     echo  "<label class='control-label'>Please Change Sub Location:</label>";
@@ -461,8 +461,8 @@ class User{
 
 
     public function ValidActiveion($getEncrpyUserID){//valid the userID whether exeisted
-           $jsonedArray=self::ReadAllUser();
-           $comfirmStatus=0;//default is 0, which mean the user id is not exeisted in database
+        $jsonedArray=self::ReadAllUser();
+        $comfirmStatus=0;//default is 0, which mean the user id is not exeisted in database
         foreach (json_decode($jsonedArray) as $key=>$Subvalue){
             foreach ($Subvalue as $keys=>$value){
                 if($keys==='UserID'){
@@ -537,14 +537,14 @@ class User{
 
     //delete user the UserID(one or more)
     private function _DeleteUserByID($array){
-       foreach ($array as $value){
-       if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.User WHERE UserID = ?")){
-           $stmt->bind_param('s',$value);
-           $stmt->execute();
-           $stmt->close();
+        foreach ($array as $value){
+            if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.User WHERE UserID = ?")){
+                $stmt->bind_param('s',$value);
+                $stmt->execute();
+                $stmt->close();
 
-       }
-       }
+            }
+        }
         return 'completed';
 
     }
@@ -647,23 +647,23 @@ class User{
     }
 
 
-  public function SearchUser($UserEmail){
-      if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM client_b2c.User WHERE UserMail=?")){
-          $stmt->bind_param('s',$UserEmail);
-          $stmt->execute();
-          $stmt->bind_result($UserID, $UserName, $UserPhone, $UserPhotoPath, $UserMail, $UserPoints, $UserADPosition, $UserType, $UserStatus);
-          $result = $stmt->get_result();
-          $object=array();
-          while ($row=$result->fetch_assoc()){
+    public function SearchUser($UserEmail){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM client_b2c.User WHERE UserMail=?")){
+            $stmt->bind_param('s',$UserEmail);
+            $stmt->execute();
+            $stmt->bind_result($UserID, $UserName, $UserPhone, $UserPhotoPath, $UserMail, $UserPoints, $UserADPosition, $UserType, $UserStatus);
+            $result = $stmt->get_result();
+            $object=array();
+            while ($row=$result->fetch_assoc()){
 
-              array_push($object,$row);
-          }
-          $stmt->close();
-          return json_encode($object); //return all user infor by json;
-      }
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object); //return all user infor by json;
+        }
 
 
-  }
+    }
 
     public function ReadAdministraorInfo(){
         if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM client_b2c.User WHERE UserType=?")){
@@ -745,17 +745,17 @@ class User{
     public function UpdateRegUserPassword($OldPassword,$Newpassword,$UserID){
 
         if (self::RegisterPasswordChangeMatch($OldPassword,$UserID)==='pass'){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserPassWord=? WHERE UserID=?")){
-            $stmt->bind_param('si',md5(base64_encode($Newpassword)),$UserID);
-            $stmt->execute();
-            $stmt->close();
-            return "Changed password successfully";
-        }
-        else {
-            return "Updated error";
+            if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserPassWord=? WHERE UserID=?")){
+                $stmt->bind_param('si',md5(base64_encode($Newpassword)),$UserID);
+                $stmt->execute();
+                $stmt->close();
+                return "Changed password successfully";
+            }
+            else {
+                return "Updated error";
 
+            }
         }
-       }
         else{
 
             return 'fail';
@@ -840,22 +840,22 @@ class MyaddressBook {
 
 
     private function AddMyaddressbook($DefaultStauts){
-      if (self::CompareInfo()==='pass'){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
-           //default is not been taken;
-           $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
-           $stmt->execute();
-           $stmt->close();
-            return 'ok';
+        if (self::CompareInfo()==='pass'){
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
+                //default is not been taken;
+                $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
+                $stmt->execute();
+                $stmt->close();
+                return 'ok';
             }
-         else {
-             return 'Error';
-         }
+            else {
+                return 'Error';
+            }
 
-       }
-       else if (self::CompareInfo()==='fail'){
-           return 'Repeated Addressbook';
-       }
+        }
+        else if (self::CompareInfo()==='fail'){
+            return 'Repeated Addressbook';
+        }
 
     }
 
@@ -863,44 +863,44 @@ class MyaddressBook {
 
 
     private function CompareInfo(){
-      if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
-          $stmt->bind_param('isis',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress);
-          $stmt->execute();
-          $stmt->bind_result($UserID,$AddreNickName,$AddrePhone,$AddresAddress);
-          $result = $stmt->get_result();
-          $object=array();
-          while($row=$result->fetch_assoc()){
-              array_push($object,$row);
-          }
-          $stmt->close();
+        if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
+            $stmt->bind_param('isis',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress);
+            $stmt->execute();
+            $stmt->bind_result($UserID,$AddreNickName,$AddrePhone,$AddresAddress);
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
 
-        if (count($object)===0){
-            return 'pass';
+            if (count($object)===0){
+                return 'pass';
+            }
+            else if(count($object)>0){
+                return 'fail';
+            }
         }
-        else if(count($object)>0){
-            return 'fail';
-        }
-      }
 
 
     }
 
-   protected function readAllAddressbookByID($GegID){//read all record from table
-       if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=?")){
-           $stmt->bind_param('i',$GegID);
-           $stmt->execute();
-           $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
-           $result = $stmt->get_result();
-           $object=array();
-           while($row=$result->fetch_assoc()){
-               array_push($object,$row);
-           }
-           $stmt->close();
-           return $object;
-       }
+    protected function readAllAddressbookByID($GegID){//read all record from table
+        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=?")){
+            $stmt->bind_param('i',$GegID);
+            $stmt->execute();
+            $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return $object;
+        }
 
 
-   }
+    }
 
 //Get Default address
     protected function readAllAddressbookByIDAndDefaultStauts($GegID,$Default){//read all record from table
@@ -924,101 +924,101 @@ class MyaddressBook {
 
 
 
-  //Remove My address book
-  public function RemoveMyaddressBook($getUserID, $GetAddressID){
-      if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.UserAddressBook WHERE AddressBookID=?")){
-         $stmt->bind_param('i',$GetAddressID);
-         $stmt->execute();
-         $stmt->close();
-         return  self::loopDisplayAddressCard($getUserID);
-      }
-      else{
-         return 'Error';
-      }
-  }
-  //Set default addressbook
-  public function SetMyaddressBook($getUserID, $GetAddressID){
-      //Check past default stauts
-      if (self::ResetPastDefault($getUserID)===1){
-      if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE AddressBookID=? AND UserID=?")){
-          $AddreStatus=1;
-          $stmt->bind_param('iii',$AddreStatus,$GetAddressID,$getUserID);
-          $stmt->execute();
-          $stmt->close();
+    //Remove My address book
+    public function RemoveMyaddressBook($getUserID, $GetAddressID){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.UserAddressBook WHERE AddressBookID=?")){
+            $stmt->bind_param('i',$GetAddressID);
+            $stmt->execute();
+            $stmt->close();
+            return  self::loopDisplayAddressCard($getUserID);
+        }
+        else{
+            return 'Error';
+        }
+    }
+    //Set default addressbook
+    public function SetMyaddressBook($getUserID, $GetAddressID){
+        //Check past default stauts
+        if (self::ResetPastDefault($getUserID)===1){
+            if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE AddressBookID=? AND UserID=?")){
+                $AddreStatus=1;
+                $stmt->bind_param('iii',$AddreStatus,$GetAddressID,$getUserID);
+                $stmt->execute();
+                $stmt->close();
 
-          return  self::loopDisplayAddressCard($getUserID);
-      }
-      else{
-          return 'Error';
-      }
-  }
-  }
+                return  self::loopDisplayAddressCard($getUserID);
+            }
+            else{
+                return 'Error';
+            }
+        }
+    }
 
- //Check past default stauts function
-  public function ResetPastDefault($GetID){
-      if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE UserID=?")){
-          $AddreStatus=0;
-          $stmt->bind_param('ii',$AddreStatus,$GetID);
-          $stmt->execute();
-          $stmt->close();
+    //Check past default stauts function
+    public function ResetPastDefault($GetID){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE UserID=?")){
+            $AddreStatus=0;
+            $stmt->bind_param('ii',$AddreStatus,$GetID);
+            $stmt->execute();
+            $stmt->close();
 
-          return  1;
-      }
-      else{
-          return 0;
-      }
-
-
-  }
-
-  //Display the content by UserID
-  public function loopDisplayAddressCard($getUserID){
-      $getAddressCard=self::readAllAddressbookByID($getUserID);
-       foreach ($getAddressCard as $key=>$subArray){
-           echo '<li class="DescideCheck text-left">';
-           echo '<a class="thumbnail AddressCardStyle">';
-           echo '<address>';
-           foreach($subArray as $key=>$value){
-
-              if($key==='AddreNickName'){
-               echo "<h4>Name: $value</h4>";
-              }
-              elseif($key==='AddrePhone'){
-               echo "<abbr title='Phone'>Phone: $value";
-
-              }
-              elseif($key==='AddresAddress'){
-               echo  "<p style='margin-top:9px;'>Delivery Address: $value</p>";
-              }
-              elseif($key==='AddreStatus'){
-                  if($value===1){
-                  $CheckStatus='Checked';
-                  }
-                  elseif($value===0){
-                      $CheckStatus='';
-
-                  }
-               }
-
-              elseif ($key==='AddressBookID'){
-
-               echo '<div class="RaidoPositon">';
-               echo '<label class="radio">';
-
-               echo "<input type='radio' name='Default' class='radioStatus' $CheckStatus id=$value>Default";
-
-               echo '</label>';
-               echo '</div>';
-              }
-           }
-           echo '</address>';
-           echo '</a>';
-           echo '</li>';
-       }
+            return  1;
+        }
+        else{
+            return 0;
+        }
 
 
+    }
 
-  }
+    //Display the content by UserID
+    public function loopDisplayAddressCard($getUserID){
+        $getAddressCard=self::readAllAddressbookByID($getUserID);
+        foreach ($getAddressCard as $key=>$subArray){
+            echo '<li class="DescideCheck text-left">';
+            echo '<a class="thumbnail AddressCardStyle">';
+            echo '<address>';
+            foreach($subArray as $key=>$value){
+
+                if($key==='AddreNickName'){
+                    echo "<h4>Name: $value</h4>";
+                }
+                elseif($key==='AddrePhone'){
+                    echo "<abbr title='Phone'>Phone: $value";
+
+                }
+                elseif($key==='AddresAddress'){
+                    echo  "<p style='margin-top:9px;'>Delivery Address: $value</p>";
+                }
+                elseif($key==='AddreStatus'){
+                    if($value===1){
+                        $CheckStatus='Checked';
+                    }
+                    elseif($value===0){
+                        $CheckStatus='';
+
+                    }
+                }
+
+                elseif ($key==='AddressBookID'){
+
+                    echo '<div class="RaidoPositon">';
+                    echo '<label class="radio">';
+
+                    echo "<input type='radio' name='Default' class='radioStatus' $CheckStatus id=$value>Default";
+
+                    echo '</label>';
+                    echo '</div>';
+                }
+            }
+            echo '</address>';
+            echo '</a>';
+            echo '</li>';
+        }
+
+
+
+    }
 
 
 
@@ -1171,11 +1171,11 @@ class TempActivationClass{
         }
 
         if($PassStatus===1){
-                return 'pass';
+            return 'pass';
 
         }
         else if ($PassStatus===0){
-                return 'Not Match';
+            return 'Not Match';
 
 
         }
@@ -1225,10 +1225,10 @@ class Mailsetting{
 
     private function AddMailAndItsContent($UserMailSender,$UserMailConstructer,$UserMailActiveID,$TitleOfMail){
         if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.MailSetting SET UserMailSender=?,UserMailConstructer=?,UserMailTitle=? WHERE UserMailActiveID=?")){
-           $stmt->bind_param('ssss',$UserMailSender,$UserMailConstructer,$TitleOfMail,$UserMailActiveID);
-           $stmt->execute();
-           $stmt->close();
-           return 'Saved Successful';
+            $stmt->bind_param('ssss',$UserMailSender,$UserMailConstructer,$TitleOfMail,$UserMailActiveID);
+            $stmt->execute();
+            $stmt->close();
+            return 'Saved Successful';
 
         }
         else
@@ -1360,15 +1360,15 @@ class Restartuant {
     }
 
     private function InsertRestaruantRecord(){
-       //user table
+        //user table
         $Condition1=0;
-       //restaruant table
+        //restaruant table
         $Condition2=0;
         if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserName=?, UserPhone=? WHERE UserID=?")){
-           $stmt->bind_param('sii',$this->ResContactName,$this->ResContactPhone,$this->ResUID);
-           $stmt->execute();
-           $stmt->close();
-           $Condition1=1;
+            $stmt->bind_param('sii',$this->ResContactName,$this->ResContactPhone,$this->ResUID);
+            $stmt->execute();
+            $stmt->close();
+            $Condition1=1;
         }
         if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Restaurants SET ResName=?, ResAddress=?, ResAvaliability=?, ResCuisine=?, ResOpenTime=?, ResReview=? WHERE RestID=?")){
             $stmt->bind_param('sssssis',$this->ResName,$this->ResAddress,$this->ResAvailabilityTag,$this->ResCuisineTag,$this->ResOpeningHours,$this->ResReview,$this->ResID);
@@ -1420,29 +1420,29 @@ class Restartuant {
     }
 
 //fetch the all keys and values from Restaruant table
-  public function GetRestaruant(){
-      if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Restaurants")){
-          $stmt->execute();
-          $stmt->bind_result();
-          $result = $stmt->get_result();
-          $object=array();
-          while($row=$result->fetch_assoc()){
-              array_push($object,$row);
-          }
-          $stmt->close();
-          return json_encode($object);
-      }
-  }
+    public function GetRestaruant(){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Restaurants")){
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
 
- //split time
- public function explodeTime($GetArray){
+    //split time
+    public function explodeTime($GetArray){
 
-     foreach ($GetArray as $key=>$value){
-         $date[$key]=explode('-',$value);
-     }
-     return json_encode($date);
+        foreach ($GetArray as $key=>$value){
+            $date[$key]=explode('-',$value);
+        }
+        return json_encode($date);
 
- }
+    }
 
 
 
@@ -1493,19 +1493,19 @@ class Cuisine{
         else {
             return 'Current Order is available';
         }
-       }
+    }
 
     //Upload and update photo
     public function CuisinePhotoUploadingAndUpdating($CurrentCuid,$PicPath,$DeleteOldPhotoPath){
         if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Cuisine SET CuPicPath=? WHERE CuID=?")){
-           $stmt->bind_param('ss',$PicPath,$CurrentCuid);
-           $stmt->execute();
-           $stmt->close();
-           unlink($DeleteOldPhotoPath);//delete old photo
-           return 'You have successfully uploaded photo';
+            $stmt->bind_param('ss',$PicPath,$CurrentCuid);
+            $stmt->execute();
+            $stmt->close();
+            unlink($DeleteOldPhotoPath);//delete old photo
+            return 'You have successfully uploaded photo';
         }
         else{
-           return 'Database Error';
+            return 'Database Error';
         }
     }
 
@@ -1540,21 +1540,104 @@ class Cuisine{
             return 'Error';
         }
     }
- //Insert record into Second Level of current cuisine: table name is SecondLevelofCuisine
-    public function CuisineSecondLevel($SecondLevelTitle,$PassCuid,$SubSecondLevel){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
-            $stmt->bind_param('sss',$SecondLevelTitle,serialize($SubSecondLevel),$PassCuid);
+    //Insert record into Second Level of current cuisine: table name is SecondLevelofCuisine
+    public function CuisineSecondLevel($PassCuid,$SecondLevelTitleAndContent){
+        $condition=0;
+
+        foreach ($SecondLevelTitleAndContent as $key=>$content){
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
+                $stmt->bind_param('sss',$key,serialize($content),$PassCuid);
+                $stmt->execute();
+                $stmt->close();
+            }
+            else{
+                $condition=1;
+            }
+        }
+
+        if($condition===1){
+            return 'Error';
+        }
+        else{
+            return 'Submit successful';
+        }
+
+    }
+
+    //Update record of Second Level of current cuisine
+    public function CuisineSecondLevelWidthUpdate($updatePassCuid,$updateKey,$updateSecondLevelTitleAndContent){
+        $count=0;
+        $condition=0;//success condition with update:default is success
+        $condition2=0;////success condition with insert:default is success
+        foreach ($updateSecondLevelTitleAndContent as $Updatekey=>$Updatecontent){
+            if($count<count($updateKey)){//compare with unique that if unique key is exeisted then update, otherwise insert new record into the database
+
+                if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.SecondLevelofCuisine SET SeLevelTitle=?, SeLevelMultiple=? WHERE SecLevelCuID=? AND CuID=?")){
+                    $stmt->bind_param('ssss',$Updatekey,serialize($Updatecontent),$updateKey[$count],$updatePassCuid);
+                    $count++;
+                    $stmt->execute();
+                    $stmt->close();
+
+                }
+                else{
+                    $condition=1;
+                }
+            }
+
+            else{
+                if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
+                    $stmt->bind_param('sss',$Updatekey,serialize($Updatecontent),$updatePassCuid);
+                    $stmt->execute();
+                    $stmt->close();
+                }
+                else{
+                    $condition2=1;
+
+                }
+            }
+
+        }
+
+        if($condition===1 || $condition2===1){
+            return 'Error';
+        }
+        else{
+            return 'Update successful';
+        }
+
+    }
+
+
+    //Select SecondLevelofCuisine from table SecondLevelofCuisine
+    public function GetSecondLevelofCuisine($getCuid){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.SecondLevelofCuisine WHERE CuID=?")){
+            $stmt->bind_param('s',$getCuid);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+
+    }
+
+
+    //Delete Second level with wrap
+    public function DeleteSecondWrap($getUniqueID){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.SecondLevelofCuisine WHERE SecLevelCuID=?")){
+            $stmt->bind_param('i',$getUniqueID);
             $stmt->execute();
             $stmt->close();
-            return 'Submit successful';
+            return 'Delete Successful';
         }
         else{
             return 'Error';
         }
-
-
     }
-
     //Delete Current Cuisine
     public function DeleteCuisine($GetDeleteID){
         $condition1=0;
@@ -1564,7 +1647,7 @@ class Cuisine{
             $stmt->execute();
             $stmt->close();
             $condition1=1;
-           }
+        }
         else{
             return 'Error';
         }
@@ -1694,23 +1777,23 @@ class Cuisine{
         $getSecondLevelKeyAndValue=json_decode(self::ReturnDataOfSecondCuisine($getCuid));
         foreach($getSecondLevelKeyAndValue as $TotalKey=>$SubArray){
             foreach($SubArray as $key=>$value){
-               if($key==='SeLevelTitle'){
-                   echo "<h5>$value</h5>";
-               }
+                if($key==='SeLevelTitle'){
+                    echo "<h5>$value</h5>";
+                }
 
-               if($key==='SeLevelMultiple'){
-                   $finalValue=unserialize($value);
-                   foreach ($finalValue as $subkey=>$subvalue){
-                      foreach ($subvalue as $lastKey=>$lastValue){
-                          echo "<p>$lastKey: $lastValue </p>";
+                if($key==='SeLevelMultiple'){
+                    $finalValue=unserialize($value);
+                    foreach ($finalValue as $subkey=>$subvalue){
+                        foreach ($subvalue as $lastKey=>$lastValue){
+                            echo "<p>$lastKey: $lastValue </p>";
 
-                      }
-
-
-                   }
+                        }
 
 
-               }
+                    }
+
+
+                }
 
             }
         }
@@ -1722,82 +1805,82 @@ class Cuisine{
     //list cuisine into table
     public function listCuisineTable(){
         $GetNormalDataset=json_decode(self::ReturnDataOfNormalCuisine());
-       echo '<table class="table table-striped" id="CusinesTable">';
-       echo '<thead>';
-       echo '<tr>';
-       echo '<th>Order</th>';
-       echo '<th>Avaliable</th>';
-       echo '<th>Name</th>';
-       echo '<th>Picture</th>';
-       echo '<th>Description</th>';
-       echo '<th>Price</th>';
-       echo '<th>Tags</th>';
-       echo '<th>Second Level</th>';
-       echo '<th></th>';
-       echo '</tr>';
-       echo '</thead>';
-       echo '<tbody>';
+        echo '<table class="table table-striped" id="CusinesTable">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Order</th>';
+        echo '<th>Avaliable</th>';
+        echo '<th>Name</th>';
+        echo '<th>Picture</th>';
+        echo '<th>Description</th>';
+        echo '<th>Price</th>';
+        echo '<th>Tags</th>';
+        echo '<th>Second Level</th>';
+        echo '<th></th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
 
         foreach ($GetNormalDataset as $Rootkey=>$SubArray){
             echo "<tr id=$Rootkey>";
             foreach ($SubArray as $key=>$value){
-            if($key==='CuOrder'){
-            echo '<td id="OrderPostion"><i class="icon-caret-up-table fa fa-caret-up"></i><h5>'.$value.'</h5><i class="icon-caret-down-table fa fa-caret-down"></i></td>';
-            }
-            if($key==='Avaliability'){
-                echo '<td>'.$value.'</td>';
-            }
-            if($key==='CuName'){
-                echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
-            }
-            if($key==='CuPicPath'){
-                if(isset($value)){
-                echo "<td><a href='$value'><img style='width:50px;height:50px' src='$value'></a><button class='btn TableButtonStyle UploadCuisPhoto' type='button'>Edit</button></td>";
+                if($key==='CuOrder'){
+                    echo '<td id="OrderPostion"><i class="icon-caret-up-table fa fa-caret-up"></i><h5>'.$value.'</h5><i class="icon-caret-down-table fa fa-caret-down"></i></td>';
+                }
+                if($key==='Avaliability'){
+                    echo '<td>'.$value.'</td>';
+                }
+                if($key==='CuName'){
+                    echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+                if($key==='CuPicPath'){
+                    if(isset($value)){
+                        echo "<td><a href='$value'><img style='width:50px;height:50px' src='$value'></a><button class='btn TableButtonStyle UploadCuisPhoto' type='button'>Edit</button></td>";
+
+
+                    }
+                    else{
+                        echo '<td><button class="btn TableButtonStyle UploadCuisPhoto" type="button">Uploads Photo</button></td>';
+
+                    }
+                }
+                if($key==='CuDescr'){
+                    echo "<td><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+                if($key==='Price'){
+                    echo '<td>$'.$value.'</td>';
+                }
+
+                if($key==='CuID'){
+                    echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Shows Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
+                    foreach (self::ReturnTagsOnly($value) as $TagKeys=>$Tagvalue){
+                        echo "<li><a tabindex='-1'>$TagKeys:$Tagvalue</a></li>";
+                    }
+                    echo '</ul></td>';
+
+                    if(count(json_decode(self::ReturnDataOfSecondCuisine($value)))>0){
+                        echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'>Edit&Show</button>  <button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu dropdown-menu-Cuisine-table'><li><a tabindex='-1' id='$value' class='EditSecondLevel'>Edits Second Level</a></li></ul></div>";
+                    }
+                    else{
+                        echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Adds Second Level</button></td>";
+                    }
+                    echo '<td>';
+                    echo '<div class="form-inline">';
+                    echo "<button class='button subbutton subAddNewBotton EditCusine' id='$value' type='button' >Edit</button> ";
+                    echo "<button class='button text-right button-delete' id='$value' type='button'>Delete</button>";
+                    echo '</div>';
+                    echo '</td>';
 
 
                 }
-                else{
-                    echo '<td><button class="btn TableButtonStyle UploadCuisPhoto" type="button">Uploads Photo</button></td>';
-
-                }
-            }
-            if($key==='CuDescr'){
-                echo "<td><div class='TablePreventOverflow' title='$value'>$value</div></td>";
-            }
-            if($key==='Price'){
-                echo '<td>$'.$value.'</td>';
-            }
-
-            if($key==='CuID'){
-                echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Shows Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
-                foreach (self::ReturnTagsOnly($value) as $TagKeys=>$Tagvalue){
-                echo "<li><a tabindex='-1'>$TagKeys:$Tagvalue</a></li>";
-                }
-                echo '</ul></td>';
-
-                if(count(json_decode(self::ReturnDataOfSecondCuisine($value)))>0){
-                echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'>Edit&Show</button>  <button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu dropdown-menu-Cuisine-table'><li><a tabindex='-1' data-toggle='popover' class='showtagsPopover' id='$value'>Shows Second level</a></li><li class='divider'></li><li><a tabindex='-1' id='$value' class='AddSecondLevel'>Edits Second Level</a></li></ul></div>";
-                }
-                else{
-                echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Adds Second Level</button></td>";
-                }
-                echo '<td>';
-                echo '<div class="form-inline">';
-                echo "<button class='button subbutton subAddNewBotton EditCusine' id='$value' type='button' >Edit</button> ";
-                echo "<button class='button text-right button-delete' id='$value' type='button'>Delete</button>";
-                echo '</div>';
-                echo '</td>';
-
-
-             }
 
 
             }
             echo '</tr>';
         }
 
-       echo '</tbody>';
-       echo '</table>';
+        echo '</tbody>';
+        echo '</table>';
 
     }
 
@@ -1889,7 +1972,7 @@ class waterMarker{
     //Position 1.Top left 2.Middle and Top 3. Top right 4. Bottom left 5 Bottom right
     private function imgPos($ground,$water,$pos){
         if($ground[0]<$water[0] || $ground[1]<$water[1])  //if WaterMarker small than original iage then return false
-        return false;
+            return false;
         switch($pos){
             case 1:
                 $x=0;
@@ -2173,35 +2256,35 @@ class resize
 
         imagedestroy($this->imageResized);
     }
-   ##----------------------------------------------
-        public function OnselectSave($CuisineOldImagePath,$targ_w,$targ_h,$CuisineX,$CuisineY,$CuisineW,$CuisineH,$CuisineOldImagePath,$savePath,$jpeg_quality,$returPath,$WaterMarkerStatus,$WaterMarkerPositon){
-            $pos=strripos($CuisineOldImagePath,'/');
-            $getpath=substr($CuisineOldImagePath,0,$pos+1);//path
-            $getFileName=substr($CuisineOldImagePath,$pos+1);
-            $changedName='small-'.$getFileName;
-            $finalSavePath=$getpath.$changedName;
-            $img_r = imagecreatefromjpeg($CuisineOldImagePath);
-            $dst_r = ImageCreateTrueColor($targ_w,$targ_h);
-            imagecopyresampled($dst_r,$img_r,0,0,$CuisineX,$CuisineY,$targ_w,$targ_h,$CuisineW,$CuisineH);
-            //unlink($CuisineOldImagePath);
-            header('Content-type: image/jpeg');
-            imagejpeg($dst_r,$finalSavePath,$jpeg_quality);
-            //return path
-            $ReturnFullPath=$returPath.$changedName;
-            if($WaterMarkerStatus==='yes'){
-               $waterMarker=new waterMarker($getpath);
-               $waterMarker->waterInfo($changedName,'WaterMarker/WaterMarker.png',$WaterMarkerPositon,"WaterMarker",20);
-               unlink($finalSavePath);
-               return  $returPath.'WaterMarker'.$changedName;
-            }
-            else if($WaterMarkerStatus==='no'){
-                return $ReturnFullPath;
-
-            }
-
-
+    ##----------------------------------------------
+    public function OnselectSave($CuisineOldImagePath,$targ_w,$targ_h,$CuisineX,$CuisineY,$CuisineW,$CuisineH,$CuisineOldImagePath,$savePath,$jpeg_quality,$returPath,$WaterMarkerStatus,$WaterMarkerPositon){
+        $pos=strripos($CuisineOldImagePath,'/');
+        $getpath=substr($CuisineOldImagePath,0,$pos+1);//path
+        $getFileName=substr($CuisineOldImagePath,$pos+1);
+        $changedName='small-'.$getFileName;
+        $finalSavePath=$getpath.$changedName;
+        $img_r = imagecreatefromjpeg($CuisineOldImagePath);
+        $dst_r = ImageCreateTrueColor($targ_w,$targ_h);
+        imagecopyresampled($dst_r,$img_r,0,0,$CuisineX,$CuisineY,$targ_w,$targ_h,$CuisineW,$CuisineH);
+        //unlink($CuisineOldImagePath);
+        header('Content-type: image/jpeg');
+        imagejpeg($dst_r,$finalSavePath,$jpeg_quality);
+        //return path
+        $ReturnFullPath=$returPath.$changedName;
+        if($WaterMarkerStatus==='yes'){
+            $waterMarker=new waterMarker($getpath);
+            $waterMarker->waterInfo($changedName,'WaterMarker/WaterMarker.png',$WaterMarkerPositon,"WaterMarker",20);
+            unlink($finalSavePath);
+            return  $returPath.'WaterMarker'.$changedName;
+        }
+        else if($WaterMarkerStatus==='no'){
+            return $ReturnFullPath;
 
         }
+
+
+
+    }
 
 
 }

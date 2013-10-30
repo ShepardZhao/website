@@ -222,14 +222,14 @@ function dataObj(pushName,PushValue){
 
 
     $('#switchArrow').on('click',function(){
-        if($('#switchArrow i').hasClass('icon-chevron-sign-right'))
-        {$('#switchArrow i').removeClass('icon-chevron-sign-right').addClass('icon-chevron-sign-down');
+        if($('#switchArrow i').hasClass('fa-arrow-circle-o-right'))
+        {$('#switchArrow i').removeClass('fa-arrow-circle-o-right').addClass('fa-arrow-circle-o-down');
             $('.hideAddress').fadeIn();
 
         }
 
-        else if($('#switchArrow i').hasClass('icon-chevron-sign-down'))
-        {$('#switchArrow i').removeClass('icon-chevron-sign-down').addClass('icon-chevron-sign-right');
+        else if($('#switchArrow i').hasClass('fa-arrow-circle-o-down'))
+        {$('#switchArrow i').removeClass('fa-arrow-circle-o-down').addClass('fa-arrow-circle-o-right');
             $('.hideAddress').fadeOut();
         }
     });

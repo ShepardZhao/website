@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Feathured.php" afterPath="$PROJECT_DIR$/Feathured.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" afterPath="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" afterPath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php" afterPath="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/business.js" afterPath="$PROJECT_DIR$/CMS/business-Management/business.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/customer-Ajax.v1.0.js" afterPath="$PROJECT_DIR$/assets/framework/js/customer-Ajax.v1.0.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="website.iws" />
@@ -16,6 +21,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/website$DishesPack.coverage" NAME="DishesPack Coverage Results" MODIFIED="1383102012150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -31,107 +39,102 @@
       <file leaf-file-name="BackEnd-class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="-0.0" vertical-offset="26160" max-vertical-offset="33225">
+            <state line="1629" column="36" selection-start="54747" selection-end="54763" vertical-scroll-proportion="-2.3061225" vertical-offset="24322" max-vertical-offset="34470">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FrontEnd-class.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
+      <file leaf-file-name="SecondLevel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7050">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Feathured.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Feathured.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="74" selection-start="696" selection-end="708" vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="1140">
+            <state line="44" column="14" selection-start="427" selection-end="2637" vertical-scroll-proportion="-13.469388" vertical-offset="0" max-vertical-offset="930">
               <folding>
-                <marker date="1382932429000" expanded="true" signature="584:892" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="726:890" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="1118:1412" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="1256:1411" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="1636:2117" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="1768:1917" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="2139:2625" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="2273:2424" placeholder="..." />
-                <marker date="1382932429000" expanded="true" signature="2718:2866" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="592:2416" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="764:1083" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="1232:1386" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="1452:2083" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="1488:1667" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="1703:1923" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="2149:2389" placeholder="..." />
+                <marker date="1383111013000" expanded="true" signature="2210:2358" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User_list.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php">
+      <file leaf-file-name="EditSecondLevel.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="360">
+            <state line="41" column="84" selection-start="1672" selection-end="1681" vertical-scroll-proportion="-1.6" vertical-offset="495" max-vertical-offset="1665">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="customer.v1.0.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="EditDishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="56" column="77" selection-start="2683" selection-end="2683" vertical-scroll-proportion="-15.625" vertical-offset="465" max-vertical-offset="1125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GobalConnection.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="13" selection-start="2864" selection-end="2877" vertical-scroll-proportion="0.0" vertical-offset="385" max-vertical-offset="900">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="business.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/business.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="25" selection-start="4643" selection-end="4643" vertical-scroll-proportion="0.34155598" vertical-offset="1125" max-vertical-offset="16575">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BackEnd-controller.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="165" column="83" selection-start="11649" selection-end="11649" vertical-scroll-proportion="-13.666667" vertical-offset="2147" max-vertical-offset="2820">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="customer.v1.0.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/framework/css/customer.v1.0.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="827" column="23" selection-start="13269" selection-end="13269" vertical-scroll-proportion="0.5077821" vertical-offset="12144" max-vertical-offset="13725">
+            <state line="823" column="1" selection-start="13221" selection-end="13221" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="13725">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mail_setting.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php">
+      <file leaf-file-name="Dishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tags_Management.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="-0.0" vertical-offset="315" max-vertical-offset="1365">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sidebar.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1005">
+            <state line="13" column="6" selection-start="502" selection-end="502" vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="285">
               <folding>
-                <marker date="1381639184000" expanded="true" signature="98:373" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="396:653" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="441:643" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="521:638" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="663:1017" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="698:801" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="831:1007" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1027:1314" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1062:1149" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1179:1304" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1325:2194" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1360:1471" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="1501:2184" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="2206:2554" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="2290:2544" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="2564:2789" placeholder="..." />
-                <marker date="1381639184000" expanded="true" signature="2637:2779" placeholder="..." />
+                <marker date="1382052576000" expanded="true" signature="22:501" placeholder="..." />
+                <marker date="1382052576000" expanded="true" signature="59:377" placeholder="..." />
+                <marker date="1382052576000" expanded="true" signature="401:492" placeholder="..." />
+                <marker date="1382052576000" expanded="true" signature="445:485" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="adds_location.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php">
+      <file leaf-file-name="addDishes.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="-0.0" vertical-offset="45" max-vertical-offset="1035">
+            <state line="43" column="84" selection-start="1714" selection-end="1724" vertical-scroll-proportion="-7.0833335" vertical-offset="475" max-vertical-offset="1260">
               <folding />
             </state>
           </provider>
@@ -155,14 +158,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php" />
-        <option value="$PROJECT_DIR$/order.php" />
-        <option value="$PROJECT_DIR$/header.php" />
-        <option value="$PROJECT_DIR$/siderbar.php" />
-        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php" />
-        <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php" />
@@ -171,6 +166,14 @@
         <option value="$PROJECT_DIR$/Feathured.php" />
         <option value="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
         <option value="$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js" />
+        <option value="$PROJECT_DIR$/assets/framework/js/customer-Ajax.v1.0.js" />
+        <option value="/private/var/folders/tz/k0x21mzj2lb1nst00vpfkxbw0000gn/T/ide-phpunit.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/business.js" />
       </list>
     </option>
   </component>
@@ -183,7 +186,7 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="php" />
   <component name="PhpXdebugProxy" ide_key="PHPSTORM" host="b2c.com.au" port="9000" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="235" />
+    <option name="x" value="26" />
     <option name="y" value="22" />
     <option name="width" value="1254" />
     <option name="height" value="723" />
@@ -214,6 +217,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -232,187 +236,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FrontEnd-controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BackEnd-controller" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SubPages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CMS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin-Management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="website" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="preferences.fileTypes" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="preferences.updates" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -432,15 +269,30 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="false" name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="SAFARI" server_name="b2c.com.au" start_url="http://www.b2c.com.au/">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="CHROME" server_name="b2c.com.au" start_url="http://www.b2c.com.au/">
       <RunnerSettings RunnerId="PhpRunner" />
       <RunnerSettings RunnerId="PhpWebAppDebugRunner" />
       <ConfigurationWrapper RunnerId="PhpRunner" />
       <ConfigurationWrapper RunnerId="PhpWebAppDebugRunner" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="DishesPack" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner directory="$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack" />
+      <RunnerSettings RunnerId="PhpUnitCoverageRunner" />
+      <RunnerSettings RunnerId="PhpUnitDebugRunner" />
+      <ConfigurationWrapper RunnerId="PhpUnitCoverageRunner" />
+      <ConfigurationWrapper RunnerId="PhpUnitDebugRunner" />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="PHP Web Application.Unnamed" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.DishesPack" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -490,19 +342,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="235" y="22" width="1254" height="723" extended-state="0" />
-    <editor active="true" />
+    <frame x="26" y="22" width="1254" height="723" extended-state="0" />
+    <editor active="false" />
     <layout>
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29801324" sideWeight="0.694859" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30514097" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24254967" sideWeight="0.6965174" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3034826" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3034826" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -591,134 +444,128 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="631" />
+      <option name="time" value="659" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/header.php">
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="140" selection-start="4201" selection-end="4201" vertical-scroll-proportion="-3.1836734" vertical-offset="0" max-vertical-offset="0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="10.306123" vertical-offset="505" max-vertical-offset="1320" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siderbar.php">
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="53" selection-start="2536" selection-end="2536" vertical-scroll-proportion="-4.5306125" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Admin_Management.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="144" selection-end="144" vertical-scroll-proportion="-0.9183673" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Basic_info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="139" selection-end="139" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/initialpage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="33" selection-start="607" selection-end="609" vertical-scroll-proportion="-5.897959" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Register_restaurant.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="145" selection-end="145" vertical-scroll-proportion="-1.875" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/User_list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="138" selection-end="138" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Mail_setting.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1744" column="157" selection-start="58439" selection-end="58439" vertical-scroll-proportion="0.0" vertical-offset="26160" max-vertical-offset="33225">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="450" column="9" selection-start="16245" selection-end="16245" vertical-scroll-proportion="0.0" vertical-offset="6750" max-vertical-offset="7050">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="29" selection-start="550" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1005">
-          <folding>
-            <marker date="1381639184000" expanded="true" signature="98:373" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="396:653" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="441:643" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="521:638" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="663:1017" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="698:801" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="831:1007" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1027:1314" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1062:1149" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1179:1304" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1325:2194" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1360:1471" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="1501:2184" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="2206:2554" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="2290:2544" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="2564:2789" placeholder="..." />
-            <marker date="1381639184000" expanded="true" signature="2637:2779" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/Tags_Management.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1365">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/SubPages/adds_location.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="61" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1035">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Feathured.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="74" selection-start="696" selection-end="708" vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="1140">
-          <folding>
-            <marker date="1382932429000" expanded="true" signature="584:892" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="726:890" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="1118:1412" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="1256:1411" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="1636:2117" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="1768:1917" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="2139:2625" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="2273:2424" placeholder="..." />
-            <marker date="1382932429000" expanded="true" signature="2718:2866" placeholder="..." />
-          </folding>
-        </state>
+        <state line="14" column="16" selection-start="6884" selection-end="6884" vertical-scroll-proportion="-3.7755103" vertical-offset="25" max-vertical-offset="1740" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="481" column="57" selection-start="15194" selection-end="15194" vertical-scroll-proportion="0.60040987" vertical-offset="6922" max-vertical-offset="7710">
+        <state line="86" column="32" selection-start="3598" selection-end="3605" vertical-scroll-proportion="193.8" vertical-offset="6135" max-vertical-offset="7710">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siderbar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="118" selection-start="975" selection-end="998" vertical-scroll-proportion="-3.632653" vertical-offset="92" max-vertical-offset="1665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-Ajax.v1.0.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="231" column="100" selection-start="5888" selection-end="5888" vertical-scroll-proportion="-70.44" vertical-offset="1704" max-vertical-offset="3660">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/framework/css/customer.v1.0.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="827" column="23" selection-start="13269" selection-end="13269" vertical-scroll-proportion="0.5077821" vertical-offset="12144" max-vertical-offset="13725">
+        <state line="823" column="1" selection-start="13221" selection-end="13221" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="13725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="13" selection-start="2864" selection-end="2877" vertical-scroll-proportion="0.0" vertical-offset="385" max-vertical-offset="900">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///private/var/folders/tz/k0x21mzj2lb1nst00vpfkxbw0000gn/T/ide-phpunit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="32" selection-end="32" vertical-scroll-proportion="0.13043478" vertical-offset="0" max-vertical-offset="7680">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="14" selection-start="427" selection-end="2637" vertical-scroll-proportion="-13.469388" vertical-offset="0" max-vertical-offset="930">
+          <folding>
+            <marker date="1383111013000" expanded="true" signature="592:2416" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="764:1083" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="1232:1386" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="1452:2083" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="1488:1667" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="1703:1923" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="2149:2389" placeholder="..." />
+            <marker date="1383111013000" expanded="true" signature="2210:2358" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/Dishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="6" selection-start="502" selection-end="502" vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="285">
+          <folding>
+            <marker date="1382052576000" expanded="true" signature="22:501" placeholder="..." />
+            <marker date="1382052576000" expanded="true" signature="59:377" placeholder="..." />
+            <marker date="1382052576000" expanded="true" signature="401:492" placeholder="..." />
+            <marker date="1382052576000" expanded="true" signature="445:485" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="84" selection-start="1714" selection-end="1724" vertical-scroll-proportion="-7.0833335" vertical-offset="475" max-vertical-offset="1260">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditDishes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="77" selection-start="2683" selection-end="2683" vertical-scroll-proportion="-15.625" vertical-offset="465" max-vertical-offset="1125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="84" selection-start="1672" selection-end="1681" vertical-scroll-proportion="-1.6" vertical-offset="495" max-vertical-offset="1665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1629" column="36" selection-start="54747" selection-end="54763" vertical-scroll-proportion="-2.3061225" vertical-offset="24322" max-vertical-offset="34470">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="165" column="83" selection-start="11649" selection-end="11649" vertical-scroll-proportion="-13.666667" vertical-offset="2147" max-vertical-offset="2820">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/business.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="25" selection-start="4643" selection-end="4643" vertical-scroll-proportion="0.34155598" vertical-offset="1125" max-vertical-offset="16575">
           <folding />
         </state>
       </provider>
