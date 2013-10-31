@@ -9,7 +9,7 @@ $(document).ready(function(){
     var resizeOldWidth;
     var resizeOldHeight;
     var tmpWrapContainter="<div class='row-fluid'><div class='span12'><div class='form-horizontal'><div class='control-group SecondTitleWrap'><label class='control-label SecondLevelModalLabel'>Title: </label><div class='controls text-left SecondLevelModalControl'><input type='text' class='span9 SecondTitle' name='SecondLevelTitle[]' placeholder='Second level dishs type. i.e: pizza base'> <button class='button text-right button-delete SecondLevelButton-delete' type='button'>Delete</button></div><br><label class='checkbox SecondLevelCheckbox'><input type='checkbox' id='SecondLevelCheckbox'>Multiple choice</label><div class='form-inline SubSecondstyle'><label>Name: <input type='text' class='SubSecondInput span8' name='SubLevelOfName[]' placeholder='i.e: extra cheese'> </label> <label> Price: <input class='SubSecondInputPrice' type='number' pattern='[0-9]+([\,|\.][0-9]+)?' name='SubLevelOfPrice[]' step='0.01' placeholder='i.e: $2.00'></label> <button class='button text-right button-delete SubSecondButton-delete' type='button'>Delete</button></div><div class='row-fluid AddNewButtonZone'><div class='span12 text-center'><button class='button subbutton subAddNewBotton'  type='button'>Add New</button></div></div></div><label class='alert alert-info'>Note: If you want to add new name and pric for current title, please click 'Add New' with bule button </label> </div></div></div>";
-   var tmpNameAndPriceContainter='<div class="form-inline SubSecondstyle"><label>Name: <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" placeholder="i.e: extra cheese"> </label> <label> Price: <input type="text" class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2.00"></label> <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button></div>';
+    var tmpNameAndPriceContainter='<div class="form-inline SubSecondstyle"><label>Name: <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" placeholder="i.e: extra cheese"> </label> <label> Price: <input type="text" class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2.00"></label> <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button></div>';
 
 
 
@@ -119,8 +119,8 @@ $(document).ready(function(){
     //crop and upload the image
     $modalphoto.on('click','#ConfrimSelection',function(e){
         if (parseInt($('#w').val())) {
-           var resizeOldWidth=$('.ClassCuisinePhoto').css('width');
-           var resizeOldHeight=$('.ClassCuisinePhoto').css('height');
+            var resizeOldWidth=$('.ClassCuisinePhoto').css('width');
+            var resizeOldHeight=$('.ClassCuisinePhoto').css('height');
             $('')
             var CuisineX=$('#x').val();
             var CuisineY=$('#y').val();
@@ -149,7 +149,7 @@ $(document).ready(function(){
             InformationDisplay("Sorry, Please select a crop region then press Save","alert-error");
             return false;}
 
-    return false;
+        return false;
     });
     //CropImage uploading
     function CuisineCropImage(tmp){
@@ -164,13 +164,13 @@ $(document).ready(function(){
 
             $('#GetFinalPhotoPath').val($('#gobalPath').val()+$.trim(msg));
             $('#PreviewSelectedImage').removeAttr('disabled');
-                $('#PreviewSelectedImage').click(function(){
-                    if($(this).attr('disabled')===undefined){
-                        $('#PreviewCuisinePhoto').attr('src',$('#gobalPath').val()+$.trim(msg));
+            $('#PreviewSelectedImage').click(function(){
+                if($(this).attr('disabled')===undefined){
+                    $('#PreviewCuisinePhoto').attr('src',$('#gobalPath').val()+$.trim(msg));
 
-                    }
+                }
 
-                });
+            });
         });
 
         request.fail(function( jqXHR, textStatus ) {
@@ -213,7 +213,7 @@ $(document).ready(function(){
     });
 
 
-   //final cuisine photo uploading
+    //final cuisine photo uploading
     $modalphoto.on('click','#CuisinePhotoUploading',function(){
         if($('#CuisineImagePath').val()!==''){
             var tmp={};
@@ -251,7 +251,7 @@ $(document).ready(function(){
                 alert( "Request failed: " + textStatus );
             });
         }
-       else{
+        else{
             InformationDisplay("Sorry, You cannot save the crop photo due empty file path","alert-error");
         }
         return false;
@@ -286,6 +286,39 @@ $(document).ready(function(){
     });
 
 
+    //delete inside of second level of cuisine
+    $modal.on('click','.SubSecondButton-delete',function(){
+        //obtain current unique id
+        if($(this).parent().parent().parent().parent().parent().find('.UpdateKey').length>0){
+            var getUnique=$(this).parent().parent().parent().parent().parent().find('.UpdateKey').val();
+            var getName=$(this).parent().find('.SubSecondInput').val();
+            var getPrice=$(this).parent().find('.SubSecondInputPrice').val();
+            var tmp={};
+            tmp['DeleteInsideSecondLevel']='set';
+            tmp['getUniqueID']=getUnique;
+            tmp['InsideName']=getName;
+            tmp['InsidePrice']=getPrice;
+
+            var request = $.ajax({
+                url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+                type: "POST",
+                data:tmp,
+                dataType: "html"
+            });
+
+            request.done(function( result ) {
+                InformationDisplay(result,"alert-success");
+                CuisineAJAXList();
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
+    });
+
+
+
 
     //delete current second level
     $modal.on('click','.SecondLevelButton-delete',function(){
@@ -317,9 +350,9 @@ $(document).ready(function(){
 
     //basic function of sub level
     $modal.on('click','.subAddNewBotton',function(){
-      if($(this).parent().parent().parent().find('#SecondLevelCheckbox').is(':checked')){
-        $(tmpNameAndPriceContainter).fadeIn().insertBefore($(this).parent().parent().parent().find('.AddNewButtonZone'));
-      }
+        if($(this).parent().parent().parent().find('#SecondLevelCheckbox').is(':checked')){
+            $(tmpNameAndPriceContainter).fadeIn().insertBefore($(this).parent().parent().parent().find('.AddNewButtonZone'));
+        }
     });
     //delete function of sub level
     $modal.on('click','.SubSecondButton-delete',function(){
@@ -335,26 +368,26 @@ $(document).ready(function(){
     //submit the form with add new second level
     $modal.on('click','#AddSecondLevelForm',function(e){
 
-       var getCount=$('.SecondTitleWrap').length;//get current length of second titles
-       var tmp={};//second level includs titles and sub contents
-       var passtmp={};//includes Current CuisineID and tmp;
+        var getCount=$('.SecondTitleWrap').length;//get current length of second titles
+        var tmp={};//second level includs titles and sub contents
+        var passtmp={};//includes Current CuisineID and tmp;
         //loop and fill into array
-       for (var i=0; i<getCount;i++){
-           if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
-           tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
-           }
-           else{
-               InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
+        for (var i=0; i<getCount;i++){
+            if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
+                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
+            }
+            else{
+                InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
                 return false;
-           }
-       }
-       var getCuid=$('#GetCuid').val();
+            }
+        }
+        var getCuid=$('#GetCuid').val();
 
         passtmp['SetUpSecondLevel']="Setup";
         passtmp['PassCuid']=getCuid;
         passtmp['SecondLevelTitleAndContent']=tmp;
         CuisineAjax(passtmp);
-       return false;
+        return false;
     });
 
 
@@ -450,7 +483,7 @@ $(document).ready(function(){
 
 
     /*******************************************Dishes setting************************************/
-    //added dished by button AddedNewDish -- method is modal
+        //added dished by button AddedNewDish -- method is modal
     $('#AddedNewDish').on('click',function(){
         $('body').modalmanager('loading');
         setTimeout(function(){
@@ -461,10 +494,10 @@ $(document).ready(function(){
     });
     //delete current cuisine
     $('body').on('click','.button-delete',function(){
-       var getCuid=$(this).attr('id');
+        var getCuid=$(this).attr('id');
         console.log(getCuid);
-       tmp={};
-       tmp['CuisineDeleteID']=getCuid;
+        tmp={};
+        tmp['CuisineDeleteID']=getCuid;
         var TempParent=$(this).parent().parent().parent();
 
         var request = $.ajax({
@@ -476,8 +509,8 @@ $(document).ready(function(){
 
         request.done(function( msg ) {
             if (msg==='Delete Successful'){
-                    TempParent.empty().append('<td colspan="8"><div class="alert alert-warning">'+msg+'</div></td>');
-                    setTimeout(function(){TempParent.remove(); CuisineAJAXList(); },3000);
+                TempParent.empty().append('<td colspan="8"><div class="alert alert-warning">'+msg+'</div></td>');
+                setTimeout(function(){TempParent.remove(); CuisineAJAXList(); },3000);
             }
             else if(msg==='Current Order is available'){
                 CuisineAjax(CuisineArray);
@@ -492,11 +525,11 @@ $(document).ready(function(){
 
 
     /******************************************Cuisine order controller****************************/
-   //change the order status that adds 1 from base
+        //change the order status that adds 1 from base
     $('body').on('click','.icon-caret-up-table',function(){
-       var OrNumber=parseInt($(this).parent().find('h5').html());
-       $(this).parent().find('h5').html(OrNumber+1);
-   });
+        var OrNumber=parseInt($(this).parent().find('h5').html());
+        $(this).parent().find('h5').html(OrNumber+1);
+    });
     //chage the order status that subs 1 from base
     $('body').on('click','.icon-caret-down-table',function(){
         var OrNumber=parseInt($(this).parent().find('h5').html());
@@ -519,29 +552,29 @@ $(document).ready(function(){
             InformationDisplay("Sorry, there is exeisting repleated order","alert-error");
         }
         else{
-          for (var i=0;i<TotalIndex;i++){
-           tmp[$('#CusinesTable tbody').find('tr').eq(i).find('.button-delete').attr('id')]=$('#CusinesTable tbody').find('tr').eq(i).find('td').eq(0).find('h5').html();
-          }
+            for (var i=0;i<TotalIndex;i++){
+                tmp[$('#CusinesTable tbody').find('tr').eq(i).find('.button-delete').attr('id')]=$('#CusinesTable tbody').find('tr').eq(i).find('td').eq(0).find('h5').html();
+            }
             passNewOrder['UpdateCuisineOrder']='UpdateCuisineOrder';
             passNewOrder['ArrayOfCuisineOrder']=tmp;
             AJAXupdateCuisineOrder(passNewOrder);
 
         }
 
-    //compare all order, if there is the replated one, then error displed
-    function checkReplatedOrder(tmpStore){
-        var nary=tmpStore.sort();
-        var repleated=0;
-        for(var i=0;i<tmpStore.length;i++){
-            if (nary[i]==nary[i+1]){
-                repleated=1;
+        //compare all order, if there is the replated one, then error displed
+        function checkReplatedOrder(tmpStore){
+            var nary=tmpStore.sort();
+            var repleated=0;
+            for(var i=0;i<tmpStore.length;i++){
+                if (nary[i]==nary[i+1]){
+                    repleated=1;
+
+                }
 
             }
+            return repleated;
 
         }
-        return repleated;
-
-    }
 
     });
 
@@ -572,7 +605,7 @@ $(document).ready(function(){
 
 
     $(".modal").on('shown', function() {
-      $(this).find("#CuName").focus();
+        $(this).find("#CuName").focus();
     });
 
 
@@ -697,7 +730,7 @@ $(document).ready(function(){
         var CurrentCusinOrder=$('.NumberOfOrder').val();
 
         if(CurrentResID!=='' && CurrentCuisineName!=='' && CurrentCuisineDes!=='' && CurrentCuisinePrice!=='' && CurrentCuisineAvali!=='' && CurrentAvaliTag!=='' && CurrentCusinTag!=='' && CurrentCusinTypeTag!=='' && CurrentCusinPriceTag !=='' && CurrentCusinOrder!==''){
-           var tmp={};
+            var tmp={};
             tmp['CurrentResID']=CurrentResID;
             tmp['CurrentCuisineName']=CurrentCuisineName;
             tmp['CurrentCuisineDes']=CurrentCuisineDes;
@@ -707,7 +740,7 @@ $(document).ready(function(){
             tmp['CurrentCusinTag']=CurrentCusinTag;
             tmp['CurrentCusinTypeTag']=CurrentCusinTypeTag;
             tmp['CurrentCusinPriceTag']=CurrentCusinPriceTag;
-            tmp['CurrentCusinOrder']=CurrentCusinOrder;
+            tmp['CurrentCusinOrder']=parseInt(CurrentCusinOrder);
             //doing the order check first then run addnewdishe function
             OrderCheckAJAX(CurrentCusinOrder,tmp);
 
@@ -724,35 +757,35 @@ $(document).ready(function(){
 
 
 
-function CuisineAjax(data){
+    function CuisineAjax(data){
 
-    var request = $.ajax({
-        url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
-        type: "POST",
-        data:data,
-        dataType: "html"
-    });
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:data,
+            dataType: "html"
+        });
 
-    request.done(function( result ) {
-        console.log(result);
-        if(result==='Error'){
-            AjaxMessageError('alert-error','Submit Error, please contact to admin');
-        }
-        else{
-            AjaxMessageSuccess('alert-success',result);
-            setTimeout(function(){$('#ajax-modal').modal('hide'); CuisineAJAXList();},3000);
+        request.done(function( result ) {
+            console.log(result);
+            if(result==='Error'){
+                AjaxMessageError('alert-error','Submit Error, please contact to admin');
+            }
+            else{
+                AjaxMessageSuccess('alert-success',result);
+                setTimeout(function(){$('#ajax-modal').modal('hide'); CuisineAJAXList();},3000);
 
-        }
-
-
-    });
-
-    request.fail(function( jqXHR, textStatus ) {
-        alert( "Request failed: " + textStatus );
-    });
+            }
 
 
-}
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+
+    }
 
 
     function AjaxMessageError(className,info){
@@ -929,8 +962,8 @@ function CuisineAjax(data){
         var getFinalAddress=getDetailAddress+','+getRootAddress;
         var getContactName=$('#RestarurantContactName').val();
         var getContactNumber=$('#RestarurantContactNumber').val();
-        var getAvailabilityTag=$('#Availability').val();
-        var getCuisineTag=$('#Cuisine').val();
+        var getAvailabilityTag=$('#MyRestaruant-Availability').val();
+        var getCuisineTag=$('#MyRestaruant-Cuisine').val();
         //opening hour
         var Sunday="Sunday";
         var Monday="Monday";
@@ -972,33 +1005,33 @@ function CuisineAjax(data){
         MyRestaurant['MyResOpeningHours']=OpenHour;
         MyRestaurant['MyResReview']=0;
 
-if(getDetailAddress==='' || getContactName==='' || getContactNumber==='' || getAvailabilityTag==='' || getCuisineTag===''){
-    ErrorInfo('Sorry, you have to fill all fields','#MyRestaruantSubmit');
+        if(getDetailAddress==='' || getContactName==='' || getContactNumber==='' || getAvailabilityTag==='' || getCuisineTag===''){
+            ErrorInfo('Sorry, you have to fill all fields','#MyRestaruantSubmit');
 
-}
-else{
-        var request = $.ajax({
-            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
-            type: "POST",
-            data:MyRestaurant,
-            dataType: "html"
-        });
-        request.done(function( msg ) {
-            if(msg==='Successed'){
-                SuccessInfo('Successfully updated','#MyRestaruantSubmit');
+        }
+        else{
+            var request = $.ajax({
+                url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+                type: "POST",
+                data:MyRestaurant,
+                dataType: "html"
+            });
+            request.done(function( msg ) {
+                if(msg==='Successed'){
+                    SuccessInfo('Successfully updated','#MyRestaruantSubmit');
 
-            }
-            else {
-                ErrorInfo('Sorry, The database ERROR','#MyRestaruantSubmit');
+                }
+                else {
+                    ErrorInfo('Sorry, The database ERROR','#MyRestaruantSubmit');
 
-            }
+                }
 
-        });
+            });
 
-        request.fail(function( jqXHR, textStatus ) {
-            alert( "Request failed: " + textStatus );
-        });
-}
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
         return false;
     });
 

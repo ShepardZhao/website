@@ -54,9 +54,9 @@
                     <label class="control-label">Restarurant Tags:</label>
                     <div class="controls text-left">
                         Avaliability
-                        <?php echo $TagsClass->OupPutTagBySelecOption("Availability","client_b2c.CuisineTags");?>
+                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption("Availability","client_b2c.CuisineTags");?>
                         Cuisine
-                        <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","client_b2c.CuisineTags");?>
+                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption("Cuisine","client_b2c.CuisineTags");?>
                         <span style="color:#c09853">Notes: Please selecting your tags carefully</span>
 
                     </div>

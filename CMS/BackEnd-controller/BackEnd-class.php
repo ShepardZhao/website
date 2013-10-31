@@ -160,10 +160,24 @@ Class Tags{
     }
 
 
-    //put the tags into the selct option
+    //put the tags into the selct option-------for cuisine
     public function OupPutTagBySelecOption($NameOfTags,$Table){
         $tmpArray=self::getTags($NameOfTags,$Table);
         echo "<select id='$NameOfTags' class='span2 MyResttagslist'>";
+        foreach ($tmpArray as $values){
+            if($values!=''){
+                echo "<option value='$values' id='$Table'>$values</option>";
+            }
+        }
+        echo "</select>";
+
+
+    }
+
+    //put the tags into the selct option-------for cuisine
+    public function MyRestaruantOupPutTagBySelecOption($NameOfTags,$Table){
+        $tmpArray=self::getTags($NameOfTags,$Table);
+        echo "<select id='MyRestaruant-$NameOfTags' class='span2 MyResttagslist'>";
         foreach ($tmpArray as $values){
             if($values!=''){
                 echo "<option value='$values' id='$Table'>$values</option>";
@@ -1625,6 +1639,22 @@ class Cuisine{
 
     }
 
+    //Select SecondLevelofCuisine from table SecondLevelofCuisine
+    public function GetSecondLevelofCuisineByUnqieID($getUniqeID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.SecondLevelofCuisine WHERE SecLevelCuID=?")){
+            $stmt->bind_param('i',$getUniqeID);
+            $stmt->execute();
+            $stmt->bind_result();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+
+    }
 
     //Delete Second level with wrap
     public function DeleteSecondWrap($getUniqueID){
@@ -1638,6 +1668,63 @@ class Cuisine{
             return 'Error';
         }
     }
+//***************************************************************************
+    private function  ReturnSeLevelMultiple($getArray){
+       $tmp=array();
+        foreach ($getArray as $key=>$arrayValue){
+            foreach ($arrayValue as $subkey=>$subValue){
+                if($subkey==='SeLevelMultiple'){
+                    $tmp=unserialize($subValue);
+
+                }
+            }
+        }
+        return $tmp;
+    }
+    private function ReturnCompareValue($getUnserializeSeLevelMultiple,$GetName,$GetPrice){
+        $condition=0;
+        $condiiion1=0;
+        foreach ($getUnserializeSeLevelMultiple as $key=>$value){
+                 foreach ($value as $subkey=>$content){
+                     if ($subkey==='name' && $content===$GetName){
+                         $condition=1;
+                     }
+                     elseif ($subkey==='price' && $content===$GetPrice){
+                         $condiiion1=1;
+                     }
+
+                     if($condition===1 && $condiiion1===1){
+                         return $key;
+                     }
+                 }
+            }
+    }
+
+    private function deleteAndUpdate($UniqueID,$getDeleteIndex,$getUnserializeSeLevelMultiple){
+       unset($getUnserializeSeLevelMultiple[$getDeleteIndex]);
+        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.SecondLevelofCuisine SET SeLevelMultiple=? WHERE SecLevelCuID=?")){
+            $stmt->bind_param('si',serialize($getUnserializeSeLevelMultiple),$UniqueID);
+            $stmt->execute();
+            $stmt->close();
+            return 'Delete Successfully!';
+        }
+        else{
+            return 'Delete Error';
+        }
+    }
+
+    //Delete inside Second level
+    public function DeleteInsideSecondLevel($GetUniqueID,$GetName,$GetPrice){
+        /*According to UniqueID to get Matched array*/
+        $getArray=json_decode($this->GetSecondLevelofCuisineByUnqieID($GetUniqueID));
+        /*According to array to get sub array that we will use later*/
+        $getUnserializeSeLevelMultiple=$this->ReturnSeLevelMultiple($getArray);
+        /*Pass the sub array and name and price to find the index key*/
+        $getDeleteIndex=$this->ReturnCompareValue($getUnserializeSeLevelMultiple,$GetName,$GetPrice);
+        /*According to index key to delete record that exeisted and saved the result to database*/
+        return $this->deleteAndUpdate($GetUniqueID,$getDeleteIndex,$getUnserializeSeLevelMultiple);
+    }
+
     //Delete Current Cuisine
     public function DeleteCuisine($GetDeleteID){
         $condition1=0;

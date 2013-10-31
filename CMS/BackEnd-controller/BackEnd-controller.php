@@ -114,8 +114,6 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
         echo $UserClass->DeleteUserByID($_POST['DeleteUserID']);
 
     }
-
-
 /***********************************************Restaruant regisation*********************************************/
     if(isset($_POST['RegResturantEmail']) && isset($_POST['RegGetResturantPass']) && isset($_POST['RegisterStatus']) && isset($_POST['RegisterType'])){
         $ResturantRegisterID=$RegisterUserClass->GenerateRandomUserID();
@@ -135,23 +133,18 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['RestaruantUID'])&& isset($_POST['RestaruantID']) && isset($_POST['RestaruantPhotoPath'])){
         echo $RestartuantClass->RestaruantPhotoUploader($_POST['RestaruantUID'],$_POST['RestaruantID'],$_POST['RestaruantPhotoPath']);
     }
-
-
 /*********************************************Cuisine uploading*************************************************************/
     if(isset($_POST['CurrentResID']) && isset($_POST['CurrentCuisineName']) && isset($_POST['CurrentCuisineDes']) && isset($_POST['CurrentCuisinePrice']) && isset($_POST['CurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag']) && isset($_POST['CurrentCusinOrder'])){
         $tempCode=$RegisterUserClass->GenerateRandomUserID();
         $CuisineID='C'.$tempCode;
         echo $CuisineClass->getParamOfCuisine($CuisineID,$_POST['CurrentResID'],$_POST['CurrentCuisineName'],$_POST['CurrentCuisineDes'],$_POST['CurrentCuisinePrice'],$_POST['CurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag'],$_POST['CurrentCusinOrder']);
     }
-
 /********************************************Cuisine modifying uploading*****************************************************/
     if(isset($_POST['UpCurrentCuisineID']) && isset($_POST['UpCurrentCuisineName']) && isset($_POST['UpCurrentCuisineDes']) && isset($_POST['UpCurrentCuisinePrice']) && isset($_POST['UpCurrentCuisineAvali']) && isset($_POST['CurrentAvaliTag']) && isset($_POST['CurrentCusinTag']) && isset($_POST['CurrentCusinTypeTag']) && isset($_POST['CurrentCusinPriceTag'])){
         echo $CuisineClass->UpdateFirstLevelCuisine($_POST['UpCurrentCuisineID'],$_POST['UpCurrentCuisineName'],$_POST['UpCurrentCuisineDes'],$_POST['UpCurrentCuisinePrice'],$_POST['UpCurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag']);
     }
-
 /********************************************list Cuisine's data***************************************************/
     if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable();}
-
 /********************************************Cuisine order check***************************************************/
     if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder']);}
 /********************************************Cuisine order reset***************************************************/
@@ -164,8 +157,8 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['CuisineDeleteID'])){echo $CuisineClass->DeleteCuisine($_POST['CuisineDeleteID']);}
 /********************************************Delete second level with Wrap (including title, and its names and prices)**************************/
     if(isset($_POST['SecondLevelWrapDelete'])){echo $CuisineClass->DeleteSecondWrap($_POST['SecondLevelWrapDelete']);}
-
-
+/********************************************Delete inside of second level with Wrap (including title, and its names and prices)**************************/
+    if(isset($_POST['DeleteInsideSecondLevel'])){echo $CuisineClass->DeleteInsideSecondLevel($_POST['getUniqueID'],$_POST['InsideName'],$_POST['InsidePrice']);}
 /********************************************Cuisine photo uploading************************************************/
     if(isset($_POST['CuisinePhotoUploading'])&&isset($_POST['CuisineCuid'])&&isset($_POST['CuisinePhotoPath'])){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath']);}
 
