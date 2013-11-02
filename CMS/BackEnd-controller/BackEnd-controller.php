@@ -144,9 +144,9 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
         echo $CuisineClass->UpdateFirstLevelCuisine($_POST['UpCurrentCuisineID'],$_POST['UpCurrentCuisineName'],$_POST['UpCurrentCuisineDes'],$_POST['UpCurrentCuisinePrice'],$_POST['UpCurrentCuisineAvali'],$_POST['CurrentAvaliTag'],$_POST['CurrentCusinTag'],$_POST['CurrentCusinTypeTag'],$_POST['CurrentCusinPriceTag']);
     }
 /********************************************list Cuisine's data***************************************************/
-    if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable();}
+    if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable($_POST['GetCurrentResID']);}
 /********************************************Cuisine order check***************************************************/
-    if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder']);}
+    if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder'],$_POST['GetOrginalResID']);}
 /********************************************Cuisine order reset***************************************************/
     if(isset($_POST['UpdateCuisineOrder']) && isset($_POST['ArrayOfCuisineOrder'])){echo $CuisineClass->RestAndUpdateOrderofCuisine($_POST['ArrayOfCuisineOrder']);}
 /********************************************Second Cuisine Submit Width Add new*************************************************/

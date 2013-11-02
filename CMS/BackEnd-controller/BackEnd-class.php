@@ -1433,7 +1433,21 @@ class Restartuant {
         }
     }
 
-//fetch the all keys and values from Restaruant table
+ //fetch the ID and Name
+    private function FetchRestaruantName($ResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT ResName FROM client_b2c.Restaurants WHERE RestID=?")){
+            $stmt->bind_param('s',$ResID);
+            $stmt->execute();
+            $stmt->bind_result($ResName);
+            while($stmt->fetch()){
+                $tmp=array("CuisineResName"=>$ResName);
+            }
+            $stmt->close();
+            return $tmp;
+        }
+    }
+
+//fetch the all keys and values from Restaruant table with objective
     public function GetRestaruant(){
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Restaurants")){
             $stmt->execute();
@@ -1459,8 +1473,48 @@ class Restartuant {
     }
 
 
+    //fetch restraruant with normall array
+    public function FetchRestaruant(){
+        $object=array();
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResPicPath,ResRating,ResAvaliability,ResCuisine,ResReview,UserID FROM client_b2c.Restaurants")){
+            $stmt->execute();
+            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResPicPath,$ResRating,$ResAvaliability,$ResCuisine,$ResReview,$UserID);
+            $object=array();
+            while($stmt->fetch()){
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResPicPath"=>$ResPicPath,"ResRating"=>$ResRating,"ResAvaliability"=>$ResAvaliability,"ResCuisine"=>$ResCuisine,"ResReview"=>$ResReview,"UserID"=>$UserID);
+                array_push($object,$tmp);
+            }
+            $stmt->close();
+            return $object;
+        }
+
+
+
+
+
+    }
+    public function RestartuantProcess($getCuisineArray){
+        foreach ($getCuisineArray as $RootKey=>$subArray){
+            foreach ($subArray as $key=>$value){
+                if($key==='CuisineRestID'){
+                    if(count($this->FetchRestaruantName($value))>0){
+                        $getCuisineArray[$RootKey]=array_merge($getCuisineArray[$RootKey],$this->FetchRestaruantName($value));
+                    }
+                }
+            }
+        }
+        return $getCuisineArray;
+
+
+    }
+
+
+
+
 
 }
+
+
 
 
 /*************************************************Cuisine Class***********************************************/
@@ -1500,8 +1554,8 @@ class Cuisine{
 
 
     //Order check
-    public function CuisineOrderCheck($GetOrder){
-        if(count(json_decode(self::CuisineOrderCheckDatabase($GetOrder)))>0){
+    public function CuisineOrderCheck($GetOrder,$ResID){
+        if(count(json_decode(self::CuisineOrderCheckDatabase($GetOrder,$ResID)))>0){
             return 'Repeated Order';
         }
         else {
@@ -1525,9 +1579,9 @@ class Cuisine{
 
 
     //Order check from database
-    private function CuisineOrderCheckDatabase($GetOrder){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Cuisine WHERE CuOrder=?")){
-            $stmt->bind_param('i',$GetOrder);
+    private function CuisineOrderCheckDatabase($GetOrder,$ResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Cuisine WHERE CuOrder=? AND RestID=?")){
+            $stmt->bind_param('is',$GetOrder,$ResID);
             $stmt->execute();
             $stmt->bind_result();
             $result = $stmt->get_result();
@@ -1772,8 +1826,9 @@ class Cuisine{
     }
 
     //return normal dataset of cuisine
-    private function ReturnDataOfNormalCuisine(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Avaliability,CuName,CuPicPath,CuDescr,Price,CuAvaliability,CuCuisine,CuType,CuPrice,CuID FROM client_b2c.Cuisine ORDER BY CuOrder")){
+    private function ReturnDataOfNormalCuisine($getResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Avaliability,CuName,CuPicPath,CuDescr,Price,CuAvaliability,CuCuisine,CuType,CuPrice,CuID FROM client_b2c.Cuisine WHERE RestID=? ORDER BY CuOrder")){
+            $stmt->bind_param('s',$getResID);
             $stmt->execute();
             $stmt->bind_result($CuOrder,$Avaliability,$CuName,$CuPicPath,$CuDescr,$Price,$CuAvaliability,$CuCuisine,$CuType,$CuPrice,$CuID);
             $result = $stmt->get_result();
@@ -1884,14 +1939,80 @@ class Cuisine{
 
             }
         }
+    }
 
 
+    //return second level of cuisine according to CuisineID
+    private function ReturnSecondLevelbyCuID($getcuid){
+         $object=array();
+         $finalObject=array();
+        if($stmt=$this->DataBaseCon->prepare("SELECT SeLevelTitle, SeLevelMultiple FROM client_b2c.SecondLevelofCuisine WHERE CuID=?")){
+           $stmt->bind_param('s',$getcuid);
+           $stmt->execute();
+           $stmt->bind_result($SeLevelTitle,$SeLevelMultiple);
+           while($stmt->fetch()){
+               $tmp=array("SecondlevelTitle"=>$SeLevelTitle,"SecondLevelContent"=>unserialize($SeLevelMultiple));
+               array_push($object,$tmp);
+           }
+            $finalObject['SecondLevel']=$object;
+            $stmt->close();
+        return $finalObject;
+
+        }
+    }
+
+
+
+    //return all cuisine
+    private function ReturnAllCuisine(){
+        $tmp=array();
+
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Avaliability,CuAvaliability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuReview,CuOrder,Price FROM client_b2c.Cuisine")){
+            $stmt->execute();
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Avaliability,$CuAvaliability,$CuCuisine,$CuType,$CuPrice,$CuRating, $RestID,$CuReview,$CuOrder,$Price);
+            while($stmt->fetch()){
+
+                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"CuisinePicPath"=>$CuPicPath,"CuisineAvaliability"=>$Avaliability,"CuisineAvaliabilityTag"=>$CuAvaliability,"CuisineCuisineTag"=>$CuCuisine,"CuisineTypeTag"=>$CuType,"CuisinePriceTag"=>$CuPrice,"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineReview"=>$CuReview,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price);
+                array_push($tmp,$object);
+            }
+            $stmt->close();
+            return $tmp;
+        }
+    }
+
+
+
+
+
+    private function ReturnfinalCuisine($allCuisine){
+        foreach ($allCuisine as $RootKey=>$subArray){
+            foreach ($subArray as $key=>$value){
+                if ($key==='CuisineID'){
+                    if(count($this->ReturnSecondLevelbyCuID($value))>0){
+                        $allCuisine[$RootKey]=array_merge($allCuisine[$RootKey],$this->ReturnSecondLevelbyCuID($value));
+                    }
+                }
+            }
+        }
+        return $allCuisine;
 
     }
 
+
+    //return cusisine and its second level
+    public function CuisineWithSeondLevel(){
+        //return all cuisine
+        $getAllCuisine=$this->ReturnAllCuisine();
+        //return cuisine and its ResName and ID
+        return  $this->ReturnfinalCuisine($getAllCuisine);
+
+    }
+
+
+
     //list cuisine into table
-    public function listCuisineTable(){
-        $GetNormalDataset=json_decode(self::ReturnDataOfNormalCuisine());
+    public function listCuisineTable($getResid){
+        $GetNormalDataset=json_decode(self::ReturnDataOfNormalCuisine($getResid));
         echo '<table class="table table-striped" id="CusinesTable">';
         echo '<thead>';
         echo '<tr>';
@@ -1922,7 +2043,7 @@ class Cuisine{
                 }
                 if($key==='CuPicPath'){
                     if(isset($value)){
-                        echo "<td><a href='$value'><img style='width:50px;height:50px' src='$value'></a><button class='btn TableButtonStyle UploadCuisPhoto' type='button'>Edit</button></td>";
+                        echo "<td><a href='$value' target='_blank'><img style='width:50px;height:50px' src='$value'></a><button class='btn TableButtonStyle UploadCuisPhoto' type='button'>Edit</button></td>";
 
 
                     }
@@ -2375,6 +2496,50 @@ class resize
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************json return area************************************************/
+//this class is only dealing with requestments from /json/index.php that sends or deals data between phone and website
+class JsonReturnOrDeal{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+    //return cuisine and restaurant
+    public function ReturnCuisine(){
+        $CuisineClass=new Cuisine($this->DataBaseCon);
+        $RestartuantClass=new Restartuant($this->DataBaseCon);
+        //get Cuisine and its SecondLevel
+        $getCuisineWithSecondLevel=$CuisineClass->CuisineWithSeondLevel();
+        $CuisineAndRestaurants=$RestartuantClass->RestartuantProcess($getCuisineWithSecondLevel);
+        return json_encode($CuisineAndRestaurants);
+    }
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 ?>

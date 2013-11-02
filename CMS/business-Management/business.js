@@ -457,6 +457,8 @@ $(document).ready(function(){
     function CuisineAJAXList(){
         var tmp={};
         tmp['ajaxCuisineList']='yes';
+        tmp['GetCurrentResID']=$('#RestaruantID').val();
+        console.log(tmp);
         $('#ajaxCusinesTable').empty().append('<div class="AjaxLoading"><img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif></div>').fadeIn();
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
@@ -649,9 +651,10 @@ $(document).ready(function(){
 
 
 //This function is doing the order check, if there is any order in matched then return error
-    function OrderCheckAJAX(GetCurrentOrder,CuisineArray){
+    function OrderCheckAJAX(GetCurrentOrder,CurrentResID,CuisineArray){
         var tmp={};
         tmp['GetOrginalOrder']=GetCurrentOrder;
+        tmp['GetOrginalResID']=CurrentResID;
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
@@ -742,7 +745,7 @@ $(document).ready(function(){
             tmp['CurrentCusinPriceTag']=CurrentCusinPriceTag;
             tmp['CurrentCusinOrder']=parseInt(CurrentCusinOrder);
             //doing the order check first then run addnewdishe function
-            OrderCheckAJAX(CurrentCusinOrder,tmp);
+            OrderCheckAJAX(CurrentCusinOrder,CurrentResID,tmp);
 
         }
         else {

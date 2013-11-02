@@ -43,8 +43,8 @@ $RestartuantClass=new Restartuant($Mysql_Connection);
 $CuisineClass=new Cuisine($Mysql_Connection);
 /*********************************Selection Tags***************************************/
 $OrderSelectionTagsClass= new OrderSelectionTags($Mysql_Connection);
-
-
+/********************************JsonReturnOrDeal**************************************/
+$JsonReturnOrDealclass= new JsonReturnOrDeal($Mysql_Connection);
 
 
 

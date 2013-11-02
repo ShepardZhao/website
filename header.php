@@ -146,7 +146,7 @@ if ($user) {
                     <li>
                         <div class="btn-group">
                             <img style="width:40px; height:40px;"src="<?php echo $_SESSION['LoginedUserPhoto'];?>">
-                            <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <span class="icon-sort-down icon-white"></span></button>
+                            <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <i class="fa fa-sort-asc icon-white"></i></button>
                             <ul class="dropdown-menu pull-right">
                                 <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
