@@ -410,7 +410,7 @@ $(document).ready(function(){
     });
 
 
-    /**********************************************Order page*******************************************/
+    /**********************************************Order jquery*******************************************/
       //Tag li elements click
 
      $('body').on('click','.TagAvailable li',function() { //TagAvailable---Availability
@@ -477,16 +477,6 @@ $(document).ready(function(){
             $('.hideAddress').fadeOut();
         }
     });
-
-
-
-
-
-
-
-
-
-
 
 });
 

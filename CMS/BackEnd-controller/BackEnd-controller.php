@@ -127,7 +127,7 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 /*********************************************Restaruant info edit************************************************/
     if(isset($_POST['MyRestaurantEdit'])){
-        echo $RestartuantClass->GetRestartuantParam($_POST['MyResUID'],$_POST['MyResID'],$_POST['MyResName'],$_POST['MyResAddress'],$_POST['MyResContactName'],$_POST['MyResContactNumber'],$_POST['MyResAvailabilityTag'],$_POST['MyResCuisineTag'],$_POST['MyResOpeningHours'],$_POST['MyResReview']);
+        echo $RestartuantClass->GetRestartuantParam($_POST['MyResUID'],$_POST['MyResID'],$_POST['MyResName'],$_POST['MyResDestailAddress'],$_POST['MyRootAddress'],$_POST['MyResContactName'],$_POST['MyResContactNumber'],$_POST['MyResAvailabilityTag'],$_POST['MyResCuisineTag'],$_POST['MyResOpeningHours'],$_POST['MyResRating'],$_POST['MyResReview']);
     }
 /*********************************************Restaruant photo uploading******************************************/
     if(isset($_POST['RestaruantUID'])&& isset($_POST['RestaruantID']) && isset($_POST['RestaruantPhotoPath'])){

@@ -83,7 +83,7 @@ $(document).ready(function(){
         }
     });
 
-    //intials image loading event
+   /* //intials image loading event
 $(function(){
     if(('#FeathuredInterface').length>0){
         AjaxFunction("#FeathuredInterface",dataObj("getMode","mode1"),"Feathured.php",0);
@@ -94,7 +94,7 @@ $(function(){
     $('#Feathred-left-position').on('click',function(){
         AjaxFunction("#FeathuredInterface",dataObj("getMode","mode1"),"Feathured.php",0);
     });
-
+*/
 
 //Featured events group
 
@@ -147,10 +147,6 @@ $('body').on('click','.foodName-Restaurants',function(){
 
 
 });
-
-
-
-
 
 
 function dataObj(pushName,PushValue){

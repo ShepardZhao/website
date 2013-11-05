@@ -962,7 +962,6 @@ $(document).ready(function(){
         var getRestauranName=$('#RestarurantName').val();
         var getDetailAddress=$('#RestarurantAddress').val();
         var getRootAddress=$('.MyResRootAddress').val();
-        var getFinalAddress=getDetailAddress+','+getRootAddress;
         var getContactName=$('#RestarurantContactName').val();
         var getContactNumber=$('#RestarurantContactNumber').val();
         var getAvailabilityTag=$('#MyRestaruant-Availability').val();
@@ -1000,12 +999,14 @@ $(document).ready(function(){
         MyRestaurant['MyResUID']=GetAccount;
         MyRestaurant['MyResID']=getRestaurantID;
         MyRestaurant['MyResName']=getRestauranName;
-        MyRestaurant['MyResAddress']=getFinalAddress;
+        MyRestaurant['MyResDestailAddress']=getDetailAddress;
+        MyRestaurant['MyRootAddress']=getRootAddress;
         MyRestaurant['MyResContactName']=getContactName;
         MyRestaurant['MyResContactNumber']=getContactNumber;
         MyRestaurant['MyResAvailabilityTag']=getAvailabilityTag;
         MyRestaurant['MyResCuisineTag']=getCuisineTag;
         MyRestaurant['MyResOpeningHours']=OpenHour;
+        MyRestaurant['MyResRating']=0;
         MyRestaurant['MyResReview']=0;
 
         if(getDetailAddress==='' || getContactName==='' || getContactNumber==='' || getAvailabilityTag==='' || getCuisineTag===''){

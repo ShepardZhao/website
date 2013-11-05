@@ -34,7 +34,7 @@
                     <table class="table">
                         <tr>
                             <td><div class="well well-small">Sea food with itemname number something plus something itemname</div></td>
-                            <td><h5><span class="number">1<i class="plus icon-expand-alt"></i><i class="sub icon-collapse-alt"></i></span></h5></td>
+                            <td><h5><span class="number">1<i class="plus fa fa-plus-circle"></i><i class="sub fa fa-minus-circle"></i></span></h5></td>
                             <td><span class="price"><i>$127.0</i></span></td>
                             <td><i class="fa fa-times"></i></td>
                         </tr>

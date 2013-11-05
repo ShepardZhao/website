@@ -52,6 +52,10 @@ if ($user) {
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery-1.10.2.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
+    <!-- Include the imagesLoaded plug-in -->
+    <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.imagesloaded.js"></script>
+    <!-- Include the plug-in -->
+    <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.wookmark.min.js"></script>
 
 
 

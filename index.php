@@ -11,17 +11,9 @@
 		</div><!--waterfall end-->
 </div><!--bodywrap end-->
 
-<!--index js files begin -->
 
+    <!--waterfall js files begin -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.marquee.js"></script>
-    <!-- Include the imagesLoaded plug-in -->
-    <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.imagesloaded.js"></script>
-    <!-- Include the plug-in -->
-    <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.wookmark.min.js"></script>
-    <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-waterfall.js"></script>
-
-<!--index js files end-->
-
-
-
+    <script src="<?php echo GlobalPath;?>/assets/framework/js/index-waterfall.js"></script>
+    <!--waterfall js files end-->
 <?php include 'footer.php'?>

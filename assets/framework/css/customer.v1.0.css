@@ -30,13 +30,18 @@ body{
 	margin:100px auto;
 }
 
-.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.icon-star-empty:hover,.icon-heart-empty:hover,.icon-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover,#searchImg:hover{
+.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.icon-star-empty:hover,.fa-heart-o:hover,.fa-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.icon-circle-arrow-left:hover,#searchImg:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
 	transition-duration: 0.3s;
 	transition-timing-function: linear;  
 	position:relative;
+}
+#Ajax-loading{
+    width: 100%;
+    text-align: center;
+    height:200px
 }
 
 a{
@@ -782,6 +787,7 @@ padding:19px;
 .siderbar{
 	padding-right:10px;
 }
+
 /*Check Part*/
 .popover.left{
   
@@ -821,34 +827,42 @@ padding:19px;
 .price{
 	color: #E74C3C;
 }
-
+	
 .number{
 	color: #c09853;
-	margin-right: 15px;
 	position: relative;
+	padding: 9px;
 }
 .plus{
 	position: absolute;
 	left:0;
 	top:-12px;
+	left: 7px;
 }
 .plus:hover{
 	cursor:pointer;
+}
+.fa-plus-circle{
+	color: #999;
 }
 
 .sub{
 	position: absolute;
 	left:0;
 	bottom:-12px;
+	left: 7px;
 }
 
 .sub:hover{
 	cursor: pointer;
 }
-.cancel,.deliveryQestion{
+.fa-minus-circle{
+	color: #999;
+}
+.fa-times,.deliveryQestion{
 	padding-left:5px;
 }
-.cancel:hover,.deliveryQestion:hover{
+.fa-times,.deliveryQestion:hover{
 	cursor:pointer;
 }
 

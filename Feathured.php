@@ -11,7 +11,7 @@
                 </ul>
             </div>
         </div>
-        <div class="span10">
+        <div class="span10 tagszone">
             <ul class="nav nav-pills nav-stacked ContentRightList TagWrapUI">
                 <li>
                 <div id="TagAvailableRelative">
@@ -50,19 +50,23 @@
                 </li>
             </ul>
         </div>
-
+       <!--below part is showing the feature's waterfall------------->
         <div class="row-fluid" id="AjaxWaterFall-NoParam"><!--image parts-->
-          <?php
-          $_POST['mode']=$_POST['getMode'];
-          include "Common-waterfall.php";
-          ?>
+            <div id="FeatureMargin" class="span12 hidden-phone FeaturedImage">
+
+                <div class="FeatureImagetiles" role="main" >
+                    <ul id="Imagetiles" class="Imagetiles">
+
+                        <!-- These are our grid blocks -->
+
+                    </ul>
+                    <div id="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
+                </div>
+            </div>
         </div>
 
-
-
     </div>
-
-
+   <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
 
 
 

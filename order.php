@@ -1,4 +1,5 @@
 <?php include 'header.php'?>
+
 <?php
     if (isset($_GET['RootID']) && isset($_GET['SubID'])){
         $InitialLocationSelectClass->hiddenInitialLocation();
@@ -7,10 +8,13 @@
         $_SESSION['RootLocation']=$InitialLocationSelectClass->GetsRootLocalName($_GET['RootID']);
         $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_GET['RootID'],$_GET['SubID']);
 ?>
-    <!--Container-->
+    <input type="hidden" id="RootLocationName" value="<?php echo $_SESSION['RootLocation']?>">
+    <input type="hidden" id="SubLocationName" value="<?php echo $_SESSION['SubLocation']?>">
+
+        <!--Container-->
      <div class="row-fluid"><!--ad zone-->
          <div class="span12 slideMarign hidden-phone"><!--key line for phone visiable-->
-    <div id="myCarousel" class="carousel slide ">
+    <div id="myCarousel" class="carousel slide">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -70,7 +74,6 @@
             <div class="tab-content tabContent"><!--tab selection-->
                 <div class="tab-pane fade in active" id="Featured">
                     <?php include 'Feathured.php'?>
-
                 </div>
                 <div class="tab-pane fade" id="Restaurants">
                     <?php include 'Restaurants.php'?>
@@ -90,11 +93,10 @@
 </div>
 
 </div>
-    <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-Ajax.v1.0.js"></script>
 
 <?php
     }
-else if($_GET['RootID']==='' || $_GET['SubID']===''){
+else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not set then pop out location selection window
 ?>
     <?php
     echo $InitialLocationSelectClass->GetLocation('NoParam');
