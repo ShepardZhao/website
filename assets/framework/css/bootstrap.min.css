@@ -605,7 +605,7 @@ button.btn.btn-mini,input[type="submit"].btn.btn-mini{*padding-top:1px;*padding-
 .tabs-stacked .open>a:hover,.tabs-stacked .open>a:focus{border-color:#999999;}
 .tabbable{*zoom:1;}.tabbable:before,.tabbable:after{display:table;content:"";line-height:0;}
 .tabbable:after{clear:both;}
-.tab-content{overflow:auto;}
+.tab-content{overflow:hidden;}
 .tabs-below>.nav-tabs,.tabs-right>.nav-tabs,.tabs-left>.nav-tabs{border-bottom:0;}
 .tab-content>.tab-pane,.pill-content>.pill-pane{display:none;}
 .tab-content>.active,.pill-content>.active{display:block;}

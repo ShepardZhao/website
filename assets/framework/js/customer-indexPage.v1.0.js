@@ -1,15 +1,19 @@
 
 //once html has been loaded up then executed the following thing
 $(document).ready(function(){
-   window.CurrentDomain=window.location.origin;
+    var isDisplay=true;
+    window.CurrentDomain=window.location.origin;
  //common area
     //infformation display that whaterever message with error or waring or other things
    window.InformationDisplay=function (_content,_class){
+    if(isDisplay){
     $('<div class="alert '+_class+'">'+_content+'</div>').fadeIn().appendTo($('.information-bar'));
        var getwidth=$('.information-bar').width()/2;
        $('.information-bar').css('margin-left','-'+ getwidth+'px');
        $('.information-bar').css('display','block');
-       setTimeout(function(){$('.'+_class).fadeOut();$('.information-bar').fadeOut();},5000);
+       isDisplay=false;
+    }
+       setTimeout(function(){$('.'+_class).fadeOut();$('.information-bar').fadeOut(); isDisplay=true;},5000);
     }
 
  //common modal
@@ -410,73 +414,6 @@ $(document).ready(function(){
     });
 
 
-    /**********************************************Order jquery*******************************************/
-      //Tag li elements click
-
-     $('body').on('click','.TagAvailable li',function() { //TagAvailable---Availability
-        if($(this).hasClass('active'))
-        {
-            $(this).removeClass("active");
-        }
-        else{
-            $(this).addClass("active");
-        }
-
-    });
-
-
-
-     $('body').on('click','.TagCuisine li',function() { //TagCuisine---Cuisine
-        if($(this).hasClass('active'))
-        {
-            $(this).removeClass("active");
-        }
-        else{
-            $(this).addClass("active");
-        }
-
-    });
-
-
-     $('body').on('click','.TagType li',function() { //TagType---Type
-        if($(this).hasClass('active'))
-        {
-            $(this).removeClass("active");
-        }
-        else{
-            $(this).addClass("active");
-        }
-    });
-
-     $('body').on('click','.TagPrice li',function() { //TagPrice---Price
-        if($(this).hasClass('active'))
-        {
-            $(this).removeClass("active");
-        }
-        else{
-            $(this).addClass("active");
-        }
-    });
-
-
-
-     //pop alert to select the address
-     $('#QuestionMark').popover();
-     $('#DeliveryQuestionMark').popover();
-
-
-     $('#switchArrow').on('click',function(){
-        if($('#switchArrow i').hasClass('fa-arrow-circle-o-right'))
-        {$('#switchArrow i').removeClass('fa-arrow-circle-o-right').addClass('fa-arrow-circle-o-down');
-            $('.hideAddress').fadeIn();
-
-        }
-
-        else if($('#switchArrow i').hasClass('fa-arrow-circle-o-down'))
-        {$('#switchArrow i').removeClass('fa-arrow-circle-o-down').addClass('fa-arrow-circle-o-right');
-            $('.hideAddress').fadeOut();
-        }
-    });
 
 });
 

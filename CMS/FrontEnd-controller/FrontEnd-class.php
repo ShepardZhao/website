@@ -451,6 +451,62 @@ class OrderSelectionTags extends Tags{
         }
 
     }
+}
+
+
+/*****************************************Added to favorite**************************************************/
+class favorite{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseConnetcion){
+        $this->DataBaseCon=$DataBaseConnetcion;
+    }
+
+    private function ConfirmExesited($userID,$CuisineID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Userfavorite WHERE UserID=? AND CuID=?")){
+           $stmt->bind_param('ss',$userID,$CuisineID);
+           $stmt->execute();
+           $stmt->bind_result();
+           $result = $stmt->get_result();
+           $object=array();
+           while($row=$result->fetch_assoc()){
+               array_push($object,$row);
+           }
+           $stmt->close();
+            if(count($object)>0){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        }
+    }
+
+    public function addedtoFavorite($userID,$CuisineID,$FavoriteStatus){
+     if($this->ConfirmExesited($userID,$CuisineID)){
+          if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Userfavorite SET FavoriteStatus=? WHERE UserID=? AND CuID=?")){
+             $stmt->bind_param('iss',$FavoriteStatus,$userID,$CuisineID);
+             $stmt->execute();
+             $stmt->close();
+             return 'true';
+          }
+         else{
+             return 'false';
+         }
+     }
+     else{
+         if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.Userfavorite (UserID,CuID,FavoriteStatus) VALUES (?,?,?)")){
+             $stmt->bind_param('ssi',$userID,$CuisineID,$FavoriteStatus);
+             $stmt->execute();
+             $stmt->close();
+             return 'true';
+         }
+         else{
+             return 'false';
+         }
+     }
+     }
 
 
 

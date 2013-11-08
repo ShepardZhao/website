@@ -10,9 +10,9 @@ $facebook = new Facebook(array(
 
 // See if there is a user from a cookie
 $user = $facebook->getUser();
-
 if ($user) {
     try {
+
         // Proceed knowing you have a logged in user who's authenticated.
         $user_profile = $facebook->api('/me');
         $logoutUrl = $facebook->getLogoutUrl();
@@ -51,6 +51,7 @@ if ($user) {
     <!-- include jQuery -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery-1.10.2.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.scrollTo.min.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
     <!-- Include the imagesLoaded plug-in -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.imagesloaded.js"></script>

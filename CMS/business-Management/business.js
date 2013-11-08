@@ -687,7 +687,7 @@ $(document).ready(function(){
         var UpCurrentCuisineID=$('#UpCurrentCuisineID').val();
         var UpCurrentCuisineName=$('#UpCuName').val();
         var UpCurrentCuisineDes=$('#UpCuDescr').val();
-        var UpCurrentCuisinePrice=$('#UpCuPrice').val();
+        var UpCurrentCuisinePrice=parseFloat($('#UpCuPrice').val()).toFixed(2);
         var UpCurrentCuisineAvali=$('#UpCuAvaliability').val();
         var CurrentAvaliTag=$('#Availability').val();
         var CurrentCusinTag=$('#Cuisine').val();
@@ -725,7 +725,7 @@ $(document).ready(function(){
         var CurrentCuisineName=$('#CuName').val();
         var CurrentCuisineDes=$('#CuDescr').val();
         var CurrentAvaliTag=$('#Availability').val();
-        var CurrentCuisinePrice=$('#CuPrice').val();
+        var CurrentCuisinePrice=parseFloat($('#CuPrice').val()).toFixed(2);
         var CurrentCuisineAvali=$('#CuAvaliability').val();
         var CurrentCusinTag=$('#Cuisine').val();
         var CurrentCusinTypeTag=$('#Type').val();

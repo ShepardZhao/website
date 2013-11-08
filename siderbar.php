@@ -31,20 +31,10 @@
             <section class="clearfix"><!--order section begins-->
                 <div class="row-fluid">
                 <div class="span12">
-                    <table class="table">
-                        <tr>
-                            <td><div class="well well-small">Sea food with itemname number something plus something itemname</div></td>
-                            <td><h5><span class="number">1<i class="plus fa fa-plus-circle"></i><i class="sub fa fa-minus-circle"></i></span></h5></td>
-                            <td><span class="price"><i>$127.0</i></span></td>
-                            <td><i class="fa fa-times"></i></td>
-                        </tr>
-                        <tr>
-                            <td><div class="well well-small">Sea food with itemname number something plus something itemname</div></td>
-                            <td><h5><span class="number">1<i class="plus icon-expand-alt"></i><i class="sub icon-collapse-alt"></i></span></h5></td>
-                            <td><span class="price"><i>$127.0</i></span></td>
-                            <td><i class="fa fa-times"></i></td>
-                        </tr>
-
+                    <table class="table" id="orderTable">
+                        <tbody>
+                        <tr id="initialOrderListSMS"><td style="color:#c09853">There is nothing yet~~</td></tr>
+                        </tbody>
                     </table>
 
                 </div>
@@ -64,7 +54,7 @@
                              <tr>
                                  <td> <h5>Delivery Fee:</h5></td>
                                  <td></td>
-                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i class="Delivery_Margin">$3.0</i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel fa fa-question-circle"></i></a></span></h5></td>
+                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i>$</i><i class="Delivery_Margin"><?php echo number_format(floatval(preg_replace("/[^-0-9\.]/","",$BasicSettingClass->pushSettingData()['DeliveryFee'])),2,".", "");?></i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel fa fa-question-circle"></i></a></span></h5></td>
 
                              </tr>
 
@@ -79,7 +69,7 @@
             <section><!--total price begins-->
                 <div class="row-fluid">
                     <div class="span12 text-center price">
-                        <h2>$222</h2>
+                        <h2></h2>
 
                     </div>
                 </div>
@@ -91,7 +81,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="control-group text-center">
-                            <button type="botton" class="mySubmit"><h5>Check</h5></button>
+                            <button type="botton" class="mySubmit checkOut"><h5>Check</h5></button>
                         </div>
                     </div>
                 </div>

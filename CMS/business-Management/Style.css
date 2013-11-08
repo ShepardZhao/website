@@ -179,7 +179,8 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .TablePreventOverflow{
     max-width: 100px;
-    overflow-y: hidden;
+    max-height:100px;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 #OrderPostion{

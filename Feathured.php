@@ -66,7 +66,6 @@
         </div>
 
     </div>
-   <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
 
 
 

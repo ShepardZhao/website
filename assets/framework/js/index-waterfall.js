@@ -1,3 +1,25 @@
+$(window).load(function(){
+    $('#main').kxbdMarquee({direction:"up",isEqual:true});
+    enableMask();
+    // executes when complete page is fully loaded, including all frames, objects and images
+    function enableMask(){
+        $("#tiles").children("li").each(function() {
+            $(this).mouseenter(function() {
+                $(this).find('.mask').fadeIn('fast');
+                $(this).find('.text').fadeIn('fast');
+            })
+                .mouseleave(function() {
+                    $(this).find('.mask').fadeOut('fast');
+                    $(this).find('.text').fadeOut('fast');
+                });
+        });
+    }
+
+});
+
+
+
+
 $(document).ready(function(){
     $(function(){
         var handler = null,
@@ -55,7 +77,6 @@ $(document).ready(function(){
          * Receives data from the API, creates HTML for images and updates the layout
          */
         function onLoadData(data) {
-            console.log(data);
             isLoading = false;
             // Create HTML for the images.
             var html = '';
@@ -93,8 +114,9 @@ $(document).ready(function(){
 
             // Add image HTML to the page.
             $('#tiles').fadeIn().append(html);
-            enableMask();
+
             // Apply layout.
+
             applyLayout();
 
             //index
@@ -103,7 +125,6 @@ $(document).ready(function(){
                 var mainHeight= $(document).height();
                 $('#main').css('height',mainHeight+'px');
             }
-            $('#main').kxbdMarquee({direction:"up",isEqual:true});
 
         };
 
@@ -115,20 +136,6 @@ $(document).ready(function(){
     });
 
 
-
-    // executes when complete page is fully loaded, including all frames, objects and images
-    function enableMask(){
-        $("#tiles").children("li").each(function() {
-            $(this).mouseenter(function() {
-                $(this).find('.mask').fadeIn('fast');
-                $(this).find('.text').fadeIn('fast');
-            })
-                .mouseleave(function() {
-                    $(this).find('.mask').fadeOut('fast');
-                    $(this).find('.text').fadeOut('fast');
-                });
-        });
-    }
 
 
 

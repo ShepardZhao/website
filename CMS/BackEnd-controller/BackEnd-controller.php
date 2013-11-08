@@ -4,8 +4,8 @@ include '../GobalConnection.php';
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
 /**************************************BasicSetting Controller********************************************************/
- if(isset($_POST['SiteName'])&&isset($_POST['SiteDescr'])&&isset($_POST['SiteSiteUrl'])&&isset($_POST['SiteSiteEmail'])&&isset($_POST['SiteSiteStatus'])&&isset($_POST['SitePolicy'])){
-   echo  $BasicSettingClass->getSettingData($_POST['SiteName'],$_POST['SiteDescr'],$_POST['SiteSiteUrl'],$_POST['SiteSiteEmail'],$_POST['SiteSiteStatus'],$_POST['SitePolicy']);
+ if(isset($_POST['SiteName'])&&isset($_POST['SiteDescr'])&&isset($_POST['SiteSiteUrl'])&&isset($_POST['SiteSiteEmail'])&&isset($_POST['SiteSiteStatus'])&&isset($_POST['SitePolicy'])&&isset($_POST['DeliveryFee'])){
+   echo  $BasicSettingClass->getSettingData($_POST['SiteName'],$_POST['SiteDescr'],$_POST['SiteSiteUrl'],$_POST['SiteSiteEmail'],$_POST['SiteSiteStatus'],$_POST['SitePolicy'],$_POST['DeliveryFee']);
  }
 
  /**************************************Tags Controller***********************************************************/

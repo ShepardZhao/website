@@ -134,6 +134,8 @@ $(document).ready(function(){
         var ObjSiteSiteStatus="SiteSiteStatus";
         var SitePolicy=$('#SitePolicy').val();
         var ObjSitePolicy="SitePolicy";
+        var DeliveryFee=$('#DeliveryFee').val();
+        var ObjDeliveryFee="DeliveryFee"
         var TmpArray={};
         TmpArray[ObjSiteNmae]=SiteName;
         TmpArray[ObjSiteDesc]=SiteDesc;
@@ -141,6 +143,8 @@ $(document).ready(function(){
         TmpArray[ObjSiteSiteEmail]=SiteSiteEmail;
         TmpArray[ObjSiteSiteStatus]=SiteSiteStatus;
         TmpArray[ObjSitePolicy]=SitePolicy;
+        TmpArray[ObjDeliveryFee]=DeliveryFee;
+
 
         BasicSettingAjax(TmpArray);//pass the array to ajax;
     });

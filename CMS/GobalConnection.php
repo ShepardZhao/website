@@ -25,7 +25,7 @@ $LoginClass=new Login($Mysql_Connection);
 $MailsettingClass=new Mailsetting($Mysql_Connection);
 /**************************************Declare TempActivation***********************************/
 $TempActivationClass=new TempActivationClass($Mysql_Connection);
-/*****************************Declare the RegisterUserClass **************/
+/*****************************Declare RegisterUserClass **************/
 $RegisterUserClass=new RegisterUser($Mysql_Connection);
 /***********************************Declare LoginedIN class*************************/
 $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal user
@@ -33,18 +33,20 @@ $LoginedInClass=new LoginedIn($Mysql_Connection);//deal with facebook and normal
 $ResturantsRegClass=new ResturantsReg($Mysql_Connection);
 /***********************************Declare UserAddressBook class*************************/
 $MyaddressBookClass=new MyaddressBook($Mysql_Connection);
-/**********************************Initial location display class ************************/
+/**********************************Declare Initial location display class ************************/
 $InitialLocationSelectClass=new InitialLocationSelect($Mysql_Connection);
-/**********************************Initial User Address Book class ************************/
+/**********************************Declare Initial User Address Book class ************************/
 $InitialUserMyaddressBookClass=new InitialUserMyaddressBook($Mysql_Connection);
-/*********************************Restartuant class***************************************/
+/*********************************Declare Restartuant class***************************************/
 $RestartuantClass=new Restartuant($Mysql_Connection);
-/*********************************Cuisine class******************************************/
+/*********************************Declare Cuisine class******************************************/
 $CuisineClass=new Cuisine($Mysql_Connection);
-/*********************************Selection Tags***************************************/
+/*********************************Declare Selection Tags***************************************/
 $OrderSelectionTagsClass= new OrderSelectionTags($Mysql_Connection);
-/********************************JsonReturnOrDeal**************************************/
+/********************************Declare JsonReturnOrDeal**************************************/
 $JsonReturnOrDealclass= new JsonReturnOrDeal($Mysql_Connection);
+/*******************************Declare favorite***********************************************/
+$Favoriteclass=new favorite($Mysql_Connection);
 
 
 

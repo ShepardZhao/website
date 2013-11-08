@@ -41,9 +41,9 @@ class BasicSetting{ //setting up basic information for website
 
     }
 
-    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy){//update record of basicsetting
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=? WHERE OptionID=1")){
-            $stmt->bind_param('ssssss',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy);
+    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee){//update record of basicsetting
+        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=?,DeliveryFee=? WHERE OptionID=1")){
+            $stmt->bind_param('ssssssd',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee);
             $stmt->execute();
             $stmt->close();
             return "Saved successfully";
@@ -57,9 +57,9 @@ class BasicSetting{ //setting up basic information for website
 
 
     public function pushSettingData(){//return valuesArray
-        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy FROM client_b2c.Option WHERE OptionID=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy,DeliveryFee FROM client_b2c.Option WHERE OptionID=1")){
             $stmt->execute();
-            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy);
+            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy,$DeliveryFee);
             $result = $stmt->get_result();
             $object = $result->fetch_assoc();
             $stmt->close();
@@ -2629,9 +2629,6 @@ class JsonReturnOrDeal{
         $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllRes);
         $ReturnResult=$this->returnLimitedRecord($GetResult,$startCount,$ReturnCount);
         $FinalResult=$this->filtertags($filter,$ReturnResult);
-
-
-
         return json_encode($FinalResult);
     }
 
@@ -2645,14 +2642,22 @@ class JsonReturnOrDeal{
         return json_encode($CuisineAndRestaurants);
     }
 
-    private function foreachComparedTages($filter,$comaredValue){
-        foreach ($filter as $key=>$value){
-            if($value===$comaredValue){
-                return $comaredValue;
+
+    private function deepCompare($value,$tagsArray){
+        foreach ($tagsArray as $tagkey=>$tagvalue){
+            if($value===$tagvalue){
+                return true;
             }
         }
+    }
 
 
+    private function foreachComparedTages($filter,$subArray){
+        foreach ($subArray as $key=>$value){
+            if($this->deepCompare($value,$filter)){
+                return true;
+            }
+        }
     }
 
 
@@ -2660,14 +2665,10 @@ class JsonReturnOrDeal{
         if(count($filter)>0){
             $newArray=[];
             foreach ($ReturnedArray as $key=>$subArray){
-                foreach ($subArray as $finalKey=>$finalvalue){
-                    if($finalvalue===$this->foreachComparedTages($filter,$finalvalue)){
+                    if($this->foreachComparedTages($filter,$subArray)){
                         array_push($newArray,$subArray);
-                    }
-
                 }
             }
-
             return $newArray;
         }
         else{

@@ -10,6 +10,7 @@
 ?>
     <input type="hidden" id="RootLocationName" value="<?php echo $_SESSION['RootLocation']?>">
     <input type="hidden" id="SubLocationName" value="<?php echo $_SESSION['SubLocation']?>">
+    <input type="hidden" id="CurrentLoginedUserID" value="<?php echo $_SESSION['LoginedUserID']?>">
 
         <!--Container-->
      <div class="row-fluid"><!--ad zone-->
@@ -60,7 +61,7 @@
    </div>
 </div>
  <!--order zone-->
-<div class="container-fluid">
+<div class="container-fluid" id="ScrollTopPosition">
 
 <div class="row-fluid">
     <section>
@@ -83,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <h1 class="left-position" id="Feathred-left-position"> <i class="fa fa-arrow-left"></i></h1>
+        <h1 class="left-position" id="Feathred-left-position"> <i class="fa fa-arrow-circle-left"></i></h1>
 
     </div>
     </section>
@@ -105,6 +106,5 @@ else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not
 <?php
 }
 ?>
-
-
+ <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
 <?php include 'footer.php'?>

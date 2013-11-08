@@ -36,6 +36,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         echo  $LoginedInClass->AddedNewAddress($_POST['AddedUserID'],$_POST['AddedNickName'],$_POST['AddedPhone'],$_POST['AddedAddress'],1);
     }
 
+    //added to favorite
+    if(isset($_POST['CuisineID'])&&isset($_POST['LoginUserID'])&&isset($_POST['AddedFavorite'])){
+        echo $Favoriteclass->addedtoFavorite($_POST['LoginUserID'],$_POST['CuisineID'],$_POST['AddedFavorite']);
+    }
+
 
 }
 

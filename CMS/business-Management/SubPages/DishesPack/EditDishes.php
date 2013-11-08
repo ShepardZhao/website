@@ -29,7 +29,7 @@ session_start();
         <!--Cuisine Price-->
         <div class="control-group">
             <h5>Price</h5>
-            <input class="input-block-level" id="UpCuPrice"  type="text" value="<?php echo $GetCuisineData[0]->Price;?>" placeholder="Cuisine Price">
+            <input class="input-block-level" id="UpCuPrice"  type="number" pattern="[0-9]+([\,|\.][0-9]+)?" step="0.01" value="<?php echo $GetCuisineData[0]->Price;?>" placeholder="Cuisine Price">
         </div>
         <!--Cuisine Avaliability-->
         <div class="control-group">
