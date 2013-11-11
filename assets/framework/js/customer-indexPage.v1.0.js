@@ -89,6 +89,7 @@ $(document).ready(function(){
                      AjaxMessageSuccess('alert-info','You have successfully added an new address!');
                      setTimeout(function(){$('#ajax-modal').modal('hide');},3000);
                      $('.address').empty().append(msg);
+                     $('#switchArrow').find('.fa-arrow-circle-o-down').removeClass('fa-arrow-circle-o-down').addClass('fa-arrow-circle-o-right');
 
                  }
              });

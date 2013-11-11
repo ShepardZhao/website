@@ -6,7 +6,6 @@
      </div>
     <div class="row-fluid">
         <div class="span12 relvateBottom">
-
             <section class="clearfix"><!--addresss section begins-->
                 <div class="span12">
                     <ul class="inline text-center">
@@ -54,7 +53,7 @@
                              <tr>
                                  <td> <h5>Delivery Fee:</h5></td>
                                  <td></td>
-                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i>$</i><i class="Delivery_Margin"><?php echo number_format(floatval(preg_replace("/[^-0-9\.]/","",$BasicSettingClass->pushSettingData()['DeliveryFee'])),2,".", "");?></i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel fa fa-question-circle"></i></a></span></h5></td>
+                                 <td><h5 class="text-right"><span class="price" id="DeliveryFee"><i>$</i><i class="Delivery_Margin"></i><a id="DeliveryQuestionMark" data-toggle="popover" data-placement="left" data-content="The delivery fee depends on region"><i class="cancel fa fa-question-circle"></i></a></span></h5></td>
 
                              </tr>
 

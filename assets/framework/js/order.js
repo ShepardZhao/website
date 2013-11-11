@@ -557,7 +557,14 @@ $('body').on('click','.checkOut',function(){
 
     if($('#orderTable>tbody').find('#initialOrderListSMS').length===0 && isPurchaes===true && $('input[name=optionsRadios]:checked').val()!==''){
         //pass the check data
-
+        var parentRaidoSelected=$('input[name=optionsRadios]:checked').parent().parent();
+        /*CurrentUserID*/
+        var CurrentUserID=$('#CurrentLoginedUserID').val();
+        /*Selected Address*/
+        var AddressUserID=parentRaidoSelected.find('AddreUserID').val();
+        var AddressNickName=parentRaidoSelected.find('AddreNickName').val();
+        var AddressPhone= parentRaidoSelected.find('AddrePhone').val();
+        var Address=$('input[name=optionsRadios]:checked').val();
 
 
         InformationDisplay('Operation is successful, please waiting for jump!','alert-success');

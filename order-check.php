@@ -47,7 +47,7 @@
                      </label>
 
                      <label class="radio inline">
-                         <input type="radio" name="perfectDeliveryTime" id="perfectDeliveryTime" value="" checked>
+                         <input type="radio" name="perfectDeliveryTime" id="perfectDeliveryTime">
                          <div class="datepair" data-language="javascript">
                              <input type="text" class="span6 times-picker ui-timepicker-input" placeholder="Click to choose time" autocomplete="off">
                              <input type="text" class="span6 date-picker" placeholder="and  date">
