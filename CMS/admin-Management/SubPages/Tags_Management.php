@@ -12,7 +12,7 @@
                             <input class="span7" id="InputCuisAvailability" type="text" placeholder="New Availabilty">
                         </div>
                         <div id="CuisineAvailabilityTagsList">
-                            <?php $TagsClass->outPutTags("Availability","client_b2c.CuisineTags");?>
+                            <?php $TagsClass->outPutTags("Availability","CuisineTags");?>
                         </div>
                         <br>
                         <button id="AddCuisAvailabilityButton" class="button" type="button">Add</button>
@@ -26,7 +26,7 @@
                             <input class="span9" id="InputCuisCuisine" type="text" placeholder="New Cuisine">
                         </div>
                         <div id="CuisineCuisineTagsList">
-                            <?php $TagsClass->outPutTags("Cuisine","client_b2c.CuisineTags");?>
+                            <?php $TagsClass->outPutTags("Cuisine","CuisineTags");?>
                         </div>
                         <br>
                         <button id="AddCuisCuisineButton" class="button" type="button">Add</button>
@@ -53,7 +53,7 @@
 
                             </div>
                             <div id="CuisineTypeTagsList">
-                                <?php $TagsClass->outPutTags("Type","client_b2c.CuisineTags");?>
+                                <?php $TagsClass->outPutTags("Type","CuisineTags");?>
                             </div>
                             <br>
                             <button id="AddCuisTypeButton" class="button" type="button">Add</button>
@@ -68,7 +68,7 @@
 
                             </div>
                             <div id="CuisinePriceTagsList">
-                                <?php $TagsClass->outPutTags("Price","client_b2c.CuisineTags");?>
+                                <?php $TagsClass->outPutTags("Price","CuisineTags");?>
                             </div>
                             <br>
                             <button id="AddCuisPriceButton" class="button" type="button">Add</button>

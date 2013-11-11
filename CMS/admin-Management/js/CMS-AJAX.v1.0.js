@@ -334,17 +334,17 @@ $(document).ready(function(){
     }
 
     function refreshTagsList(dataObj){
-        if(dataObj['TagsTableName']==='client_b2c.CuisineTags'&& dataObj['TagsID']==='Availability'){
-            refreshTagslistAJAX('client_b2c.CuisineTags','Availability','#CuisineAvailabilityTagsList');
+        if(dataObj['TagsTableName']==='CuisineTags'&& dataObj['TagsID']==='Availability'){
+            refreshTagslistAJAX('CuisineTags','Availability','#CuisineAvailabilityTagsList');
         }
-        else if(dataObj['TagsTableName']==='client_b2c.CuisineTags'&& dataObj['TagsID']==='Cuisine'){
-            refreshTagslistAJAX('client_b2c.CuisineTags','Cuisine','#CuisineCuisineTagsList');
+        else if(dataObj['TagsTableName']==='CuisineTags'&& dataObj['TagsID']==='Cuisine'){
+            refreshTagslistAJAX('CuisineTags','Cuisine','#CuisineCuisineTagsList');
         }
-        else if(dataObj['TagsTableName']==='client_b2c.CuisineTags'&& dataObj['TagsID']==='Type'){
-            refreshTagslistAJAX('client_b2c.CuisineTags','Type','#CuisineTypeTagsList');
+        else if(dataObj['TagsTableName']==='CuisineTags'&& dataObj['TagsID']==='Type'){
+            refreshTagslistAJAX('CuisineTags','Type','#CuisineTypeTagsList');
         }
-        else if(dataObj['TagsTableName']==='client_b2c.CuisineTags'&& dataObj['TagsID']==='Price'){
-            refreshTagslistAJAX('client_b2c.CuisineTags','Price','#CuisinePriceTagsList');
+        else if(dataObj['TagsTableName']==='CuisineTags'&& dataObj['TagsID']==='Price'){
+            refreshTagslistAJAX('CuisineTags','Price','#CuisinePriceTagsList');
         }
     }
     function TagAjax(dataObj){
@@ -431,20 +431,20 @@ $(document).ready(function(){
 
         //This containts Availability in Cuisine
     $('body').on('click','#AddCuisAvailabilityButton',function(){
-        TagAjax(TmpArray('Availability',$('#InputCuisAvailability').val(),'client_b2c.CuisineTags','False','CuisineTagesID'));
+        TagAjax(TmpArray('Availability',$('#InputCuisAvailability').val(),'CuisineTags','False','CuisineTagesID'));
     });
 
     //This containts Cuisine in Cuisine
     $('body').on('click','#AddCuisCuisineButton',function(){
-        TagAjax(TmpArray('Cuisine',$('#InputCuisCuisine').val(),'client_b2c.CuisineTags','False','CuisineTagesID'));
+        TagAjax(TmpArray('Cuisine',$('#InputCuisCuisine').val(),'CuisineTags','False','CuisineTagesID'));
     });
     //This containts Type in Cuisine
     $('body').on('click','#AddCuisTypeButton',function(){
-        TagAjax(TmpArray('Type',$('#InputCuisType').val(),'client_b2c.CuisineTags','False','CuisineTagesID'));
+        TagAjax(TmpArray('Type',$('#InputCuisType').val(),'CuisineTags','False','CuisineTagesID'));
     });
     //This containts Price in Cuisine
     $('body').on('click','#AddCuisPriceButton',function(){
-        TagAjax(TmpArray('Price',$('#InputCuisPirce').val(),'client_b2c.CuisineTags','False','CuisineTagesID'));
+        TagAjax(TmpArray('Price',$('#InputCuisPirce').val(),'CuisineTags','False','CuisineTagesID'));
     });
 
 

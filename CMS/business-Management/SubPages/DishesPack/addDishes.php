@@ -41,13 +41,13 @@ session_start();
         <div class="control-group">
             <h5>Tags</h5>
             <label>Avaliability Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Availability","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Availability","CuisineTags");?>
             <label>Cuisine Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","CuisineTags");?>
             <label>Cuisine Type Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Type","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Type","CuisineTags");?>
             <label>Cuisine Price Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Price","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OupPutTagBySelecOption("Price","CuisineTags");?>
         </div>
 
 

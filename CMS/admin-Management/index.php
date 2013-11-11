@@ -53,20 +53,3 @@
     </body>
     </html>
 <?php } else {$LoginClass->ReLogin();}?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

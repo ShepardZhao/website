@@ -260,12 +260,11 @@ $(document).ready(function(){
 
     /******************************************Manage second level of current cuisine****************/
     $('body').on('click','.AddSecondLevel',function(){ //AddSecondLevel
-
         var getCuID=$(this).attr('id');
         var getCuName=$(this).parent().parent().find('.CuName').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/SecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/SecondLevel.php?CuID='+getCuID+'&CuName='+getCuName,'', function(){
                 $modal.modal();
             });
         }, 1000);
@@ -278,7 +277,7 @@ $(document).ready(function(){
         var getCuName=$(this).parent().parent().parent().parent().parent().find('.CuName').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditSecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
                 $modal.modal();
             });
         }, 1000);
@@ -491,13 +490,17 @@ $(document).ready(function(){
         setTimeout(function(){
             $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/addDishes.php', '', function(){
                 $modal.modal();
+                //select tags
+                $("#Availability").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Cuisine").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Type").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Price").chosen({no_results_text: "Oops, nothing found!", max_selected_options: 1});
             });
         }, 1000);
     });
     //delete current cuisine
     $('body').on('click','.button-delete',function(){
         var getCuid=$(this).attr('id');
-        console.log(getCuid);
         tmp={};
         tmp['CuisineDeleteID']=getCuid;
         var TempParent=$(this).parent().parent().parent();
@@ -724,9 +727,9 @@ $(document).ready(function(){
         var CurrentResID=$('#CurrentResID').val();
         var CurrentCuisineName=$('#CuName').val();
         var CurrentCuisineDes=$('#CuDescr').val();
-        var CurrentAvaliTag=$('#Availability').val();
         var CurrentCuisinePrice=parseFloat($('#CuPrice').val()).toFixed(2);
         var CurrentCuisineAvali=$('#CuAvaliability').val();
+        var CurrentAvaliTag=$('#Availability').val();
         var CurrentCusinTag=$('#Cuisine').val();
         var CurrentCusinTypeTag=$('#Type').val();
         var CurrentCusinPriceTag=$('#Price').val();
@@ -823,6 +826,12 @@ $(document).ready(function(){
         setTimeout(function(){
             $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditDishes.php?CUID='+Cuid, '', function(){
                 $modal.modal();
+                //select tags
+                $("#Availability").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Cuisine").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Type").chosen({no_results_text: "Oops, nothing found!"});
+                $("#Price").chosen({no_results_text: "Oops, nothing found!",max_selected_options: 1});
+
             });
         }, 1000);
 
@@ -1101,5 +1110,5 @@ $(document).ready(function(){
     });
 
 
-
 });
+

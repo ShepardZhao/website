@@ -16,7 +16,7 @@
                 <li>
                 <div id="TagAvailableRelative">
                     <ul class="nav nav-pills ContentRightList TagAvailable TagWidthOverflow"><!--Availablity-->
-                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Availability","client_b2c.CuisineTags");?>
+                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Availability","CuisineTags");?>
                     </ul>
                 <div id="TagAvailablepPosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
                 </div>
@@ -25,7 +25,7 @@
                 <li>
                 <div id="TagCuisineRelative">
                     <ul class="nav nav-pills ContentRightList TagCuisine TagWidthOverflow"><!--Cuisine-->
-                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Cuisine","client_b2c.CuisineTags");?>
+                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Cuisine","CuisineTags");?>
                     </ul>
                 <div id="TagCuisinePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
                 </div>
@@ -34,7 +34,7 @@
                 <li>
                 <div id="TagTypeRelative">
                     <ul class="nav nav-pills ContentRightList TagType TagWidthOverflow"><!--Type-->
-                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Type","client_b2c.CuisineTags");?>
+                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Type","CuisineTags");?>
                     </ul>
                 <div id="TagTypePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
                 </div>
@@ -43,7 +43,7 @@
                 <li>
                 <div id="TagPriceRelative">
                     <ul class="nav nav-pills ContentRightList TagPrice TagWidthOverflow"><!--price-->
-                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Price","client_b2c.CuisineTags");?>
+                        <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Price","CuisineTags");?>
                     </ul>
                 <div id="TagPricePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
                 </div>

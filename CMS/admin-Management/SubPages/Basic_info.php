@@ -54,15 +54,6 @@
                             </select>
                         </div>
                     </div>
-
-
-                    <div class="control-group">
-                        <label class="control-label">Delivery Fee:</label>
-                        <div class="controls">
-                            <input type="text" id="DeliveryFee" value="<?php echo $BasicSettingClass->pushSettingData()['DeliveryFee'];?>">
-                        </div>
-                    </div>
-
                     <button id="BasicInforSaving" class="button" type="button">Save</button>
                 </div>
 

@@ -213,7 +213,6 @@ a{
 	margin-bottom: 0px;
 }
 .dropdown-menu{
-	width: 260px;
 	z-index: 9999999;
 }
 
@@ -752,7 +751,7 @@ table>tbody>tr>td{
   vertical-align:middle !important;
   table-layout: fixed;
   word-wrap: break-word;
-  max-width: 80px;
+  max-width: 120px;
   
 }
 

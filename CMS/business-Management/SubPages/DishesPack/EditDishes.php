@@ -45,16 +45,16 @@ session_start();
             </select>
         </div>
         <!--Cuisine Tags-->
-        <div class="control-group ReChooseTagsBackgroundWarning">
-            <h5>Tags<small class='ReChooseTags'>--Please choose new tags below</small></h5>
+        <div class="control-group">
+            <h5>Tags</h5>
             <label>Avaliability Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Availability","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OutPutTagByEditSelectionOption($_GET['CUID'],"Availability","CuisineTags");?>
             <label>Cuisine Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Cuisine","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OutPutTagByEditSelectionOption($_GET['CUID'],"Cuisine","CuisineTags");?>
             <label>Cuisine Type Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Type","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OutPutTagByEditSelectionOption($_GET['CUID'],"Type","CuisineTags");?>
             <label>Cuisine Price Tag</label>
-            <?php echo $TagsClass->OupPutTagBySelecOption("Price","client_b2c.CuisineTags");?>
+            <?php echo $TagsClass->OutPutTagByEditSelectionOption($_GET['CUID'],"Price","CuisineTags");?>
         </div>
 
 

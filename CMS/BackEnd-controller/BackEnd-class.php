@@ -42,7 +42,7 @@ class BasicSetting{ //setting up basic information for website
     }
 
     public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee){//update record of basicsetting
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=?,DeliveryFee=? WHERE OptionID=1")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Cometome_Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=?,DeliveryFee=? WHERE OptionID=1")){
             $stmt->bind_param('ssssssd',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee);
             $stmt->execute();
             $stmt->close();
@@ -57,7 +57,7 @@ class BasicSetting{ //setting up basic information for website
 
 
     public function pushSettingData(){//return valuesArray
-        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy,DeliveryFee FROM client_b2c.Option WHERE OptionID=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy,DeliveryFee FROM Cometome_Option WHERE OptionID=1")){
             $stmt->execute();
             $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy,$DeliveryFee);
             $result = $stmt->get_result();
@@ -160,10 +160,10 @@ Class Tags{
     }
 
 
-    //put the tags into the selct option-------for cuisine
+    //put tags into the selection option-------for cuisine
     public function OupPutTagBySelecOption($NameOfTags,$Table){
         $tmpArray=self::getTags($NameOfTags,$Table);
-        echo "<select id='$NameOfTags' class='span2 MyResttagslist'>";
+        echo "<select id='$NameOfTags' data-placeholder='Choose a your tags' class='chosen-select' multiple style='width:350px;' tabindex='4' class='span2 MyResttagslist'>";
         foreach ($tmpArray as $values){
             if($values!=''){
                 echo "<option value='$values' id='$Table'>$values</option>";
@@ -173,8 +173,37 @@ Class Tags{
 
 
     }
+    //put tags into the selection option-------for edit cuisine
+    public function OutPutTagByEditSelectionOption($GetCurrentCuisinID,$NameOfTags,$Table){
+        $selectedArray=[];
+        $tmpArray=self::getTags($NameOfTags,$Table);
+        $CuisineClass= new Cuisine($this->DataBaseCon);
+        $getCusisneTagByResID=$CuisineClass->ReturnTagsOnly($GetCurrentCuisinID);
+        foreach ($tmpArray as $values){
+            foreach ($getCusisneTagByResID as $key=>$insdieArray){
+                        if($key===$NameOfTags){
+                            $selectedArray=$insdieArray;
+                          }
+                }
+        }
+        echo "<select id='$NameOfTags' data-placeholder='Choose a your tags' class='chosen-select' multiple style='width:350px;' tabindex='4' class='span2 MyResttagslist'>";
 
-    //put the tags into the selct option-------for cuisine
+        foreach($tmpArray as $value){
+            if(in_array($value,$selectedArray)){
+                echo "<option value='$value' selected='selected' >$value</option>";
+
+            }else{
+                echo "<option value='$value'>$value</option>";
+
+            }
+        }
+
+
+        echo "</select>";
+    }
+
+
+    //put the tags into the selct option-------for Restaruant
     public function MyRestaruantOupPutTagBySelecOption($NameOfTags,$Table){
         $tmpArray=self::getTags($NameOfTags,$Table);
         echo "<select id='MyRestaruant-$NameOfTags' class='span2 MyResttagslist'>";
@@ -208,7 +237,7 @@ class Location{
 
     public function PushValueCompared($getRootLocation){
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOne FROM client_b2c.Location WHERE LevelOne=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOne FROM Location WHERE LevelOne=?")){
             $stmt->bind_param('s',$getRootLocation);
             $stmt->bind_result($LevelOne);
             $stmt->execute();
@@ -227,7 +256,7 @@ class Location{
             return "repeated";
         }
 
-        else if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.Location (LevelOnePic,LevelOne, LevelTwo) VALUE (?,?,?)")){
+        else if($stmt=$this->DataBaseCon->prepare("INSERT INTO Location (LevelOnePic,LevelOne, LevelTwo) VALUE (?,?,?)")){
             $stmt->bind_param('sss',$getRootLocationPic,$getRootLocation,$GetSubLocationArray);
             $stmt->execute();
             $stmt->close();
@@ -243,7 +272,7 @@ class Location{
 
     public function GetLocationNoParma(){//This function only return the array without Condition
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic, LevelOne, LevelTwo FROM client_b2c.Location")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic, LevelOne, LevelTwo FROM Location")){
             $stmt->execute();
             $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
             $TemLocationArray=array();
@@ -259,7 +288,7 @@ class Location{
     }
 
     public function GetLocationWithParma($getID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic,LevelOne, LevelTwo FROM client_b2c.Location WHERE LocationID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic,LevelOne, LevelTwo FROM Location WHERE LocationID=?")){
             $stmt->bind_param('i',$getID);
             $stmt->execute();
             $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
@@ -277,7 +306,7 @@ class Location{
     }
 
     public function getIDToDelete($getLocationID){//according to LocationID then delete the record from the database: return the status that is including: success or error
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.Location WHERE LocationID=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM Location WHERE LocationID=?")){
             $stmt->bind_param('i',$getLocationID);
             $stmt->execute();
             $stmt->close();
@@ -291,7 +320,7 @@ class Location{
 
     public function pushModifyLocation($GetModifyLocationRootLocation,$GetModifyLocationSubLocation,$GetModifyLocationID){
 
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Location SET LevelOne=?, LevelTwo=? WHERE LocationID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Location SET LevelOne=?, LevelTwo=? WHERE LocationID=?")){
             $stmt->bind_param('ssi',$GetModifyLocationRootLocation,$GetModifyLocationSubLocation,$GetModifyLocationID);
             $stmt->execute();
             $stmt->close();
@@ -460,7 +489,7 @@ class User{
     }
 
     public function UpdateInfoOfActivtion($UserID,$UserStatus){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserStatus=? WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserStatus=? WHERE UserID=?")){
             $stmt->bind_param('is',$UserStatus,$UserID);
             $stmt->execute();
             $stmt->close();
@@ -499,7 +528,7 @@ class User{
 
 
     public function UpdateAdministratorinfo($AdministratorID,$AdministratorName,$AdministratorPassword,$AdministratorEmail,$AdministratorPhone,$AdministratorPhotoPath,$AdministratorType){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserName=?, UserPassWord=?, UserPhone=?,UserPhotoPath=?,UserMail=? WHERE UserID=? AND UserType=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserName=?, UserPassWord=?, UserPhone=?,UserPhotoPath=?,UserMail=? WHERE UserID=? AND UserType=?")){
             $stmt->bind_param('ssissis',$AdministratorName,md5(base64_encode(($AdministratorPassword))),$AdministratorPhone,$AdministratorPhotoPath,$AdministratorEmail,$AdministratorID,$AdministratorType);
             $stmt->execute();
             $stmt->close();
@@ -552,7 +581,7 @@ class User{
     //delete user the UserID(one or more)
     private function _DeleteUserByID($array){
         foreach ($array as $value){
-            if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.User WHERE UserID = ?")){
+            if($stmt=$this->DataBaseCon->prepare("DELETE FROM User WHERE UserID = ?")){
                 $stmt->bind_param('s',$value);
                 $stmt->execute();
                 $stmt->close();
@@ -627,7 +656,7 @@ class User{
 
 
     Public function ReadAllUser(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM client_b2c.User")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM User")){
             $stmt->execute();
             $stmt->bind_result($UserID,$UserName,$UserPhone,$UserPhotoPath,$UserMail,$UserPoints,$UserADPosition,$UserType,$UserStatus);
             $result = $stmt->get_result();
@@ -643,7 +672,7 @@ class User{
     }
 
     public function ReadAllUserbyUserID($getUserID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,UserPassWord, UserPhone, UserPhotoPath, UserMail,UserAddress, UserPoints, UserADPosition, UserType, UserStatus FROM client_b2c.User WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,UserPassWord, UserPhone, UserPhotoPath, UserMail,UserAddress, UserPoints, UserADPosition, UserType, UserStatus FROM User WHERE UserID=?")){
             $stmt->bind_param('i',$getUserID);
             $stmt->execute();
             $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail,$UserAddress,$UserPoints,$UserADPosition,$UserType,$UserStatus);
@@ -662,7 +691,7 @@ class User{
 
 
     public function SearchUser($UserEmail){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM client_b2c.User WHERE UserMail=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPhone, UserPhotoPath, UserMail, UserPoints, UserADPosition, UserType, UserStatus FROM User WHERE UserMail=?")){
             $stmt->bind_param('s',$UserEmail);
             $stmt->execute();
             $stmt->bind_result($UserID, $UserName, $UserPhone, $UserPhotoPath, $UserMail, $UserPoints, $UserADPosition, $UserType, $UserStatus);
@@ -680,7 +709,7 @@ class User{
     }
 
     public function ReadAdministraorInfo(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM client_b2c.User WHERE UserType=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail FROM User WHERE UserType=?")){
             $UserType='Administrator';
             $stmt->bind_param('s',$UserType);
             $stmt->execute();
@@ -701,7 +730,7 @@ class User{
 
     //validing normal user and its password and mail, then return status
     public function ValidNormalUserMailAndPass($GetEmail,$GetEncryedPassword){
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail, UserType FROM client_b2c.User WHERE UserMail=? AND UserPassWord=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail, UserType FROM User WHERE UserMail=? AND UserPassWord=?")){
             $stmt->bind_param('ss',$GetEmail,$GetEncryedPassword);
             $stmt->execute();
             $stmt->bind_result($UserID,$UserName,$UserPassWord,$UserPhone,$UserPhotoPath,$UserMail,$UserType);
@@ -721,7 +750,7 @@ class User{
 
 //validation same UserID in Restaruant
     public function ValidSameUserIDInRestaurant($UserID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserID, User.UserName, User.UserPassWord, User.UserPhone, User.UserPhotoPath, User.UserMail, User.UserType, Restaurants.RestID, Restaurants.ResPicPath, Restaurants.ResName FROM client_b2c.User LEFT JOIN client_b2c.Restaurants ON User.UserID=Restaurants.UserID WHERE Restaurants.UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserID, User.UserName, User.UserPassWord, User.UserPhone, User.UserPhotoPath, User.UserMail, User.UserType, Restaurants.RestID, Restaurants.ResPicPath, Restaurants.ResName FROM User LEFT JOIN Restaurants ON User.UserID=Restaurants.UserID WHERE Restaurants.UserID=?")){
             $stmt->bind_param('s',$UserID);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -743,7 +772,7 @@ class User{
 
 //Register user updating-basic info
     public function UpdateRegUserBasicInfo($UserName,$UserFirstName,$UserLastName,$UserPhone,$UserMail,$UserAddress,$UserID){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserName=?, UserFirstName=?,UserLastName=?,UserPhone=?,UserMail=?, UserAddress=? WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserName=?, UserFirstName=?,UserLastName=?,UserPhone=?,UserMail=?, UserAddress=? WHERE UserID=?")){
             $stmt->bind_param('sssissi',$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserMail,$UserAddress,$UserID);
             $stmt->execute();
             $stmt->close();
@@ -759,7 +788,7 @@ class User{
     public function UpdateRegUserPassword($OldPassword,$Newpassword,$UserID){
 
         if (self::RegisterPasswordChangeMatch($OldPassword,$UserID)==='pass'){
-            if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserPassWord=? WHERE UserID=?")){
+            if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserPassWord=? WHERE UserID=?")){
                 $stmt->bind_param('si',md5(base64_encode($Newpassword)),$UserID);
                 $stmt->execute();
                 $stmt->close();
@@ -782,7 +811,7 @@ class User{
 
 //Register user updating-avatar
     public function UpdateRegUserAvatar($Avatar,$UserID){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserPhotoPath=? WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserPhotoPath=? WHERE UserID=?")){
             $stmt->bind_param('si',$Avatar,$UserID);
             $stmt->execute();
             $stmt->close();
@@ -855,7 +884,7 @@ class MyaddressBook {
 
     private function AddMyaddressbook($DefaultStauts){
         if (self::CompareInfo()==='pass'){
-            if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
                 //default is not been taken;
                 $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
                 $stmt->execute();
@@ -877,7 +906,7 @@ class MyaddressBook {
 
 
     private function CompareInfo(){
-        if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
+        if ($stmt=$this->DataBaseCon->prepare("SELECT UserID,AddreNickName,AddrePhone,AddresAddress FROM UserAddressBook WHERE UserID=? AND AddreNickName=? AND AddrePhone=? AND AddresAddress=?")){
             $stmt->bind_param('isis',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress);
             $stmt->execute();
             $stmt->bind_result($UserID,$AddreNickName,$AddrePhone,$AddresAddress);
@@ -900,7 +929,7 @@ class MyaddressBook {
     }
 
     protected function readAllAddressbookByID($GegID){//read all record from table
-        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=?")){
+        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM UserAddressBook WHERE UserID=?")){
             $stmt->bind_param('i',$GegID);
             $stmt->execute();
             $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
@@ -918,7 +947,7 @@ class MyaddressBook {
 
 //Get Default address
     protected function readAllAddressbookByIDAndDefaultStauts($GegID,$Default){//read all record from table
-        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM client_b2c.UserAddressBook WHERE UserID=? AND AddreStatus=?")){
+        if ($stmt=$this->DataBaseCon->prepare("SELECT AddreStatus,AddressBookID,UserID,AddreNickName,AddrePhone,AddresAddress FROM UserAddressBook WHERE UserID=? AND AddreStatus=?")){
             $stmt->bind_param('ii',$GegID,$Default);
             $stmt->execute();
             $stmt->bind_result($AddreStatus,$AddressBookID,$UserID,$AddreNickName,$AddrePhone,$AddresAddress);
@@ -940,7 +969,7 @@ class MyaddressBook {
 
     //Remove My address book
     public function RemoveMyaddressBook($getUserID, $GetAddressID){
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.UserAddressBook WHERE AddressBookID=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM UserAddressBook WHERE AddressBookID=?")){
             $stmt->bind_param('i',$GetAddressID);
             $stmt->execute();
             $stmt->close();
@@ -954,7 +983,7 @@ class MyaddressBook {
     public function SetMyaddressBook($getUserID, $GetAddressID){
         //Check past default stauts
         if (self::ResetPastDefault($getUserID)===1){
-            if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE AddressBookID=? AND UserID=?")){
+            if($stmt=$this->DataBaseCon->prepare("UPDATE UserAddressBook SET AddreStatus=? WHERE AddressBookID=? AND UserID=?")){
                 $AddreStatus=1;
                 $stmt->bind_param('iii',$AddreStatus,$GetAddressID,$getUserID);
                 $stmt->execute();
@@ -970,7 +999,7 @@ class MyaddressBook {
 
     //Check past default stauts function
     public function ResetPastDefault($GetID){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.UserAddressBook SET AddreStatus=? WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE UserAddressBook SET AddreStatus=? WHERE UserID=?")){
             $AddreStatus=0;
             $stmt->bind_param('ii',$AddreStatus,$GetID);
             $stmt->execute();
@@ -1108,7 +1137,7 @@ class TempActivationClass{
     }
 
     public function DeleteActiveCode($GetTempCode){
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.TempActiveCode WHERE TempActiveCode=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM TempActiveCode WHERE TempActiveCode=?")){
             $stmt->bind_param('s',$GetTempCode);
             $stmt->execute();
             $stmt->close();
@@ -1149,7 +1178,7 @@ class TempActivationClass{
 
     }
     private function InsertTempActiveCode(){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.TempActiveCode (TempActiveCode) VALUE (?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO TempActiveCode (TempActiveCode) VALUE (?)")){
             $stmt->bind_param('s',$this->GenerateActiveCode);
             $stmt->execute();
             $stmt->close();
@@ -1157,7 +1186,7 @@ class TempActivationClass{
 
     }
     private function selectTempActiveCode(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT TempActiveCode FROM client_b2c.TempActiveCode")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT TempActiveCode FROM TempActiveCode")){
             $stmt->execute();
             $stmt->bind_result($TempActiveCode);
             $object=array();
@@ -1224,7 +1253,7 @@ class Mailsetting{
 
     public function GetMailContentViaParam($UserMailActiveID){
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT UserMailActiveID, UserMailSender, UserMailConstructer, UserMailTitle FROM client_b2c.MailSetting WHERE UserMailActiveID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserMailActiveID, UserMailSender, UserMailConstructer, UserMailTitle FROM MailSetting WHERE UserMailActiveID=?")){
             $stmt->bind_param('s',$UserMailActiveID);
             $stmt->execute();
             $stmt->bind_result($UserMailActiveID,$UserMailSender,$UserMailConstructer,$UserMailTitle);
@@ -1238,7 +1267,7 @@ class Mailsetting{
     }
 
     private function AddMailAndItsContent($UserMailSender,$UserMailConstructer,$UserMailActiveID,$TitleOfMail){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.MailSetting SET UserMailSender=?,UserMailConstructer=?,UserMailTitle=? WHERE UserMailActiveID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE MailSetting SET UserMailSender=?,UserMailConstructer=?,UserMailTitle=? WHERE UserMailActiveID=?")){
             $stmt->bind_param('ssss',$UserMailSender,$UserMailConstructer,$TitleOfMail,$UserMailActiveID);
             $stmt->execute();
             $stmt->close();
@@ -1311,14 +1340,14 @@ class ResturantsReg extends User{
 
         $condition1=0;
         $condition2=0;
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.User (UserID,UserMail,UserPassWord,UserStatus,UserType) VALUES (?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO User (UserID,UserMail,UserPassWord,UserStatus,UserType) VALUES (?,?,?,?,?)")){
             $stmt->bind_param('issis',$this->ResturantRegisterID,$this->ResturantRegisterEmail,md5(base64_encode($this->ResturantRegisterPass)),$this->ResturantRegisterStatus,$this->ResturantRegisterType);
             $stmt->execute();
             $stmt->close();
             $condition1=1;
         }
 
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.Restaurants (UserID,RestID) VALUES (?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Restaurants (UserID,RestID) VALUES (?,?)")){
             $ResID='R'.$this->ResturantRegisterID;
             $stmt->bind_param('is',$this->ResturantRegisterID,$ResID);
             $stmt->execute();
@@ -1382,13 +1411,13 @@ class Restartuant {
         $Condition1=0;
         //restaruant table
         $Condition2=0;
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.User SET UserName=?, UserPhone=? WHERE UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserName=?, UserPhone=? WHERE UserID=?")){
             $stmt->bind_param('sii',$this->ResContactName,$this->ResContactPhone,$this->ResUID);
             $stmt->execute();
             $stmt->close();
             $Condition1=1;
         }
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Restaurants SET ResName=?, ResAddress=?, ResRootAddress=?, ResAvaliability=?, ResCuisine=?, ResOpenTime=?,ResRating=?,ResReview=? WHERE RestID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Restaurants SET ResName=?, ResAddress=?, ResRootAddress=?, ResAvaliability=?, ResCuisine=?, ResOpenTime=?,ResRating=?,ResReview=? WHERE RestID=?")){
             $stmt->bind_param('ssssssiis',$this->ResName,$this->ResDetailAddress,$this->ResRootAddress,$this->ResAvailabilityTag,$this->ResCuisineTag,$this->ResOpeningHours,$this->ResRating,$this->ResReview,$this->ResID);
             $stmt->execute();
             $stmt->close();
@@ -1408,7 +1437,7 @@ class Restartuant {
 
 //Restaruant's photo uploading
     public function RestaruantPhotoUploader($UID,$ResID,$ResPhotoPath){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Restaurants SET ResPicPath=? WHERE RestID=? AND UserID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Restaurants SET ResPicPath=? WHERE RestID=? AND UserID=?")){
             $stmt->bind_param('ssi',$ResPhotoPath,$ResID,$UID);
             $stmt->execute();
             $stmt->close();
@@ -1423,7 +1452,7 @@ class Restartuant {
 
 //fetch the all keys and values from Restaruant table by sepcial parameter
     public function GetRestaruantWithParm($ResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Restaurants WHERE RestID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Restaurants WHERE RestID=?")){
             $stmt->bind_param('s',$ResID);
             $stmt->execute();
             $stmt->bind_result();
@@ -1439,7 +1468,7 @@ class Restartuant {
 
  //fetch the ID and Name
     public function FetchRestaruantName($ResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT ResName FROM client_b2c.Restaurants WHERE RestID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT ResName FROM Restaurants WHERE RestID=?")){
             $stmt->bind_param('s',$ResID);
             $stmt->execute();
             $stmt->bind_result($ResName);
@@ -1453,7 +1482,7 @@ class Restartuant {
 
 //fetch the all keys and values from Restaruant table with objective
     public function GetRestaruant(){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Restaurants")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Restaurants")){
             $stmt->execute();
             $stmt->bind_result();
             $result = $stmt->get_result();
@@ -1480,7 +1509,7 @@ class Restartuant {
     //fetch restraruant with normall array
     public function FetchRestaruant(){
         $object=array();
-        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvaliability,ResCuisine,ResReview,UserID FROM client_b2c.Restaurants WHERE ResReview=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvaliability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResReview=1")){
             $stmt->execute();
             $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResRating,$ResAvaliability,$ResCuisine,$ResReview,$UserID);
             $object=array();
@@ -1516,7 +1545,7 @@ class Restartuant {
 
     //return restartuant that contains location
     public function ReturnResLocation($locationName){
-        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvaliability,ResCuisine,ResReview FROM client_b2c.Restaurants WHERE ResRootAddress=? AND ResReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvaliability,ResCuisine,ResReview FROM Restaurants WHERE ResRootAddress=? AND ResReview=?")){
             $object=array();
             $Rereview=1;
             $stmt->bind_param('si',$locationName,$Rereview);
@@ -1587,7 +1616,7 @@ class Cuisine{
 
     //Upload and update photo
     public function CuisinePhotoUploadingAndUpdating($CurrentCuid,$PicPath,$DeleteOldPhotoPath){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Cuisine SET CuPicPath=? WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Cuisine SET CuPicPath=? WHERE CuID=?")){
             $stmt->bind_param('ss',$PicPath,$CurrentCuid);
             $stmt->execute();
             $stmt->close();
@@ -1602,7 +1631,7 @@ class Cuisine{
 
     //Order check from database
     private function CuisineOrderCheckDatabase($GetOrder,$ResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Cuisine WHERE CuOrder=? AND RestID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine WHERE CuOrder=? AND RestID=?")){
             $stmt->bind_param('is',$GetOrder,$ResID);
             $stmt->execute();
             $stmt->bind_result();
@@ -1618,10 +1647,10 @@ class Cuisine{
 
     //Cuisine First Level insert function
     private function InsertFirstLevelCuisine(){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.Cuisine (CuID,CuName,CuDescr,Avaliability,CuAvaliability,CuCuisine,CuType, CuPrice, RestID, CuReview,CuOrder,Price,CuRating) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Cuisine (CuID,CuName,CuDescr,Avaliability,CuAvaliability,CuCuisine,CuType, CuPrice, RestID, CuReview,CuOrder,Price,CuRating) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")){
             $CuReview=0;
             $CuRating=0;
-            $stmt->bind_param('sssssssssiidi',$this->CurrentCusineID,$this->CurrentCuisineName,$this->CurrentCuisineDes,$this->CurrentCuisineAvali,$this->CurrentAvaliTag,$this->CurrentCusinTag,$this->CurrentCusinTypeTag,$this->CurrentCusinPriceTag,$this->CurrentResID,$CuReview,$this->CurrentCusinOrder,$this->CurrentCuisinePrice,$CuRating);
+            $stmt->bind_param('sssssssssiidi',$this->CurrentCusineID,$this->CurrentCuisineName,$this->CurrentCuisineDes,$this->CurrentCuisineAvali,serialize($this->CurrentAvaliTag),serialize($this->CurrentCusinTag),serialize($this->CurrentCusinTypeTag),serialize($this->CurrentCusinPriceTag),$this->CurrentResID,$CuReview,$this->CurrentCusinOrder,$this->CurrentCuisinePrice,$CuRating);
             $stmt->execute();
             $stmt->close();
             return 'Submit successful';
@@ -1635,7 +1664,7 @@ class Cuisine{
         $condition=0;
 
         foreach ($SecondLevelTitleAndContent as $key=>$content){
-            if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
                 $stmt->bind_param('sss',$key,serialize($content),$PassCuid);
                 $stmt->execute();
                 $stmt->close();
@@ -1662,7 +1691,7 @@ class Cuisine{
         foreach ($updateSecondLevelTitleAndContent as $Updatekey=>$Updatecontent){
             if($count<count($updateKey)){//compare with unique that if unique key is exeisted then update, otherwise insert new record into the database
 
-                if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.SecondLevelofCuisine SET SeLevelTitle=?, SeLevelMultiple=? WHERE SecLevelCuID=? AND CuID=?")){
+                if($stmt=$this->DataBaseCon->prepare("UPDATE SecondLevelofCuisine SET SeLevelTitle=?, SeLevelMultiple=? WHERE SecLevelCuID=? AND CuID=?")){
                     $stmt->bind_param('ssss',$Updatekey,serialize($Updatecontent),$updateKey[$count],$updatePassCuid);
                     $count++;
                     $stmt->execute();
@@ -1675,7 +1704,7 @@ class Cuisine{
             }
 
             else{
-                if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
+                if($stmt=$this->DataBaseCon->prepare("INSERT INTO SecondLevelofCuisine (SeLevelTitle,SeLevelMultiple,CuID) VALUES (?,?,?)")){
                     $stmt->bind_param('sss',$Updatekey,serialize($Updatecontent),$updatePassCuid);
                     $stmt->execute();
                     $stmt->close();
@@ -1700,7 +1729,7 @@ class Cuisine{
 
     //Select SecondLevelofCuisine from table SecondLevelofCuisine
     public function GetSecondLevelofCuisine($getCuid){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.SecondLevelofCuisine WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM SecondLevelofCuisine WHERE CuID=?")){
             $stmt->bind_param('s',$getCuid);
             $stmt->execute();
             $stmt->bind_result();
@@ -1717,7 +1746,7 @@ class Cuisine{
 
     //Select SecondLevelofCuisine from table SecondLevelofCuisine
     public function GetSecondLevelofCuisineByUnqieID($getUniqeID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.SecondLevelofCuisine WHERE SecLevelCuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM SecondLevelofCuisine WHERE SecLevelCuID=?")){
             $stmt->bind_param('i',$getUniqeID);
             $stmt->execute();
             $stmt->bind_result();
@@ -1734,7 +1763,7 @@ class Cuisine{
 
     //Delete Second level with wrap
     public function DeleteSecondWrap($getUniqueID){
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.SecondLevelofCuisine WHERE SecLevelCuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM SecondLevelofCuisine WHERE SecLevelCuID=?")){
             $stmt->bind_param('i',$getUniqueID);
             $stmt->execute();
             $stmt->close();
@@ -1778,7 +1807,7 @@ class Cuisine{
 
     private function deleteAndUpdate($UniqueID,$getDeleteIndex,$getUnserializeSeLevelMultiple){
        unset($getUnserializeSeLevelMultiple[$getDeleteIndex]);
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.SecondLevelofCuisine SET SeLevelMultiple=? WHERE SecLevelCuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE SecondLevelofCuisine SET SeLevelMultiple=? WHERE SecLevelCuID=?")){
             $stmt->bind_param('si',serialize($getUnserializeSeLevelMultiple),$UniqueID);
             $stmt->execute();
             $stmt->close();
@@ -1805,7 +1834,7 @@ class Cuisine{
     public function DeleteCuisine($GetDeleteID){
         $condition1=0;
         $condition2=0;
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.Cuisine WHERE client_b2c.Cuisine.CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM Cuisine WHERE Cuisine.CuID=?")){
             $stmt->bind_param('s',$GetDeleteID);
             $stmt->execute();
             $stmt->close();
@@ -1815,7 +1844,7 @@ class Cuisine{
             return 'Error';
         }
 
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM client_b2c.SecondLevelofCuisine WHERE client_b2c.SecondLevelofCuisine.CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM SecondLevelofCuisine WHERE SecondLevelofCuisine.CuID=?")){
             $stmt->bind_param('s',$GetDeleteID);
             $stmt->execute();
             $stmt->close();
@@ -1836,8 +1865,8 @@ class Cuisine{
 
     //public Cuisine First Level updating
     public function UpdateFirstLevelCuisine($UpCurrentCusineID,$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Cuisine SET CuName=?,CuDescr=?, Price=?, Avaliability=?, CuAvaliability=?, CuCuisine=?, CuType=?, CuPrice=? WHERE CuID=?")){
-            $stmt->bind_param('ssdssssss',$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,$CurrentAvaliTag,$CurrentCusinTag,$CurrentCusinTypeTag,$CurrentCusinPriceTag,$UpCurrentCusineID);
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Cuisine SET CuName=?,CuDescr=?, Price=?, Avaliability=?, CuAvaliability=?, CuCuisine=?, CuType=?, CuPrice=? WHERE CuID=?")){
+            $stmt->bind_param('ssdssssss',$UpCurrentCuisineName,$UpCurrentCuisineDes,$UpCurrentCuisinePrice,$UpCurrentCuisineAvali,serialize($CurrentAvaliTag),serialize($CurrentCusinTag),serialize($CurrentCusinTypeTag),serialize($CurrentCusinPriceTag),$UpCurrentCusineID);
             $stmt->execute();
             $stmt->close();
             return 'Update successful';
@@ -1849,7 +1878,7 @@ class Cuisine{
 
     //return normal dataset of cuisine
     private function ReturnDataOfNormalCuisine($getResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Avaliability,CuName,CuPicPath,CuDescr,Price,CuAvaliability,CuCuisine,CuType,CuPrice,CuID FROM client_b2c.Cuisine WHERE RestID=? ORDER BY CuOrder")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Avaliability,CuName,CuPicPath,CuDescr,Price,CuAvaliability,CuCuisine,CuType,CuPrice,CuID FROM Cuisine WHERE RestID=? ORDER BY CuOrder")){
             $stmt->bind_param('s',$getResID);
             $stmt->execute();
             $stmt->bind_result($CuOrder,$Avaliability,$CuName,$CuPicPath,$CuDescr,$Price,$CuAvaliability,$CuCuisine,$CuType,$CuPrice,$CuID);
@@ -1864,7 +1893,7 @@ class Cuisine{
     }
     //return second dataset level of cuisine
     private function ReturnDataOfSecondCuisine($getCuID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Cuisine LEFT JOIN client_b2c.SecondLevelofCuisine ON Cuisine.CuID=SecondLevelofCuisine.CuID WHERE SecondLevelofCuisine.CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine LEFT JOIN SecondLevelofCuisine ON Cuisine.CuID=SecondLevelofCuisine.CuID WHERE SecondLevelofCuisine.CuID=?")){
             $stmt->bind_param('s',$getCuID);
             $stmt->execute();
             $stmt->bind_result();
@@ -1883,7 +1912,7 @@ class Cuisine{
 
     //return normal dataset of cuisine by CUID
     public function ReturnDataOfNormalCuisineByID($GetCUID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Cuisine WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine WHERE CuID=?")){
             $stmt->bind_param('s',$GetCUID);
             $stmt->execute();
             $stmt->bind_result();
@@ -1899,13 +1928,13 @@ class Cuisine{
 
     //return tags only
 
-    private function ReturnTagsOnly($GetCuid){
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuAvaliability,CuCuisine,CuType,CuPrice FROM client_b2c.Cuisine WHERE CuID=?")){
+    public function ReturnTagsOnly($GetCuid){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuAvaliability,CuCuisine,CuType,CuPrice FROM Cuisine WHERE CuID=?")){
             $stmt->bind_param('s',$GetCuid);
             $stmt->execute();
             $stmt->bind_result($CuAvaliability,$CuCuisine,$CuType,$CuPrice);
             while($stmt->fetch()){
-                $tempArray= array('Avaliability'=>$CuAvaliability,'Cuisine'=>$CuCuisine,'Type'=>$CuType,'Price'=>$CuPrice);
+                $tempArray= array('Availability'=>unserialize($CuAvaliability),'Cuisine'=>unserialize($CuCuisine),'Type'=>unserialize($CuType),'Price'=>unserialize($CuPrice));
             }
             $stmt->close();
             return $tempArray;
@@ -1917,7 +1946,7 @@ class Cuisine{
     public function RestAndUpdateOrderofCuisine($getArrayOfNewOrder){
         $error=0;
         foreach($getArrayOfNewOrder as $key=>$value){
-            if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Cuisine SET CuOrder=? WHERE CuID=?")){
+            if($stmt=$this->DataBaseCon->prepare("UPDATE Cuisine SET CuOrder=? WHERE CuID=?")){
                 $stmt->bind_param('is',$value,$key);
                 $stmt->execute();
                 $stmt->close();
@@ -1968,7 +1997,7 @@ class Cuisine{
     private function ReturnSecondLevelbyCuID($getcuid){
          $object=array();
          $finalObject=array();
-        if($stmt=$this->DataBaseCon->prepare("SELECT SeLevelTitle, SeLevelMultiple FROM client_b2c.SecondLevelofCuisine WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT SeLevelTitle, SeLevelMultiple FROM SecondLevelofCuisine WHERE CuID=?")){
            $stmt->bind_param('s',$getcuid);
            $stmt->execute();
            $stmt->bind_result($SeLevelTitle,$SeLevelMultiple);
@@ -1989,7 +2018,7 @@ class Cuisine{
     private function ReturnAllCuisine(){
         $tmp=array();
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Avaliability,CuAvaliability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuOrder,Price FROM client_b2c.Cuisine WHERE CuReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Avaliability,CuAvaliability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuOrder,Price FROM Cuisine WHERE CuReview=?")){
             $condition=1;
             $stmt->bind_param('i',$condition);
             $stmt->execute();
@@ -2166,7 +2195,14 @@ return $ResArray;
                 if($key==='CuID'){
                     echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Shows Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
                     foreach (self::ReturnTagsOnly($value) as $TagKeys=>$Tagvalue){
-                        echo "<li><a tabindex='-1'>$TagKeys:$Tagvalue</a></li>";
+                        echo "<li><a tabindex='-1'>$TagKeys:";
+
+                        foreach($Tagvalue as $insideKey=>$uniqueKey){
+                            if (isset($uniqueKey)){
+                            echo ' "'.$uniqueKey.'" ';
+                            }
+                        }
+                        echo "</a></li>";
                     }
                     echo '</ul></td>';
 

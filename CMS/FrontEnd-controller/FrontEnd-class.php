@@ -405,27 +405,58 @@ class InitialUserMyaddressBook extends MyaddressBook{
     public function DisplayMyaddressbook($MyaddressBookArray,$MyaddressBookArrayWithDefault){
         //list default address that has the default property
         foreach ($MyaddressBookArrayWithDefault as $key=>$subArray){
+            echo "<div class='row-fluid'>";
+            echo "<div class='span12'>";
             foreach ($subArray as $subKey=>$value){
+                if($subKey==='AddreNickName'){
+                    echo "<input type='hidden' class='AddreNickName' value='$value'>";
+                }
+                if($subKey==='AddrePhone'){
+                    echo "<input type='hidden' class='AddrePhone' value='$value'>";
+
+                }
                 if($subKey==='AddresAddress'){
                     echo '<label class="radio">';
                     echo "<input type='radio' name='optionsRadios' value='$value' checked>";
                     echo "Default: <i>$value</i>";
                     echo "</label>";
+
+                }
+                if($subKey==='UserID'){
+                    echo "<input type='hidden' class='AddreUserID' value='$value'>";
+
                 }
             }
+            echo '</div>';
+            echo '</div>';
         }
 
         //other hidden address
         echo '<div class="hideAddress">';
         foreach ($MyaddressBookArray as $key=>$subArray){
+            echo "<div class='row-fluid'>";
+            echo "<div class='span12'>";
             foreach ($subArray as $subKey=>$value){
+                if($subKey==='AddreNickName'){
+                    echo "<input type='hidden' class='AddreNickName' value='$value'>";
+                }
+                if($subKey==='AddrePhone'){
+                    echo "<input type='hidden' class='AddrePhone' value='$value'>";
+
+                }
                 if($subKey==='AddresAddress'){
                     echo '<label class="radio">';
                     echo "<input type='radio' name='optionsRadios' value='$value'>";
                     echo "<i>$value</i>";
                     echo '</label>';
                 }
+                if($subKey==='UserID'){
+                    echo "<input type='hidden' class='AddreUserID' value='$value'>";
+
+                }
             }
+            echo '</div>';
+            echo '</div>';
         }
         echo '<div class="btn-group">';
         echo '<button class="setUp radius AddedNewAddress" type="button" data-toggle="modal" href="#static"><h6>New Address</h6>';
