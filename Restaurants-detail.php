@@ -83,8 +83,6 @@ if(isset($picId)){
                         <li><a>Korean</a></li>
                         <li><a>Australian</a></li>
                         <li><a>Cantonese</a></li>
-
-
                     </ul>
                 </li>
             </ul>

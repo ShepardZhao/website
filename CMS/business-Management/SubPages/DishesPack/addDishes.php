@@ -67,12 +67,4 @@ session_start();
             <button type="submit" class="mySubmit" id="SumitAnewDish">Next</button>
         </div>
     </form>
-
-
-
-
-
-
-
-
 </div>

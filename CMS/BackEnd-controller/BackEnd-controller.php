@@ -161,7 +161,8 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['DeleteInsideSecondLevel'])){echo $CuisineClass->DeleteInsideSecondLevel($_POST['getUniqueID'],$_POST['InsideName'],$_POST['InsidePrice']);}
 /********************************************Cuisine photo uploading************************************************/
     if(isset($_POST['CuisinePhotoUploading'])&&isset($_POST['CuisineCuid'])&&isset($_POST['CuisinePhotoPath'])){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath']);}
-
+/********************************************Added to favourite*****************************************************/
+    if(isset($_POST['CuisineID'])&&isset($_POST['LoginUserID'])&&isset($_POST['AddedFavorite'])){echo $Favoriteclass->addedtoFavorite($_POST['LoginUserID'],$_POST['CuisineID'],$_POST['AddedFavorite']);}
 
 
 }

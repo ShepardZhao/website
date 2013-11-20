@@ -1,23 +1,6 @@
 $(window).load(function(){
     $('#main').kxbdMarquee({direction:"up",isEqual:true});
-    enableMask();
-    // executes when complete page is fully loaded, including all frames, objects and images
-    function enableMask(){
-        $("#tiles").children("li").each(function() {
-            $(this).mouseenter(function() {
-                $(this).find('.mask').fadeIn('fast');
-                $(this).find('.text').fadeIn('fast');
-            })
-                .mouseleave(function() {
-                    $(this).find('.mask').fadeOut('fast');
-                    $(this).find('.text').fadeOut('fast');
-                });
-        });
-    }
-
 });
-
-
 
 
 $(document).ready(function(){
@@ -42,7 +25,6 @@ $(document).ready(function(){
             if(!isLoading) {
 
                  closeToBottom =true;
-                console.log(closeToBottom);
                 if(closeToBottom) {
                     loadData();
                 }
@@ -77,13 +59,14 @@ $(document).ready(function(){
          * Receives data from the API, creates HTML for images and updates the layout
          */
         function onLoadData(data) {
+            console.log(data);
             isLoading = false;
             // Create HTML for the images.
             var html = '';
             var i=0, length=data.length, image;
             for(; i<length; i++) {
                 image = data[i];
-                if(image.PicPath!==null){
+                if(image.PicPath.length){
                     html += '<li>';
 
                     // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
@@ -113,7 +96,7 @@ $(document).ready(function(){
 
 
             // Add image HTML to the page.
-            $('#tiles').fadeIn().append(html);
+            $(html).hide().appendTo($('#tiles'));
 
             // Apply layout.
 
@@ -129,7 +112,6 @@ $(document).ready(function(){
         };
 
         setInterval(onScroll,20000);
-        //$(window).bind('change', onScroll);
 
         // Load first data from the API.
         loadData();

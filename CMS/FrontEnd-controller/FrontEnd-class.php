@@ -39,7 +39,7 @@ class RegisterUser extends User{
 
     private function InsertRegistrerToDatabase(){
 
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.User (UserID,UserPassWord,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO User (UserID,UserPassWord,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?)")){
             $stmt->bind_param('isssi',$this->RegisterUserID,md5(base64_encode($this->RegisterUserPass)),$this->RegisterEmail, $this->RegisterUserType,$this->RegisterUserStatus);
             $stmt->execute();
             $stmt->close();
@@ -55,6 +55,9 @@ class RegisterUser extends User{
     public function MatchUserFacebookID($getFBid){
         if(parent::ValidActiveion(base64_encode(trim($getFBid)))==='pass'){//in this case for facebook valid, the pass means that data already in the database
             return 1;
+        }
+        else{
+            return 0;
         }
 
 
@@ -108,11 +111,12 @@ class RegisterUser extends User{
 
     //this function is getting facebook user's infomation straght away
     public function DirectlyRegisterFacebook($FBID,$FBUserName,$FBFirstName,$FBLastName,$FBMail,$FBPhoto,$FBstatus,$UserType){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.User (UserID,UserName,UserFirstName,UserLastName,UserPhotoPath,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO User (UserID,UserName,UserFirstName,UserLastName,UserPhotoPath,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?,?,?,?)")){
             $stmt->bind_param('issssssi',$FBID,$FBUserName,$FBFirstName,$FBLastName,$FBPhoto,$FBMail,$UserType,$FBstatus);
             $stmt->execute();
             $stmt->close();
         }
+
 
     }
 
@@ -136,9 +140,7 @@ class LoginedIn extends User{
 
     public function FacebookLogininWithSession($Id,$Name){
         $userPhoto='https://graph.facebook.com/'.$Id.'/picture';
-        unset($_SESSION['LoginedUserID']);
-        unset($_SESSION['LoginedUserName']);
-        unset($_SESSION['LoginedUserPhoto']);
+
         $_SESSION['LoginedUserID']=$Id;
         $_SESSION['LoginedUserName']=$Name;
         $_SESSION['LoginedUserPhoto']=$userPhoto;
@@ -492,52 +494,6 @@ class favorite{
         $this->DataBaseCon=$DataBaseConnetcion;
     }
 
-    private function ConfirmExesited($userID,$CuisineID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM client_b2c.Userfavorite WHERE UserID=? AND CuID=?")){
-           $stmt->bind_param('ss',$userID,$CuisineID);
-           $stmt->execute();
-           $stmt->bind_result();
-           $result = $stmt->get_result();
-           $object=array();
-           while($row=$result->fetch_assoc()){
-               array_push($object,$row);
-           }
-           $stmt->close();
-            if(count($object)>0){
-                return true;
-            }
-            else{
-                return false;
-            }
-
-
-        }
-    }
-
-    public function addedtoFavorite($userID,$CuisineID,$FavoriteStatus){
-     if($this->ConfirmExesited($userID,$CuisineID)){
-          if($stmt=$this->DataBaseCon->prepare("UPDATE client_b2c.Userfavorite SET FavoriteStatus=? WHERE UserID=? AND CuID=?")){
-             $stmt->bind_param('iss',$FavoriteStatus,$userID,$CuisineID);
-             $stmt->execute();
-             $stmt->close();
-             return 'true';
-          }
-         else{
-             return 'false';
-         }
-     }
-     else{
-         if($stmt=$this->DataBaseCon->prepare("INSERT INTO client_b2c.Userfavorite (UserID,CuID,FavoriteStatus) VALUES (?,?,?)")){
-             $stmt->bind_param('ssi',$userID,$CuisineID,$FavoriteStatus);
-             $stmt->execute();
-             $stmt->close();
-             return 'true';
-         }
-         else{
-             return 'false';
-         }
-     }
-     }
 
 
 

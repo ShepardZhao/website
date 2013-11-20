@@ -2,6 +2,7 @@
 <!--facebook connection-->
 <?php
 session_start();
+
 $facebook = new Facebook(array(
     'appId'  => '422446111188481',
     'secret' => '2bd1f1a4a93855a30c661f52b39a01c9',
@@ -12,15 +13,17 @@ $facebook = new Facebook(array(
 $user = $facebook->getUser();
 if ($user) {
     try {
-
         // Proceed knowing you have a logged in user who's authenticated.
         $user_profile = $facebook->api('/me');
         $logoutUrl = $facebook->getLogoutUrl();
         $userPhoto='https://graph.facebook.com/'.$user_profile['id'].'/picture';
         if($RegisterUserClass->MatchUserFacebookID($user_profile['id'])===1){
             $LoginedInClass->FacebookLogininWithSession($user_profile['id'],$user_profile['name']);
+        }else{
+            $RegisterUserClass->DirectlyRegisterFacebook($user_profile['id'],$user_profile['name'],$user_profile['first_name'],$user_profile['last_name'],$user_profile['email'],$userPhoto,1,'Facebook');
+            header('Location: index.php');
 
-        }else{$RegisterUserClass->DirectlyRegisterFacebook($user_profile['id'],$user_profile['name'],$user_profile['first_name'],$user_profile['last_name'],$user_profile['email'],$userPhoto,1,'Facebook');}
+        }
         //saving facebook user's info into database
     } catch (FacebookApiException $e) {
         $user = null;
@@ -155,7 +158,7 @@ if ($user) {
                             <ul class="dropdown-menu pull-right">
                                 <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyFaveourites">My Favourites</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyFaveourites">My Favourites</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
                                     <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyProfile">My Profile</a></li>

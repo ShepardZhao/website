@@ -2,11 +2,294 @@
  * Created by zhaoxun321 on 3/11/2013.
  */
 $(document).ready(function(){
+   //gobal variables
+    var AvailabilityTagsArray = new Array(),
+        CuisineTagsArray = new Array(),
+        TypeTagsArray = new Array(),
+        PriceTagsArray = new Array(),
+    //counts
+        AvailabilityTagsIndex = 0,
+        CuisineTagsIndex = 0,
+        TypeTagsIndex = 0,
+        PriceTagsIndex = 0,
+        handler = null,
+        startCount = 0,
+        Returncount = 4, //this will set how many records returned
+        isLoading = false,
+        CurrentType = 0,//there are three types 0: default (filters location and gets restaurant and its cuisine), 1: gets restaurant and its cuisine by speci Resid, 2:gets Restaurants only and where belongs to special location.
+        apiURL =  CurrentDomain+'/json/?GetResAndCuByRootL='+$('#RootLocationName').val();//api
+        containterArray = ['#CuisineRelateTiles','#ReleventCuisine'];//set containter type
+        handlerArray = ['#CuisineRelateTiles li','#ReleventCuisine li'],
+        options = {//for feature only
+        autoResize: true, // This will auto-update the layout when the browser window is resized.
+        resizeDelay:50,
+        container: $(containterArray[0]), // Optional, used for some extra CSS styling
+        offset: 2, // Optional, the distance between grid items
+        itemWidth: 215 // Optional, the width of a grid item
+        };
+
+
+
+/**********************************************Feature part*********************************************************/
+            $(document).bind('scroll', onScroll);
+
+
+
+    // Load first data from the API.
+            loadData();
+
+        /**
+         * Refreshes the layout.
+         */
+        function applyLayout(GetHandlerArray,options) {
+            options.container.imagesLoaded(function() {
+                // Create a new layout handler when images have loaded.
+                handler = $(GetHandlerArray);
+                handler.wookmark(options);
+            });
+        };
+
+        /**
+         * Loads data from the API.
+         */
+        function loadData() {
+            isLoading = true;
+            $('.Ajax-loading').fadeIn();
+            $.ajax({
+                type: "GET",
+                url: apiURL,
+                dataType: 'json',
+                data:{startCount:startCount,count:Returncount,AvailabilityTags:AvailabilityTagsArray,CuisineTags:CuisineTagsArray,TypeTags:TypeTagsArray,PriceTags:PriceTagsArray},
+                success: onLoadData
+            });
+        };
+
+
+
+    /**
+     * When scrolled all the way to the bottom, add more tiles.
+     */
+    function onScroll(event) {
+        // Only check when we're not still waiting for data.
+        if(!isLoading) {
+            // Check if we're within 100 pixels of the bottom edge of the broser window.
+            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
+            if(closeToBottom) {
+                console.log(startCount);
+                loadData();
+            }
+        }
+    };
+
+    /**
+         * Receives data from the API, creates HTML for images and updates the layout
+         */
+        function onLoadData(data) {
+            // Create HTML for the images.
+            if(CurrentType===0){//when currentType equals 0 meaning that featurepage should display
+                FeaturePage(data);
+            }
+            if(CurrentType===1){//when currentType eqyals 1 meaning that Detail Cuisinewaterfall should display
+                DetailCuisinePage(data);
+            }
+
+
+            };
+
+
+
+
+    /*********************************************Detail Restaurant waterfall**********************************/
+
+
+    /*********************************************Restaurant waterfall******************************************/
+
+
+    /*********************************************Detail Cuisine waterfall**************************************/
+    function RestDeatilCuisineFunction(){
+        apiURL= CurrentDomain+'/json/?GetResAndItsCuisine=yes&FilterCuisineID='+$('#GetCurrentCuID').val()+'&GetResID='+$('#GetCurrentResID').val();
+        startCount=0;//when this clicked the start count will begin from 0
+        CurrentType=1;
+        options = {//for feature only
+            autoResize: true, // This will auto-update the layout when the browser window is resized.
+            resizeDelay:50,
+            container: $(containterArray[1]), // Optional, used for some extra CSS styling
+            offset: 2, // Optional, the distance between grid items
+            itemWidth: 215 // Optional, the width of a grid item
+        };
+        loadData();
+    }
+    function DetailCuisinePage(data){
+        isLoading = false;
+        $('.Ajax-loading').fadeOut();
+        var html = '';
+        var i=0, length=data.length, image;
+        for(; i<length; i++) {
+            image = data[i];
+            if(image.PicPath.length){
+                if(image.CuisineID!==$('#GetCurrentCuID').val()){
+                    html += '<li>';
+                    html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
+                    html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
+                    html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
+                    html += '<input type="hidden" class="CuisinePrice" value="'+image.CuisinePrice+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisinePicpath" value="'+image.PicPath+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+image.AvailabilityTags+'">';//Cuisine AvaliabilityTag
+                    html += '<input type="hidden" class="CuisinePriceTag" value="'+image.PriceTags+'">';//Cuisine price tag
+                    html += '<input type="hidden" class="CuisineTypeTag" value="'+image.TypeTags+'">';//Cuisine type tag
+                    html += '<input type="hidden" class="CuisineCuisineTag" value="'+image.CuisineTags+'">';//Cuisine tag
+                    html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
+                    html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
+                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
+
+
+                if(image.CuisinePrice!==undefined){
+                    html += '<div class="TopOptions">';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    html += '</div>';
+                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
+                    html += '</div>';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
+                    html += '</div>';
+                    html += '</div>';
+                }
+                html += '<img src="'+image.PicPath+'">';
+                    html += '<h6>'+image.CuisineName+'</h6>';
+                    var total=5;
+                    var solidStars=image.CuisineRating;
+                    var emptyStars=total-solidStars;
+                    for (var x=0;x<solidStars;x++){
+                        html += '<i class="fa fa-star"></i>';
+                    }
+                    for (var j=0;j<emptyStars;j++){
+                        html += '<i class="fa fa-star-o"></i>';
+
+                    }
+                    html += '</li>';
+            }
+            }
+
+        }
+        // Add image HTML to the page.
+
+        $(html).hide().fadeIn(1000).appendTo($(containterArray[1]));
+        // Apply layout.
+        if(length!==0){
+            applyLayout(handlerArray[1],options);
+        }
+        hoverfunction();
+        if(startCount===0){
+            startCount=Returncount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
+        }
+        else{
+            startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+        }
+
+
+
+    }
+
+
+
+    /*********************************************FeaturePage waterfall*****************************************/
+    function FeaturePage(data){
+        isLoading = false;
+        $('.Ajax-loading').fadeOut();
+        var html = '';
+        var i=0, length=data.length, image;
+        for(; i<length; i++) {
+            image = data[i];
+            if(image.PicPath.length){
+                html += '<li>';
+                if(image.RestID!==undefined){
+                    html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';
+                }
+                else if(image.CuisineID!==undefined){
+                    html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
+                    html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
+                    html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
+                    html += '<input type="hidden" class="CuisinePrice" value="'+image.CuisinePrice+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisinePicpath" value="'+image.PicPath+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+image.AvailabilityTags+'">';//Cuisine AvaliabilityTag
+                    html += '<input type="hidden" class="CuisinePriceTag" value="'+image.PriceTags+'">';//Cuisine price tag
+                    html += '<input type="hidden" class="CuisineTypeTag" value="'+image.TypeTags+'">';//Cuisine type tag
+                    html += '<input type="hidden" class="CuisineCuisineTag" value="'+image.CuisineTags+'">';//Cuisine tag
+                    html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
+                    html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
+                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
+
+                }
+                if(image.CuisinePrice!==undefined){
+                    html += '<div class="TopOptions">';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    html += '</div>';
+                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
+                    html += '</div>';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
+                    html += '</div>';
+                    html += '</div>';
+                }
+                html += '<img src="'+image.PicPath+'">';
+                if(image.CuisineName!==undefined){
+                    html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
+                    html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
+                }
+                else{
+                    html += '<h6 class="ResName">'+image.ResName+'</h6>';
+                }
+                html += '</li>';
+            }
+
+        }
+        // Add image HTML to the page.
+
+        $(html).hide().fadeIn(1000).appendTo($(containterArray[0]));
+        // Apply layout.
+        if(length!==0){
+            applyLayout(handlerArray[0],options);
+        }
+        hoverfunction();
+        if(startCount===0){
+            startCount=Returncount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
+        }
+        else{
+            startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+        }
+    }
+
+
+    /********************************************Hover function *******************************************************/
+    function hoverfunction(){
+        $('.Imagetiles li').mouseenter(function(){
+            $(this).find('.foodName').removeClass('optionsHide').fadeOut(200);
+            $(this).find('.RetaurantName').addClass('optionsHide').fadeIn(200);
+            $(this).find('.TopOptions').slideDown();
+        }).mouseleave(function(){
+
+                $(this).find('.foodName').addClass('optionsHide').fadeIn(200);
+                $(this).find('.RetaurantName').removeClass('optionsHide').fadeOut(200);
+                $(this).find('.TopOptions').slideUp();
+
+            });
+    }
+
+
+
+
+
     /**********************************************Order jquery*******************************************/
         //Tag li elements click
 
     $('body').on('click','.TagAvailable li',function() { //TagAvailable---Availability
-        $('#Imagetiles').css('height','40px');
+        //$('#Imagetiles').css('height','40px');
 
         if($(this).hasClass('active'))
         {
@@ -21,7 +304,7 @@ $(document).ready(function(){
 
 
     $('body').on('click','.TagCuisine li',function() { //TagCuisine---Cuisine
-        $('#Imagetiles').css('height','40px');
+        //$('#Imagetiles').css('height','40px');
 
         if($(this).hasClass('active'))
         {
@@ -35,7 +318,7 @@ $(document).ready(function(){
 
 
     $('body').on('click','.TagType li',function() { //TagType---Type
-        $('#Imagetiles').css('height','40px');
+        //$('#Imagetiles').css('height','40px');
 
         if($(this).hasClass('active'))
         {
@@ -47,7 +330,7 @@ $(document).ready(function(){
     });
 
     $('body').on('click','.TagPrice li',function() { //TagPrice---Price
-        $('#Imagetiles').css('height','40px');
+        //$('#Imagetiles').css('height','40px');
 
         if($(this).hasClass('active'))
         {
@@ -79,190 +362,77 @@ $(document).ready(function(){
     });
 
 
-        var handler = null,
-            emptyTry=0;
-            index=0;
-            startCount = 0,
-            Filter =new Array(),
-            Returncount = 4, //this will set how many records returned
-            isLoading = false,
-            apiURL =  CurrentDomain+'/json/?GetResAndCuByRootL='+$('#RootLocationName').val();
-        // Prepare layout options.
-        var options = {
-            autoResize: true, // This will auto-update the layout when the browser window is resized.
-            resizeDelay:50,
-            container: $('#Imagetiles'), // Optional, used for some extra CSS styling
-            offset: 2, // Optional, the distance between grid items
-            itemWidth: 215 // Optional, the width of a grid item
-        };
-
-        /**
-         * Refreshes the layout.
-         */
-        function applyLayout() {
-            options.container.imagesLoaded(function() {
-                // Create a new layout handler when images have loaded.
-                handler = $('#Imagetiles li');
-                handler.wookmark(options);
-            });
-        };
-
-        /**
-         * Loads data from the API.
-         */
-        function loadData() {
-            isLoading = true;
-            $('#Ajax-loading').fadeIn();
-
-            $.ajax({
-                type: "GET",
-                url: apiURL,
-                dataType: 'json',
-                data:{startCount:startCount,count:Returncount,filter:Filter},
-                success: onLoadData
-            });
-        };
-
-
-
-    /**
-     * When scrolled all the way to the bottom, add more tiles.
-     */
-    function onScroll(event) {
-        // Only check when we're not still waiting for data.
-        if(!isLoading) {
-            // Check if we're within 100 pixels of the bottom edge of the broser window.
-            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-            if(closeToBottom) {
-                loadData();
-            }
-        }
-    };
-
-
-
-
-
-    /**
-         * Receives data from the API, creates HTML for images and updates the layout
-         */
-        function onLoadData(data) {
-
-            isLoading = false;
-            $('#Ajax-loading').fadeOut();
-            // Create HTML for the images.
-            var html = '';
-            var i=0, length=data.length, image;
-            if(length===0){//if this time the data that are fetched empty, then re-quest agian, total 10 counts
-            }
-
-            for(; i<length; i++) {
-                image = data[i];
-                if(image.PicPath!==null){
-                    html += '<li>';
-                    if(image.RestID!==undefined){
-                        html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';
-                    }
-                    else if(image.CuisineID!==undefined){
-                        html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
-                        html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
-                        html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
-                        html += '<input type="hidden" class="CuisinePrice" value="'+image.CuisinePrice+'">';//Cuisine price
-                        html += '<input type="hidden" class="CuisinePicpath" value="'+image.PicPath+'">';//Cuisine price
-                        html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+image.CuisineAvaliabilityTag+'">';//Cuisine AvaliabilityTag
-                        html += '<input type="hidden" class="CuisinePriceTag" value="'+image.CuisinePriceTag+'">';//Cuisine price tag
-                        html += '<input type="hidden" class="CuisineTypeTag" value="'+image.CuisineTypeTag+'">';//Cuisine type tag
-                        html += '<input type="hidden" class="CuisineCuisineTag" value="'+image.CuisineCuisineTag+'">';//Cuisine tag
-                        html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
-                        html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
-                        html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
-                        html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
-                        html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
-
-                    }
-                    if(image.CuisinePrice!==undefined){
-                    html += '<div class="TopOptions">';
-                    html += '<div class="span4">';
-                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
-                    html += '</div>';
-                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
-                    html += '</div>';
-                    html += '<div class="span4">';
-                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
-                    html += '</div>';
-                    html += '</div>';
-                    }
-                    html += '<img src="'+image.PicPath+'">';
-                    if(image.CuisineName!==undefined){
-                    html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
-                    html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
-                    }
-                    else{
-                        html += '<h6 class="ResName">'+image.ResName+'</h6>';
-                    }
-                    html += '</li>';
-                }
-
-            }
-
-            // Add image HTML to the page.
-            $('#Imagetiles').append(html).fadeIn();
-
-            // Apply layout.
-        if(length!==0){
-            applyLayout();
-        }
-            hoverfunction();
-            if(startCount===0){
-            startCount=Returncount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
-            }
-            else{
-                startCount+=startCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
-            }
-
-    };
-
-        // Capture scroll event.
-        $(document).bind('scroll', onScroll);
-
-        // Load first data from the API.
-    loadData();
-
-    function hoverfunction(){
-            $('.Imagetiles li').mouseenter(function(){
-                $(this).find('.foodName').removeClass('optionsHide').fadeOut(200);
-                $(this).find('.RetaurantName').addClass('optionsHide').fadeIn(200);
-                $(this).find('.TopOptions').slideDown();
-            }).mouseleave(function(){
-
-                    $(this).find('.foodName').addClass('optionsHide').fadeIn(200);
-                    $(this).find('.RetaurantName').removeClass('optionsHide').fadeOut(200);
-                    $(this).find('.TopOptions').slideUp();
-
-                });
-    }
-
-
-
 /*****************************************Filter tags******************************************************/
-$('body').on('click','.TagWidthOverflow>li',function(){//filter tages
+//Availability tags click
+$('body').on('click','.TagAvailable>li',function(){
     if($(this).hasClass('active')){
-        Filter[index]= $(this).find('a').text();
+        AvailabilityTagsArray[AvailabilityTagsIndex]= $(this).find('a').text();
     }
     else{
-        Filter.splice( $.inArray($(this).find('a').text(),Filter) ,1 );
+        AvailabilityTagsArray.splice( $.inArray($(this).find('a').text(),AvailabilityTagsArray) ,1 );
     }
-    index++;
-    Filter.sort();
     $('#Imagetiles').empty();
+    AvailabilityTagsIndex++;
+    AvailabilityTagsArray.sort();
     startCount=0;
     loadData();
 
 });
 
+//Cuisine tags click
+ $('body').on('click','.TagCuisine>li',function(){
+     if($(this).hasClass('active')){
+         CuisineTagsArray[CuisineTagsIndex]= $(this).find('a').text();
+     }
+     else{
+         CuisineTagsArray.splice( $.inArray($(this).find('a').text(),CuisineTagsArray) ,1 );
+     }
+     $('#Imagetiles').empty();
+     CuisineTagsIndex++;
+     CuisineTagsArray.sort();
+     startCount=0;
+     loadData();
+
+
+ });
+
+//TagType tags click
+ $('body').on('click','.TagType>li',function(){
+     if($(this).hasClass('active')){
+         TypeTagsArray[TypeTagsIndex]= $(this).find('a').text();
+     }
+     else{
+         TypeTagsArray.splice( $.inArray($(this).find('a').text(),TypeTagsArray) ,1 );
+     }
+     $('#Imagetiles').empty();
+     TypeTagsIndex++;
+     TypeTagsArray.sort();
+     startCount=0;
+     loadData();
+
+
+ });
+
+//TagPrice tags click
+ $('body').on('click','.TagPrice>li',function(){
+     if($(this).hasClass('active')){
+         PriceTagsArray[PriceTagsIndex]= $(this).find('a').text();
+     }
+     else{
+         PriceTagsArray.splice( $.inArray($(this).find('a').text(),PriceTagsArray) ,1 );
+     }
+     $('#Imagetiles').empty();
+     PriceTagsIndex++;
+     TypeTagsArray.sort();
+     startCount=0;
+     loadData();
+
+
+ });
 
 /*****************************************Operation of Cuisine********************************************/
-   $('body').on('click','.Imagetiles>li',function(){//only for Feature part
+   //only for Feature part
+    $('body').on('click','#CuisineRelateTiles>li',function(){
        var  AjaxContainter = {};
        if($(this).find('.CuisineID')){ //if current is a li and that clicked finding that is Cuisine
            AjaxContainter['CuisineID'] = $(this).find('.CuisineID').val();
@@ -284,14 +454,36 @@ $('body').on('click','.TagWidthOverflow>li',function(){//filter tages
        if($(this).find('.RestID')){
          //  console.log($(this).find('.RestID').val());
        }
-
-
-
-
-
    });
 
+   //only for cuisine-detail page
+    $('body').on('click','#ReleventCuisine>li',function(){
 
+        if($(this).parent().parent().hasClass('Imagetiles-detail')){
+            $(this).parent().parent().parent().parent().parent().parent().remove();
+
+        }
+        var AjaxContainter = {};
+        if($(this).find('.CuisineID')){ //if current is a li and that clicked finding that is Cuisine
+            AjaxContainter['CuisineID'] = $(this).find('.CuisineID').val();
+            AjaxContainter['CuisineName'] = $(this).find('.CuisineName').val();
+            AjaxContainter['CuisineDesc'] = $(this).find('.CuisineDesc').val();
+            AjaxContainter['CuisinePrice'] = $(this).find('.CuisinePrice').val();
+            AjaxContainter['CuisinePicpath'] = $(this).find('.CuisinePicpath').val();
+            AjaxContainter['CuisineAvaliabilityTag'] = $(this).find('.CuisineAvaliabilityTag').val();
+            AjaxContainter['CuisineTypeTag'] = $(this).find('.CuisineTypeTag').val();
+            AjaxContainter['CuisinePriceTag'] = $(this).find('.CuisinePriceTag').val();
+            AjaxContainter['CuisineCuisineTag'] = $(this).find('.CuisineCuisineTag').val();
+            AjaxContainter['CuisineResName'] = $(this).find('.CuisineResName').val();
+            AjaxContainter['CuResID'] = $(this).find('.CuResID').val();
+            AjaxContainter['CuisineRating'] = $(this).find('.CuisineRating').val();
+            AjaxContainter['CuisineWhetherInCart'] = $(this).find('.CuisineWhetherInCart').val();
+            AjaxContainter['CuisineWhetherFavorite'] = $(this).find('.CuisineWhetherFavorite').val();
+            AjaxofCuisinePage(AjaxContainter);
+        }
+
+
+    });
 
 
 function AjaxofCuisinePage(AjaxContainter){//pass cuisine only
@@ -306,10 +498,18 @@ function AjaxofCuisinePage(AjaxContainter){//pass cuisine only
     request.done(function( msg ) {
 
         if(msg){
+
             $('.ajax-order-loading').remove();
             $(msg).fadeIn().appendTo('#Featured');
             $.scrollTo('#ScrollTopPosition',1000);
             $('.left-position').fadeIn();
+            RestDeatilCuisineFunction();//rest parameters
+
+
+
+
+
+
 
         }
 
@@ -324,23 +524,19 @@ function AjaxofCuisinePage(AjaxContainter){//pass cuisine only
 }
 
 
-
-
-
 /********************************************other operation**********************************************/
 var isPurchaes=false;
 var CurrentLoginUser= $('#CurrentLoginedUserID').val();
 //initial total price
 $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
-
-
     $('body').on('click','.left-position',function(){
     if($(this).css('display')==='block'){
         $(this).hide();
         $('#Cuisine-Detail-page').remove();
         $('#FeathuredInterface').fadeIn();
-        $('#Imagetiles').trigger('refreshWookmark');
-
+        $('#Ajax-loading').fadeIn();
+        $('#CuisineRelateTiles').trigger('refreshWookmark');
+        CurrentType=0;
     }
 
 });
@@ -434,7 +630,7 @@ $('body').on('click','#Navcomments',function(){//arrow click event between comme
 
     function favoriteAJax(tmp,condition){
         var request = $.ajax({
-            url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
             data: tmp,
             dataType: "html"
@@ -565,8 +761,6 @@ $('body').on('click','.checkOut',function(){
         var AddressNickName=parentRaidoSelected.find('AddreNickName').val();
         var AddressPhone= parentRaidoSelected.find('AddrePhone').val();
         var Address=$('input[name=optionsRadios]:checked').val();
-
-
         InformationDisplay('Operation is successful, please waiting for jump!','alert-success');
         $('.checkOut>h5').text('Wait..');
         setTimeout(function(){window.location.href=CurrentDomain+'/order-check.php'},2000)
@@ -581,7 +775,20 @@ $('body').on('click','.checkOut',function(){
 });
 
 
+/****************************************Cuisine Detail Description************************************************/
+$('body').on('click','#ClickReadMore',function(){
+    var CuisineDescription=encodeURIComponent($('#CuisineDescriptWrap').text());
+    var CuisineName=encodeURIComponent($('#CuisineName').text());
+    $('body').modalmanager('loading');
+    setTimeout(function(){
+        $modal.load(CurrentDomain+'/Cuisine-detail.php?CuisineName='+CuisineName+'&MoreDescription='+CuisineDescription, '', function(){
+            $modal.modal();
+        });
+    }, 1000);
+});
 
+
+/****************************************Other operation***********************************************************/
 //prevent parent opertation
     $('body').on('click','.TopOptions',function(e){return false;});
 

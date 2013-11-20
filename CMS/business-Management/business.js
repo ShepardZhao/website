@@ -110,7 +110,7 @@ $(document).ready(function(){
         var getCuID=$(this).parent().parent().find('.button-delete').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modalphoto.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/PhotoUploading.php?CuID='+getCuID, '', function(){
+            $modalphoto.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/PhotoUploading.php?CuID='+encodeURIComponent(getCuID), '', function(){
                 $modalphoto.modal();
             });
         }, 1000);
@@ -183,7 +183,6 @@ $(document).ready(function(){
     $('body').on('mouseenter','.ClassCuisinePhoto',function(){
 
         $(this).Jcrop({
-            maxSize: [ 223 , 0 ],
             minSize: [ 220 , 0 ],
             onSelect: updateCoords,
             bgFade: true, // use fade effect
@@ -264,7 +263,7 @@ $(document).ready(function(){
         var getCuName=$(this).parent().parent().find('.CuName').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/SecondLevel.php?CuID='+getCuID+'&CuName='+getCuName,'', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/SecondLevelAdded.php?CuID='+encodeURIComponent(getCuID)+'&CuName='+encodeURIComponent(getCuName), '', function(){
                 $modal.modal();
             });
         }, 1000);
@@ -272,12 +271,11 @@ $(document).ready(function(){
     });
 
     $('body').on('click','.EditSecondLevel',function(){ //EditSecondLevel
-
         var getCuID=$(this).attr('id');
         var getCuName=$(this).parent().parent().parent().parent().parent().find('.CuName').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php?CuID='+getCuID+'&CuName='+getCuName, '', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php?CuID='+encodeURIComponent(getCuID)+'&CuName='+encodeURIComponent(getCuName), '', function(){
                 $modal.modal();
             });
         }, 1000);
@@ -349,9 +347,7 @@ $(document).ready(function(){
 
     //basic function of sub level
     $modal.on('click','.subAddNewBotton',function(){
-        if($(this).parent().parent().parent().find('#SecondLevelCheckbox').is(':checked')){
             $(tmpNameAndPriceContainter).fadeIn().insertBefore($(this).parent().parent().parent().find('.AddNewButtonZone'));
-        }
     });
     //delete function of sub level
     $modal.on('click','.SubSecondButton-delete',function(){
@@ -373,7 +369,13 @@ $(document).ready(function(){
         //loop and fill into array
         for (var i=0; i<getCount;i++){
             if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
-                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
+                if($('.SecondTitleWrap').eq(i).find('#SecondLevelCheckbox').is(':checked')){
+                    tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'MultiChoice','SubLevelOfName','SubLevelOfPrice');
+                }
+                else {
+                    tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'Radio','SubLevelOfName','SubLevelOfPrice');
+
+                }
             }
             else{
                 InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
@@ -399,8 +401,14 @@ $(document).ready(function(){
         //loop and fill into array
         for (var i=0; i<getCount;i++){
             if($('.SecondTitleWrap').eq(i).find('.SecondTitle').val()!==''){
-                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'SubLevelOfName','SubLevelOfPrice');
-            }
+                if($('.SecondTitleWrap').eq(i).find('#SecondLevelCheckbox').is(':checked')){
+                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'MultiChoice','SubLevelOfName','SubLevelOfPrice');
+                }
+                else {
+                tmp[$('.SecondTitleWrap').eq(i).find('.SecondTitle').val()]=returnInputArray(i,'Radio','SubLevelOfName','SubLevelOfPrice');
+
+                }
+              }
             else{
                 InformationDisplay("Sorry, You have to fill at least one Title below","alert-error");
                 return false;
@@ -424,11 +432,12 @@ $(document).ready(function(){
     }
 
 
-    function returnInputArray(i,SubLevelOfName,SubLevelOfPrice){
+    function returnInputArray(i,condition,SubLevelOfName,SubLevelOfPrice){
         var TemporaryArray1=[];
         var TemporaryArray2=[];
         var PrepareArray={};
         var ReturnArray={};
+        var FinalResturn={};
         $('.SecondTitleWrap').eq(i).find('input[name="' + SubLevelOfName + '[]"]').each(function() {
             TemporaryArray1.push($(this).val());
         });
@@ -439,10 +448,11 @@ $(document).ready(function(){
             PrepareArray['name']=TemporaryArray1[i];
             PrepareArray['price']=TemporaryArray2[i];
             ReturnArray['SubSecondLevel'+i]=PrepareArray;
+
             PrepareArray={};//clean the array
         }
-
-        return ReturnArray;
+        FinalResturn[condition]=ReturnArray;
+        return FinalResturn;
 
     }
 
@@ -457,7 +467,6 @@ $(document).ready(function(){
         var tmp={};
         tmp['ajaxCuisineList']='yes';
         tmp['GetCurrentResID']=$('#RestaruantID').val();
-        console.log(tmp);
         $('#ajaxCusinesTable').empty().append('<div class="AjaxLoading"><img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif></div>').fadeIn();
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
@@ -483,12 +492,13 @@ $(document).ready(function(){
 
 
 
+
     /*******************************************Dishes setting************************************/
         //added dished by button AddedNewDish -- method is modal
     $('#AddedNewDish').on('click',function(){
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/addDishes.php', '', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/addDishes.php', '', function(){
                 $modal.modal();
                 //select tags
                 $("#Availability").chosen({no_results_text: "Oops, nothing found!"});
@@ -773,17 +783,14 @@ $(document).ready(function(){
         });
 
         request.done(function( result ) {
-            console.log(result);
+            $('.modal-footer').empty();
             if(result==='Error'){
                 AjaxMessageError('alert-error','Submit Error, please contact to admin');
             }
             else{
                 AjaxMessageSuccess('alert-success',result);
                 setTimeout(function(){$('#ajax-modal').modal('hide'); CuisineAJAXList();},3000);
-
             }
-
-
         });
 
         request.fail(function( jqXHR, textStatus ) {
@@ -824,7 +831,7 @@ $(document).ready(function(){
         var Cuid=$(this).attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditDishes.php?CUID='+Cuid, '', function(){
+            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditDishes.php?CUID='+encodeURIComponent(Cuid), '', function(){
                 $modal.modal();
                 //select tags
                 $("#Availability").chosen({no_results_text: "Oops, nothing found!"});
@@ -964,7 +971,9 @@ $(document).ready(function(){
 
 
 
-
+    //MyRestaruant chosen
+    $("#MyRestaruant-Availability").chosen({width: "100%",no_results_text: "Oops, nothing found!"});
+    $("#MyRestaruant-Cuisine").chosen({width: "100%",no_results_text: "Oops, nothing found!"});
     //setting up the restaruant info
     $('body').on('submit','#MyRestaurant',function(e){
         //Get my restaurant ID
@@ -1017,10 +1026,8 @@ $(document).ready(function(){
         MyRestaurant['MyResOpeningHours']=OpenHour;
         MyRestaurant['MyResRating']=0;
         MyRestaurant['MyResReview']=0;
-
-        if(getDetailAddress==='' || getContactName==='' || getContactNumber==='' || getAvailabilityTag==='' || getCuisineTag===''){
-            ErrorInfo('Sorry, you have to fill all fields','#MyRestaruantSubmit');
-
+        if(getDetailAddress==='' || getContactName==='' || getContactNumber==='' || getAvailabilityTag===null || !getCuisineTag===null){
+            ErrorInfo('Sorry, you have to fill all fields');
         }
         else{
             var request = $.ajax({
@@ -1031,11 +1038,11 @@ $(document).ready(function(){
             });
             request.done(function( msg ) {
                 if(msg==='Successed'){
-                    SuccessInfo('Successfully updated','#MyRestaruantSubmit');
+                    SuccessInfo('Successfully updated');
 
                 }
                 else {
-                    ErrorInfo('Sorry, The database ERROR','#MyRestaruantSubmit');
+                    ErrorInfo('Sorry, The database ERROR');
 
                 }
 
@@ -1060,7 +1067,7 @@ $(document).ready(function(){
         tmp['BusNewPassword']=GetNewPassword;
 
         if(GetOldPassword==='' || GetNewPassword===''){
-            ErrorInfo('Sorry, you have to fill all fields','#AccountSubmit');
+            ErrorInfo('Sorry, you have to fill all fields');
         }
         else{
             ajaxSubmit(tmp);
@@ -1077,10 +1084,10 @@ $(document).ready(function(){
         });
         request.done(function( msg ) {
             if(msg==='Changed password successfully'){
-                SuccessInfo(msg,'#AccountSubmit');
+                SuccessInfo(msg);
             }
             else{
-                ErrorInfo(msg,'#AccountSubmit');
+                ErrorInfo(msg);
             }
 
         });
@@ -1090,7 +1097,7 @@ $(document).ready(function(){
         });
     }
 
-    function SuccessInfo(content,id){
+    function SuccessInfo(content){
         InformationDisplay(content,"alert-info");
     }
     function ErrorInfo(content,id){
@@ -1111,4 +1118,5 @@ $(document).ready(function(){
 
 
 });
+
 

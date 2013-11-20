@@ -15,9 +15,21 @@ $(document).ready(function(){
     }
        setTimeout(function(){$('.'+_class).fadeOut();$('.information-bar').fadeOut(); isDisplay=true;},5000);
     }
+//common window pop out
+     function popup (popupName){
+        var _scrollHeight = $(document).scrollTop(),//get offset distance from pop windows to body windows
+            _windowHeight = $(window).height(),//get  height from current windows
+            _windowWidth = $(window).width(),//get width from current windows
+            _popupHeight = popupName.height(),//get altitude
+            _popupWeight = popupName.width();//get width
+        _posiTop = (_windowHeight - _popupHeight)/2 + _scrollHeight;
+        _posiLeft = (_windowWidth - _popupWeight)/2;
+        popupName.css({"left": _posiLeft + "px","top":_posiTop + "px","display":"block"});
+    }
+
 
  //common modal
-    var $modal=$('#ajax-modal');
+    window.$modal=$('#ajax-modal');
     $(function(){
 
         var email_str=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
@@ -264,16 +276,7 @@ $(document).ready(function(){
 
     //initial pop windows
     popup($('.initialDiv'));
-    function popup(popupName){
-        var _scrollHeight = $(document).scrollTop(),//get offset distance from pop windows to body windows
-            _windowHeight = $(window).height(),//get  height from current windows
-            _windowWidth = $(window).width(),//get width from current windows
-            _popupHeight = popupName.height(),//get altitude
-            _popupWeight = popupName.width();//get width
-        _posiTop = (_windowHeight - _popupHeight)/2 + _scrollHeight;
-        _posiLeft = (_windowWidth - _popupWeight)/2;
-        popupName.css({"left": _posiLeft + "px","top":_posiTop + "px","display":"block"});
-    }
+
 
     //initial select root location
     $('body').on('click','.thumClick li',function(){
@@ -457,21 +460,21 @@ $(window).load(function(){
 
         //TagAvailable
         if($(this).parent().parent().find('.TagAvailable')){
-            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "100px"},500);
+            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "50px"},500);
         }
         //TagCuisine switch
         if($(this).parent().parent().find('.TagCuisine')){
-            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "100px"},500);
+            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "50px"},500);
         }
 
         //TagType switch
         if($(this).parent().parent().find('.TagType')){
-            $(this).parent().parent().find('.TagType').animate({scrollTop  : "100px"},500);
+            $(this).parent().parent().find('.TagType').animate({scrollTop  : "50px"},500);
         }
 
         //TagPrice switch
         if($(this).parent().parent().find('.TagPrice')){
-            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "100px"},500);
+            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "50px"},500);
         }
 
 
@@ -482,22 +485,22 @@ $(window).load(function(){
     $('body').on('click','.fa-arrow-circle-o-up',function(){
         //TagAvailable
         if($(this).parent().parent().find('.TagAvailable')){
-            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "-100px"},500);
+            $(this).parent().parent().find('.TagAvailable').animate({scrollTop  : "-43px"},500);
         }
 
         //TagCuisine switch
         if($(this).parent().parent().find('.TagCuisine')){
-            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "-100px"},500);
+            $(this).parent().parent().find('.TagCuisine').animate({scrollTop  : "-43px"},500);
         }
 
         //TagType
         if($(this).parent().parent().find('.TagType')){
-            $(this).parent().parent().find('.TagType').animate({scrollTop  : "-100px"},500);
+            $(this).parent().parent().find('.TagType').animate({scrollTop  : "-43px"},500);
         }
 
         //TagPrice
         if($(this).parent().parent().find('.TagPrice')){
-            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "-100px"},500);
+            $(this).parent().parent().find('.TagPrice').animate({scrollTop  : "-43px"},500);
         }
 
 

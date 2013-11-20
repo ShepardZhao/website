@@ -1,159 +1,75 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <title>jQuery Wookmark Plug-in API Example</title>
-    <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
-    <meta name="author" content="Christoph Ono, Sebastian Helzle">
-
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-    <!-- CSS Reset -->
-    <link rel="stylesheet" href="reset.css">
-
-    <!-- Global CSS for the page and tiles -->
-    <link rel="stylesheet" href="main.css">
-
+	<meta charset="utf-8">
+	<title></title>
+	
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="masonry.pkgd.min.js"></script>
+	<style>
+	
+	.item { width: 25%; }
+	.item.w2 { width: 50%; }
+	</style>
 </head>
-
 <body>
+	<script>
+	$(document).ready(function(){
+	var container = document.querySelector('#container');
+	var msnry = new Masonry( container, {
+	  // options
+	  columnWidth: 200,
+	  itemSelector: '.item'
+	});
+	
+	
+	var apiURL='http://b2c.com.au/json/index.php?GetAllCuis=yes';
+	function loadData() {
+	            $.ajax({
+	                url: apiURL,
+	                dataType: 'json',
+	                success: onLoadData,
+	            });
+	        };
+	        
+	function onLoadData(data){
+	var html = '';
+	
+	for (var i=0;i<data.length;i++){
+	if(data[i].PicPath!==null){
+	  html += '<div class="items">';
+	  html += '<img src="'+data[i].PicPath+'">';
+	  html += '</div>';
+	
+	}
+	}
+		
+	$('#container').append(html);
+	
+		
+	}
+	      
+	     
+	     	loadData();
+		
+	
+	
+	});
+	
+	        
+	</script>
 
-<div id="container">
-    <header>
-        <h1>jQuery Wookmark Plug-in API Example</h1>
-        <p>Scroll down to see more content loaded via the <a href="http://www.wookmark.com/about/api" target="_blank">Wookmark API</a>.</p>
-    </header>
-    <div id="main" role="main">
 
-        <ul id="tiles">
-            <!-- These is where we place content loaded from the Wookmark API -->
-        </ul>
-
-        <div id="loader">
-            <div id="loaderCircle"></div>
-        </div>
-
-    </div>
-
-    <footer>
-
-    </footer>
-</div>
-
-<!-- include jQuery -->
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-
-<!-- Include the imagesLoaded plug-in -->
-<script src="jquery.imagesloaded.js"></script>
-
-<!-- Include the plug-in -->
-<script src="jquery.wookmark.min.js"></script>
-
-<!-- Once the page is loaded, initalize the plug-in. -->
-<script type="text/javascript">
-    (function ($) {
-        var handler = null,
-            page = 1,
-            isLoading = false,
-            apiURL = 'http://www.b2c.com.au/json/?GetAllCuis=yes';
-
-        // Prepare layout options.
-        var options = {
-            autoResize: true, // This will auto-update the layout when the browser window is resized.
-            container: $('#tiles'), // Optional, used for some extra CSS styling
-            offset: 2, // Optional, the distance between grid items
-            itemWidth: 250 // Optional, the width of a grid item
-        };
-
-        /**
-         * When scrolled all the way to the bottom, add more tiles.
-         */
-        function onScroll(event) {
-            // Only check when we're not still waiting for data.
-            if(!isLoading) {
-                // Check if we're within 100 pixels of the bottom edge of the broser window.
-                var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
-                if(closeToBottom) {
-                    loadData();
-                }
-            }
-        };
-
-        /**
-         * Refreshes the layout.
-         */
-        function applyLayout() {
-            options.container.imagesLoaded(function() {
-                // Create a new layout handler when images have loaded.
-                handler = $('#tiles li');
-                handler.wookmark(options);
-            });
-        };
-
-        /**
-         * Loads data from the API.
-         */
-        function loadData() {
-            isLoading = true;
-            $('#loaderCircle').show();
-
-            $.ajax({
-                url: apiURL,
-                dataType: 'json',
-                success: onLoadData
-            });
-        };
-
-        /**
-         * Receives data from the API, creates HTML for images and updates the layout
-         */
-        function onLoadData(data) {
-
-            console.log(data);
-
-            isLoading = false;
-            $('#loaderCircle').hide();
-
-            // Increment page index for future calls.
-            page++;
-
-            // Create HTML for the images.
-            var html = '';
-            var i=0, length=data.length, image;
-            for(; i<length; i++) {
-                image = data[i];
-                if(image.CuisinePicPath!==null){
-                html += '<li>';
-
-                // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
-                html += '<img src="'+image.CuisinePicPath+'">';
-
-                // Image title.
-                html += '<p>'+image.CuisineName+'</p>';
-
-                html += '</li>';
-                }
-            }
-
-            // Add image HTML to the page.
-            $('#tiles').append(html);
-
-            // Apply layout.
-            applyLayout();
-        };
-
-        // Capture scroll event.
-        $(document).bind('scroll', onScroll);
-
-        // Load first data from the API.
-        loadData();
-    })(jQuery);
-</script>
-
+	<div id="container">
+	  
+	  
+	  
+	</div>
+	
+	
+	
 </body>
 </html>

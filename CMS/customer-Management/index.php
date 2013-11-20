@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="tab-pane" id="MyFaveourites">
-                        <p>This area displays My MyFaveourites</p>
+                        <?php require_once 'SubPages/MyFavourite.php'?>
                     </div>
                     <div class="tab-pane" id="MyAddressBook">
                         <?php require_once 'SubPages/MyAddressBook.php'?>

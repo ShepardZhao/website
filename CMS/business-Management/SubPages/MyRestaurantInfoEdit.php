@@ -52,12 +52,12 @@
                 <!--Restarurant Tags-->
                 <div class="control-group">
                     <label class="control-label">Restarurant Tags:</label>
-                    <div class="controls text-left">
+                    <div class="controls" style="margin-top:6px !important;">
                         Avaliability
-                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption("Availability","CuisineTags");?>
+                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption($_SESSION['RestaruantID'],"Availability","CuisineTags");?>
+
                         Cuisine
-                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption("Cuisine","CuisineTags");?>
-                        <span style="color:#c09853">Notes: Please selecting your tags carefully</span>
+                        <?php echo $TagsClass->MyRestaruantOupPutTagBySelecOption($_SESSION['RestaruantID'],"Cuisine","CuisineTags");?>
 
                     </div>
                 </div>

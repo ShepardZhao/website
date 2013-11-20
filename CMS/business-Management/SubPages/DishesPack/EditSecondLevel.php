@@ -51,24 +51,33 @@
 
                                 <!--SecondLevelCheckbox-->
                                 <br>
-                                <label class="checkbox SecondLevelCheckbox">
-                                    <input type="checkbox" id="SecondLevelCheckbox">
-                                    Multiple choice
-                                </label>
-                                <?php foreach (unserialize($Value) as $contentIndex=>$contentIndexValue){?>
-                                    <div class="form-inline SubSecondstyle">
 
-                                        <?php foreach ($contentIndexValue as $contentNameAndPrice=>$NameAndPrice){?>
-                                            <?php if ($contentNameAndPrice==='name'):?>
+                                <?php foreach (unserialize($Value) as $contentIndex=>$contentIndexValue){?>
+                                   <?php if ($contentIndex==='MultiChoice'):?>
+                                    <label class="checkbox SecondLevelCheckbox">
+                                        <input type="checkbox" id="SecondLevelCheckbox" checked>
+                                        Multiple choice
+                                    </label>
+                                    <?php elseif($contentIndex==='Radio'):?>
+                                        <label class="checkbox SecondLevelCheckbox">
+                                            <input type="checkbox" id="SecondLevelCheckbox">
+                                            Multiple choice
+                                        </label>
+                                    <?php endif?>
+                                    <div class="form-inline SubSecondstyle">
+                                    <?php foreach ($contentIndexValue as $contentNameAndPrice=>$NameAndPrice){?>
+                                        <?php foreach ($NameAndPrice as $key=>$val){?>
+                                            <?php if ($key==='name'):?>
                                                 <label>Name:
-                                                    <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" value="<?php echo $NameAndPrice;?>" placeholder="i.e: extra cheese">
+                                                    <input type="text" class="SubSecondInput span8" name="SubLevelOfName[]" value="<?php echo $val;?>" placeholder="i.e: extra cheese">
                                                 </label>
-                                            <?php elseif ($contentNameAndPrice==='price'):?>
+                                            <?php elseif ($key==='price'):?>
                                                 <label>Price:
-                                                    <input class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" value="<?php echo $NameAndPrice;?>" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2.00">
+                                                    <input class="SubSecondInputPrice" type="number" pattern="[0-9]+([\,|\.][0-9]+)?" value="<?php echo $val;?>" name="SubLevelOfPrice[]" step="0.01" placeholder="i.e: $2.00">
                                                 </label>
                                             <?php endif?>
 
+                                        <?php }?>
                                         <?php }?>
                                         <button class="button text-right button-delete SubSecondButton-delete" type="button">Delete</button>
 
