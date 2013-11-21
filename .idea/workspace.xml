@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AdZone.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cuisine-comment.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cuisine-description.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cuisine-detail.php" afterPath="$PROJECT_DIR$/Cuisine-detail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Feathured.php" afterPath="$PROJECT_DIR$/Feathured.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" afterPath="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/GobalConnection.php" afterPath="$PROJECT_DIR$/CMS/GobalConnection.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" afterPath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/order.js" afterPath="$PROJECT_DIR$/assets/framework/js/order.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order.php" afterPath="$PROJECT_DIR$/order.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="website.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,19 +39,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DetailCuisine.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DetailCuisine.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/framework/js/DetailCuisine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="25" selection-start="13377" selection-end="13377" vertical-scroll-proportion="0.9126214" vertical-offset="4330" max-vertical-offset="5400">
+            <state line="341" column="31" selection-start="14196" selection-end="14196" vertical-scroll-proportion="-8.6" vertical-offset="4900" max-vertical-offset="5640">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FrontEnd-class.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FrontEnd-class.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="507" column="40" selection-start="18251" selection-end="18251" vertical-scroll-proportion="-7.75" vertical-offset="7419" max-vertical-offset="8010">
+            <state line="511" column="24" selection-start="18514" selection-end="18514" vertical-scroll-proportion="0.6017964" vertical-offset="7464" max-vertical-offset="8010">
               <folding />
             </state>
           </provider>
@@ -80,7 +69,7 @@
       <file leaf-file-name="FrontEnd-controller.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="247" selection-start="2041" selection-end="2041" vertical-scroll-proportion="-6.4166665" vertical-offset="536" max-vertical-offset="915">
+            <state line="43" column="114" selection-start="1785" selection-end="1785" vertical-scroll-proportion="-4.0" vertical-offset="549" max-vertical-offset="1005">
               <folding />
             </state>
           </provider>
@@ -179,10 +168,10 @@
         <option value="$PROJECT_DIR$/Common-comments.php" />
         <option value="$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js" />
         <option value="$PROJECT_DIR$/CMS/GobalConnection.php" />
-        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
-        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
         <option value="$PROJECT_DIR$/Cuisine-comment.php" />
         <option value="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" />
+        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
+        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
       </list>
     </option>
   </component>
@@ -674,7 +663,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30132452" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30132452" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3034826" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24668874" sideWeight="0.4181818" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -744,7 +733,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1039" />
+      <option name="time" value="1043" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -851,30 +840,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="15" selection-start="3511" selection-end="3526" vertical-scroll-proportion="-14.0" vertical-offset="414" max-vertical-offset="945">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="247" selection-start="2041" selection-end="2041" vertical-scroll-proportion="-6.4166665" vertical-offset="536" max-vertical-offset="915">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/framework/js/customer-indexPage.v1.0.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="101" column="40" selection-start="4245" selection-end="4328" vertical-scroll-proportion="-52.2" vertical-offset="210" max-vertical-offset="7800">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="507" column="40" selection-start="18251" selection-end="18251" vertical-scroll-proportion="-7.75" vertical-offset="7419" max-vertical-offset="8010">
           <folding />
         </state>
       </provider>
@@ -886,9 +854,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="15" selection-start="3511" selection-end="3526" vertical-scroll-proportion="-14.0" vertical-offset="414" max-vertical-offset="945">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="114" selection-start="1785" selection-end="1785" vertical-scroll-proportion="-4.0" vertical-offset="549" max-vertical-offset="1005">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/framework/js/DetailCuisine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="25" selection-start="13377" selection-end="13377" vertical-scroll-proportion="0.9126214" vertical-offset="4330" max-vertical-offset="5400">
+        <state line="341" column="31" selection-start="14196" selection-end="14196" vertical-scroll-proportion="-8.6" vertical-offset="4900" max-vertical-offset="5640">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="511" column="24" selection-start="18514" selection-end="18514" vertical-scroll-proportion="0.6017964" vertical-offset="7464" max-vertical-offset="8010">
           <folding />
         </state>
       </provider>

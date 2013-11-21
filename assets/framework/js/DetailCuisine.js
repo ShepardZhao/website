@@ -3,6 +3,13 @@
  */
 $(document).ready(function(){
     /**
+     * gobal variable
+     */
+    var comment_time = null; //this will handle time when user has been successfully submit the commment
+
+
+
+    /**
      * Scroll to right position
      */
     $.scrollTo('#ScrollTopPosition',1000);
@@ -283,11 +290,14 @@ $(document).ready(function(){
 
     });
 
+
+
     /**
      * Prepare submit Cuisine comment
      */
     /***********************************Submit cuisine comment******************************************/
     $modal.on('click','.submitCuisineComment',function(){
+
         var CurrentCuisineID = $('#CommentCuisineID').val();
         var CurrentUserID = $('#CommentCurrentUserID').val();
         var Currentstars =  $('.CuisineCommentStarGroup').find('.fa-star').length;
@@ -306,8 +316,6 @@ $(document).ready(function(){
             return false;
         }
 
-
-
         AJAXpassTempCuisineComment(tmp);
     });
 
@@ -322,10 +330,17 @@ $(document).ready(function(){
             data:tmp,
             dataType: "html"
         });
-        request.done(function( msg ) {
-           if(msg){
-               AjaxMessageSuccess('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
+        request.done(function(msg) {
+           if(msg==='true'){
+               comment_time = Math.round((new Date()).getTime() / 1000); //handel current time frame
+               AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+           }
+           else if(msg==='Over Comment'){
+               AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
+           }
+           else if(msg==='false'){
+               AjaxMessage('alert-error','Datebase operation error');
            }
         });
 
@@ -335,10 +350,11 @@ $(document).ready(function(){
 
     }
 
+
     /**
      * $modal info
      */
-    function AjaxMessageSuccess(className,info){
+    function AjaxMessage(className,info){
 
         $modal.modal('loading');
         setTimeout(function(){
