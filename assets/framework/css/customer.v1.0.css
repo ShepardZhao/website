@@ -51,14 +51,16 @@ body{
 	
 }
 
-
+.fa-star{
+	color: #E2435A;
+}
 .loadingImage{
 	width: 100%;
 	text-align:center;
 	margin:100px auto;
 }
 
-.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.icon-circle-arrow-down:hover,.icon-circle-arrow-up:hover,.fa-arrow-circle-left:hover,#searchImg:hover,#ClickReadMore:hover{
+.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,#searchImg:hover,#ClickReadMore:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
@@ -737,8 +739,10 @@ padding:19px;
 	left: -10px;
 	top: 50%;
 	position: absolute;
-	display: none;
+	opacity: 1;
+	display: none;	
 }
+
 .otherdishes{
 	padding: 19px;
 }
@@ -787,12 +791,21 @@ padding:19px;
 
 
 /*order.php-comments*/
-
+#Feathred-left-position{
+	position: fixed;
+	margin-left:20px;
+}
 #CuisineDescriptWrap{
 	height: 60px;
 	overflow: hidden;
 	white-space:normal;
 	text-overflow:ellipsis;
+}
+#Navcomments{
+	color:#999;
+}
+#cuisine-comment-area{
+	min-height:100px;
 }
 .commentSt{
 	background:rgb(245,245,245);

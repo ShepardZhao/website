@@ -47,7 +47,8 @@ $OrderSelectionTagsClass= new OrderSelectionTags($Mysql_Connection);
 $JsonReturnOrDealclass= new JsonReturnOrDeal($Mysql_Connection);
 /*******************************Declare favourite***********************************************/
 $Favoriteclass=new favourite($Mysql_Connection);
-
+/*******************************Declare CuisineComemnt******************************************/
+$CuisineComemnt=new CuisineComemnt($Mysql_Connection);
 
 
 /**************************************Extendedd define******************************************/

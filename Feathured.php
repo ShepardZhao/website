@@ -1,7 +1,6 @@
    <?php require_once 'CMS/GobalConnection.php'?>
-    <div class="row-fluid" id="FeathuredInterface">
-
-        <div class="span2 ContentRight">
+   <div class="row-fluid" id="FeathuredInterface">
+       <div class="span2 ContentRight">
             <div class="ContentWidth">
                 <ul class="nav nav-pills nav-stacked ContentLeftList">
                     <li>Availability</li>
@@ -53,7 +52,6 @@
        <!--below part is showing the feature's waterfall------------->
         <div class="row-fluid" id="AjaxWaterFall-NoParam"><!--image parts-->
             <div id="FeatureMargin" class="span12 hidden-phone FeaturedImage">
-
                 <div class="FeatureImagetiles" role="main" >
                     <ul id="CuisineRelateTiles" class="Imagetiles">
                         <!-- These are our grid blocks -->
@@ -66,6 +64,7 @@
 
     </div>
 
+   <script src="<?php echo GlobalPath;?>/assets/framework/js/FeaturePageWookMark.js"></script>
 
 
 
