@@ -1,4 +1,4 @@
-<?php require_once '../cms/GobalConnection.php';?>
+<?php require_once '../CMS/GobalConnection.php';?>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
     <h3 class="text-center">Sign Up with Email</h3>

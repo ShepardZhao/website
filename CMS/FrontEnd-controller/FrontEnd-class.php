@@ -382,6 +382,7 @@ class InitialLocationSelect extends Location{
         echo '$(document).ready(function(){$(".initialDiv").hide();});';
         echo '</script>';
     }
+
     public function ShowInitialLocation(){
         echo '<script type="text/javascript">';
         echo '$(document).ready(function(){$(".initialDiv").css("display","block");});';
@@ -391,6 +392,9 @@ class InitialLocationSelect extends Location{
 
 }
 
+/**
+ * Class InitialUserMyaddressBook
+ */
 
 class InitialUserMyaddressBook extends MyaddressBook{
 
@@ -496,31 +500,7 @@ class favorite{
 
 }
 
-/***************************************Added cuisine comment**********************************************/
-class CuisineComemnt{
-    private $DataBaseCon=null;
-    public function __construct($DataBaseConnetcion){
-        $this->DataBaseCon=$DataBaseConnetcion;
-    }
-    public function getCuisineCommentParam($userID,$cuisineID,$cuisineCommentID,$Rating,$commentContent,$date,$like,$dislike,$review){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO CuisineComment (UserID,CuID,CuisineCommentID,CuisineComent,CuCommentDate,CuCommentRating,CuCommentLike,CuCommentDislike,CucoReview) VALUES (?,?,?,?,?,?,?,?,?)")){
-            $stmt->bind_param('sssssiiii',$userID,$cuisineID,$cuisineCommentID,$commentContent,$date,$Rating,$like,$dislike,$review);
-            $stmt->execute();
-            $stmt->close();
-            session_start();
-            $_SESSION['SetUpCuisineCommentTime'] = time();
-            return 'true';
-        }
-        else {
-            return 'false';
-        }
 
-
-    }
-
-
-
-}
 
 
 

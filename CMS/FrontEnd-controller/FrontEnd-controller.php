@@ -36,24 +36,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         echo  $LoginedInClass->AddedNewAddress($_POST['AddedUserID'],$_POST['AddedNickName'],$_POST['AddedPhone'],$_POST['AddedAddress'],1);
     }
 
-    //added cuisine comment
-    if(isset($_POST['CurrentCuisineID']) && isset($_POST['CurrentUserID']) && isset($_POST['Currentstars']) && isset($_POST['CurrentCommentContent'])){
-        //prevent over comment
-        $current= time();
-        session_start();
-        if($current - $_SESSION['SetUpCuisineCommentTime'] > 1200) { //limited user comment once with 20 min as a gap
-        $CurrentDate = date("Y-m-d H:i:s");
-        $like = 0;
-        $dislike = 0;
-        $tempCode=$RegisterUserClass->GenerateRandomUserID();
-        $commentID = 'Cu'.$tempCode;
-        $review = 0;
-        echo $CuisineComemnt -> getCuisineCommentParam($_POST['CurrentUserID'], $_POST['CurrentCuisineID'], $commentID, intval($_POST['Currentstars']), $_POST['CurrentCommentContent'], $CurrentDate, intval($like), intval($dislike), intval($review));
-        }
-        else{
-        echo 'Over Comment';
-        }
-    }
+
 
 
 }

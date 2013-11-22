@@ -232,13 +232,13 @@ $(document).ready(function(){
     $('body').on('click','#Navcomments',function(){//arrow click event between comments and waterfall
         if($(this).hasClass('fa-arrow-circle-down')){
             $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
-            // set Up the Css name of Featured page
-            var name = "CssId";
-            var value = "commentSt";
-            var dataObj = {};
-            dataObj[name]=value;
-            AjaxFunction("#ClickToComment",dataObj,"Common-comments.php",1);
-            dataObj=null; //destry the container
+            var dataObj={};
+            var CurrentLoginedUserID = $('#CurrentLoginedUserID').val();
+            var GetCurrentCuID = $('#GetCurrentCuID').val();
+            dataObj['GetCuisineComment']="GetCuisineComment";
+            dataObj['CurrentLoginedUserID']=CurrentLoginedUserID;
+            dataObj['GetCurrentCuID']=GetCurrentCuID;
+            GetCuisineCommentAjax(dataObj);
         }
 
         else if($(this).hasClass('fa-arrow-circle-up')){
@@ -251,6 +251,25 @@ $(document).ready(function(){
             dataObj=null;
         }
     });
+
+    /**
+     * Get Cuisine Comment AJAX
+     */
+    function GetCuisineCommentAjax(tmpdata){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:tmpdata,
+            dataType: "html"
+        });
+        request.done(function(msg) {
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    }
 
     /**
      * Click class .CuisineCommentStar to go to comment for current cuisine
@@ -325,7 +344,7 @@ $(document).ready(function(){
      */
     function AJAXpassTempCuisineComment(tmp){
         var request = $.ajax({
-            url: CurrentDomain+"/CMS/FrontEnd-controller/FrontEnd-controller.php",
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
             data:tmp,
             dataType: "html"
@@ -366,6 +385,10 @@ $(document).ready(function(){
         }, 1000);
 
     }
+
+
+
+
 
 
 });

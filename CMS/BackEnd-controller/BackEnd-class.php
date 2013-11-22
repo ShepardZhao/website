@@ -2795,7 +2795,52 @@ class favourite{
 }
 
 
+/*************************************** cuisine comment**********************************************/
+class CuisineComemnt{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseConnetcion){
+        $this->DataBaseCon=$DataBaseConnetcion;
+    }
 
+    /**
+     * @param $userID
+     * @param $cuisineID
+     * @param $cuisineCommentID
+     * @param $Rating
+     * @param $commentContent
+     * @param $date
+     * @param $like
+     * @param $dislike
+     * @param $review
+     *
+     * insert comment param into database
+     * @return string
+     */
+    public function getCuisineCommentParam($userID,$cuisineID,$cuisineCommentID,$Rating,$commentContent,$date,$like,$dislike,$review){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO CuisineComment (UserID,CuID,CuisineCommentID,CuisineComent,CuCommentDate,CuCommentRating,CuCommentLike,CuCommentDislike,CucoReview) VALUES (?,?,?,?,?,?,?,?,?)")){
+            $stmt->bind_param('sssssiiii',$userID,$cuisineID,$cuisineCommentID,$commentContent,$date,$Rating,$like,$dislike,$review);
+            $stmt->execute();
+            $stmt->close();
+            session_start();
+            $_SESSION['SetUpCuisineCommentTime'] = time();
+            return 'true';
+        }
+        else {
+            return 'false';
+        }
+    }
+
+    /**
+     * Fetch cuisine commment according to userID and cuisineID
+     * @param $userID
+     * @param $cuisineID
+     */
+    public function fetchCuisineComment($userID,$cuisineID){
+
+    }
+
+
+}
 
 
 
