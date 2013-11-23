@@ -7,7 +7,7 @@
                 <!-- These are our grid blocks -->
 
             </ul>
-            <div id="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
+            <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
         </div>
     </div>
 </div>

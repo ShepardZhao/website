@@ -867,6 +867,7 @@ $('body').on('click','#UserListDelete',function(){
         tmp['RegGetResturantPass']=GetResturantPass;
         tmp['RegisterStatus']=1;
         tmp['RegisterType']=RegisterType;
+        tmp['RegisterPicpathPrefix']=CurrentDomain;
         if(GetResturantEmail==='' || GetResturantPass===''){
             $('<div class="alert alert-error"><strong>Sorry, you have to fill all fields</div>').insertAfter($('#infozone')).fadeIn(200);
             setTimeout(function(){$('.alert-error').fadeOut(); },5000);

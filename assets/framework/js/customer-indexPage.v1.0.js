@@ -197,6 +197,8 @@ $(document).ready(function(){
                 tmpArray['RegisterUserMail']=email;
                 tmpArray['RegisterUserPassWord']=renpassword;
                 tmpArray['RegisterCaptcha']=captcha;
+                tmpArray['RegisterPhotoPrefix']=CurrentDomain;
+                console.log(tmpArray);
                 AjaxRegisterProcess(tmpArray);
 
 

@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
        $RegisterUserType='Users';//in this case, sets current register user type is users.
        session_start();
      if ($_POST['RegisterCaptcha']===$_SESSION['6_letters_code']){
-      echo $RegisterUserClass->GetUserRegisterData($RegisterUserID,$_POST['RegisterUserMail'],$_POST['RegisterUserPassWord'],$RegisterUserType);
+      echo $RegisterUserClass->GetUserRegisterData($RegisterUserID,$_POST['RegisterUserMail'],$_POST['RegisterUserPassWord'],$RegisterUserType,$_POST['RegisterPhotoPrefix']);
      }
        else{
            echo 'Captcha Error';

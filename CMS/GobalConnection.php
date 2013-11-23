@@ -49,7 +49,8 @@ $JsonReturnOrDealclass= new JsonReturnOrDeal($Mysql_Connection);
 $Favoriteclass=new favourite($Mysql_Connection);
 /*******************************Declare CuisineComemnt******************************************/
 $CuisineComemnt=new CuisineComemnt($Mysql_Connection);
-
+/*******************************Declare ThumbLikeOrDislike*************************************/
+$ThumbLikeOrDislikeclass= new ThumbLikeOrDislike($Mysql_Connection);
 
 /**************************************Extendedd define******************************************/
 //Gobal path: this is very much important for global path setting. it contorls the global css and js

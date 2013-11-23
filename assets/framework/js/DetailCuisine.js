@@ -3,10 +3,16 @@
  */
 $(document).ready(function(){
     /**
-     * gobal variable
+     * Gobal variable
      */
-    var comment_time = null; //this will handle time when user has been successfully submit the commment
-
+    /**
+     * Comments variables
+     */
+    var CurrentLoginedUserID = $('#CurrentLoginedUserID').val();
+    var GetCurrentCuID = $('#GetCurrentCuID').val();
+    var commentStartCount=0;
+    var LimitedCommentCount=4;
+    var isComment = false; //deafult status of comment display is off, but it will show up when element #Navcomments clicked
 
 
     /**
@@ -20,8 +26,9 @@ $(document).ready(function(){
     var startCount = 0,
         Returncount = 4, //this will set how many records returned
         isLoading = false,
-        handler = null,
-        apiURL =  CurrentDomain+'/json/?GetResAndItsCuisine=yes&FilterCuisineID='+$('#GetCurrentCuID').val()+'&GetResID='+$('#GetCurrentResID').val();
+        handler = null;
+
+
     /**
      * Load first data from the API.
      */
@@ -55,14 +62,14 @@ $(document).ready(function(){
     };
 
     /**
-     * Loads data from the API.
+     * Loads data from the API, waterfall only.
      */
     function loadData() {
         isLoading = true;
         $('.Ajax-loading').fadeIn();
         $.ajax({
             type: "GET",
-            url: apiURL,
+            url: CurrentDomain+'/json/?GetResAndItsCuisine=yes&FilterCuisineID='+$('#GetCurrentCuID').val()+'&GetResID='+$('#GetCurrentResID').val(),
             dataType: 'json',
             data:{startCount:startCount,count:Returncount},
             success: onLoadData
@@ -79,23 +86,33 @@ $(document).ready(function(){
         else{
             $('#Feathred-left-position').fadeIn();
         }
-        // Only check when we're not still waiting for data.
-        if(!isLoading) {
-            // Check if we're within 100 pixels of the bottom edge of the broser window.
+        if(isComment){
+            if(!isLoading) {
             var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-            if(closeToBottom) {
-                loadData();
+            if(closeToBottom){
+                GetCuisineCommentJson();
+            }
             }
         }
+        // Only check when we're not still waiting for data.
+        else{
+            if(!isLoading) {
+                // Check if we're within 100 pixels of the bottom edge of the broser window.
+                var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
+                if(closeToBottom) {
+                    loadData();
+                }
+            }
+        }
+
     };
 
     /**
-     * When Ajax has been sucessfully completed, then do following thing
+     * When Ajax has been sucessfully completed, then do following thing -- waterfall only
      * @param data
      */
 
     function onLoadData(data){
-        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -225,51 +242,7 @@ $(document).ready(function(){
 
     });
 
-    /**
-     * Click #Navcomments to swithch comment or wataerfall
-     */
 
-    $('body').on('click','#Navcomments',function(){//arrow click event between comments and waterfall
-        if($(this).hasClass('fa-arrow-circle-down')){
-            $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
-            var dataObj={};
-            var CurrentLoginedUserID = $('#CurrentLoginedUserID').val();
-            var GetCurrentCuID = $('#GetCurrentCuID').val();
-            dataObj['GetCuisineComment']="GetCuisineComment";
-            dataObj['CurrentLoginedUserID']=CurrentLoginedUserID;
-            dataObj['GetCurrentCuID']=GetCurrentCuID;
-            GetCuisineCommentAjax(dataObj);
-        }
-
-        else if($(this).hasClass('fa-arrow-circle-up')){
-            $(this).removeClass('fa-arrow-circle-up').addClass('fa-arrow-circle-down');
-            var name="mode";
-            var value="mode2";
-            var dataObj={};
-            dataObj[name]=value;
-            AjaxFunction("#ClickToComment",dataObj,"Common-waterfall.php",1);
-            dataObj=null;
-        }
-    });
-
-    /**
-     * Get Cuisine Comment AJAX
-     */
-    function GetCuisineCommentAjax(tmpdata){
-        var request = $.ajax({
-            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
-            type: "POST",
-            data:tmpdata,
-            dataType: "html"
-        });
-        request.done(function(msg) {
-
-        });
-
-        request.fail(function( jqXHR, textStatus ) {
-            alert( "Request failed: " + textStatus );
-        });
-    }
 
     /**
      * Click class .CuisineCommentStar to go to comment for current cuisine
@@ -354,12 +327,17 @@ $(document).ready(function(){
                comment_time = Math.round((new Date()).getTime() / 1000); //handel current time frame
                AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+               RestStars(tmp['Currentstars']);
            }
            else if(msg==='Over Comment'){
                AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
+               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+
            }
            else if(msg==='false'){
                AjaxMessage('alert-error','Datebase operation error');
+               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+
            }
         });
 
@@ -369,6 +347,15 @@ $(document).ready(function(){
 
     }
 
+    /**
+     * Reset stars
+     */
+    function RestStars(SoldStars){
+       var getStarsLength = $('.CuisineCommentStar').length;
+        for (var i=0;i<SoldStars;i++){
+                $('.CuisineCommentStar').eq(i).removeClass('fa-star-o').addClass('fa-star');
+        }
+    }
 
     /**
      * $modal info
@@ -385,6 +372,143 @@ $(document).ready(function(){
         }, 1000);
 
     }
+
+/**************************************************Switch comment page and waterfall page*********************************/
+    /**
+     * Click #Navcomments to swithch comment or wataerfall
+     */
+
+    $('body').on('click','#Navcomments',function(){//arrow click event between comments and waterfall
+        if($(this).hasClass('fa-arrow-circle-down')){
+            $('#ClickToComment').fadeIn();
+            $('#Cuisine-Waterfall').hide();
+            isComment = true;
+            $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
+            GetCuisineCommentJson();
+        }
+
+        else if($(this).hasClass('fa-arrow-circle-up')){
+            $('#ClickToComment').hide();
+            $('#Cuisine-Waterfall').fadeIn();
+            $('#ReleventCuisine').trigger('refreshWookmark');
+            isComment = false;
+            $(this).removeClass('fa-arrow-circle-up').addClass('fa-arrow-circle-down');
+            var name="mode";
+            var value="mode2";
+            var dataObj={};
+            dataObj[name]=value;
+            AjaxFunction("#ClickToComment",dataObj,"Common-waterfall.php",1);
+            dataObj=null;
+        }
+    });
+
+    /**
+     * Get Cuisine Comment Json
+     */
+    function GetCuisineCommentJson(){
+        console.log(commentStartCount);
+        $('.Ajax-loading').fadeIn();
+        $.ajax({
+            type: "GET",
+            url: CurrentDomain+'/json/?GetCuisineComment=yes&CurrentLoginedUserID='+CurrentLoginedUserID+'&GetCurrentCuID='+GetCurrentCuID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
+            dataType: 'json',
+            success: onLoadComment
+        });
+    }
+
+    /**
+     * if sucessfully got json, then do followling thing
+     */
+    function onLoadComment(data){
+        if(data){
+            isLoading = false;
+            $('.Ajax-loading').fadeOut();
+            var html = '';
+            var i=0, length=data.length, comment;
+            for(; i<length; i++) {
+                comment = data[i];
+                html += '<li>';
+                html += '<input type="hidden" class="CommentID" value="'+comment.CuisineCommentID+'">'
+                html += '<div class="media">';
+                html += '<a class="pull-left" href="#">';
+                html += '<img class="media-object" src="'+comment.UserPhotoPath+'">';
+                html += '</a>';
+                html += '<div class="media-body">';
+                html += '<h5 class="media-heading">'+comment.UserName+'</h5>';
+                html += '<h6>'+comment.CuCommentDate+'</h6>';
+                html += '<p>'+comment.CuisineComent+'</p>';
+                html += '<ul class="inline inlineLeftPadding">';
+                var total=5;
+                var solidStars=comment.CuCommentRating;
+                var emptyStars=total-solidStars;
+                for (var x=0;x<solidStars;x++){
+                    html += '<i class="fa fa-star"></i>';
+                }
+                for (var j=0;j<emptyStars;j++){
+                    html += '<i class="fa fa-star-o"></i>';
+
+                }
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-up"></i><span style="margin-left:9px;"id="good">0</span></li>';
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-down"></i><span style="margin-left:9px;" id="bad">0</span></li>';
+                html += '</ul>';
+                html += '</div>';
+                html += '</div>';
+                html += '</li>';
+                }
+
+            }
+            // Add image HTML to the page.
+
+            $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
+            if(commentStartCount===0){
+                commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
+            }
+            else{
+                commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+            }
+        }
+
+
+    /**
+     * fa-thumbs-o-up
+     * given a good comment
+     */
+    $('body').on('click','.fa-thumbs-o-up',function(){
+        var Tmpsave = $(this);
+        var JsonPass = {};
+        JsonPass['thumbLikeOrDislike'] = 'like';
+        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+        thumbsLikeorDislike(JsonPass);
+    });
+
+    /**
+     * thumbs for like or dislike
+     */
+
+    function thumbsLikeorDislike(temp){
+
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:temp,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+
+
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+    }
+
+
+
 
 
 

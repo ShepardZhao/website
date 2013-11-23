@@ -137,27 +137,33 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
 
                                     </div><!--ends-->
                                 </div>
-                                <div class="row-fluid FeaturedImage"><div class="span12 otherdishes"><h4>Other dishes from <i id="OtherDisResName"><?php echo $_GET['CuisineResName']?></i></h4></div>
 
+                                <div class="row-fluid FeaturedImage" id="Cuisine-Waterfall"><div class="span12 otherdishes"><h4>Other dishes from <i id="OtherDisResName"><?php echo $_GET['CuisineResName']?></i></h4></div>
                                     <!--wafterfall-->
-                                    <div class="row-fluid"><!--image parts-->
+                                    <div class="row-fluid" ><!--image parts-->
                                         <div class="span12 hidden-phone FeaturedImage">
 
                                             <div class="Imagetiles-detail" role="main" >
                                                 <ul id="ReleventCuisine" class="Imagetiles">
 
                                                     <!-- These are our grid blocks -->
-
                                                 </ul>
                                                 <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
                                             </div>
                                         </div>
                                     </div>
+                                    </div>
                                     <!--Comments-->
                                     <div class="row-fluid" id="ClickToComment">
+                                            <div class="span12">
+                                                <ul class="nav nav-pills nav-stacked commentMarginBottom">
+                                                </ul>
+                                                <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
+
+                                            </div>
 
                                     </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

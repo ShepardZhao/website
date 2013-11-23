@@ -60,7 +60,7 @@ body{
 	margin:100px auto;
 }
 
-.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,#searchImg:hover,#ClickReadMore:hover{
+.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,.fa-thumbs-o-up:hover,fa-thumbs-o-down:hover,#searchImg:hover,#ClickReadMore:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
@@ -755,10 +755,6 @@ padding:19px;
 .RestaurantsContentRight{
 	background:rgb(227,107,95);
 }
-
-
-
-
 .ListReGroup{
 	border:none !important;
 }
@@ -807,13 +803,20 @@ padding:19px;
 #cuisine-comment-area{
 	min-height:100px;
 }
+#ClickToComment{
+	min-height:20px;
+	display: none;
+	background-color: rgb(245,245,245);
+	
+}
 .commentSt{
 	background:rgb(245,245,245);
 	border-top:1px dashed #888;
 	padding:19px;
 }
-
-
+.commentMarginBottom{
+	padding: 19px;
+}
 .commentMarginBottom>li{
 	margin-Bottom:19px;
 }
@@ -824,7 +827,6 @@ table>tbody>tr>td{
   table-layout: fixed;
   word-wrap: break-word;
   max-width: 120px;
-  
 }
 
 .relvateBottom{

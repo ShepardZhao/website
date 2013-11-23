@@ -218,13 +218,17 @@ table>tbody>tr>td{
 
 #UserTableList>thead>tr>th{
     font-size:14px;
-    color:darksalmon;
+    color:#e74c3c;
 
 }
 
 
 #UserTableList>tbody>tr{
     display:none;
+}
+#UserTableList>tbody>tr>td{
+    vertical-align: middle;
+    color: rgb(54, 54, 54);
 }
 
 

@@ -8,16 +8,18 @@ class RegisterUser extends User{
     private $RegisterEmail=null;
     private $RegisterUserType=null;
     private $RegisterUserStatus=null;
+    private $RegisterUserPath=null;
     public function __construct($DataBaseConnetcion){
         parent::__construct($DataBaseConnetcion);
     }
 
-    Public function GetUserRegisterData($RegisterUserID,$RegisterEmail,$RegisterUserPass,$RegisterUserType){
+    Public function GetUserRegisterData($RegisterUserID,$RegisterEmail,$RegisterUserPass,$RegisterUserType,$RegisterUserPath){
 
         $this->RegisterUserID=$RegisterUserID;
         $this->RegisterUserPass=$RegisterUserPass;
         $this->RegisterEmail=trim($RegisterEmail);
         $this->RegisterUserType=trim($RegisterUserType);
+        $this->RegisterUserPath=trim($RegisterUserPath);
         $this->RegisterUserStatus=0;//setting up Register's status
         return self::MatchEmail($this->RegisterEmail);
     }
@@ -39,8 +41,9 @@ class RegisterUser extends User{
 
     private function InsertRegistrerToDatabase(){
 
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO User (UserID,UserPassWord,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?)")){
-            $stmt->bind_param('isssi',$this->RegisterUserID,md5(base64_encode($this->RegisterUserPass)),$this->RegisterEmail, $this->RegisterUserType,$this->RegisterUserStatus);
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO User (UserID,UserPassWord,UserPhotoPath,UserMail,UserType,UserStatus) VALUES (?,?,?,?,?,?)")){
+            $stmt->bind_param('issssi',$this->RegisterUserID,md5(base64_encode($this->RegisterUserPass)),$tempPhotoPath,$this->RegisterEmail, $this->RegisterUserType,$this->RegisterUserStatus);
+            $tempPhotoPath=$this->RegisterUserPath.'/assets/framework/front-images/default-avatar.png';
             $stmt->execute();
             $stmt->close();
             self::UserMailValid();//send mail though to the user to valid
@@ -48,7 +51,6 @@ class RegisterUser extends User{
         }
         else {
             return 'Error';
-
         }
     }
 

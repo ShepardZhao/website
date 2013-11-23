@@ -41,9 +41,9 @@ class BasicSetting{ //setting up basic information for website
 
     }
 
-    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee){//update record of basicsetting
-        if($stmt=$this->DataBaseCon->prepare("UPDATE Cometome_Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=?,DeliveryFee=? WHERE OptionID=1")){
-            $stmt->bind_param('ssssssd',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy,$DeliveryFee);
+    public function getSettingData($SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy){//update record of basicsetting
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Cometome_Option SET WebTitle=?, WebDescription=?, WebUrl=?, EMail=?, WebStatus=? ,WebPolicy=? WHERE OptionID=1")){
+            $stmt->bind_param('ssssss',$SiteName,$SiteDescr,$SiteSiteUrl,$SiteSiteEmail,$SiteSiteStatus,$SitePolicy);
             $stmt->execute();
             $stmt->close();
             return "Saved successfully";
@@ -57,13 +57,14 @@ class BasicSetting{ //setting up basic information for website
 
 
     public function pushSettingData(){//return valuesArray
-        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy,DeliveryFee FROM Cometome_Option WHERE OptionID=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT WebTitle,WebDescription,WebUrl,EMail,WebStatus,WebPolicy FROM Cometome_Option WHERE OptionID=1")){
             $stmt->execute();
-            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy,$DeliveryFee);
-            $result = $stmt->get_result();
-            $object = $result->fetch_assoc();
+            $stmt->bind_result($WebTitle,$WebDescription,$WebUrl,$EMail,$WebStatus,$WebPolicy);
+            while($stmt->fetch()){
+                $tmparray = array('WebTitle'=>$WebTitle,'WebDescription'=>$WebDescription,'WebUrl'=>$WebUrl,'EMail'=>$EMail,'WebStatus'=>$WebStatus,'WebPolicy'=>$WebPolicy);
+            }
             $stmt->close();
-            return $object;
+            return $tmparray;
 
         }
 
@@ -636,7 +637,7 @@ class User{
                     echo "<td>$value</td>";
                 }
                 else if($subKey==='UserPhotoPath'){
-                    echo "<td><img src=$value class='img-circle' style='width:65px;height:65px'></td>";
+                    echo "<td><img src=$value class='img-circle' style='margin-top:7px;width:30px;height:30px'></td>";
                 }
                 else if($subKey==='UserMail'){
                     echo "<td>$value</td>";
@@ -1305,17 +1306,19 @@ class ResturantsReg extends User{
     private $ResturantRegisterEmail=null;
     private $ResturantRegisterType=null;
     private $ResturantRegisterStatus=null;
+    private $ResturantRegisterPicPathPrefix=null;
 
     public function __construct($DataBaseCon){
         parent::__construct($DataBaseCon);
     }
 
-    public function ResturantRegisation($ResturantRegisterID,$ResturantRegisterEmail,$ResturantRegisterPass,$ResturantRegisterStatus,$ResturantRegisterType){
+    public function ResturantRegisation($ResturantRegisterID,$ResturantRegisterEmail,$ResturantRegisterPass,$ResturantRegisterStatus,$ResturantRegisterType,$ResturantRegisterPicPathPrefix){
         $this->ResturantRegisterID=$ResturantRegisterID;
         $this->ResturantRegisterEmail=$ResturantRegisterEmail;
         $this->ResturantRegisterPass=$ResturantRegisterPass;
         $this->ResturantRegisterStatus=$ResturantRegisterStatus;
         $this->ResturantRegisterType=$ResturantRegisterType;
+        $this->ResturantRegisterPicPathPrefix=$ResturantRegisterPicPathPrefix;
         return self::MartchEmail($this->ResturantRegisterEmail);
     }
     private function MartchEmail($GetEmail){
@@ -1448,15 +1451,39 @@ class Restartuant {
 
 //Restaruant's photo uploading
     public function RestaruantPhotoUploader($UID,$ResID,$ResPhotoPath){
+        $condition1=false;
+        $condition2=false;
         if($stmt=$this->DataBaseCon->prepare("UPDATE Restaurants SET ResPicPath=? WHERE RestID=? AND UserID=?")){
             $stmt->bind_param('ssi',$ResPhotoPath,$ResID,$UID);
             $stmt->execute();
             $stmt->close();
-            return 'Successed';
+            $condition1 = true;
         }
         else {
+            $condition1 = false;
+        }
+
+        //insert pic into user list
+        if($stmt=$this->DataBaseCon->prepare("UPDATE User SET UserPhotoPath=? WHERE UserID=?")){
+            $stmt->bind_param('si',$ResPhotoPath,$UID);
+            $stmt->execute();
+            $stmt->close();
+            $condition2 = true;
+        }
+        else {
+            $condition2 = false;
+        }
+
+
+
+        if($condition1 && $condition2){
+            return 'Successed';
+        }
+        else{
             return 'Error';
         }
+
+
     }
 
 
@@ -2836,12 +2863,41 @@ class CuisineComemnt{
      * @param $cuisineID
      */
     public function fetchCuisineComment($userID,$cuisineID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserName, User.UserPhotoPath, CuisineComment.CuisineCommentID, CuisineComment.CuisineComent, CuisineComment.CuCommentDate, CuisineComment.CuCommentRating, CuisineComment.CuCommentLike, CuisineComment.CuCommentDislike FROM User LEFT JOIN CuisineComment ON User.UserID = CuisineComment.UserID WHERE CuisineComment.UserID=? AND CuisineComment.CuID=? AND CucoReview=1"))
+           $stmt->bind_param('ss',$userID,$cuisineID);
+           $stmt->execute();
+           $stmt->bind_result($UserName, $UserPhotoPath, $CuisineCommentID, $CuisineComent, $CuCommentDate, $CuCommentRating, $CuCommentLike, $CuCommentDislike);
+           while($stmt->fetch()){
+            $tmp[]=array('UserName'=>$UserName, 'UserPhotoPath'=>$UserPhotoPath, 'CuisineCommentID'=>$CuisineCommentID, 'CuisineComent'=>$CuisineComent, 'CuCommentDate'=>$CuCommentDate, 'CuCommentRating'=>$CuCommentRating, 'CuCommentLike'=>$CuCommentLike, 'CuCommentDislike'=>$CuCommentDislike);
+           }
+           $stmt->close();
+           return $tmp;
 
     }
 
 
 }
 
+/***********************************************Comment like or dislike******************************************/
+class ThumbLikeOrDislike{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseConnetcion){
+        $this->DataBaseCon=$DataBaseConnetcion;
+    }
+    /**
+     * Get Paramters to distingush like or dislike
+     */
+    public function GetThumbsDistingush(){
+
+
+
+    }
+
+
+
+
+
+}
 
 
 
@@ -2854,7 +2910,18 @@ class JsonReturnOrDeal{
         $this->DataBaseCon=$DataBaseCon;
     }
 
-    //return Restaurant and cuisine by location
+    /**
+     * return Restaurant and cuisine by location
+     * @param $locationName
+     * @param $startCount
+     * @param $ReturnCount
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     * @param $TypeTagsArray
+     * @param $PriceTagsArray
+     *
+     * @return string
+     */
 
     public function ReturnResAndCusineAccordingToLocation($locationName,$startCount,$ReturnCount,$AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray){
         $CuisineClass=new Cuisine($this->DataBaseCon);
@@ -2866,7 +2933,11 @@ class JsonReturnOrDeal{
         return json_encode($FinalResult);
     }
 
-    //return Restaurant and cuisine together
+    /**
+     * return Restaurant and cuisine together
+     * @return string
+     */
+
     public function RestaurantAndcuisine(){
         $CuisineClass=new Cuisine($this->DataBaseCon);
         $RestartuantClass=new Restartuant($this->DataBaseCon);
@@ -2876,7 +2947,14 @@ class JsonReturnOrDeal{
         return json_encode($CuisineAndRestaurants);
     }
 
-    //return Current restaurant's cuisines without speci cuisineID
+    /**
+     * return Current restaurant's cuisines without speci cuisineID
+     * @param $Resid
+     * @param $CuisineID
+     * @param $startCount
+     * @param $ReturnCount
+     * @return string
+     */
     public function ReturnCurrentRestaurantCuisine($Resid,$CuisineID,$startCount,$ReturnCount){
         $CuisineClass=new Cuisine($this->DataBaseCon);
         $RestartuantClass=new Restartuant($this->DataBaseCon);
@@ -2887,7 +2965,14 @@ class JsonReturnOrDeal{
         return json_encode($ReturnResult);
     }
 
-    //return My favourite and status is 1
+    /**
+     * return My favourite and status is 1
+     * @param $UserID
+     * @param $Status
+     *
+     * @return string
+     */
+
     public function ReturnMyFavourite($UserID,$Status){
         $Favoriteclass=new favourite($this->DataBaseCon);
         $GetCuisineID=$Favoriteclass->returnCuisineID($UserID,$Status);
@@ -2895,6 +2980,23 @@ class JsonReturnOrDeal{
         return json_encode($getFinalFavouriteCuisine);
     }
 
+    /**
+     * Return Cuisine comments
+     * @param $UserID
+     * @param $CuID
+     */
+    public function ReturnCommentOfCuisine($UserID,$CuID,$CurrentCount,$limitedCount){
+         $CuisineComemntclass = new CuisineComemnt($this->DataBaseCon);
+         $getTotalCommentClass = $CuisineComemntclass-> fetchCuisineComment($UserID,$CuID);
+         $ReturnResult=$this->returnLimitedRecord($getTotalCommentClass,$CurrentCount,$limitedCount);
+         return json_encode($ReturnResult);
+    }
+
+
+    /**
+     * @param $GetCuisineID
+     * @return array
+     */
     private function LoopCuisineID($GetCuisineID){
         $favouriteCuisine=[];
         $CuisineClass=new Cuisine($this->DataBaseCon);
@@ -2905,6 +3007,12 @@ class JsonReturnOrDeal{
 
     }
 
+    /**
+     * @param $Tmp
+     * @param $array
+     *
+     * @return bool
+     */
     private function doubleDeepCompare($Tmp,$array){
         if(count($array)>0){
             foreach ($array as $value){
@@ -2919,7 +3027,18 @@ class JsonReturnOrDeal{
         }
 }
 
-
+    /**
+     * @param $TmpAvailabilityTags
+     * @param $AvailabilityTagsArray
+     * @param $TmpCuisineTags
+     * @param $CuisineTagsArray
+     * @param $TmpTypeTags
+     * @param $TypeTagsArray
+     * @param $TmpPriceTags
+     * @param $PriceTagsArray
+     *
+     * @return bool
+     */
     private function deepCompare($TmpAvailabilityTags,$AvailabilityTagsArray,$TmpCuisineTags,$CuisineTagsArray,$TmpTypeTags,$TypeTagsArray,$TmpPriceTags,$PriceTagsArray){
         //default 'OR' relationship is false; (same tags)
         $OrRs_Availability=false;
@@ -2945,7 +3064,15 @@ class JsonReturnOrDeal{
 
     }
 
-
+    /**
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     * @param $TypeTagsArray
+     * @param $PriceTagsArray
+     * @param $subArray
+     *
+     * @return bool
+     */
     private function foreachComparedTages($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$subArray){
         $TmpAvailabilityTags = [];
         $TmpCuisineTags = [];
@@ -2971,6 +3098,15 @@ class JsonReturnOrDeal{
 
     }
 
+    /**
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     * @param $TypeTagsArray
+     * @param $PriceTagsArray
+     * @param $ReturnedArray
+     *
+     * @return array
+     */
 
     private function filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnedArray){
         if(count($AvailabilityTagsArray)>0 || count($CuisineTagsArray)>0 || count($TypeTagsArray)>0 || count($PriceTagsArray)>0){
@@ -2990,7 +3126,13 @@ class JsonReturnOrDeal{
     }
 
 
-
+    /**
+     * @param $array
+     * @param $startCount
+     * @param $limit
+     *
+     * @return array
+     */
     //return limited record
     private function returnLimitedRecord($array,$startCount,$limit){
         $count=0;
