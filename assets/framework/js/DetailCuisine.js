@@ -238,7 +238,7 @@ $(document).ready(function(){
      * Return to previous page by click below arrow function
      */
     $('body').on('click','#Feathred-left-position',function(){
-        window.location = 'order?RootID='+$('#RootID').val()+'&SubID='+$('#SubID').val();
+        window.location = 'Feathured?RootID='+$('#RootID').val()+'&SubID='+$('#SubID').val();
 
     });
 
@@ -448,8 +448,8 @@ $(document).ready(function(){
                     html += '<i class="fa fa-star-o"></i>';
 
                 }
-                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-up"></i><span style="margin-left:9px;"id="good">0</span></li>';
-                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-down"></i><span style="margin-left:9px;" id="bad">0</span></li>';
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-up"></i><span style="margin-left:9px;" class="good">'+comment.CuCommentLike+'</span></li>';
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-down"></i><span style="margin-left:9px;" class="bad">'+comment.CuCommentDislike+'</span></li>';
                 html += '</ul>';
                 html += '</div>';
                 html += '</div>';
@@ -479,24 +479,48 @@ $(document).ready(function(){
         JsonPass['thumbLikeOrDislike'] = 'like';
         JsonPass['CurrentUserID'] = CurrentLoginedUserID;
         JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
-        thumbsLikeorDislike(JsonPass);
+        thumbsLikeorDislike(Tmpsave,JsonPass);
     });
 
+    /**
+     * fa-thumbs-o-down
+     * @param Tmpsave
+     * @param temp
+     */
+    $('body').on('click','.fa-thumbs-o-down',function(){
+        var Tmpsave = $(this);
+        var JsonPass = {};
+        JsonPass['thumbLikeOrDislike'] = 'dislike';
+        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+        thumbsLikeorDislike(Tmpsave,JsonPass);
+    });
     /**
      * thumbs for like or dislike
      */
 
-    function thumbsLikeorDislike(temp){
+    function thumbsLikeorDislike(Tmpsave,temp){
 
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
             data:temp,
-            dataType: "html"
+            dataType: "json"
         });
 
         request.done(function( msg ) {
-
+            if(msg.Error===0){
+                InformationDisplay(msg.info,"alert-success");
+                if(msg.like===1){
+                   Tmpsave.parent().find('.good').text(msg.ReturntCount);
+                }
+                else if(msg.dislike===1){
+                    Tmpsave.parent().find('.bad').text(msg.ReturntCount);
+                }
+                }
+            else if (msg.Error===1){
+                InformationDisplay(msg.info,"alert-error");
+            }
 
 
         });

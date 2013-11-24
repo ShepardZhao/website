@@ -308,10 +308,10 @@ $(document).ready(function(){
     });
 
 
-    //pass parameters to order
+    //pass parameters to Feathured
     $('body').on('click','#SelectSubLocation',function(){
 
-        window.location = CurrentDomain+'/order?RootID='+ID+'&SubID='+SubID;
+        window.location = CurrentDomain+'/Feathured?RootID='+ID+'&SubID='+SubID;
 
     });
 

@@ -60,7 +60,7 @@ body{
 	margin:100px auto;
 }
 
-.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,.fa-thumbs-o-up:hover,fa-thumbs-o-down:hover,#searchImg:hover,#ClickReadMore:hover{
+.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,.fa-thumbs-o-up:hover,.fa-thumbs-o-down:hover,#searchImg:hover,#ClickReadMore:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;

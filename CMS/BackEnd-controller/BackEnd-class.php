@@ -2862,9 +2862,9 @@ class CuisineComemnt{
      * @param $userID
      * @param $cuisineID
      */
-    public function fetchCuisineComment($userID,$cuisineID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserName, User.UserPhotoPath, CuisineComment.CuisineCommentID, CuisineComment.CuisineComent, CuisineComment.CuCommentDate, CuisineComment.CuCommentRating, CuisineComment.CuCommentLike, CuisineComment.CuCommentDislike FROM User LEFT JOIN CuisineComment ON User.UserID = CuisineComment.UserID WHERE CuisineComment.UserID=? AND CuisineComment.CuID=? AND CucoReview=1"))
-           $stmt->bind_param('ss',$userID,$cuisineID);
+    public function fetchCuisineComment($cuisineID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserName, User.UserPhotoPath, CuisineComment.CuisineCommentID, CuisineComment.CuisineComent, CuisineComment.CuCommentDate, CuisineComment.CuCommentRating, CuisineComment.CuCommentLike, CuisineComment.CuCommentDislike FROM User LEFT JOIN CuisineComment ON User.UserID = CuisineComment.UserID WHERE CuisineComment.CuID=? AND CucoReview=1"))
+           $stmt->bind_param('s',$cuisineID);
            $stmt->execute();
            $stmt->bind_result($UserName, $UserPhotoPath, $CuisineCommentID, $CuisineComent, $CuCommentDate, $CuCommentRating, $CuCommentLike, $CuCommentDislike);
            while($stmt->fetch()){
@@ -2884,17 +2884,76 @@ class ThumbLikeOrDislike{
     public function __construct($DataBaseConnetcion){
         $this->DataBaseCon=$DataBaseConnetcion;
     }
+
     /**
      * Get Paramters to distingush like or dislike
      */
-    public function GetThumbsDistingush(){
-
-
+    public function GetThumbsDistingush($thumbLikeOrDislike,$CurrentUserID,$CurrentCommmentID){
+        session_start();
+        if (isset($_SESSION['RepeatVote']) && $_SESSION['RepeatVote'] === $CurrentUserID){
+            return json_encode(array('Error'=>1, 'info'=>'You already vote this cuisine!'));
+        }
+        else{
+            if ($thumbLikeOrDislike ==='like'){
+                 return $this->InsertLike($CurrentUserID,$CurrentCommmentID);
+            }
+            elseif($thumbLikeOrDislike ==='dislike'){
+                 return $this->InsertDislike($CurrentUserID,$CurrentCommmentID);
+            }
+        }
 
     }
 
+    /**
+     * insert 1 Like into datebase according to commentID
+     */
+    private function InsertLike($CurrentUserID,$CurrentCommmentID){
+        $like = intval($this->getCountOfLikeOrDislike($CurrentCommmentID)[0]['CuCommentLike']);
+        if($stmt=$this->DataBaseCon->prepare("UPDATE CuisineComment SET CuCommentLike=? WHERE CuisineCommentID=?")){
+           $tmp = $like+1;
+           $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
+           $stmt->execute();
+           $stmt->close();
+           $Array=array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for vote this cuisine!');
+           session_start();
+           $_SESSION['RepeatVote'] = $CurrentUserID;
+           return json_encode($Array);
+        }
+    }
 
+    /**
+     * insert 1 dislike into databse according to commnetID
+     */
+    private function InsertDislike(){
+        $dislike = intval($this->getCountOfLikeOrDislike($CurrentCommmentID)[0]['CuCommentLike']);
+        if($stmt=$this->DataBaseCon->prepare("UPDATE CuisineComment SET CuCommentDislike=? WHERE CuisineCommentID=?")){
+            $tmp = $dislike+1;
+            $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
+            $stmt->execute();
+            $stmt->close();
+            $Array=array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for vote this cuisine!');
+            session_start();
+            $_SESSION['RepeatVote'] = $CurrentUserID;
+            return json_encode($Array);
 
+        }
+
+    }
+    /**
+     * Gets Current like or dislike count
+     */
+    private function getCountOfLikeOrDislike($CurrentCommmentID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuCommentDislike,CuCommentLike FROM CuisineComment WHERE CuisineCommentID=?")){
+           $stmt->bind_param('s',$CurrentCommmentID);
+           $stmt->execute();
+           $stmt->bind_result($CuCommentDislike,$CuCommentLike);
+            while($stmt->fetch()){
+               $ReturnArray[]=array('CuCommentDislike' => $CuCommentDislike,'CuCommentLike' => $CuCommentLike);
+            }
+           $stmt->close();
+           return $ReturnArray;
+        }
+    }
 
 
 }
@@ -2987,7 +3046,7 @@ class JsonReturnOrDeal{
      */
     public function ReturnCommentOfCuisine($UserID,$CuID,$CurrentCount,$limitedCount){
          $CuisineComemntclass = new CuisineComemnt($this->DataBaseCon);
-         $getTotalCommentClass = $CuisineComemntclass-> fetchCuisineComment($UserID,$CuID);
+         $getTotalCommentClass = $CuisineComemntclass-> fetchCuisineComment($CuID);
          $ReturnResult=$this->returnLimitedRecord($getTotalCommentClass,$CurrentCount,$limitedCount);
          return json_encode($ReturnResult);
     }

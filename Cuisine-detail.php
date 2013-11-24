@@ -23,7 +23,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
             <div class="span9 tabzone hidden-phone">
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs tabMain">
-                        <li class="active"><a href="order?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
+                        <li class="active"><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
                         <li><a href="#Restaurants"  id="Restaurants-tab">Restaurants</a></li>
                         <li><a href="#Dishes"  id="Dishes-tab">Dishes</a></li>
                     </ul>
