@@ -26,9 +26,9 @@ if (isset($_GET['RootID']) && isset($_GET['SubID'])){
                 <div class="span9 tabzone hidden-phone	">
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
                         <ul class="nav nav-tabs tabMain">
-                            <li class="active"><a href="order?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Featured</a></li>
+                            <li class="active"><a href="Feathured?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Featured</a></li>
                             <li><a href="#Restaurants" data-toggle="tab" id="Restaurants-tab">Restaurants</a></li>
-                            <li><a href="#Dishes" data-toggle="tab" id="Dishes-tab">Dishes</a></li>
+                            <li><a href="Dishes?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Dishes</a></li>
                         </ul>
                         <div class="tab-content tabContent"><!--tab selection-->
                             <div class="tab-pane fade in active">
