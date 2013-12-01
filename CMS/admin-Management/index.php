@@ -1,4 +1,4 @@
-<?php require_once '../GobalConnection.php';session_start();if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmministratorName']===$UserClass->ReadAdministraorInfo()['UserName']){?>
+<?php require_once '../GobalConnection.php';if (isset($_SESSION['LoginedAdmministratorName']) && $_SESSION['LoginedAdmministratorName']===$UserClass->ReadAdministraorInfo()['UserName']){?>
     <!DOCTYPE html>
     <html>
     <head>

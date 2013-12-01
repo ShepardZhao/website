@@ -155,11 +155,7 @@ class LoginedIn extends User{
         //Valid User Email and password
         $Result=json_decode(parent::ValidNormalUserMailAndPass($GetNuerMail,md5(base64_encode($GetNuerMailPass))));
         if (count($Result)>0){
-            session_start();
-
-
-
-
+            //session_start();
             //saving current user ID,username,photo to session
             $_SESSION['LoginedUserID']=$Result[0]->UserID;
             $TmpName=$Result[0]->UserName;

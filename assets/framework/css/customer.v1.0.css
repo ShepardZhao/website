@@ -645,8 +645,19 @@ position:absolute;
   transition-duration: 0.3s;
   transition-timing-function: linear;  
   position:relative;
-  
-  
+}
+
+.OutofStock{
+	position: absolute;
+	left: 0;
+	top: 0;
+	background:#ffffff;
+	padding:4px;
+	overflow:hidden;
+	width: 200px;
+	height:95%;
+	opacity: 0.7;
+	
 }
 .TopOptions{
 	position:absolute;

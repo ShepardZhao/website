@@ -30,7 +30,6 @@ $(document).ready(function(){
             $(this).find('.RetaurantName').addClass('optionsHide').fadeIn(200);
             $(this).find('.TopOptions').slideDown();
         }).mouseleave(function(){
-
                 $(this).find('.foodName').addClass('optionsHide').fadeIn(200);
                 $(this).find('.RetaurantName').removeClass('optionsHide').fadeOut(200);
                 $(this).find('.TopOptions').slideUp();

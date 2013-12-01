@@ -12,6 +12,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
 <input type="hidden" id="RootLocationName" value="<?php echo $_SESSION['RootLocation']?>">
 <input type="hidden" id="SubLocationName" value="<?php echo $_SESSION['SubLocation']?>">
 <input type="hidden" id="CurrentLoginedUserID" value="<?php echo $_SESSION['LoginedUserID']?>">
+<input type="hidden" id="TabChoose" value="<?php echo $_GET['TabChoose']?>">
 
     <!--Ad zone-->
 <?php require_once 'AdZone.php'?>
@@ -23,18 +24,24 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
             <div class="span9 tabzone hidden-phone">
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs tabMain">
-                        <li class="active"><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
+                        <li><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
                         <li><a href="#Restaurants"  id="Restaurants-tab">Restaurants</a></li>
-                        <li><a href="#Dishes"  id="Dishes-tab">Dishes</a></li>
+                        <li><a href="Dishes?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>"  id="Dishes-tab">Dishes</a></li>
                     </ul>
                     <div class="tab-content tabContent"><!--tab selection-->
                         <div class="tab-pane fade in active">
                             <div id="Cuisine-Detail-page">
                                 <input type="hidden" id="GetCurrentCuID" value="<?php echo $_GET['CuisineID']?>">
                                 <input type="hidden" id="GetCurrentResID" value="<?php echo $_GET['CuResID']?>">
+                                <input type="hidden" id="GetCurrentCuisineStatus" value="<?php echo $_GET['CurrentCuisineStatus']?>">
                                 <div class="row-fluid FeatureTopBackground">
                                     <div class="spa12 limitedWidth">
-                                        <div class="span3"><img src="<?php echo $_GET['CuisinePicpath']?>" class="img-polaroid"></div>
+                                        <div class="span3">
+                                            <img src="<?php echo $_GET['CuisinePicpath']?>" class="img-polaroid">
+                                            <?php if($_GET['CurrentCuisineStatus'] === 'UnAvailability'):?>
+                                            <img src="<?php echo GlobalPath?>/assets/framework/front-images/SoldOut.png" style="position:absolute;top:60px;left:20px">
+                                            <?php endif?>
+                                        </div>
                                         <div class="span5">
                                             <section><!--Title and resturant-->
                                                 <h4 class="h4Title" id="CuisineName"><?php echo $_GET['CuisineName']?></h4>
@@ -131,7 +138,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                                 </ul>
 
                                             </h4>
-                                            <p>10 Comments</p>
+                                            <p><?php echo $_GET['CuisineTotalComments'] ?> Comments</p>
                                             <h3><i id="Navcomments" class="fa fa-arrow-circle-down"></i></h3>
                                         </div>
 

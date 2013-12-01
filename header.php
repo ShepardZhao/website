@@ -1,7 +1,6 @@
 <?php require_once 'CMS/GobalConnection.php'; ?>
 <!--facebook connection-->
 <?php
-session_start();
 
 $facebook = new Facebook(array(
     'appId'  => '422446111188481',

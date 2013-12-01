@@ -1,8 +1,8 @@
 <?php require_once '../../header.php'?>
 <?php $InitialLocationSelectClass->hiddenInitialLocation();?>
-<?php session_start(); if(!empty($_GET['CustomerID'])&&!empty($_SESSION['LoginedUserID'])):?>
-    <script src="<?php echo GlobalPath;?>/cms/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
-    <script src="<?php echo GlobalPath;?>/cms/customer-Management/Customer.js" type="text/javascript"></script>
+<?php if(!empty($_GET['CustomerID'])&&!empty($_SESSION['LoginedUserID'])):?>
+    <script src="<?php echo GlobalPath;?>/CMS/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
+    <script src="<?php echo GlobalPath;?>/CMS/customer-Management/Customer.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/customer-Management/style.css" />
     <div class="container-fluid Customer-margin">
         <div class="row-fluid">

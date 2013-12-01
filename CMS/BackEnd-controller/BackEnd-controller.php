@@ -11,15 +11,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
  /**************************************Tags Controller***********************************************************/
 
     /********************************Refresh Data*************************************/
- if($_POST['RefreshTagsTableName'] && $_POST['RefreshTagsName']){
+ if(isset($_POST['RefreshTagsTableName']) && isset($_POST['RefreshTagsName'])){
         echo $TagsClass->outPutTags($_POST['RefreshTagsName'],$_POST['RefreshTagsTableName']);
     }
     /********************************Set Tags******************************/
- else if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['TagsValue'])&& $_POST['DeleteCondition']==='False' && isset($_POST['IndexID'])){
+if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['TagsValue'])&& $_POST['DeleteCondition']==='False' && isset($_POST['IndexID'])){
         echo $TagsClass->SetTags($_POST['TagsTableName'],$_POST['TagsID'],$_POST['TagsValue'],$_POST['IndexID']);
   }
     /********************************Delete Data*************************************/
- else if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['TagsValue'])&& $_POST['DeleteCondition']==='True' && isset($_POST['IndexID'])){
+if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['TagsValue'])&& $_POST['DeleteCondition']==='True' && isset($_POST['IndexID'])){
         echo $TagsClass->DeleteTags($_POST['TagsTableName'],$_POST['TagsID'],$_POST['TagsValue'],$_POST['IndexID']);
   }
 
@@ -33,7 +33,7 @@ if((isset($_POST['RootLocationPic']) && isset($_POST['RootLocation'])) ||isset($
    echo $LocationClass->GetAddLocation($_POST['RootLocationPic'],serialize($RootLocation),serialize($SubLocation)); //add new Location into the database
 }
 
-if($_POST['ReFreshList']==="ReFreshLocation"){
+if(isset($_POST['ReFreshList'])){
     $LocationClass->CmsDisplay();//Display the result at the CMS Location page
 }
 
@@ -117,7 +117,6 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 /***********************************************Restaruant regisation*********************************************/
     if(isset($_POST['RegResturantEmail']) && isset($_POST['RegGetResturantPass']) && isset($_POST['RegisterStatus']) && isset($_POST['RegisterType']) && isset($_POST['RegisterPicpathPrefix'])){
         $ResturantRegisterID=$RegisterUserClass->GenerateRandomUserID();
-
         echo $ResturantsRegClass->ResturantRegisation($ResturantRegisterID,$_POST['RegResturantEmail'],$_POST['RegGetResturantPass'],$_POST['RegisterStatus'],$_POST['RegisterType'],$_POST['RegisterPicpathPrefix']);
     }
 
@@ -168,15 +167,14 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['CurrentCuisineID']) && isset($_POST['CurrentUserID']) && isset($_POST['Currentstars']) && isset($_POST['CurrentCommentContent'])){
         //prevent over comment
         $current= time();
-        session_start();
+        //session_start();
         if($current - $_SESSION['SetUpCuisineCommentTime'] > 1200) { //limited user comment once with 20 min as a gap
-            $CurrentDate = date("Y-m-d H:i:s");
             $like = 0;
             $dislike = 0;
             $tempCode=$RegisterUserClass->GenerateRandomUserID();
             $commentID = 'Cu'.$tempCode;
             $review = 0;
-            echo $CuisineComemnt -> getCuisineCommentParam($_POST['CurrentUserID'], $_POST['CurrentCuisineID'], $commentID, intval($_POST['Currentstars']), $_POST['CurrentCommentContent'], $CurrentDate, intval($like), intval($dislike), intval($review));
+            echo $CuisineComemnt -> getCuisineCommentParam($_POST['CurrentUserID'], $_POST['CurrentCuisineID'], $commentID, intval($_POST['Currentstars']), $_POST['CurrentCommentContent'], intval($like), intval($dislike), intval($review));
         }
         else{
             echo 'Over Comment';

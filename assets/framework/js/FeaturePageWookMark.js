@@ -227,18 +227,30 @@ $(document).ready(function(){
      * Receives data from the API, creates HTML for images and updates the layout
      */
     function onLoadData(data) {
+        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
         var i=0, length=data.length, image;
         for(; i<length; i++) {
             image = data[i];
+            html += '<li>';
             if(image.PicPath.length){
-                html += '<li>';
-                if(image.RestID!==undefined){
-                    html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';
+                if(image.RestID !== undefined){
+                    html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';//Restaurants id
+                    html += '<input type="hidden" class="ResName" value="'+image.ResName+'">';//Restaurants Name
+                    html += '<input type="hidden" class="ResPicPath" value="'+image.PicPath+'">';//Restaurants PicPath
+                    html += '<input type="hidden" class="ResAvailabilityTags" value="'+image.AvailabilityTags+'">';//Restaurants AvailabilityTags
+                    html += '<input type="hidden" class="ResCuisineTags" value="'+image.CuisineTags+'">';//Restaurants CuisineTags
+                    html += '<input type="hidden" class="ResOpenTime" value="'+image.ResOpenTime+'">';//Restaurants ResOpenTime
+                    html += '<input type="hidden" class="ResRating" value="'+image.ResRating+'">';//Restaurants ResRating
+
+                    html += '<img src="'+image.PicPath+'">';
+                    html += '<h6 class="ResName">'+image.ResName+'</h6>';
+
                 }
-                else if(image.CuisineID!==undefined){
+                //if current cuisine is unavailability
+                if(image.CuisineAvailability === 'No'){
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -251,11 +263,10 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
                     html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
                     html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
-
-                }
-                if(image.CuisinePrice!==undefined){
+                    html += '<input type="hidden" class="CurrentCuisineStatus" value="UnAvailability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
                     html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
@@ -266,21 +277,57 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                }
-                html += '<img src="'+image.PicPath+'">';
-                if(image.CuisineName!==undefined){
+                    html += '<img src="'+image.PicPath+'">';
                     html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                     html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
+                    html += '<div class="OutofStock"></div>';
+                    html += '<div style="position:absolute;top:0;left:0;"><img src="'+CurrentDomain+'/assets/framework/front-images/SoldOut.png"></div>';
                 }
-                else{
-                    html += '<h6 class="ResName">'+image.ResName+'</h6>';
+                //if current cuisine is availability
+                else if(image.CuisineAvailability === 'Yes'){
+                    html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
+                    html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
+                    html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
+                    html += '<input type="hidden" class="CuisinePrice" value="'+image.CuisinePrice+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisinePicpath" value="'+image.PicPath+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+image.AvailabilityTags+'">';//Cuisine AvaliabilityTag
+                    html += '<input type="hidden" class="CuisinePriceTag" value="'+image.PriceTags+'">';//Cuisine price tag
+                    html += '<input type="hidden" class="CuisineTypeTag" value="'+image.TypeTags+'">';//Cuisine type tag
+                    html += '<input type="hidden" class="CuisineCuisineTag" value="'+image.CuisineTags+'">';//Cuisine tag
+                    html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
+                    html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
+                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
+                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
+                    html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
+                    html += '<div class="TopOptions">';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    html += '</div>';
+                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
+                    html += '</div>';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<img src="'+image.PicPath+'">';
+                    if(image.CuisineName!==undefined){
+                        html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
+                        html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
+                    }
+                    else{
+                        html += '<h6 class="ResName">'+image.ResName+'</h6>';
+                    }
+
+
+
                 }
-                html += '</li>';
             }
+            html +='</li>';
 
         }
         // Add image HTML to the page.
-
         $(html).hide().fadeIn(1000).appendTo($('#CuisineRelateTiles'));
         // Apply layout.
         if(length!==0){
@@ -294,6 +341,24 @@ $(document).ready(function(){
             startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
         }
     };
+
+    /**
+     * parse_date
+     */
+    function parse_date(string) {
+        var date = new Date();
+        var parts = String(string).split(/[- :]/);
+
+        date.setFullYear(parts[0]);
+        date.setMonth(parts[1] - 1);
+        date.setDate(parts[2]);
+        date.setHours(parts[3]);
+        date.setMinutes(parts[4]);
+        date.setSeconds(parts[5]);
+        date.setMilliseconds(0);
+
+        return date;
+    }
 
     /**
      * This is only for feature's element
@@ -318,15 +383,34 @@ $(document).ready(function(){
             AjaxContainter['CuisineResName'] = $(this).find('.CuisineResName').val();
             AjaxContainter['CuResID'] = $(this).find('.CuResID').val();
             AjaxContainter['CuisineRating'] = $(this).find('.CuisineRating').val();
+            AjaxContainter['CuisineTotalComments'] = $(this).find('.CuisineTotalComments').val();
             AjaxContainter['CuisineWhetherInCart'] = $(this).find('.CuisineWhetherInCart').val();
             AjaxContainter['CuisineWhetherFavorite'] = $(this).find('.CuisineWhetherFavorite').val();
+            AjaxContainter['CurrentCuisineStatus'] = $(this).find('.CurrentCuisineStatus').val();
+            AjaxContainter['TabChoose'] = 'FeathuredPages';
             var result = decodeURIComponent($.param(AjaxContainter));
             window.location = 'Cuisine-detail?'+result;
 
             //AjaxofCuisinePage(AjaxContainter);
         }
         if($(this).find('.RestID')){
-            //  console.log($(this).find('.RestID').val());
+            AjaxContainter['RootID'] = $('#RootID').val();
+            AjaxContainter['SubID'] = $('#SubID').val();
+            AjaxContainter['RestID'] = $(this).find('.RestID').val();
+            AjaxContainter['ResName'] = $(this).find('.ResName').val();
+            AjaxContainter['ResPicPath'] = $(this).find('.ResPicPath').val();
+            AjaxContainter['ResAvailabilityTags'] = $(this).find('.ResAvailabilityTags').val();
+            AjaxContainter['ResCuisineTags'] = $(this).find('.ResCuisineTags').val();
+            AjaxContainter['ResOpenTime'] = $(this).find('.ResOpenTime').val();
+            AjaxContainter['ResRating'] = $(this).find('.ResRating').val();
+            var result = decodeURIComponent($.param(AjaxContainter));
+            window.location = 'Restaurants-detail?'+result;
+
+
+
+
+
+
         }
     });
 

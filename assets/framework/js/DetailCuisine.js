@@ -3,6 +3,16 @@
  */
 $(document).ready(function(){
     /**
+     *Added active to tab
+     */
+    if($('#TabChoose').val() === 'FeathuredPages'){
+        $('.tabMain').find('li').eq(0).addClass('active');
+    }
+    if($('#TabChoose').val() === 'DishesPages'){
+        $('.tabMain').find('li').eq(2).addClass('active');
+    }
+
+    /**
      * Gobal variable
      */
     /**
@@ -13,8 +23,7 @@ $(document).ready(function(){
     var commentStartCount=0;
     var LimitedCommentCount=4;
     var isComment = false; //deafult status of comment display is off, but it will show up when element #Navcomments clicked
-
-
+    var FirstFetchComment = 1; //set up the
     /**
      * Scroll to right position
      */
@@ -113,6 +122,7 @@ $(document).ready(function(){
      */
 
     function onLoadData(data){
+
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -120,8 +130,8 @@ $(document).ready(function(){
         for(; i<length; i++) {
             image = data[i];
             if(image.PicPath.length){
-                if(image.CuisineID!==$('#GetCurrentCuID').val()){
-                    html += '<li>';
+                html += '<li>';
+                if(image.CuisineAvailability === 'No'){
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -134,24 +144,25 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
                     html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
                     html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
-
-
-                    if(image.CuisinePrice!==undefined){
-                        html += '<div class="TopOptions">';
-                        html += '<div class="span4">';
-                        html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
-                        html += '</div>';
-                        html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
-                        html += '</div>';
-                        html += '<div class="span4">';
-                        html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
-                        html += '</div>';
-                        html += '</div>';
-                    }
+                    html += '<input type="hidden" class="CurrentCuisineStatus" value="UnAvailability">';
+                    html += '<div class="TopOptions">';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    html += '</div>';
+                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
+                    html += '</div>';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
+                    html += '</div>';
+                    html += '</div>';
                     html += '<img src="'+image.PicPath+'">';
-                    html += '<h6>'+image.CuisineName+'</h6>';
+                    html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
+                    html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
+                    html += '<div class="OutofStock"></div>';
+                    html += '<div style="position:absolute;top:0;left:0;"><img src="'+CurrentDomain+'/assets/framework/front-images/SoldOut.png"></div>';
                     var total=5;
                     var solidStars=image.CuisineRating;
                     var emptyStars=total-solidStars;
@@ -162,8 +173,58 @@ $(document).ready(function(){
                         html += '<i class="fa fa-star-o"></i>';
 
                     }
-                    html += '</li>';
                 }
+                else if(image.CuisineAvailability === 'Yes'){
+                    html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
+                    html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
+                    html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
+                    html += '<input type="hidden" class="CuisinePrice" value="'+image.CuisinePrice+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisinePicpath" value="'+image.PicPath+'">';//Cuisine price
+                    html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+image.AvailabilityTags+'">';//Cuisine AvaliabilityTag
+                    html += '<input type="hidden" class="CuisinePriceTag" value="'+image.PriceTags+'">';//Cuisine price tag
+                    html += '<input type="hidden" class="CuisineTypeTag" value="'+image.TypeTags+'">';//Cuisine type tag
+                    html += '<input type="hidden" class="CuisineCuisineTag" value="'+image.CuisineTags+'">';//Cuisine tag
+                    html += '<input type="hidden" class="CuisineResName" value="'+image.CuisineResName+'">';//Cuisine name and its Rest Name
+                    html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
+                    html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
+                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
+                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
+                    html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
+                    html += '<div class="TopOptions">';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    html += '</div>';
+                    html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
+                    html += '</div>';
+                    html += '<div class="span4">';
+                    html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<img src="'+image.PicPath+'">';
+                    html += '<h6 class="foodName">'+image.CuisineName;
+                    html += '<h5 class="foodName">';
+                    var total=5;
+                    var solidStars=image.CuisineRating;
+                    var emptyStars=total-solidStars;
+                    for (var x=0;x<solidStars;x++){
+                        html += '<i class="fa fa-star"></i>';
+                    }
+                    for (var j=0;j<emptyStars;j++){
+                        html += '<i class="fa fa-star-o"></i>';
+
+                    }
+                    html += '</h5>';
+                    html += '</h6>';
+                    html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
+                }
+
+
+                html += '</li>';
+
+
+
+
             }
 
         }
@@ -210,6 +271,7 @@ $(document).ready(function(){
             AjaxContainter['CuisineResName'] = $(this).find('.CuisineResName').val();
             AjaxContainter['CuResID'] = $(this).find('.CuResID').val();
             AjaxContainter['CuisineRating'] = $(this).find('.CuisineRating').val();
+            AjaxContainter['CuisineTotalComments'] = $(this).find('.CuisineTotalComments').val();
             AjaxContainter['CuisineWhetherInCart'] = $(this).find('.CuisineWhetherInCart').val();
             AjaxContainter['CuisineWhetherFavorite'] = $(this).find('.CuisineWhetherFavorite').val();
             var result = decodeURIComponent($.param(AjaxContainter));
@@ -248,6 +310,7 @@ $(document).ready(function(){
      * Click class .CuisineCommentStar to go to comment for current cuisine
      */
     $('body').on('click','.CuisineCommentStar',function(){
+        if($('#CurrentLoginedUserID').val() != ''){
         var CurrentUserID=encodeURIComponent($('#CurrentLoginedUserID').val());
         var CuisineID=encodeURIComponent($('#GetCurrentCuID').val());
         var CuisineName=encodeURIComponent($('#CuisineName').text());
@@ -257,6 +320,11 @@ $(document).ready(function(){
                 $modal.modal();
             });
         }, 1000);
+        }
+        else{
+            InformationDisplay('Sorry!, You have to login first','alert-error');
+
+        }
 
     });
 
@@ -406,11 +474,10 @@ $(document).ready(function(){
      * Get Cuisine Comment Json
      */
     function GetCuisineCommentJson(){
-        console.log(commentStartCount);
         $('.Ajax-loading').fadeIn();
         $.ajax({
             type: "GET",
-            url: CurrentDomain+'/json/?GetCuisineComment=yes&CurrentLoginedUserID='+CurrentLoginedUserID+'&GetCurrentCuID='+GetCurrentCuID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
+            url: CurrentDomain+'/json/?GetCuisineComment=yes&GetCurrentCuID='+GetCurrentCuID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
             dataType: 'json',
             success: onLoadComment
         });
@@ -420,10 +487,11 @@ $(document).ready(function(){
      * if sucessfully got json, then do followling thing
      */
     function onLoadComment(data){
-        if(data){
+        console.log(1);
+        $('.Ajax-loading').fadeOut();
+        var html = '';
+        if(data.length>0){
             isLoading = false;
-            $('.Ajax-loading').fadeOut();
-            var html = '';
             var i=0, length=data.length, comment;
             for(; i<length; i++) {
                 comment = data[i];
@@ -457,6 +525,10 @@ $(document).ready(function(){
                 }
 
             }
+            else if(data.length === 0 && FirstFetchComment === 1){
+                html += '<h4 class="text-center">No more comments</h4>';
+                FirstFetchComment++;
+            }
             // Add image HTML to the page.
 
             $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
@@ -474,12 +546,17 @@ $(document).ready(function(){
      * given a good comment
      */
     $('body').on('click','.fa-thumbs-o-up',function(){
+        if($('#CurrentLoginedUserID').val()===''){
+            InformationDisplay('You have to login before you are going to vote','alert-error');
+        }
+        else{
         var Tmpsave = $(this);
         var JsonPass = {};
         JsonPass['thumbLikeOrDislike'] = 'like';
         JsonPass['CurrentUserID'] = CurrentLoginedUserID;
         JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
         thumbsLikeorDislike(Tmpsave,JsonPass);
+        }
     });
 
     /**
@@ -488,12 +565,17 @@ $(document).ready(function(){
      * @param temp
      */
     $('body').on('click','.fa-thumbs-o-down',function(){
+        if($('#CurrentLoginedUserID').val()===''){
+            InformationDisplay('You have to login before you are going to vote','alert-error');
+        }
+        else{
         var Tmpsave = $(this);
         var JsonPass = {};
         JsonPass['thumbLikeOrDislike'] = 'dislike';
         JsonPass['CurrentUserID'] = CurrentLoginedUserID;
         JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
         thumbsLikeorDislike(Tmpsave,JsonPass);
+        }
     });
     /**
      * thumbs for like or dislike
@@ -530,13 +612,5 @@ $(document).ready(function(){
         });
 
     }
-
-
-
-
-
-
-
-
-
 });
+
