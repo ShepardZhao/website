@@ -126,7 +126,7 @@ else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not
 }
 ?>
 <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
-<script src="<?php echo GlobalPath;?>/assets/framework/js/FeaturePageWookMark.js"></script>
+<script src="<?php echo GlobalPath;?>/assets/framework/js/DishesPageWookMark.js"></script>
 <?php include 'footer.php'?>
 
 

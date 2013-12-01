@@ -740,6 +740,7 @@ class User{
 
 
 
+
     //validing normal user and its password and mail, then return status
     public function ValidNormalUserMailAndPass($GetEmail,$GetEncryedPassword){
         if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserPassWord, UserPhone, UserPhotoPath, UserMail, UserType FROM User WHERE UserMail=? AND UserPassWord=?")){
@@ -848,6 +849,69 @@ class User{
         else{
             return 'fail';
         }
+    }
+
+
+    /**
+     * This will return user info according to usermail and encrypedPassword
+     */
+
+    public function ReturnValiationNormalUser($GetEmail,$GetEncryedPassword){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,  UserPhone, UserPhotoPath, UserMail, UserType FROM User WHERE UserMail=? AND UserPassWord=?")){
+            $stmt->bind_param('ss',$GetEmail,$GetEncryedPassword);
+            $stmt->execute();
+            $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserPhotoPath,$UserMail,$UserType);
+            while($stmt->fetch()){
+                $tmp[]=array('UserID' => $UserID, 'UserName' => $UserName, 'UserFirstName' => $UserFirstName, 'UserLastName' =>$UserLastName, 'UserPhone' => $UserPhone, 'UserPhotoPath' => $UserPhotoPath, 'UserMail' => $UserMail, 'UserType' => $UserType, 'Authorization' => 'success');
+            }
+            $stmt->close();
+
+            return $tmp;
+
+        }
+    }
+
+    /**
+     * Return facebook info only
+     * @param $FacebookID
+     * @param $UserType
+     *
+     * @return array
+     */
+    public function ReturnFaceookinfoOnly($FacebookID, $UserType){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID, UserName, UserFirstName, UserLastName,  UserPhone, UserPhotoPath, UserMail, UserType FROM User WHERE UserID=? AND UserType=?")){
+            $stmt->bind_param('ss',$FacebookID,$UserType);
+            $stmt->execute();
+            $stmt->bind_result($UserID,$UserName,$UserFirstName,$UserLastName,$UserPhone,$UserPhotoPath,$UserMail,$UserType);
+            while($stmt->fetch()){
+                $tmp[]=array('UserID' => $UserID, 'UserName' => $UserName, 'UserFirstName' => $UserFirstName, 'UserLastName' =>$UserLastName, 'UserPhone' => $UserPhone, 'UserPhotoPath' => $UserPhotoPath, 'UserMail' => $UserMail, 'UserType' => $UserType, 'Authorization' => 'success');
+            }
+            $stmt->close();
+
+            return $tmp;
+
+        }
+    }
+
+
+    /**
+     * this function is for json validation
+     * @param $GetEmail
+     * @param $GetEncryedPassword
+     *
+     * @return array
+     */
+//Validation user and password then return the info
+    public function ReturnValiationOfUserPass($GetEmail,$GetEncryedPassword,$facebookid,$GetType){
+        //return normal user and resturant
+        if(isset($GetEmail) && isset($GetEncryedPassword)){
+            return $this -> ReturnValiationNormalUser($GetEmail,$GetEncryedPassword);
+        }
+        //return user of facebook info only
+        if(isset($facebookid) && isset($GetType)){
+            return $this -> ReturnFaceookinfoOnly($facebookid,$GetType);
+        }
+
 
 
 
@@ -1103,7 +1167,7 @@ class Login extends User{
     }
     private function UserPassCheck($TmpArray){
         if($this->GetloginUserName===$TmpArray['UserName'] && md5(base64_encode($this->GetLoginPassword))===$TmpArray['UserPassWord']){
-            session_start();
+            //session_start();
             $_SESSION['LoginedAdmministratorName']=$this->GetloginUserName;
             return 'Pass';
         }
@@ -1361,9 +1425,9 @@ class ResturantsReg extends User{
             $condition1=1;
         }
 
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Restaurants (UserID,RestID) VALUES (?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Restaurants (UserID,RestID,ResAddedTime) VALUES (?,?,?)")){
             $ResID='R'.$this->ResturantRegisterID;
-            $stmt->bind_param('is',$this->ResturantRegisterID,$ResID);
+            $stmt->bind_param('iss',$this->ResturantRegisterID,$ResID, date("Y-m-d H:i:s"));
             $stmt->execute();
             $stmt->close();
             $condition2=1;
@@ -1598,14 +1662,14 @@ class Restartuant {
 
     //return restaurant that contains location
     public function ReturnResLocation($locationName){
-        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvailability,ResCuisine,ResReview FROM Restaurants WHERE ResRootAddress=? AND ResReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvailability,ResCuisine,ResReview,ResAddedTime FROM Restaurants WHERE ResRootAddress=? AND ResReview=?")){
             $object=array();
             $Rereview=1;
             $stmt->bind_param('si',$locationName,$Rereview);
             $stmt->execute();
-            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResRating,$ResAvailability,$ResCuisine,$ResReview);
+            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$ResAddedTime);
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResDetailAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResDetailAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview, "ResAddedTime"=>$ResAddedTime);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -1712,10 +1776,10 @@ class Cuisine{
 
     //Cuisine First Level insert function
     private function InsertFirstLevelCuisine(){
-        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Cuisine (CuID,CuName,CuDescr,Availability,CuAvailability,CuCuisine,CuType, CuPrice, RestID, CuReview,CuOrder,Price,CuRating) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Cuisine (CuID,CuName,CuDescr,Availability,CuAvailability,CuCuisine,CuType, CuPrice, RestID, CuReview,CuOrder,Price,CuRating,CuAddedTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
             $CuReview=0;
             $CuRating=0;
-            $stmt->bind_param('sssssssssiidi',$this->CurrentCusineID,$this->CurrentCuisineName,$this->CurrentCuisineDes,$this->CurrentCuisineAvali,serialize($this->CurrentAvaliTag),serialize($this->CurrentCusinTag),serialize($this->CurrentCusinTypeTag),serialize($this->CurrentCusinPriceTag),$this->CurrentResID,$CuReview,$this->CurrentCusinOrder,$this->CurrentCuisinePrice,$CuRating);
+            $stmt->bind_param('sssssssssiidis',$this->CurrentCusineID,$this->CurrentCuisineName,$this->CurrentCuisineDes,$this->CurrentCuisineAvali,serialize($this->CurrentAvaliTag),serialize($this->CurrentCusinTag),serialize($this->CurrentCusinTypeTag),serialize($this->CurrentCusinPriceTag),$this->CurrentResID,$CuReview,$this->CurrentCusinOrder,$this->CurrentCuisinePrice,$CuRating,date("Y-m-d H:i:s"));
             $stmt->execute();
             $stmt->close();
             return 'Submit successful';
@@ -1944,12 +2008,12 @@ class Cuisine{
     //accoding to cuisine id return cuisine stuff
     public function ReturnCuisinestuff($cuisineID){
        $tmp=[];
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,CuReview,Price FROM Cuisine WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,CuReview,Price,CuAddedTime FROM Cuisine WHERE CuID=?")){
            $stmt->bind_param('s',$cuisineID);
            $stmt->execute();
-           $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$CuReview,$Price);
+           $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$CuReview,$Price,$CuAddedTime);
             while($stmt->fetch()){
-                $tmp=array('CuisineID'=>$CuID,'CuisineName'=>$CuName,'CuisineDescription'=>$CuDescr,'PicPath'=>$CuPicPath,'CuisineAvailability'=>$Availability,'CuisineAvailabilityTag'=>unserialize($CuAvailability),'CuisineCuisineTag'=>unserialize($CuCuisine),'CuisineTypeTag'=>unserialize($CuType),'CuisinePriceTag'=>unserialize($CuPrice),'CuisineRating'=>$CuRating,'CuisineReview'=>$CuReview,'CuisinePrice'=>$Price);
+                $tmp=array('CuisineID'=>$CuID,'CuisineName'=>$CuName,'CuisineDescription'=>$CuDescr,'PicPath'=>$CuPicPath,'CuisineAvailability'=>$Availability,'CuisineAvailabilityTag'=>unserialize($CuAvailability),'CuisineCuisineTag'=>unserialize($CuCuisine),'CuisineTypeTag'=>unserialize($CuType),'CuisinePriceTag'=>unserialize($CuPrice),'CuisineRating'=>$CuRating,'CuisineReview'=>$CuReview,'CuisinePrice'=>$Price,'CuAddedTime'=>$CuAddedTime);
             }
            $stmt->close();
 
@@ -1962,10 +2026,10 @@ class Cuisine{
 
     //return normal dataset of cuisine
     private function ReturnDataOfNormalCuisine($getResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Availability,CuName,CuPicPath,CuDescr,Price,CuAvailability,CuCuisine,CuType,CuPrice,CuID FROM Cuisine WHERE RestID=? ORDER BY CuOrder")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuOrder,Availability,CuName,CuPicPath,CuDescr,Price,CuAvailability,CuCuisine,CuType,CuPrice,CuID,CuAddedTime FROM Cuisine WHERE RestID=? ORDER BY CuOrder")){
             $stmt->bind_param('s',$getResID);
             $stmt->execute();
-            $stmt->bind_result($CuOrder,$Availability,$CuName,$CuPicPath,$CuDescr,$Price,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuID);
+            $stmt->bind_result($CuOrder,$Availability,$CuName,$CuPicPath,$CuDescr,$Price,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuID,$CuAddedTime);
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -1978,12 +2042,12 @@ class Cuisine{
 
     public function ReturnCuisinewithResIDandReview($getResID,$getSpecCuID){
         $object=array();
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price FROM Cuisine WHERE RestID=? AND CuReview=1 AND CuID !=? ORDER BY CuOrder")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE RestID=? AND CuReview=1 AND CuID !=? ORDER BY CuOrder")){
             $stmt->bind_param('ss',$getResID,$getSpecCuID);
             $stmt->execute();
-            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price);
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
             while ($stmt->fetch()){
-                $row = array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price);
+                $row = array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price,"CuAddedTime"=>$CuAddedTime);
                 array_push($object,$row);
             }
             $stmt->close();
@@ -2118,13 +2182,13 @@ class Cuisine{
     private function ReturnAllCuisine(){
         $tmp=array();
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuOrder,Price FROM Cuisine WHERE CuReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE CuReview=?")){
             $condition=1;
             $stmt->bind_param('i',$condition);
             $stmt->execute();
-            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating, $RestID,$CuOrder,$Price);
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
             while($stmt->fetch()){
-                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price);
+                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price, "CuAddedTime"=>$CuAddedTime);
                 array_multisort($object);
                 array_push($tmp,$object);
             }
@@ -2214,6 +2278,27 @@ return $ResArray;
         return $object;
     }
 
+    //Filter cuisine only according to Restaruant
+    public function ReturnCuisineOnlyAccordingToRes($ResArray){
+        $tmp=array();//set up temp array containter to store the cuisine
+        $getAllCuisine=$this->CuisineWithSeondLevel();
+        foreach ($ResArray as $key=>$subArray){
+            foreach($subArray as $SubKey=>$SubValue){
+                if($SubKey==='RestID'){
+                    if(count($this->ReturnFindCuisine($SubValue,$getAllCuisine))>0){
+                        foreach ($this->ReturnFindCuisine($SubValue,$getAllCuisine) as $insideKey=>$insidevalue){
+                            array_push($tmp,$insidevalue);
+                        }
+                    }
+
+                }
+            }
+
+
+        }
+        sort($tmp);
+        return $tmp;
+    }
 
 
 
@@ -2830,6 +2915,39 @@ class CuisineComemnt{
     }
 
     /**
+     * Fetch count of current Cuisine
+     * @param $currentCuID
+     */
+    private function FetchCountOfComment($currentCuID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM CuisineComment WHERE CuID=?")){
+           $stmt->bind_param('s',$currentCuID);
+           $stmt->execute();
+           $stmt->bind_result($TOTAL);
+           while($stmt->fetch()){
+               $tmp=array('TotalComments'=>$TOTAL);
+           }
+           $stmt->close();
+          return $tmp;
+        }
+    }
+
+    /**
+     * Intergrate Comment with Cuisine
+     * @param $GetCuisineArray
+     */
+    public function IntergrateCommentWithCuisine($GetCuisineArray){
+        foreach ($GetCuisineArray as $key => $subArray){
+            foreach ($subArray as $subKey => $value){
+                if($subKey === 'CuisineID'){
+                        $GetCuisineArray[$key] = array_merge($GetCuisineArray[$key], $this -> FetchCountOfComment($value));
+                }
+            }
+        }
+       return $GetCuisineArray;
+
+    }
+
+    /**
      * @param $userID
      * @param $cuisineID
      * @param $cuisineCommentID
@@ -2843,12 +2961,12 @@ class CuisineComemnt{
      * insert comment param into database
      * @return string
      */
-    public function getCuisineCommentParam($userID,$cuisineID,$cuisineCommentID,$Rating,$commentContent,$date,$like,$dislike,$review){
+    public function getCuisineCommentParam($userID,$cuisineID,$cuisineCommentID,$Rating,$commentContent,$like,$dislike,$review){
         if($stmt=$this->DataBaseCon->prepare("INSERT INTO CuisineComment (UserID,CuID,CuisineCommentID,CuisineComent,CuCommentDate,CuCommentRating,CuCommentLike,CuCommentDislike,CucoReview) VALUES (?,?,?,?,?,?,?,?,?)")){
-            $stmt->bind_param('sssssiiii',$userID,$cuisineID,$cuisineCommentID,$commentContent,$date,$Rating,$like,$dislike,$review);
+            $stmt->bind_param('sssssiiii',$userID,$cuisineID,$cuisineCommentID,$commentContent,date("Y-m-d H:i:s"),$Rating,$like,$dislike,$review);
             $stmt->execute();
             $stmt->close();
-            session_start();
+            //session_start();
             $_SESSION['SetUpCuisineCommentTime'] = time();
             return 'true';
         }
@@ -2889,7 +3007,7 @@ class ThumbLikeOrDislike{
      * Get Paramters to distingush like or dislike
      */
     public function GetThumbsDistingush($thumbLikeOrDislike,$CurrentUserID,$CurrentCommmentID){
-        session_start();
+        //session_start();
         if (isset($_SESSION['RepeatVote']) && $_SESSION['RepeatVote'] === $CurrentUserID){
             return json_encode(array('Error'=>1, 'info'=>'You already vote this cuisine!'));
         }
@@ -2914,8 +3032,8 @@ class ThumbLikeOrDislike{
            $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
            $stmt->execute();
            $stmt->close();
-           $Array=array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for vote this cuisine!');
-           session_start();
+           $Array=array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
+           //session_start();
            $_SESSION['RepeatVote'] = $CurrentUserID;
            return json_encode($Array);
         }
@@ -2931,8 +3049,8 @@ class ThumbLikeOrDislike{
             $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
             $stmt->execute();
             $stmt->close();
-            $Array=array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for vote this cuisine!');
-            session_start();
+            $Array=array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this cuisine!');
+            //session_start();
             $_SESSION['RepeatVote'] = $CurrentUserID;
             return json_encode($Array);
 
@@ -2970,6 +3088,50 @@ class JsonReturnOrDeal{
     }
 
     /**
+     * According to UserID and password to return the info
+     * @param $RquestUserID
+     * @param $RquestionPass
+     */
+    public function ReturnUserInfo($RequestUserMail,$RequestPass,$FacebookID,$RequestType){
+        $UserClass=new User($this -> DataBaseCon);
+        $UserInfoArray = $UserClass -> ReturnValiationOfUserPass($RequestUserMail,$RequestPass,$FacebookID,$RequestType);
+        if (count($UserInfoArray)>0){
+            return json_encode($UserInfoArray);
+        }
+        else if(count($UserInfoArray)===0){
+            return json_encode(array('UserID' => $RequestUserID, 'Authorization' => 'fail'));
+        }
+    }
+
+
+
+    /**
+     * Return Cuisine according to location
+     * @param $locationName
+     * @param $startCount
+     * @param $ReturnCount
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     * @param $TypeTagsArray
+     * @param $PriceTagsArray
+     */
+
+
+    public function ReturnCusineAccordingToLocation($locationName,$startCount,$ReturnCount,$AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray){
+        $CuisineClass = new Cuisine($this -> DataBaseCon);
+        $RestartuantClass = new Restartuant($this -> DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $GetAllRes = $RestartuantClass -> ReturnResLocation($locationName);
+        $GetResult = $CuisineClass -> ReturnCuisineOnlyAccordingToRes($GetAllRes);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
+        $ReturnResult = $this -> returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
+        $FinalResult = $this -> filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnResult);
+        return json_encode($FinalResult);
+
+    }
+
+
+    /**
      * return Restaurant and cuisine by location
      * @param $locationName
      * @param $startCount
@@ -2985,9 +3147,11 @@ class JsonReturnOrDeal{
     public function ReturnResAndCusineAccordingToLocation($locationName,$startCount,$ReturnCount,$AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray){
         $CuisineClass=new Cuisine($this->DataBaseCon);
         $RestartuantClass=new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
         $GetAllRes=$RestartuantClass->ReturnResLocation($locationName);
         $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllRes);
-        $ReturnResult=$this->returnLimitedRecord($GetResult,$startCount,$ReturnCount);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
+        $ReturnResult=$this->returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
         $FinalResult=$this->filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnResult);
         return json_encode($FinalResult);
     }
@@ -3017,10 +3181,13 @@ class JsonReturnOrDeal{
     public function ReturnCurrentRestaurantCuisine($Resid,$CuisineID,$startCount,$ReturnCount){
         $CuisineClass=new Cuisine($this->DataBaseCon);
         $RestartuantClass=new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
         $GetCuisineOfRes = $CuisineClass->ReturnCuisinewithResIDandReview($Resid,$CuisineID);
         $GetFinalCuisine = $CuisineClass->ReturnfinalCuisine($GetCuisineOfRes);//combine the second level
         $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetFinalCuisine);
-        $ReturnResult=$this->returnLimitedRecord($GetFinalCuisineAndResName,$startCount,$ReturnCount);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
+
+        $ReturnResult=$this->returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
         return json_encode($ReturnResult);
     }
 
@@ -3111,7 +3278,6 @@ class JsonReturnOrDeal{
         $OrRs_Cuisine = $this->doubleDeepCompare($TmpCuisineTags,$CuisineTagsArray);
         $OrRs_Type = $this->doubleDeepCompare($TmpTypeTags,$TypeTagsArray);
         $OrRs_Price = $this->doubleDeepCompare($TmpPriceTags,$PriceTagsArray);
-
         if($OrRs_Availability && $OrRs_Cuisine && $OrRs_Type && $OrRs_Price){
             return true;
         }

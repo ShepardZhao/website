@@ -13,6 +13,13 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     }
 
     /**
+     * Get all cuisine according to location
+     */
+    if(isset($_GET['GetAllCuisineByLocation'])){
+      echo $JsonReturnOrDealclass -> ReturnCusineAccordingToLocation($_GET['GetAllCuisineByLocation'],intval($_GET['startCount']),intval($_GET['count']),$_GET['AvailabilityTags'],$_GET['CuisineTags'],$_GET['TypeTags'],$_GET['PriceTags']);// this will return json that contains all cuisines according to location
+    }
+
+    /**
      * According to root location to get restuarants and cuisines
      */
     if(isset($_GET['GetResAndCuByRootL'])){
@@ -41,14 +48,18 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
 
 
 
+    /*Mobile end requesed*/
 
 
 
 
+    /**
+     *Fecthing user information according to userID and password
+     */
 
-
-
-
+    if($_GET['UserAuthorization'] ==='Request'){
+      echo $JsonReturnOrDealclass -> ReturnUserInfo($_GET['RequestUserMail'], $_GET['RequestPass'], $_GET['FacebookID'], $_GET['RequestType']);
+    }
 
 }
 
