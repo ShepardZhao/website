@@ -1,7 +1,7 @@
 <?php require_once 'CMS/GobalConnection.php'; ?>
 <!--facebook connection-->
 <?php
-
+//session_start();
 $facebook = new Facebook(array(
     'appId'  => '422446111188481',
     'secret' => '2bd1f1a4a93855a30c661f52b39a01c9',
@@ -157,19 +157,19 @@ if ($user) {
                             <button class="LoginedIn radius dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['LoginedUserName'];?> <i class="fa fa-sort-asc icon-white"></i></button>
                             <ul class="dropdown-menu pull-right">
                                 <?php if ($_SESSION['LoginedUserType']!=='Restaturant'){?>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyOrder">My Order</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyFaveourites">My Favourites</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/#MyAddressBook">My Reward Points</a></li>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyProfile">My Profile</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/customer-Management/#MyOrder">My Order</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyFaveourites">My Favourites</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyAddressBook">My Address Book</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/customer-Management/#MyAddressBook">My Reward Points</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/customer-Management/?CustomerID=<?php echo base64_encode($_SESSION['LoginedUserID']);?>&#MyProfile">My Profile</a></li>
                                 <?php }
                                 elseif($_SESSION['LoginedUserType']==='Restaturant'){
                                     ?>
-                                    <li><a href="<?php echo GlobalPath;?>/cms/business-Management/?UID=<?php echo base64_encode($_SESSION['LoginedUserID'])?>&RestID=<?php echo base64_encode($_SESSION['RestaruantID']);?>">Manage My Restaturant</a></li>
+                                    <li><a href="<?php echo GlobalPath;?>/CMS/business-Management/?UID=<?php echo base64_encode($_SESSION['LoginedUserID'])?>&RestID=<?php echo base64_encode($_SESSION['RestaruantID']);?>">Manage My Restaturant</a></li>
 
                                 <?php }?>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://b2c.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
+                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://cometome.tk/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
 
 
                             </ul>

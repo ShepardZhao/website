@@ -10,10 +10,10 @@
     ?>
     <script src="<?php echo GlobalPath;?>/CMS/Commons-js/ajaxfileupload.js" type="text/javascript"></script>
     <script src="<?php echo GlobalPath;?>/CMS/Commons-js/jquery.timepicker.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/business-Management/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/CMS/business-Management/Style.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo GlobalPath;?>/CMS/Commons-css/jquery.Jcrop.min.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo GlobalPath;?>/CMS/Commons-css/chosen.min.css" />
-    <script type="text/javascript" src="<?php echo GlobalPath;?>/cms/Commons-js/jquery.Jcrop.min.js"></script>
+    <script type="text/javascript" src="<?php echo GlobalPath;?>/CMS/Commons-js/jquery.Jcrop.min.js"></script>
     <script src="<?php echo GlobalPath;?>/CMS/Commons-js/chosen.jquery.min.js" type="text/javascript"></script>
     <script src="<?php echo GlobalPath;?>/CMS/business-Management/business.js" type="text/javascript"></script>
 

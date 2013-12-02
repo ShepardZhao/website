@@ -51,7 +51,7 @@ $(document).ready(function(){
         $.ajaxFileUpload
         (
             {
-                url:CurrentDomain+'/cms/BackEnd-controller/AjaxImage-controller.php',
+                url:CurrentDomain+'/CMS/BackEnd-controller/AjaxImage-controller.php',
                 secureuri:false,
                 fileElementId:Input_Photo,
                 dataType: 'html',
@@ -110,7 +110,7 @@ $(document).ready(function(){
         var getCuID=$(this).parent().parent().find('.button-delete').attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modalphoto.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/PhotoUploading.php?CuID='+encodeURIComponent(getCuID), '', function(){
+            $modalphoto.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php?CuID='+encodeURIComponent(getCuID), '', function(){
                 $modalphoto.modal();
             });
         }, 1000);
@@ -831,7 +831,7 @@ $(document).ready(function(){
         var Cuid=$(this).attr('id');
         $('body').modalmanager('loading');
         setTimeout(function(){
-            $modal.load(CurrentDomain+'/cms/business-Management/SubPages/DishesPack/EditDishes.php?CUID='+encodeURIComponent(Cuid), '', function(){
+            $modal.load(CurrentDomain+'/CMS/business-Management/SubPages/DishesPack/EditDishes.php?CUID='+encodeURIComponent(Cuid), '', function(){
                 $modal.modal();
                 //select tags
                 $("#Availability").chosen({no_results_text: "Oops, nothing found!"});
@@ -862,7 +862,7 @@ $(document).ready(function(){
         $.ajaxFileUpload
         (
             {
-                url:CurrentDomain+'/cms/BackEnd-controller/AjaxImage-controller.php',
+                url:CurrentDomain+'/CMS/BackEnd-controller/AjaxImage-controller.php',
                 secureuri:false,
                 fileElementId:Input_Photo,
                 dataType: 'html',

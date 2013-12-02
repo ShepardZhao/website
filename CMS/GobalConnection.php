@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Below part's function is that import all classes
 require_once 'BackEnd-controller/BackEnd-class.php';
 require_once 'FrontEnd-controller/FrontEnd-class.php';

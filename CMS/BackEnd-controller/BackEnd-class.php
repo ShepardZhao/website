@@ -1557,7 +1557,6 @@ class Restartuant {
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Restaurants WHERE RestID=?")){
             $stmt->bind_param('s',$ResID);
             $stmt->execute();
-            $stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -1586,7 +1585,7 @@ class Restartuant {
     public function GetRestaruant(){
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Restaurants")){
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -1763,7 +1762,7 @@ class Cuisine{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine WHERE CuOrder=? AND RestID=?")){
             $stmt->bind_param('is',$GetOrder,$ResID);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -1861,7 +1860,7 @@ class Cuisine{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM SecondLevelofCuisine WHERE CuID=?")){
             $stmt->bind_param('s',$getCuid);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -1878,7 +1877,7 @@ class Cuisine{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM SecondLevelofCuisine WHERE SecLevelCuID=?")){
             $stmt->bind_param('i',$getUniqeID);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -2060,7 +2059,7 @@ class Cuisine{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine LEFT JOIN SecondLevelofCuisine ON Cuisine.CuID=SecondLevelofCuisine.CuID WHERE SecondLevelofCuisine.CuID=?")){
             $stmt->bind_param('s',$getCuID);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -2079,7 +2078,7 @@ class Cuisine{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Cuisine WHERE CuID=?")){
             $stmt->bind_param('s',$GetCUID);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){
@@ -2859,7 +2858,7 @@ class favourite{
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Userfavorite WHERE UserID=? AND CuID=?")){
             $stmt->bind_param('ss',$userID,$CuisineID);
             $stmt->execute();
-            $stmt->bind_result();
+            //$stmt->bind_result();
             $result = $stmt->get_result();
             $object=array();
             while($row=$result->fetch_assoc()){

@@ -1,7 +1,7 @@
 <?php
-require_once '../cms/GobalConnection.php';
+require_once '../CMS/GobalConnection.php';
 
-session_start();
+//session_start();
 $_SESSION = array();
 
 
@@ -19,11 +19,12 @@ $fb_key = 'fbsr_'.$facebookConfig['422446111188481'];
 setcookie($fb_key, '', time()-3600);
 $facebook->destroySession();
 
-setcookie('fbs_'.$facebook->getAppId(),'', time()-100, '/', 'www.b2c.com.au');
+setcookie('fbs_'.$facebook->getAppId(),'', time()-100, '/', 'cometome.tk');
 session_destroy();
 
 
-header('Location: ../');
+header('Location: http://cometome.tk/');
+exit;
 
 
 

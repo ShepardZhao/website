@@ -2,26 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="179ea54e-118b-4955-b8aa-326260dbada8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" afterPath="$PROJECT_DIR$/website.esproj/user.zhaoxun321.espressostorage" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Cuisine-detail.php" afterPath="$PROJECT_DIR$/Cuisine-detail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" afterPath="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Dishes.php" afterPath="$PROJECT_DIR$/Dishes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/DishesPageWookMark.js" afterPath="$PROJECT_DIR$/assets/framework/js/DishesPageWookMark.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js" afterPath="$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" afterPath="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/Gobal-define.php" afterPath="$PROJECT_DIR$/CMS/Gobal-define.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Restaurants-detail.php" afterPath="$PROJECT_DIR$/Restaurants-detail.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" afterPath="$PROJECT_DIR$/assets/framework/css/customer.v1.0.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/GobalConnection.php" afterPath="$PROJECT_DIR$/CMS/GobalConnection.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/business.js" afterPath="$PROJECT_DIR$/CMS/business-Management/business.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/header.php" afterPath="$PROJECT_DIR$/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/index.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/business-Management/index.php" afterPath="$PROJECT_DIR$/CMS/business-Management/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/customer-Management/index.php" afterPath="$PROJECT_DIR$/CMS/customer-Management/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/json/index.php" afterPath="$PROJECT_DIR$/json/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMS/admin-Management/login.php" afterPath="$PROJECT_DIR$/CMS/admin-Management/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/framework/js/order.js" afterPath="$PROJECT_DIR$/assets/framework/js/order.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Login-Logout/logoff.php" afterPath="$PROJECT_DIR$/Login-Logout/logoff.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="website.iws" />
@@ -48,91 +36,104 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="84" selection-start="487" selection-end="487" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="1365">
+              <folding>
+                <marker date="1385944891000" expanded="true" signature="1604:3352" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="1636:3328" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="1765:3312" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="1807:3246" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="1910:2054" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2113:2182" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2270:2334" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2390:2455" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2515:2586" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2648:2801" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="2860:2998" placeholder="..." />
+                <marker date="1385944891000" expanded="true" signature="3065:3220" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="BackEnd-class.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="50985">
+            <state line="2097" column="30" selection-start="74987" selection-end="74998" vertical-scroll-proportion="-3.1836734" vertical-offset="31299" max-vertical-offset="50970">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sidebar.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/sidebar.php">
+      <file leaf-file-name="BackEnd-controller.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="240">
+            <state line="169" column="21" selection-start="13203" selection-end="13216" vertical-scroll-proportion="-3.1836734" vertical-offset="2379" max-vertical-offset="3045">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyProfile.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyProfile.php">
+      <file leaf-file-name="GobalConnection.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="2235">
+            <state line="1" column="16" selection-start="22" selection-end="22" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="975">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyFavourite.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyFavourite.php">
+      <file leaf-file-name="Sidebar.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="270">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="300">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addDishes.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
+      <file leaf-file-name="header.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="16" selection-start="51" selection-end="68" vertical-scroll-proportion="24.75" vertical-offset="624" max-vertical-offset="1140">
+            <state line="3" column="2" selection-start="84" selection-end="84" vertical-scroll-proportion="0.09615385" vertical-offset="0" max-vertical-offset="2910">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SecondLevelAdded.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevelAdded.php">
+      <file leaf-file-name="Facebook-Api.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/framework/js/Facebook-Api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="915">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PhotoUploading.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php">
+      <file leaf-file-name="FrontEnd-class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1740">
+            <state line="157" column="27" selection-start="6084" selection-end="6097" vertical-scroll-proportion="-3.1836734" vertical-offset="2199" max-vertical-offset="7680">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditSecondLevel.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php">
+      <file leaf-file-name="FrontEnd-controller.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1800">
+            <state line="7" column="20" selection-start="392" selection-end="405" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="750">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyAddressBook.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyAddressBook.php">
+      <file leaf-file-name="logoff.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Login-Logout/logoff.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="615">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddedNewAddress.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/AddedNewAddress.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="23" selection-start="0" selection-end="25" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="705">
+            <state line="1" column="20" selection-start="26" selection-end="26" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="540">
               <folding />
             </state>
           </provider>
@@ -161,22 +162,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/assets/framework/js/DishesPageWookMark.js" />
-        <option value="$PROJECT_DIR$/assets/framework/js/order.js" />
-        <option value="$PROJECT_DIR$/assets/framework/js/DetailCuisine.js" />
         <option value="$PROJECT_DIR$/Restaurants.php" />
         <option value="$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js" />
         <option value="$PROJECT_DIR$/Restaurants-detail.php" />
-        <option value="$PROJECT_DIR$/header.php" />
-        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
-        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
-        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
-        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/index.php" />
         <option value="$PROJECT_DIR$/CMS/admin-Management/login.php" />
-        <option value="$PROJECT_DIR$/CMS/business-Management/index.php" />
         <option value="$PROJECT_DIR$/CMS/customer-Management/index.php" />
         <option value="$PROJECT_DIR$/CMS/customer-Management/SubPages/AddedNewAddress.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/index.php" />
+        <option value="$PROJECT_DIR$/CMS/business-Management/business.js" />
+        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php" />
+        <option value="$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php" />
+        <option value="$PROJECT_DIR$/header.php" />
+        <option value="$PROJECT_DIR$/CMS/GobalConnection.php" />
+        <option value="$PROJECT_DIR$/Login-Logout/logoff.php" />
+        <option value="$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php" />
       </list>
     </option>
   </component>
@@ -598,14 +599,30 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="options.lastSelected" value="sshConsole" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="com.intellij.application.options.emmet.EmmetCompositeConfigurable" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="PublishConfig" serverName="cometome" serverId="dae86495-7827-46e5-ac1f-c3dc000661ae" autoUpload="true">
+    <servers>
+      <server id="dae86495-7827-46e5-ac1f-c3dc000661ae">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -701,21 +718,23 @@
     <frame x="2" y="22" width="1267" height="722" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21375921" sideWeight="0.6986755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32923833" sideWeight="0.6721854" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30132452" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24668874" sideWeight="0.4181818" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3034826" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24668874" sideWeight="0.4181818" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21375921" sideWeight="0.6986755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781458" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289256" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -772,114 +791,127 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/FeaturePageWookMark.js">
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/AjaxImage-controller.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="391" column="27" selection-start="17369" selection-end="17377" vertical-scroll-proportion="0.0" vertical-offset="5610" max-vertical-offset="6390">
+        <state line="4" column="7" selection-start="80" selection-end="82" vertical-scroll-proportion="-1.2244898" vertical-offset="0" max-vertical-offset="1815">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/framework/js/index-waterfall.js">
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/AccountManagement.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1935">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/admin-Management/login.php">
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/ContactUs.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="29" selection-start="656" selection-end="656" vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="645">
+        <state line="23" column="97" selection-start="1157" selection-end="1158" vertical-scroll-proportion="-3.0204082" vertical-offset="197" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/MyRestaurantInfoEdit.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="107" selection-start="1761" selection-end="1763" vertical-scroll-proportion="-3.0204082" vertical-offset="332" max-vertical-offset="2535">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/business-Management/business.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="16920">
+        <state line="53" column="39" selection-start="3647" selection-end="3647" vertical-scroll-proportion="237.6" vertical-offset="6735" max-vertical-offset="16920">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/Sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="169" column="21" selection-start="13203" selection-end="13216" vertical-scroll-proportion="-3.1836734" vertical-offset="2379" max-vertical-offset="3045">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/Gobal-define.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="2" selection-start="383" selection-end="383" vertical-scroll-proportion="0.2667984" vertical-offset="0" max-vertical-offset="506">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="20" selection-start="392" selection-end="405" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="750">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/framework/js/Facebook-Api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="945">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/business-Management/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="45" selection-start="1353" selection-end="1353" vertical-scroll-proportion="12.367347" vertical-offset="861" max-vertical-offset="1365">
+        <state line="7" column="84" selection-start="487" selection-end="487" vertical-scroll-proportion="-2.142857" vertical-offset="0" max-vertical-offset="1365">
+          <folding>
+            <marker date="1385944891000" expanded="true" signature="1604:3352" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="1636:3328" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="1765:3312" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="1807:3246" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="1910:2054" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2113:2182" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2270:2334" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2390:2455" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2515:2586" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2648:2801" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="2860:2998" placeholder="..." />
+            <marker date="1385944891000" expanded="true" signature="3065:3220" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMS/GobalConnection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="16" selection-start="22" selection-end="22" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="975">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/index.php">
+    <entry file="file://$PROJECT_DIR$/Login-Logout/logoff.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="45" selection-start="333" selection-end="333" vertical-scroll-proportion="-1.2244898" vertical-offset="0" max-vertical-offset="870">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyAddressBook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyProfile.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2235">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="553">
+        <state line="1" column="20" selection-start="26" selection-end="26" vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="540">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CMS/BackEnd-controller/BackEnd-class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="50985">
+        <state line="2097" column="30" selection-start="74987" selection-end="74998" vertical-scroll-proportion="-3.1836734" vertical-offset="31299" max-vertical-offset="50970">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/AddedNewAddress.php">
+    <entry file="file://$PROJECT_DIR$/CMS/FrontEnd-controller/FrontEnd-class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="23" selection-start="0" selection-end="25" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
+        <state line="157" column="27" selection-start="6084" selection-end="6097" vertical-scroll-proportion="-3.1836734" vertical-offset="2199" max-vertical-offset="7680">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/customer-Management/SubPages/MyFavourite.php">
+    <entry file="file://$PROJECT_DIR$/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="553">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/addDishes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="16" selection-start="51" selection-end="68" vertical-scroll-proportion="24.75" vertical-offset="624" max-vertical-offset="1140">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/SecondLevelAdded.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/PhotoUploading.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1740">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMS/business-Management/SubPages/DishesPack/EditSecondLevel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1800">
+        <state line="3" column="2" selection-start="84" selection-end="84" vertical-scroll-proportion="0.09615385" vertical-offset="0" max-vertical-offset="2910">
           <folding />
         </state>
       </provider>
