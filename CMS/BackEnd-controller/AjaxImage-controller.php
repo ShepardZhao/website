@@ -97,8 +97,6 @@ try{
     $resizeObj -> saveImage($savePath, $jpeg_quality);
     //on slection and uploading
     echo $resizeObj -> OnselectSave($CuisineOldImagePath,$targ_w,$targ_h,$CuisineX,$CuisineY,$CuisineW,$CuisineH,$CuisineOldImagePath,$savePath,$jpeg_quality,$returPath,$WaterMarkerStatus,$WaterMarkerPositon);
-
-
 }
 catch(Exception $e){
     echo $e->getMessage();

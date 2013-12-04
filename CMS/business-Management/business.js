@@ -39,8 +39,6 @@ $(document).ready(function(){
 
         }
 
-
-
     });
     /*******************************************Cuisine avatar upload**************************************/
         //cp pic into special folder and get return path
@@ -57,7 +55,7 @@ $(document).ready(function(){
                 dataType: 'html',
                 data:dataset,
                 success: function (data, status)
-                {
+                {   console.log(data);
                     //data that form AjaxImage-controller.php is string, it contains two urls
                     //by using split of jquery to spearate it as two array, 0 is absolute path, 1 is relative path
                     var urlArray=data.split(',');
@@ -157,17 +155,17 @@ $(document).ready(function(){
             url: CurrentDomain+"/CMS/BackEnd-controller/AjaxImage-controller.php",
             type: "POST",
             data:tmp,
-            dataType: "html"
+            dataType: "json"
         });
 
         request.done(function( msg ) {
-
-            $('#GetFinalPhotoPath').val($('#gobalPath').val()+$.trim(msg));
+            window.CuisinePicWidth = msg.CuisinePicWidth;
+            window.CuisinePicHeight = msg.CuisinePicHeight;
+            $('#GetFinalPhotoPath').val($('#gobalPath').val()+$.trim(msg.CuisinePicPath));
             $('#PreviewSelectedImage').removeAttr('disabled');
             $('#PreviewSelectedImage').click(function(){
                 if($(this).attr('disabled')===undefined){
-                    $('#PreviewCuisinePhoto').attr('src',$('#gobalPath').val()+$.trim(msg));
-
+                    $('#PreviewCuisinePhoto').attr('src',$('#gobalPath').val()+$.trim(msg.CuisinePicPath));
                 }
 
             });
@@ -220,6 +218,9 @@ $(document).ready(function(){
             tmp['CuisineCuid']=$('#GetCurrentCuid').val();
             tmp['CuisinePhotoPath']=$('#GetFinalPhotoPath').val();
             tmp['OldPhotoPath']=$('#absolutePath').val();
+            tmp['CuisinePicWidth'] = CuisinePicWidth;
+            tmp['CuisinePicHeight'] = CuisinePicHeight;
+            console.log(tmp);
             var request = $.ajax({
                 url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
                 type: "POST",

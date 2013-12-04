@@ -159,7 +159,7 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 /********************************************Delete inside of second level with Wrap (including title, and its names and prices)**************************/
     if(isset($_POST['DeleteInsideSecondLevel'])){echo $CuisineClass->DeleteInsideSecondLevel($_POST['getUniqueID'],$_POST['InsideName'],$_POST['InsidePrice']);}
 /********************************************Cuisine photo uploading************************************************/
-    if(isset($_POST['CuisinePhotoUploading'])&&isset($_POST['CuisineCuid'])&&isset($_POST['CuisinePhotoPath'])){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath']);}
+    if(isset($_POST['CuisinePhotoUploading']) && isset($_POST['CuisineCuid']) && isset($_POST['CuisinePhotoPath']) && isset($_POST['CuisinePicWidth']) && isset($_POST['CuisinePicHeight']) ){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath'],$_POST['CuisinePicWidth'],$_POST['CuisinePicHeight']);}
 /********************************************Added to favourite*****************************************************/
     if(isset($_POST['CuisineID'])&&isset($_POST['LoginUserID'])&&isset($_POST['AddedFavorite'])){echo $Favoriteclass->addedtoFavorite($_POST['LoginUserID'],$_POST['CuisineID'],$_POST['AddedFavorite']);}
 /********************************************Added cuisine comment**************************************************/

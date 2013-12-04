@@ -1,5 +1,5 @@
 <div class="span2">
-    <div class="span2 well sidebar-nav" data-spy="affix">
+    <div class="well sidebar-nav" data-spy="affix">
         <ul class="nav nav-list">
             <li class="active"><a href="#Dishes" data-toggle="tab" id="click-Dishes">Dishes</a></li>
             <li><a href="#Promotion" data-toggle="tab">Promotion</a></li>

@@ -38,10 +38,6 @@
     to   { opacity: 1; }
 }​
 
-.container-fluid{
-	max-width:1600px!important;
-	margin: 0 auto;
-}
 
 body{
     font-family:"HelveticaNeueLight", Helvetica, Arial, "Lucida Grande", sans-serif !important;

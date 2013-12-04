@@ -1661,14 +1661,14 @@ class Restartuant {
 
     //return restaurant that contains location
     public function ReturnResLocation($locationName){
-        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvailability,ResCuisine,ResReview,ResAddedTime FROM Restaurants WHERE ResRootAddress=? AND ResReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResPicWidth,ResPicHeight,ResRating,ResAvailability,ResCuisine,ResReview,ResAddedTime FROM Restaurants WHERE ResRootAddress=? AND ResReview=?")){
             $object=array();
             $Rereview=1;
             $stmt->bind_param('si',$locationName,$Rereview);
             $stmt->execute();
-            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$ResAddedTime);
+            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$ResAddedTime);
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResDetailAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview, "ResAddedTime"=>$ResAddedTime);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResDetailAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview, "ResAddedTime"=>$ResAddedTime);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -1743,9 +1743,9 @@ class Cuisine{
     }
 
     //Upload and update photo
-    public function CuisinePhotoUploadingAndUpdating($CurrentCuid,$PicPath,$DeleteOldPhotoPath){
-        if($stmt=$this->DataBaseCon->prepare("UPDATE Cuisine SET CuPicPath=? WHERE CuID=?")){
-            $stmt->bind_param('ss',$PicPath,$CurrentCuid);
+    public function CuisinePhotoUploadingAndUpdating($CurrentCuid,$PicPath,$DeleteOldPhotoPath,$CuisinePicWidth,$CuisinePicHeight){
+        if($stmt=$this->DataBaseCon->prepare("UPDATE Cuisine SET CuPicPath=?, CuPicWidth=?, CuPicHeight=? WHERE CuID=?")){
+            $stmt->bind_param('siis',$PicPath,$CuisinePicWidth,$CuisinePicHeight,$CurrentCuid);
             $stmt->execute();
             $stmt->close();
             unlink($DeleteOldPhotoPath);//delete old photo
@@ -2007,12 +2007,12 @@ class Cuisine{
     //accoding to cuisine id return cuisine stuff
     public function ReturnCuisinestuff($cuisineID){
        $tmp=[];
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,CuReview,Price,CuAddedTime FROM Cuisine WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,CuReview,Price,CuAddedTime FROM Cuisine WHERE CuID=?")){
            $stmt->bind_param('s',$cuisineID);
            $stmt->execute();
-           $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$CuReview,$Price,$CuAddedTime);
+           $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$CuReview,$Price,$CuAddedTime);
             while($stmt->fetch()){
-                $tmp=array('CuisineID'=>$CuID,'CuisineName'=>$CuName,'CuisineDescription'=>$CuDescr,'PicPath'=>$CuPicPath,'CuisineAvailability'=>$Availability,'CuisineAvailabilityTag'=>unserialize($CuAvailability),'CuisineCuisineTag'=>unserialize($CuCuisine),'CuisineTypeTag'=>unserialize($CuType),'CuisinePriceTag'=>unserialize($CuPrice),'CuisineRating'=>$CuRating,'CuisineReview'=>$CuReview,'CuisinePrice'=>$Price,'CuAddedTime'=>$CuAddedTime);
+                $tmp=array('CuisineID'=>$CuID,'CuisineName'=>$CuName,'CuisineDescription'=>$CuDescr,'PicPath'=>$CuPicPath,'PicWidth'=>$CuPicWidth,'PicHeight'=>$CuPicHeight,'CuisineAvailability'=>$Availability,'CuisineAvailabilityTag'=>unserialize($CuAvailability),'CuisineCuisineTag'=>unserialize($CuCuisine),'CuisineTypeTag'=>unserialize($CuType),'CuisinePriceTag'=>unserialize($CuPrice),'CuisineRating'=>$CuRating,'CuisineReview'=>$CuReview,'CuisinePrice'=>$Price,'CuAddedTime'=>$CuAddedTime);
             }
            $stmt->close();
 
@@ -2181,13 +2181,13 @@ class Cuisine{
     private function ReturnAllCuisine(){
         $tmp=array();
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating, RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE CuReview=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE CuReview=?")){
             $condition=1;
             $stmt->bind_param('i',$condition);
             $stmt->execute();
-            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
             while($stmt->fetch()){
-                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price, "CuAddedTime"=>$CuAddedTime);
+                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"PicWidth"=>$CuPicWidth,"PicHeight"=>$CuPicHeight,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price, "CuAddedTime"=>$CuAddedTime);
                 array_multisort($object);
                 array_push($tmp,$object);
             }
@@ -2816,10 +2816,10 @@ class resize
             $waterMarker=new waterMarker($getpath);
             $waterMarker->waterInfo($changedName,'WaterMarker/WaterMarker.png',$WaterMarkerPositon,"WaterMarker",20);
             unlink($finalSavePath);
-            return  $returPath.'WaterMarker'.$changedName;
+            return  json_encode(array('CuisinePicPath' => $returPath.'WaterMarker'.$changedName, 'CuisinePicWidth' => $OldImgWidth, 'CuisinePicHeight' => $NewHeight));
         }
         else if($WaterMarkerStatus==='no'){
-            return $ReturnFullPath;
+            return json_encode(array('CuisinePicPath' => $ReturnFullPath, 'CuisinePicWidth' => $OldImgWidth, 'CuisinePicHeight' => $NewHeight));
 
         }
 

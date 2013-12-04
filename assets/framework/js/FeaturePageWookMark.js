@@ -232,6 +232,7 @@ $(document).ready(function(){
         $('.Ajax-loading').fadeOut();
         var html = '';
         var i=0, length=data.length, image;
+        console.log(data);
         for(; i<length; i++) {
             image = data[i];
             html += '<li>';

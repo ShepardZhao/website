@@ -1,5 +1,5 @@
-<div class="span3">
-    <div class="span3 well sidebar-nav" data-spy="affix">
+<div class="span2">
+    <div class="well sidebar-nav" data-spy="affix">
         <ul class="nav nav-list">
             <li class="nav-header"><a href="#MyOrder" data-toggle="tab">My Order</a></li>
             <li class="nav-header"><a href="#MyFaveourites" data-toggle="tab">My Faveourites</a></li>
