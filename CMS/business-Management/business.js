@@ -25,6 +25,9 @@ $(document).ready(function(){
             var tmp={};
             tmp['Input_Photo']='Input_Cuisineavatar';
             tmp['Mode_CuisinePic']='CuisinePhoto';
+            $('#showsCuisinePhoto').attr('src','').fadeOut(1000);
+            if($('#progress_bar').hasClass('hide')){$('#progress_bar').fadeIn(1000).removeClass('hide');}
+
             CuisineimageUpload('Input_Cuisineavatar',tmp);
 
         }
@@ -55,7 +58,7 @@ $(document).ready(function(){
                 dataType: 'html',
                 data:dataset,
                 success: function (data, status)
-                {   console.log(data);
+                {
                     //data that form AjaxImage-controller.php is string, it contains two urls
                     //by using split of jquery to spearate it as two array, 0 is absolute path, 1 is relative path
                     var urlArray=data.split(',');
@@ -66,7 +69,8 @@ $(document).ready(function(){
                     $('#absolutePath').val(urlArray[0]);//set up absolute path;
                     $('#encryptedName').val(urlArray[2]);//set up EncryptedName;
                     $('#CuisineImagePath').val(savedPath);
-                    $('#showsCuisinePhoto').addClass('ClassCuisinePhoto');
+                    $('#showsCuisinePhoto').addClass('ClassCuisinePhoto').fadeIn(1000);
+                    $('#progress_bar').hide();
                     $('.ClassCuisinePhoto').attr("src",savedPath);
                 },
                 error: function (data, status, e)
@@ -181,7 +185,7 @@ $(document).ready(function(){
     $('body').on('mouseenter','.ClassCuisinePhoto',function(){
 
         $(this).Jcrop({
-            minSize: [ 220 , 0 ],
+
             onSelect: updateCoords,
             bgFade: true, // use fade effect
             bgOpacity: .3 // fade opacity
@@ -220,7 +224,7 @@ $(document).ready(function(){
             tmp['OldPhotoPath']=$('#absolutePath').val();
             tmp['CuisinePicWidth'] = CuisinePicWidth;
             tmp['CuisinePicHeight'] = CuisinePicHeight;
-            console.log(tmp);
+
             var request = $.ajax({
                 url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
                 type: "POST",

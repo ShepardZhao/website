@@ -176,6 +176,7 @@ $(document).ready(function(){
         container: $('#CuisineRelateTiles'), // Optional, used for some extra CSS styling
         offset: 2, // Optional, the distance between grid items
         itemWidth: 215 // Optional, the width of a grid item
+
     };
 
 
@@ -238,18 +239,21 @@ $(document).ready(function(){
             html += '<li>';
             if(image.PicPath.length){
                 if(image.RestID !== undefined){
+
                     html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';//Restaurants id
                     html += '<input type="hidden" class="ResName" value="'+image.ResName+'">';//Restaurants Name
                     html += '<input type="hidden" class="ResPicPath" value="'+image.PicPath+'">';//Restaurants PicPath
                     html += '<input type="hidden" class="ResAvailabilityTags" value="'+image.AvailabilityTags+'">';//Restaurants AvailabilityTags
                     html += '<input type="hidden" class="ResCuisineTags" value="'+image.CuisineTags+'">';//Restaurants CuisineTags
-                    html += '<input type="hidden" class="ResOpenTime" value="'+image.ResOpenTime+'">';//Restaurants ResOpenTime
+                    html += '<input type="hidden" class="ResTotalComments" value="'+image.TotalComments+'">';//Restaurants comments
+                    html += '<input type="hidden" class="ResOpenTime" value='+JSON.stringify(image.ResOpenTime)+'>';//Restaurants ResOpenTime
                     html += '<input type="hidden" class="ResRating" value="'+image.ResRating+'">';//Restaurants ResRating
 
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     html += '<h6 class="ResName">'+image.ResName+'</h6>';
 
                 }
+                if(image.CuisineID !== undefined){
                 //if current cuisine is unavailability
                 if(image.CuisineAvailability === 'No'){
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
@@ -278,7 +282,7 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                     html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
                     html += '<div class="OutofStock"></div>';
@@ -312,7 +316,7 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     if(image.CuisineName!==undefined){
                         html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                         html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
@@ -321,8 +325,7 @@ $(document).ready(function(){
                         html += '<h6 class="ResName">'+image.ResName+'</h6>';
                     }
 
-
-
+                }
                 }
             }
             html +='</li>';
@@ -342,6 +345,8 @@ $(document).ready(function(){
             startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
         }
     };
+
+
 
     /**
      * parse_date
@@ -366,10 +371,10 @@ $(document).ready(function(){
       */
     /**********************************************Detail cuisine************************************************/
         //only for Feature part
-    $('body').on('click','#CuisineRelateTiles>li',function(){
-
+    $('body').on('click','#CuisineRelateTiles li',function(){
         var  AjaxContainter = {};
-        if($(this).find('.CuisineID')){ //if current is a li and that clicked finding that is Cuisine
+        if($(this).find('.CuisineID').length>0){ //if current is a li and that clicked finding that is Cuisine
+
             AjaxContainter['RootID'] = $('#RootID').val();
             AjaxContainter['SubID'] = $('#SubID').val();
             AjaxContainter['CuisineID'] = $(this).find('.CuisineID').val();
@@ -390,11 +395,12 @@ $(document).ready(function(){
             AjaxContainter['CurrentCuisineStatus'] = $(this).find('.CurrentCuisineStatus').val();
             AjaxContainter['TabChoose'] = 'FeathuredPages';
             var result = decodeURIComponent($.param(AjaxContainter));
+            $('body').modalmanager('loading');
             window.location = 'Cuisine-detail?'+result;
 
-            //AjaxofCuisinePage(AjaxContainter);
         }
-        if($(this).find('.RestID')){
+        else if($(this).find('.RestID').length>0){
+
             AjaxContainter['RootID'] = $('#RootID').val();
             AjaxContainter['SubID'] = $('#SubID').val();
             AjaxContainter['RestID'] = $(this).find('.RestID').val();
@@ -404,7 +410,10 @@ $(document).ready(function(){
             AjaxContainter['ResCuisineTags'] = $(this).find('.ResCuisineTags').val();
             AjaxContainter['ResOpenTime'] = $(this).find('.ResOpenTime').val();
             AjaxContainter['ResRating'] = $(this).find('.ResRating').val();
+            AjaxContainter['ResTotalComments'] = $(this).find('.ResTotalComments').val();
+            AjaxContainter['TabChoose'] = 'RestaurantsPage';
             var result = decodeURIComponent($.param(AjaxContainter));
+            $('body').modalmanager('loading');
             window.location = 'Restaurants-detail?'+result;
 
 

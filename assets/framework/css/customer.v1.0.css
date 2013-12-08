@@ -745,7 +745,7 @@ padding:19px;
 .left-position{
 	left: -10px;
 	top: 50%;
-	position: absolute;
+
 	opacity: 1;
 	display: none;	
 }
@@ -784,7 +784,7 @@ padding:19px;
 }
 
 #toppadding{
-	padding-top:7px;
+	padding-top:49px;
 }
 
 
@@ -793,10 +793,14 @@ padding:19px;
 }
 
 
-/*order.php-comments*/
+/*order*/
 #Feathred-left-position{
 	position: fixed;
 	margin-left:20px;
+}
+#Restaurants-left-position{
+    position: fixed;
+    margin-left:20px;
 }
 #CuisineDescriptWrap{
 	height: 60px;
@@ -809,6 +813,9 @@ padding:19px;
 }
 #cuisine-comment-area{
 	min-height:100px;
+}
+#Res-comment-area{
+    min-height:100px;
 }
 #ClickToComment{
 	min-height:20px;

@@ -13,7 +13,8 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
     <input type="hidden" id="ResPicPath" value="<?php echo $_GET['ResPicPath']?>">
     <input type="hidden" id="ResAvailabilityTags" value="<?php echo $_GET['ResAvailabilityTags']?>">
     <input type="hidden" id="ResCuisineTags" value="<?php echo $_GET['ResCuisineTags']?>">
-    <input type="hidden" id="ResCuisineTags" value="<?php echo $_GET['ResCuisineTags']?>">
+    <input type="hidden" id="CurrentLoginedUserID" value="<?php echo $_SESSION['LoginedUserID']?>">
+    <input type="hidden" id="TabChoose" value="<?php echo $_GET['TabChoose']?>">
 
 
 
@@ -35,51 +36,87 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
                             <div class="tab-pane fade in active">
                                 <div class="Restaurants-detail">
                                     <div class="row-fluid innerHeading">
-                                        <div class="span2 text-right">
-                                            <img style="width:130px;height:130px;" src="http://10.1.1.9/B2C/assets/framework/img/pic.jpeg">
+                                        <div class="span3 text-right">
+                                            <img src="<?php echo $_GET['ResPicPath']?>" class="img-polaroid">
                                         </div>
-                                        <div class="span4 text-left">
-                                            <h4>Pancake on the Rocks</h4>
+                                        <div class="span5 text-left">
+                                            <h4 class="h4Title"><?php echo $_GET['ResName']?></h4>
                                             <p>
                                             <ul class="inline  TagWidthOverflow inlineLeftPadding">
-                                                <li><button class="btn btn-mini" type="button">Facebook</button></li>
-                                                <li><button class="btn btn-mini" type="button">Twetter</button></li>
+                                                <?php
+                                                $Array=explode(',',$_GET['ResAvailabilityTags']);
+                                                foreach ($Array as $value){
+                                                    echo "<li><button class='btn btn-mini' type='button'>$value</button></li>";
+                                                }
+                                                $Array=explode(',',$_GET['ResCuisineTags']);
+                                                foreach ($Array as $value){
+                                                    echo "<li><button class='btn btn-mini' type='button'>$value</button></li>";
+                                                }
+                                                ?>
                                             </ul>
                                             </p>
 
-                                            <h6 class="resetColor">Open Time: 15:00 - 20:00</h6>
+                                            <h6 class="resetColor">
+                                                <?php
+                                                   $TodayDate = date('l');
+                                                   $Array = json_decode($_GET['ResOpenTime'],true);
+                                                   foreach ($Array as $key => $value){
+                                                       if($key === $TodayDate){
+                                                           echo 'Open Time: '.$key.' ( '.$value. ' ) ';
+                                                       }
+
+
+                                                   }
+
+                                                ?>
+
+
+                                            </h6>
                                             <h4>
                                                 <ul class="inline inlineLeftPadding resetColor">
-                                                    <li><h5>Your Rating</h5></li>
-                                                    <li><i class="icon-star-empty"></i></li>
-                                                    <li><i class="icon-star-empty"></i></li>
-                                                    <li><i class="icon-star-empty"></i></li>
-                                                    <li><i class="icon-star-empty"></i></li>
-                                                    <li><i class="icon-star-empty"></i></li>
+                                                    <div class="span12">
+                                                        <h5>Your Rating:</h5>
+                                                        <h4>
+                                                            <ul class="inline inlineLeftPadding">
+                                                                <li><i class="fa ResCommentStar fa-star-o"></i></li>
+                                                                <li><i class="fa ResCommentStar fa-star-o"></i></li>
+                                                                <li><i class="fa ResCommentStar fa-star-o"></i></li>
+                                                                <li><i class="fa ResCommentStar fa-star-o"></i></li>
+                                                                <li><i class="fa ResCommentStar fa-star-o"></i></li>
+                                                            </ul>
+                                                        </h4>
+                                                    </div>
                                                 </ul>
                                             </h4>
                                         </div>
-                                        <div class="span4 text-center resetColor" id="toppadding">
+                                        <div class="span3 text-center resetColor" id="toppadding">
                                             <h4>
                                                 <ul class="inline " id="rightRestaurantsStars ">
-                                                    <li><i class="icon-star"></i></li>
-                                                    <li><i class="icon-star"></i></li>
-                                                    <li><i class="icon-star"></i></li>
-                                                    <li><i class="icon-star"></i></li>
-                                                    <li><i class="icon-star"></i></li>
+                                                    <?php
+                                                    $TotalStar=5;//total stars are 5s
+                                                    $CountStar=$_GET['ResRating'];//This will contain hwo many entire stars have been used
+                                                    $emptyStar=$TotalStar-$CountStar;//this will display empty stars
+                                                    for($i=0;$i<$CountStar;$i++){
+                                                        echo "<li><i class='fa fa-star'></i></li>";
+                                                    }
+                                                    for ($j=0;$j<$emptyStar;$j++){
+                                                        echo "<li><i class='fa fa-star-o'></i></li>";
+
+                                                    }
+
+                                                    ?>
                                                 </ul>
 
                                             </h4>
-                                            <p class="resetColor">10 Comments</p>
-                                            <h3><i id="Navcomments" class="resetColor icon-circle-arrow-down"></i></h3>
-
+                                            <p class="resetColor"><?php echo $_GET['ResTotalComments']?> Comments</p>
+                                            <h3><i id="Navcomments" class="fa fa-arrow-circle-down"></i></h3>
 
                                         </div>
-                                        <div class="offset2 pull-right"></div>
+                                        <div class="offset1 pull-right"></div>
 
                                     </div>
 
-
+                                   <div id="ResWaterfall-zone">
                                     <div class="row-fluid restaurants-detailBg">
                                         <div class="span12">
                                             <div class="span2 RestaurantsContentRight">
@@ -87,34 +124,45 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
                                                     <ul class="nav nav-pills nav-stacked ContentLeftList">
                                                         <li>Availability</li>
                                                         <li>Cuisine</li>
+                                                        <li>Type</li>
+                                                        <li>Price</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="span10">
                                                 <ul class="nav nav-pills nav-stacked ContentRightList">
                                                     <li>
-
-                                                        <ul class="nav nav-pills ContentRightList TagAvailable TagWidthOverflow"><!--Availablity-->
-                                                            <li>
-                                                                <a>Available</a>
-                                                            </li>
-                                                            <li><a>11AM - 1PM</a></li>
-                                                            <li><a>4PM - 8PM</a></li>
-                                                            <li><a>1PM - 4PM</a></li>
-                                                        </ul>
+                                                        <div id="TagAvailableRelative">
+                                                            <ul class="nav nav-pills ContentRightList TagAvailable TagWidthOverflow"><!--Availablity-->
+                                                                <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Availability","CuisineTags");?>
+                                                            </ul>
+                                                            <div id="TagAvailablepPosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                                                        </div>
                                                     </li>
                                                     <li>
-                                                        <ul class="nav nav-pills ContentRightList TagCuisine TagWidthOverflow"><!--Cuisine-->
-                                                            <li>
-                                                                <a>Itanlian</a>
-                                                            </li>
-                                                            <li><a>Chinese</a></li>
-                                                            <li><a>Japanese</a></li>
-                                                            <li><a>Indian</a></li>
-                                                            <li><a>Korean</a></li>
-                                                            <li><a>Australian</a></li>
-                                                            <li><a>Cantonese</a></li>
-                                                        </ul>
+                                                        <div id="TagCuisineRelative">
+                                                            <ul class="nav nav-pills ContentRightList TagCuisine TagWidthOverflow"><!--Cuisine-->
+                                                                <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Cuisine","CuisineTags");?>
+                                                            </ul>
+                                                            <div id="TagCuisinePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div id="TagTypeRelative">
+                                                            <ul class="nav nav-pills ContentRightList TagType TagWidthOverflow"><!--Type-->
+                                                                <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Type","CuisineTags");?>
+                                                            </ul>
+                                                            <div id="TagTypePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div id="TagPriceRelative">
+                                                            <ul class="nav nav-pills ContentRightList TagPrice TagWidthOverflow"><!--price-->
+                                                                <?php $OrderSelectionTagsClass->FrontEndDisplayTags("Price","CuisineTags");?>
+                                                            </ul>
+                                                            <div id="TagPricePosition"><i class="TagsArrowDown fa fa-arrow-circle-o-down"></i><i class="TagsArrowUp fa fa-arrow-circle-o-up"></i></div>
+                                                        </div>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -124,13 +172,37 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
                                     </div>
 
                                     <div class="row-fluid">
+                                            <!--wafterfall-->
+                                            <div class="row-fluid" ><!--image parts-->
+                                                <div class="span12 hidden-phone FeaturedImage">
+
+                                                    <div class="Imagetiles-detail" role="main">
+                                                        <ul id="RestaurantCuisine" class="Imagetiles" style="margin-top:9px;">
+
+                                                            <!-- These are our grid blocks -->
+                                                        </ul>
+                                                        <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                  </div>
+                                    <!--Comments-->
+                                    <div class="row-fluid" id="ClickToComment">
+                                        <div class="span12">
+                                            <ul class="nav nav-pills nav-stacked commentMarginBottom">
+                                                <!-- inside waterfall-->
+                                            </ul>
+                                            <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
+
+                                        </div>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h1 class="left-position" id="Feathred-left-position"> <i class="fa fa-arrow-circle-left"></i></h1>
+                    <h1 class="left-position" id="Restaurants-left-position"> <i class="fa fa-arrow-circle-left"></i></h1>
 
                 </div>
             </section>
@@ -154,7 +226,7 @@ else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not
 ?>
 
 <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
-<script src="<?php echo GlobalPath;?>/assets/framework/js/DetailCuisine.js"></script>
+<script src="<?php echo GlobalPath;?>/assets/framework/js/RestaurantDetailPage.js"></script>
 
 <?php include 'footer.php'?>
 

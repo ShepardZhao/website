@@ -164,6 +164,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                     <div class="row-fluid" id="ClickToComment">
                                             <div class="span12">
                                                 <ul class="nav nav-pills nav-stacked commentMarginBottom">
+                                                    <!-- inside waterfall-->
                                                 </ul>
                                                 <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
 

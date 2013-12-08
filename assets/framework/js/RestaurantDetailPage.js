@@ -1,29 +1,164 @@
 /**
- * Created by zhaoxun321 on 21/11/2013.
+ * Created by zhaoxun321 on 5/12/2013.
  */
 $(document).ready(function(){
-    /**
-     *Added active to tab
-     */
-    if($('#TabChoose').val() === 'FeathuredPages'){
-        $('.tabMain').find('li').eq(0).addClass('active');
-    }
-    if($('#TabChoose').val() === 'DishesPages'){
-        $('.tabMain').find('li').eq(2).addClass('active');
-    }
 
     /**
      * Gobal variable
      */
+
+    /**
+     * Filter variables
+     */
+    //gobal variables
+    var AvailabilityTagsArray = new Array(),
+        CuisineTagsArray = new Array(),
+        TypeTagsArray = new Array(),
+        PriceTagsArray = new Array(),
+        AvailabilityTagsIndex = 0,
+        CuisineTagsIndex = 0,
+        TypeTagsIndex = 0,
+        PriceTagsIndex = 0;
+
     /**
      * Comments variables
      */
     var CurrentLoginedUserID = $('#CurrentLoginedUserID').val();
-    var GetCurrentCuID = $('#GetCurrentCuID').val();
+    var GetCurrentResID = $('#RestID').val();
     var commentStartCount=0;
     var LimitedCommentCount=4;
     var isComment = false; //deafult status of comment display is off, but it will show up when element #Navcomments clicked
     var FirstFetchComment = 1; //set up the
+
+
+    /**
+     * Tags button
+     */
+        //Tag li elements click
+
+    $('body').on('click','.TagAvailable li',function() { //TagAvailable---Availability
+        $('#RestaurantCuisine').css('height','40px');
+
+        if($(this).hasClass('active'))
+        {
+            $(this).removeClass("active");
+        }
+        else{
+            $(this).addClass("active");
+        }
+
+    });
+
+
+
+    $('body').on('click','.TagCuisine li',function() { //TagCuisine---Cuisine
+        $('#RestaurantCuisine').css('height','40px');
+
+        if($(this).hasClass('active'))
+        {
+            $(this).removeClass("active");
+        }
+        else{
+            $(this).addClass("active");
+        }
+
+    });
+
+    $('body').on('click','.TagType li',function() { //TagType---Type
+        $('#RestaurantCuisine').css('height','40px');
+
+        if($(this).hasClass('active'))
+        {
+            $(this).removeClass("active");
+        }
+        else{
+            $(this).addClass("active");
+        }
+    });
+
+    $('body').on('click','.TagPrice li',function() { //TagPrice---Price
+        $('#RestaurantCuisine').css('height','40px');
+
+        if($(this).hasClass('active'))
+        {
+            $(this).removeClass("active");
+        }
+        else{
+            $(this).addClass("active");
+        }
+    });
+
+
+    /**
+     * Filter tags function groups
+     */
+    /*****************************************Filter tags******************************************************/
+//Availability tags click
+    $('body').on('click','.TagAvailable>li',function(){
+        if($(this).hasClass('active')){
+            AvailabilityTagsArray[AvailabilityTagsIndex]= $(this).find('a').text();
+        }
+        else{
+            AvailabilityTagsArray.splice( $.inArray($(this).find('a').text(),AvailabilityTagsArray) ,1 );
+        }
+        $('#RestaurantCuisine').empty();
+        AvailabilityTagsIndex++;
+        AvailabilityTagsArray.sort();
+        startCount=0;
+        loadData();
+
+    });
+
+//Cuisine tags click
+    $('body').on('click','.TagCuisine>li',function(){
+        if($(this).hasClass('active')){
+            CuisineTagsArray[CuisineTagsIndex]= $(this).find('a').text();
+        }
+        else{
+            CuisineTagsArray.splice( $.inArray($(this).find('a').text(),CuisineTagsArray) ,1 );
+        }
+        $('#RestaurantCuisine').empty();
+        CuisineTagsIndex++;
+        CuisineTagsArray.sort();
+        startCount=0;
+        loadData();
+    });
+
+    //TagType tags click
+    $('body').on('click','.TagType>li',function(){
+        if($(this).hasClass('active')){
+            TypeTagsArray[TypeTagsIndex]= $(this).find('a').text();
+        }
+        else{
+            TypeTagsArray.splice( $.inArray($(this).find('a').text(),TypeTagsArray) ,1 );
+        }
+        $('#RestaurantCuisine').empty();
+        TypeTagsIndex++;
+        TypeTagsArray.sort();
+        startCount=0;
+        loadData();
+
+
+    });
+
+//TagPrice tags click
+    $('body').on('click','.TagPrice>li',function(){
+        if($(this).hasClass('active')){
+            PriceTagsArray[PriceTagsIndex]= $(this).find('a').text();
+        }
+        else{
+            PriceTagsArray.splice( $.inArray($(this).find('a').text(),PriceTagsArray) ,1 );
+        }
+        $('#RestaurantCuisine').empty();
+        PriceTagsIndex++;
+        TypeTagsArray.sort();
+        startCount=0;
+        loadData();
+
+
+    });
+
+
     /**
      * Scroll to right position
      */
@@ -52,7 +187,7 @@ $(document).ready(function(){
     options = {//for feature only
         autoResize: true, // This will auto-update the layout when the browser window is resized.
         resizeDelay:50,
-        container: $('#ReleventCuisine'), // Optional, used for some extra CSS styling
+        container: $('#RestaurantCuisine'), // Optional, used for some extra CSS styling
         offset: 2, // Optional, the distance between grid items
         itemWidth: 215 // Optional, the width of a grid item
     };
@@ -63,7 +198,7 @@ $(document).ready(function(){
     function applyLayout() {
         options.container.imagesLoaded(function() {
             // Create a new layout handler when images have loaded.
-            handler = $('#ReleventCuisine li');
+            handler = $('#RestaurantCuisine li');
             handler.wookmark(options);
         });
     };
@@ -76,9 +211,9 @@ $(document).ready(function(){
         $('.Ajax-loading').fadeIn();
         $.ajax({
             type: "GET",
-            url: CurrentDomain+'/json/?GetResAndItsCuisine=yes&FilterCuisineID='+$('#GetCurrentCuID').val()+'&GetResID='+$('#GetCurrentResID').val(),
+            url: CurrentDomain+'/json/?GetAllCuisineAccordingToResID=yes&GetResID='+$('#RestID').val(),
             dataType: 'json',
-            data:{startCount:startCount,count:Returncount},
+            data:{startCount:startCount,count:Returncount,AvailabilityTags:AvailabilityTagsArray,CuisineTags:CuisineTagsArray,TypeTags:TypeTagsArray,PriceTags:PriceTagsArray},
             success: onLoadData
         });
     };
@@ -88,17 +223,17 @@ $(document).ready(function(){
      */
     function onScroll(event) {
         if($(document).scrollTop()<242){
-            $('#Feathred-left-position').fadeOut();
+            $('#Restaurants-left-position').fadeOut();
         }
         else{
-            $('#Feathred-left-position').fadeIn();
+            $('#Restaurants-left-position').fadeIn();
         }
         if(isComment){
             if(!isLoading) {
-            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-            if(closeToBottom){
-                GetCuisineCommentJson();
-            }
+                var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
+                if(closeToBottom){
+                    GetCuisineCommentJson();
+                }
             }
         }
         // Only check when we're not still waiting for data.
@@ -114,13 +249,16 @@ $(document).ready(function(){
 
     };
 
+
+
+
     /**
      * When Ajax has been sucessfully completed, then do following thing -- waterfall only
      * @param data
      */
 
     function onLoadData(data){
-
+        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -156,7 +294,7 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                     html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
                     html += '<div class="OutofStock"></div>';
@@ -199,9 +337,9 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
-                    html += '<h6 class="foodName">'+image.CuisineName;
-                    html += '<h5 class="foodName">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
+                    html += '<h6>'+image.CuisineName;
+                    html += '<h5>';
                     var total=5;
                     var solidStars=image.CuisineRating;
                     var emptyStars=total-solidStars;
@@ -214,7 +352,6 @@ $(document).ready(function(){
                     }
                     html += '</h5>';
                     html += '</h6>';
-                    html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
                 }
 
 
@@ -228,7 +365,7 @@ $(document).ready(function(){
         }
         // Add image HTML to the page.
 
-        $(html).hide().fadeIn(1000).appendTo($('#ReleventCuisine'));
+        $(html).hide().fadeIn(1000).appendTo($('#RestaurantCuisine'));
         // Apply layout.
         if(length!==0){
             applyLayout();
@@ -244,17 +381,14 @@ $(document).ready(function(){
     }
 
     /**
-     * if user click detail page's cuisine then uses below function
+     * This is only for Restaurant's element
      */
-        //only for cuisine-detail page
-    $('body').on('click','#ReleventCuisine>li',function(){
+    /**********************************************Detail cuisine************************************************/
+        //only for Feature part
+    $('body').on('click','#RestaurantCuisine>li',function(){
+        var  AjaxContainter = {};
+        if($(this).find('.CuisineID').length>0){ //if current is a li and that clicked finding that is Cuisine
 
-        if($(this).parent().parent().hasClass('Imagetiles-detail')){
-            $(this).parent().parent().parent().parent().parent().parent().remove();
-
-        }
-        var AjaxContainter = {};
-        if($(this).find('.CuisineID')){ //if current is a li and that clicked finding that is Cuisine
             AjaxContainter['RootID'] = $('#RootID').val();
             AjaxContainter['SubID'] = $('#SubID').val();
             AjaxContainter['CuisineID'] = $(this).find('.CuisineID').val();
@@ -272,53 +406,42 @@ $(document).ready(function(){
             AjaxContainter['CuisineTotalComments'] = $(this).find('.CuisineTotalComments').val();
             AjaxContainter['CuisineWhetherInCart'] = $(this).find('.CuisineWhetherInCart').val();
             AjaxContainter['CuisineWhetherFavorite'] = $(this).find('.CuisineWhetherFavorite').val();
+            AjaxContainter['CurrentCuisineStatus'] = $(this).find('.CurrentCuisineStatus').val();
+            AjaxContainter['CuisineResName'] = $('#ResName').val();
             AjaxContainter['TabChoose'] = 'FeathuredPages';
             var result = decodeURIComponent($.param(AjaxContainter));
             $('body').modalmanager('loading');
             window.location = 'Cuisine-detail?'+result;
+
         }
     });
 
+
+
     /**
-     * if user click read more link, then execute follow function
+     *Added active to tab
      */
-    /****************************************Cuisine Detail Description************************************************/
-    $('body').on('click','#ClickReadMore',function(){
-        var CuisineDescription=encodeURIComponent($('#CuisineDescriptWrap').text());
-        var CuisineName=encodeURIComponent($('#CuisineName').text());
-        $('body').modalmanager('loading');
-        setTimeout(function(){
-            $modal.load(CurrentDomain+'/Cuisine-description?CuisineName='+CuisineName+'&MoreDescription='+CuisineDescription, '', function(){
-                $modal.modal();
-            });
-        }, 1000);
-    });
+    if($('#TabChoose').val() === 'RestaurantsPage'){
+        $('.tabMain').find('li').eq(1).addClass('active');
+    }
+
 
 
 
     /**
-     * Return to previous page by click below arrow function
+     * Click class .ResCommentStar to go to comment for current cuisine
      */
-    $('body').on('click','#Feathred-left-position',function(){
-        window.location = 'Feathured?RootID='+$('#RootID').val()+'&SubID='+$('#SubID').val();
-
-    });
-
-
-    /**
-     * Click class .CuisineCommentStar to go to comment for current cuisine
-     */
-    $('body').on('click','.CuisineCommentStar',function(){
+    $('body').on('click','.ResCommentStar',function(){
         if($('#CurrentLoginedUserID').val() != ''){
-        var CurrentUserID=encodeURIComponent($('#CurrentLoginedUserID').val());
-        var CuisineID=encodeURIComponent($('#GetCurrentCuID').val());
-        var CuisineName=encodeURIComponent($('#CuisineName').text());
-        $('body').modalmanager('loading');
-        setTimeout(function(){
-            $modal.load(CurrentDomain+'/Cuisine-comment?CuisineName='+CuisineName+'&CurrentUserID='+CurrentUserID+'&CuisineID='+CuisineID, '', function(){
-                $modal.modal();
-            });
-        }, 1000);
+            var CurrentUserID=encodeURIComponent($('#CurrentLoginedUserID').val());
+            var CurrentResID=encodeURIComponent($('#RestID').val());
+            var CurrentResName=encodeURIComponent($('#ResName').val());
+            $('body').modalmanager('loading');
+            setTimeout(function(){
+                $modal.load(CurrentDomain+'/Restaurant-comment?CurrentResName='+CurrentResName+'&CurrentUserID='+CurrentUserID+'&CurrentResID='+CurrentResID, '', function(){
+                    $modal.modal();
+                });
+            }, 1000);
         }
         else{
             InformationDisplay('Sorry!, You have to login first','alert-error');
@@ -330,39 +453,36 @@ $(document).ready(function(){
     /**
      * following function of CuisineCommentStar is for when user clicks stars
      */
-    $modal.on('click','.CuisineCommentStar-given',function(){
-        var getThisLength = $('.CuisineCommentStar-given').length;
+    $modal.on('click','.ResCommentStar-given',function(){
+        var getThisLength = $('.ResCommentStar-given').length;
         for (var i=0;i<getThisLength;i++){
-            if($('.CuisineCommentStar-given').hasClass('fa-star')){
-                $('.CuisineCommentStar-given').eq(i).removeClass('fa-star').addClass('fa-star-o');
+            if($('.ResCommentStar-given').hasClass('fa-star')){
+                $('.ResCommentStar-given').eq(i).removeClass('fa-star').addClass('fa-star-o');
             }
 
         }
 
-        var CurrentLength = $('.CuisineCommentStar-given').index($(this));
+        var CurrentLength = $('.ResCommentStar-given').index($(this));
         for (var i=0;i<CurrentLength+1;i++){
-            if($('.CuisineCommentStar-given').hasClass('fa-star-o')){
-                $('.CuisineCommentStar-given').eq(i).removeClass('fa-star-o').addClass('fa-star');
+            if($('.ResCommentStar-given').hasClass('fa-star-o')){
+                $('.ResCommentStar-given').eq(i).removeClass('fa-star-o').addClass('fa-star');
             }
 
         }
 
     });
 
-
-
     /**
      * Prepare submit Cuisine comment
      */
     /***********************************Submit cuisine comment******************************************/
-    $modal.on('click','.submitCuisineComment',function(){
-
-        var CurrentCuisineID = $('#CommentCuisineID').val();
+    $modal.on('click','.submitResComment',function(){
+        var CurrentResID = $('#CommentCurrentResID').val();
         var CurrentUserID = $('#CommentCurrentUserID').val();
-        var Currentstars =  $('.CuisineCommentStarGroup').find('.fa-star').length;
-        var CurrentCommentContent = $('#cuisine-comment-area').val();
+        var Currentstars =  $('.ResCommentStarGroup').find('.fa-star').length;
+        var CurrentCommentContent = $('#Res-comment-area').val();
         var tmp={};
-        tmp['CurrentCuisineID'] = CurrentCuisineID;
+        tmp['CurrentResID'] = CurrentResID;
         tmp['CurrentUserID'] = CurrentUserID;
         tmp['Currentstars'] = Currentstars;
         tmp['CurrentCommentContent'] = CurrentCommentContent;
@@ -375,14 +495,14 @@ $(document).ready(function(){
             return false;
         }
 
-        AJAXpassTempCuisineComment(tmp);
+        AJAXpassTempResComment(tmp);
     });
 
 
     /**
      * Ajax pass the tmp comment data to backend-controller
      */
-    function AJAXpassTempCuisineComment(tmp){
+    function AJAXpassTempResComment(tmp){
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
@@ -390,22 +510,22 @@ $(document).ready(function(){
             dataType: "html"
         });
         request.done(function(msg) {
-           if(msg==='true'){
-               comment_time = Math.round((new Date()).getTime() / 1000); //handel current time frame
-               AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
-               RestStars(tmp['Currentstars']);
-           }
-           else if(msg==='Over Comment'){
-               AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+            console.log(msg);
+            if(msg==='true'){
+                AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+                RestStars(tmp['Currentstars']);
+            }
+            else if(msg==='Over Comment'){
+                AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
 
-           }
-           else if(msg==='false'){
-               AjaxMessage('alert-error','Datebase operation error');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+            }
+            else if(msg==='false'){
+                AjaxMessage('alert-error','Datebase operation error');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
 
-           }
+            }
         });
 
         request.fail(function( jqXHR, textStatus ) {
@@ -418,9 +538,9 @@ $(document).ready(function(){
      * Reset stars
      */
     function RestStars(SoldStars){
-       var getStarsLength = $('.CuisineCommentStar').length;
+        var getStarsLength = $('.ResCommentStar').length;
         for (var i=0;i<SoldStars;i++){
-                $('.CuisineCommentStar').eq(i).removeClass('fa-star-o').addClass('fa-star');
+            $('.ResCommentStar').eq(i).removeClass('fa-star-o').addClass('fa-star');
         }
     }
 
@@ -440,24 +560,25 @@ $(document).ready(function(){
 
     }
 
-/**************************************************Switch comment page and waterfall page*********************************/
+
+    /**************************************************Switch comment page and waterfall page -- Restaurant*********************************/
     /**
      * Click #Navcomments to swithch comment or wataerfall
      */
 
     $('body').on('click','#Navcomments',function(){//arrow click event between comments and waterfall
         if($(this).hasClass('fa-arrow-circle-down')){
-            $('#ClickToComment').fadeIn();
-            $('#Cuisine-Waterfall').hide();
+            $('#ResWaterfall-zone').fadeOut(500);
+            $('#ClickToComment').fadeIn(500);
             isComment = true;
             $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
             GetCuisineCommentJson();
         }
 
         else if($(this).hasClass('fa-arrow-circle-up')){
-            $('#ClickToComment').hide();
-            $('#Cuisine-Waterfall').fadeIn();
-            $('#ReleventCuisine').trigger('refreshWookmark');
+            $('#ClickToComment').fadeOut(500);
+            $('#ResWaterfall-zone').fadeIn(500);
+            $('#RestaurantCuisine').trigger('refreshWookmark');
             isComment = false;
             $(this).removeClass('fa-arrow-circle-up').addClass('fa-arrow-circle-down');
 
@@ -471,7 +592,7 @@ $(document).ready(function(){
         $('.Ajax-loading').fadeIn();
         $.ajax({
             type: "GET",
-            url: CurrentDomain+'/json/?GetCuisineComment=yes&GetCurrentCuID='+GetCurrentCuID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
+            url: CurrentDomain+'/json/?GetResComment=yes&GetCurrentResID='+GetCurrentResID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
             dataType: 'json',
             success: onLoadComment
         });
@@ -515,23 +636,23 @@ $(document).ready(function(){
                 html += '</div>';
                 html += '</div>';
                 html += '</li>';
-                }
+            }
 
-            }
-            else if(data.length === 0 && FirstFetchComment === 1){
-                html += '<h4 class="text-center">No more comments</h4>';
-                FirstFetchComment++;
-            }
-            // Add image HTML to the page.
-
-            $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
-            if(commentStartCount===0){
-                commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
-            }
-            else{
-                commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
-            }
         }
+        else if(data.length === 0 && FirstFetchComment === 1){
+            html += '<h4 class="text-center">No more comments</h4>';
+            FirstFetchComment++;
+        }
+        // Add image HTML to the page.
+
+        $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
+        if(commentStartCount===0){
+            commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
+        }
+        else{
+            commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+        }
+    }
 
 
     /**
@@ -543,12 +664,12 @@ $(document).ready(function(){
             InformationDisplay('You have to login before you are going to vote','alert-error');
         }
         else{
-        var Tmpsave = $(this);
-        var JsonPass = {};
-        JsonPass['thumbLikeOrDislike'] = 'like';
-        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
-        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
-        thumbsLikeorDislike(Tmpsave,JsonPass);
+            var Tmpsave = $(this);
+            var JsonPass = {};
+            JsonPass['thumbLikeOrDislike'] = 'like';
+            JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+            JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
 
@@ -562,12 +683,12 @@ $(document).ready(function(){
             InformationDisplay('You have to login before you are going to vote','alert-error');
         }
         else{
-        var Tmpsave = $(this);
-        var JsonPass = {};
-        JsonPass['thumbLikeOrDislike'] = 'dislike';
-        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
-        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
-        thumbsLikeorDislike(Tmpsave,JsonPass);
+            var Tmpsave = $(this);
+            var JsonPass = {};
+            JsonPass['thumbLikeOrDislike'] = 'dislike';
+            JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+            JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
     /**
@@ -587,12 +708,12 @@ $(document).ready(function(){
             if(msg.Error===0){
                 InformationDisplay(msg.info,"alert-success");
                 if(msg.like===1){
-                   Tmpsave.parent().find('.good').text(msg.ReturntCount);
+                    Tmpsave.parent().find('.good').text(msg.ReturntCount);
                 }
                 else if(msg.dislike===1){
                     Tmpsave.parent().find('.bad').text(msg.ReturntCount);
                 }
-                }
+            }
             else if (msg.Error===1){
                 InformationDisplay(msg.info,"alert-error");
             }
@@ -603,7 +724,5 @@ $(document).ready(function(){
         request.fail(function( jqXHR, textStatus ) {
             alert( "Request failed: " + textStatus );
         });
-
     }
 });
-

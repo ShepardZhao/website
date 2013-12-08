@@ -1,6 +1,8 @@
 <div class="fixed_button_top">
 
 </div>
+<?php  echo $InitialLocationSelectClass->GetLocation('LoginedIn');?>
+
 </body>
 
 <!--------------------------------------------------some js function that may used------------------------------->

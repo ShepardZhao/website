@@ -1610,12 +1610,12 @@ class Restartuant {
     //fetch restraruant with normall array
     public function FetchRestaruant(){
         $object=array();
-        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResRating,ResAvailability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResReview=1")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResPicWidth,ResPicHeight,ResRating,ResAvailability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResReview=1")){
             $stmt->execute();
-            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
+            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
             $object=array();
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"ResRating"=>$ResRating,"ResAvailability"=>$ResAvailability,"ResCuisine"=>$ResCuisine,"ResReview"=>$ResReview,"UserID"=>$UserID);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>$ResAvailability,"ResCuisine"=>$ResCuisine,"ResReview"=>$ResReview,"UserID"=>$UserID);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -2039,20 +2039,53 @@ class Cuisine{
         }
     }
 
+    /**
+     * @param $getResID
+     * @param $getSpecCuID
+     *
+     * @return array
+     */
+
     public function ReturnCuisinewithResIDandReview($getResID,$getSpecCuID){
         $object=array();
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE RestID=? AND CuReview=1 AND CuID !=? ORDER BY CuOrder")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE RestID=? AND CuReview=1 AND CuID !=? ORDER BY CuOrder")){
             $stmt->bind_param('ss',$getResID,$getSpecCuID);
             $stmt->execute();
-            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
             while ($stmt->fetch()){
-                $row = array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price,"CuAddedTime"=>$CuAddedTime);
+                $row = array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,'PicWidth'=>$CuPicWidth,'PicHeight'=>$CuPicHeight,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price,"CuAddedTime"=>$CuAddedTime);
                 array_push($object,$row);
             }
             $stmt->close();
             return $object;
         }
     }
+
+    /**
+     * @param $getResID
+     *
+     * @return array
+     */
+    public function ReturnCuisinewithReviewbyResID($getResID){
+        $object=array();
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE RestID=? AND CuReview=1 ORDER BY CuOrder")){
+            $stmt->bind_param('s',$getResID);
+            $stmt->execute();
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
+            while ($stmt->fetch()){
+                $row = array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,'PicWidth'=>$CuPicWidth,'PicHeight'=>$CuPicHeight,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price,"CuAddedTime"=>$CuAddedTime);
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return $object;
+        }
+    }
+
+    /**
+     * @param $getCuID
+     *
+     * @return string
+     */
 
     //return second dataset level of cuisine
     private function ReturnDataOfSecondCuisine($getCuID){
@@ -2914,10 +2947,30 @@ class CuisineComemnt{
     }
 
     /**
-     * Fetch count of current Cuisine
+     * Fetch the count of comments of current restaurant
+     * @param $currentResID
+     *
+     * @return array
+     */
+    private function FecthResCountOfComment ($currentResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM RestaurantsComments WHERE RestID=?")){
+            $stmt->bind_param('s',$currentResID);
+            $stmt->execute();
+            $stmt->bind_result($TOTAL);
+            while($stmt->fetch()){
+                $tmp=array('TotalComments'=>$TOTAL);
+            }
+            $stmt->close();
+            return $tmp;
+        }
+    }
+
+
+    /**
+     * Fetch count of commnets of current Cuisine
      * @param $currentCuID
      */
-    private function FetchCountOfComment($currentCuID){
+    private function FetchCuisineCountOfComment($currentCuID){
         if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM CuisineComment WHERE CuID=?")){
            $stmt->bind_param('s',$currentCuID);
            $stmt->execute();
@@ -2931,6 +2984,24 @@ class CuisineComemnt{
     }
 
     /**
+     *  Intergrate Comment with Restaurant
+     * @param $GetResArray
+     *
+     * @return mixed
+     */
+    public function IntergrateCommentWithRestaruant($GetResArray){
+        foreach ($GetResArray as $key => $subArray){
+            foreach ($subArray as $subKey => $value){
+                if($subKey === 'RestID'){
+                    $GetResArray[$key] = array_merge($GetResArray[$key], $this -> FecthResCountOfComment($value));
+                }
+            }
+        }
+        return $GetResArray;
+
+    }
+
+    /**
      * Intergrate Comment with Cuisine
      * @param $GetCuisineArray
      */
@@ -2938,7 +3009,7 @@ class CuisineComemnt{
         foreach ($GetCuisineArray as $key => $subArray){
             foreach ($subArray as $subKey => $value){
                 if($subKey === 'CuisineID'){
-                        $GetCuisineArray[$key] = array_merge($GetCuisineArray[$key], $this -> FetchCountOfComment($value));
+                        $GetCuisineArray[$key] = array_merge($GetCuisineArray[$key], $this -> FetchCuisineCountOfComment($value));
                 }
             }
         }
@@ -2947,6 +3018,7 @@ class CuisineComemnt{
     }
 
     /**
+     * insert Cuisine comment param into database
      * @param $userID
      * @param $cuisineID
      * @param $cuisineCommentID
@@ -2957,7 +3029,6 @@ class CuisineComemnt{
      * @param $dislike
      * @param $review
      *
-     * insert comment param into database
      * @return string
      */
     public function getCuisineCommentParam($userID,$cuisineID,$cuisineCommentID,$Rating,$commentContent,$like,$dislike,$review){
@@ -2975,7 +3046,33 @@ class CuisineComemnt{
     }
 
     /**
-     * Fetch cuisine commment according to userID and cuisineID
+     * insert Restaurant comment into databse
+     * @param $userID
+     * @param $CurrentResID
+     * @param $cuisineCommentID
+     * @param $Rating
+     * @param $commentContent
+     * @param $like
+     * @param $dislike
+     * @param $review
+     */
+
+    public function getResCommentParam($userID,$CurrentResID,$cuisineCommentID,$Rating,$commentContent,$like,$dislike,$review){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO RestaurantsComments (UserID,RestID,ResCommentID,ResComment,ResCommentDate,ResCommentRating,ResCommentLike,ResCommentDislike,RescoReview) VALUES (?,?,?,?,?,?,?,?,?)")){
+            $stmt->bind_param('sssssiiii',$userID,$CurrentResID,$cuisineCommentID,$commentContent,date("Y-m-d H:i:s"),$Rating,$like,$dislike,$review);
+            $stmt->execute();
+            $stmt->close();
+            //session_start();
+            $_SESSION['SetUpResCommentTime'] = time();
+            return 'true';
+        }
+        else {
+            return 'false';
+        }
+    }
+
+    /**
+     * Fetch cuisine commment according to cuisineID
      * @param $userID
      * @param $cuisineID
      */
@@ -2992,6 +3089,23 @@ class CuisineComemnt{
 
     }
 
+    /**
+     * Fetch cuisine commment according to ResID
+     * @param $ResID
+     *
+     * @return array
+     */
+    public function fetchResComment($ResID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT User.UserName, User.UserPhotoPath, RestaurantsComments.ResCommentID, RestaurantsComments.ResComment, RestaurantsComments.ResCommentDate, RestaurantsComments.ResCommentRating, RestaurantsComments.ResCommentLike, RestaurantsComments.ResCommentDislike FROM User LEFT JOIN RestaurantsComments ON User.UserID = RestaurantsComments.UserID WHERE RestaurantsComments.RestID=? AND RescoReview=1"))
+            $stmt->bind_param('s',$ResID);
+        $stmt->execute();
+        $stmt->bind_result($UserName, $UserPhotoPath, $ResCommentID, $ResComment, $ResCommentDate, $ResCommentRating, $ResCommentLike, $ResCommentDislike);
+        while($stmt->fetch()){
+            $tmp[]=array('UserName'=>$UserName, 'UserPhotoPath'=>$UserPhotoPath, 'ResCommentID'=>$ResCommentID, 'RestaurantsComments'=>$ResComment, 'ResCommentDate'=>$ResCommentDate, 'ResCommentRating'=>$ResCommentRating, 'ResCommentLike'=>$ResCommentLike, 'ResCommentDislike'=>$ResCommentDislike);
+        }
+        $stmt->close();
+        return $tmp;
+    }
 
 }
 
@@ -3121,7 +3235,8 @@ class JsonReturnOrDeal{
         $RestartuantClass = new Restartuant($this -> DataBaseCon);
         $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
         $GetAllRes = $RestartuantClass -> ReturnResLocation($locationName);
-        $GetResult = $CuisineClass -> ReturnCuisineOnlyAccordingToRes($GetAllRes);
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        $GetResult = $CuisineClass -> ReturnCuisineOnlyAccordingToRes($GetAllResWithComment);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
         $ReturnResult = $this -> returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
         $FinalResult = $this -> filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnResult);
@@ -3148,10 +3263,12 @@ class JsonReturnOrDeal{
         $RestartuantClass=new Restartuant($this->DataBaseCon);
         $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
         $GetAllRes=$RestartuantClass->ReturnResLocation($locationName);
-        $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllRes);
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllResWithComment);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
-        $ReturnResult=$this->returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
-        $FinalResult=$this->filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnResult);
+        $ReturnResult=$this->filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$GetIntergrateComments);
+        $FinalResult=$this->returnLimitedRecord($ReturnResult,$startCount,$ReturnCount);
+
         return json_encode($FinalResult);
     }
 
@@ -3185,9 +3302,28 @@ class JsonReturnOrDeal{
         $GetFinalCuisine = $CuisineClass->ReturnfinalCuisine($GetCuisineOfRes);//combine the second level
         $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetFinalCuisine);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
-
         $ReturnResult=$this->returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
         return json_encode($ReturnResult);
+    }
+
+    /**
+     * Return all cuisine according to sepcial ResID, and if filter has been chosen then do the filter things before return final json array
+     * @param $Resid
+     * @param $startCount
+     * @param $ReturnCount
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     */
+    public function ReturnAllCuisineAccordingToResID($Resid,$startCount,$ReturnCount,$AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray){
+        $CuisineClass=new Cuisine($this->DataBaseCon);
+        $RestartuantClass=new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $AllFirstCuisine= $CuisineClass -> ReturnCuisinewithReviewbyResID($Resid);
+        $GetFinalCuisine = $CuisineClass->ReturnfinalCuisine($AllFirstCuisine);//combine the second level
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisine);
+        $ReturnResult=$this->filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$GetIntergrateComments);
+        $FinalResult=$this->returnLimitedRecord($ReturnResult,$startCount,$ReturnCount);
+        return json_encode($FinalResult);
     }
 
     /**
@@ -3210,13 +3346,27 @@ class JsonReturnOrDeal{
      * @param $UserID
      * @param $CuID
      */
-    public function ReturnCommentOfCuisine($UserID,$CuID,$CurrentCount,$limitedCount){
+    public function ReturnCommentOfCuisine($CuID,$CurrentCount,$limitedCount){
          $CuisineComemntclass = new CuisineComemnt($this->DataBaseCon);
          $getTotalCommentClass = $CuisineComemntclass-> fetchCuisineComment($CuID);
          $ReturnResult=$this->returnLimitedRecord($getTotalCommentClass,$CurrentCount,$limitedCount);
          return json_encode($ReturnResult);
     }
 
+    /**
+     * Return Restaurant comments
+     * @param $ResID
+     * @param $CurrentCount
+     * @param $limitedCount
+     *
+     * @return string
+     */
+    public function ReturnCommentOfRes($ResID,$CurrentCount,$limitedCount){
+        $CuisineComemntclass = new CuisineComemnt($this->DataBaseCon);
+        $getTotalCommentClass = $CuisineComemntclass-> fetchResComment($ResID);
+        $ReturnResult=$this->returnLimitedRecord($getTotalCommentClass,$CurrentCount,$limitedCount);
+        return json_encode($ReturnResult);
+    }
 
     /**
      * @param $GetCuisineID

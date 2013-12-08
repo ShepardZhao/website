@@ -267,7 +267,7 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                     html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
                     html += '<div class="OutofStock"></div>';
@@ -301,7 +301,7 @@ $(document).ready(function(){
                     html += '<h5><i class="AddedToCart BackgroundOfStarAndPlus fa fa-plus"></i></h5>';
                     html += '</div>';
                     html += '</div>';
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'">';
                     if(image.CuisineName!==undefined){
                         html += '<h6 class="foodName">'+image.CuisineName+'</h6>';
                         html += '<h6 id="pic1" class="RetaurantName optionsHide">'+image.CuisineResName+'</h6>';
@@ -360,6 +360,7 @@ $(document).ready(function(){
             AjaxContainter['TabChoose'] = 'DishesPages';
             AjaxContainter['CurrentCuisineStatus'] = $(this).find('.CurrentCuisineStatus').val();
             var result = decodeURIComponent($.param(AjaxContainter));
+            $('body').modalmanager('loading');
             window.location = 'Cuisine-detail?'+result;
 
             //AjaxofCuisinePage(AjaxContainter);

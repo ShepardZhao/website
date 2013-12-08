@@ -31,10 +31,7 @@ if (isset($_GET['RootID']) && isset($_GET['SubID'])){
                             <li><a href="Dishes?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Dishes</a></li>
                         </ul>
                         <div class="tab-content tabContent"><!--tab selection-->
-                            <div class="tab-pane fade in active">
-
-
-
+                            <div class="tab-pane active">
                                 <div class="row-fluid" id="FeathuredInterface">
                                     <div class="span2 ContentRight">
                                         <div class="ContentWidth">

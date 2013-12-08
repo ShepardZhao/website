@@ -180,6 +180,26 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
             echo 'Over Comment';
         }
     }
+    /********************************************Added Restaruant comment**************************************************/
+    //added cuisine comment
+    if(isset($_POST['CurrentResID']) && isset($_POST['CurrentUserID']) && isset($_POST['Currentstars']) && isset($_POST['CurrentCommentContent'])){
+        //prevent over comment
+        $current= time();
+        session_start();
+        if($current - $_SESSION['SetUpResCommentTime'] > 1200) { //limited user comment once with 20 min as a gap
+            $like = 0;
+            $dislike = 0;
+            $tempCode=$RegisterUserClass->GenerateRandomUserID();
+            $commentID = 'Cu'.$tempCode;
+            $review = 0;
+            echo $CuisineComemnt -> getResCommentParam($_POST['CurrentUserID'], $_POST['CurrentResID'], $commentID, intval($_POST['Currentstars']), $_POST['CurrentCommentContent'], intval($like), intval($dislike), intval($review));
+        }
+        else{
+            echo 'Over Comment';
+        }
+    }
+
+
 /*******************************************Thumb Like Or dislike***************************************************/
     if(isset($_POST['thumbLikeOrDislike']) && isset($_POST['CurrentUserID']) && isset($_POST['CurrentCommmentID'])){
         echo $ThumbLikeOrDislikeclass -> GetThumbsDistingush($_POST['thumbLikeOrDislike'], $_POST['CurrentUserID'], $_POST['CurrentCommmentID']);

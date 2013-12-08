@@ -70,7 +70,7 @@ $(document).ready(function(){
                     html += '<li>';
 
                     // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).
-                    html += '<img src="'+image.PicPath+'">';
+                    html += '<img src="'+image.PicPath+'" width="'+image.PicWidth+'" height="'+image.PicHeight+'" >';
 
                     html += '<div class="mask">';
 

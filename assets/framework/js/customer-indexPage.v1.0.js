@@ -1,6 +1,5 @@
-
-//once html has been loaded up then executed the following thing
 $(document).ready(function(){
+    //lazy image
     var isDisplay=true;
     window.CurrentDomain=window.location.origin;
  //common area
@@ -58,7 +57,7 @@ $(document).ready(function(){
         $('body').on('click','.AddedNewAddress',function(){
             $('body').modalmanager('loading');
             setTimeout(function(){
-                $modal.load(CurrentDomain+'/cms/customer-Management/SubPages/AddedNewAddress.php', '', function(){
+                $modal.load(CurrentDomain+'/CMS/customer-Management/SubPages/AddedNewAddress.php', '', function(){
                     $modal.modal();
                 });
             }, 1000);
