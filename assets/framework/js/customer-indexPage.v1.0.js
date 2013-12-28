@@ -309,7 +309,7 @@ $(document).ready(function(){
 
     //pass parameters to Feathured
     $('body').on('click','#SelectSubLocation',function(){
-
+        $modal.modal('loading');
         window.location = CurrentDomain+'/Feathured?RootID='+ID+'&SubID='+SubID;
 
     });
@@ -351,7 +351,7 @@ $(document).ready(function(){
         if( $(window).width() > 600 ) {
             $(function(){
                 var width=$('.container-fluid').width();
-                var serachWidth=width-440;
+                var serachWidth=width-555;
                 $('.searchItem').width(serachWidth);
             });
         }

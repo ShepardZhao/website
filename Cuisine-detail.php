@@ -25,7 +25,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs tabMain">
                         <li><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
-                        <li><a href="#Restaurants"  id="Restaurants-tab">Restaurants</a></li>
+                        <li><a href="Restaurants?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>"  id="Restaurants-tab">Restaurants</a></li>
                         <li><a href="Dishes?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>"  id="Dishes-tab">Dishes</a></li>
                     </ul>
                     <div class="tab-content tabContent"><!--tab selection-->
@@ -166,7 +166,6 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                                 <ul class="nav nav-pills nav-stacked commentMarginBottom">
                                                     <!-- inside waterfall-->
                                                 </ul>
-                                                <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
 
                                             </div>
 

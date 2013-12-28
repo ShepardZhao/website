@@ -2,7 +2,6 @@
 <?php if(isset($_GET['CurrentResID']) && isset($_GET['CurrentResName']) && isset($_GET['CurrentUserID'])){?>
     <input type="hidden" id="CommentCurrentResID" value="<?php echo $_GET['CurrentResID']?>">
     <input type="hidden" id="CommentCurrentUserID" value="<?php echo $_GET['CurrentUserID']?>">
-
     <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
         <h3 class="text-center"><i style="color:#e46"><?php echo $_GET['CurrentResName']?></i></h3>

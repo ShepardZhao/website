@@ -60,11 +60,6 @@ if ($user) {
     <!-- Include the plug-in -->
     <script src="<?php echo GlobalPath;?>/assets/framework/js/jquery.wookmark.min.js"></script>
     <script src="<?php echo GlobalPath;?>/assets/framework/js/customer-indexPage.v1.0.js"></script>
-
-
-
-
-
 </head>
 <body>
 <header id="header-controller"><!--header begin-->
@@ -146,8 +141,26 @@ if ($user) {
 
                     <?php elseif(isset($_SESSION['LoginedUserID'])): ?>
 
-                    <ul class="nav nav-pills headNav pull-left">
-                        <li><div class="btn-group"><div id="search"><input type="text" class="searchItem"  data-provide="typeahead" placeholder="Search Items......." ><img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png "></div> </div></li>
+                    <ul class="nav nav-pills headNav pull-left" id="searchParent">
+                        <li><div class="btn-group">
+                                <div id="search"><input type="text" class="searchItem"  placeholder="Search (Cuisines, Restaurants, Tags)" >
+                                    <div class="btn-group">
+                                    <div class="btn searchChoice" data-toggle="dropdown"><h7>Default</h7> <i class="fa fa-caret-down"></i>
+                                    </div>
+
+                                    <ul class="dropdown-menu searchDropdown">
+                                        <li id="Defau"><a>Default</a></li>
+                                        <li id="Cuis"><a>Cuisines</a></li>
+                                        <li id="Res"><a>Restaurants</a></li>
+                                        <li id="Tags"><a>Tags</a></li>
+                                    </ul>
+                                    </div>
+                                    <img id="searchImg" width=40 height=40 src="<?php echo GlobalPath?>/assets/framework/front-images/search.png ">
+                                </div>
+                            </div>
+                        </li>
+                        <div class="SearchResult">
+                        </div>
                     </ul>
                 </div>
 

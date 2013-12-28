@@ -59,7 +59,6 @@ $(document).ready(function(){
          * Receives data from the API, creates HTML for images and updates the layout
          */
         function onLoadData(data) {
-            console.log(data);
             isLoading = false;
             // Create HTML for the images.
             var html = '';

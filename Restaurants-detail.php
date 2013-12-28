@@ -1,6 +1,6 @@
 <?php include 'header.php'?>
 <?php
-if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
+if (isset($_SESSION['RootID']) || isset($_SESSION['SubID'])){
     $InitialLocationSelectClass->hiddenInitialLocation();
 //according RootID and SubID to get their names
     $_SESSION['RootLocation']=$InitialLocationSelectClass->GetsRootLocalName($_SESSION['RootID']);
@@ -29,7 +29,7 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
                         <ul class="nav nav-tabs tabMain">
                             <li><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
-                            <li><a href="#Restaurants"  id="Restaurants-tab">Restaurants</a></li>
+                            <li><a href="Restaurants?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>"  id="Restaurants-tab">Restaurants</a></li>
                             <li><a href="Dishes?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>"  id="Dishes-tab">Dishes</a></li>
                         </ul>
                         <div class="tab-content tabContent"><!--tab selection-->
@@ -193,7 +193,6 @@ if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
                                             <ul class="nav nav-pills nav-stacked commentMarginBottom">
                                                 <!-- inside waterfall-->
                                             </ul>
-                                            <div class="Ajax-loading"><img src="<?php echo GlobalPath.'/assets/framework/img/ajax-loader.gif'?>"></div>
 
                                         </div>
 

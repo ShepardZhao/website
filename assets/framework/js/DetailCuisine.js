@@ -22,8 +22,7 @@ $(document).ready(function(){
     var GetCurrentCuID = $('#GetCurrentCuID').val();
     var commentStartCount=0;
     var LimitedCommentCount=4;
-    var isComment = false; //deafult status of comment display is off, but it will show up when element #Navcomments clicked
-    var FirstFetchComment = 1; //set up the
+    var FirstFetchComment = 1; //set up
     /**
      * Scroll to right position
      */
@@ -93,16 +92,6 @@ $(document).ready(function(){
         else{
             $('#Feathred-left-position').fadeIn();
         }
-        if(isComment){
-            if(!isLoading) {
-            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-            if(closeToBottom){
-                GetCuisineCommentJson();
-            }
-            }
-        }
-        // Only check when we're not still waiting for data.
-        else{
             if(!isLoading) {
                 // Check if we're within 100 pixels of the bottom edge of the broser window.
                 var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
@@ -110,8 +99,6 @@ $(document).ready(function(){
                     loadData();
                 }
             }
-        }
-
     };
 
     /**
@@ -120,7 +107,6 @@ $(document).ready(function(){
      */
 
     function onLoadData(data){
-
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -242,6 +228,9 @@ $(document).ready(function(){
         }
 
     }
+
+
+
 
     /**
      * if user click detail page's cuisine then uses below function
@@ -449,8 +438,8 @@ $(document).ready(function(){
         if($(this).hasClass('fa-arrow-circle-down')){
             $('#ClickToComment').fadeIn();
             $('#Cuisine-Waterfall').hide();
-            isComment = true;
             $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
+            $('.commentMarginBottom').empty();
             GetCuisineCommentJson();
         }
 
@@ -458,9 +447,7 @@ $(document).ready(function(){
             $('#ClickToComment').hide();
             $('#Cuisine-Waterfall').fadeIn();
             $('#ReleventCuisine').trigger('refreshWookmark');
-            isComment = false;
             $(this).removeClass('fa-arrow-circle-up').addClass('fa-arrow-circle-down');
-
         }
     });
 
@@ -468,7 +455,6 @@ $(document).ready(function(){
      * Get Cuisine Comment Json
      */
     function GetCuisineCommentJson(){
-        $('.Ajax-loading').fadeIn();
         $.ajax({
             type: "GET",
             url: CurrentDomain+'/json/?GetCuisineComment=yes&GetCurrentCuID='+GetCurrentCuID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
@@ -481,7 +467,6 @@ $(document).ready(function(){
      * if sucessfully got json, then do followling thing
      */
     function onLoadComment(data){
-        $('.Ajax-loading').fadeOut();
         var html = '';
         if(data.length>0){
             isLoading = false;
@@ -516,24 +501,35 @@ $(document).ready(function(){
                 html += '</div>';
                 html += '</li>';
                 }
+                html += '<div class="MoreComments btn text-center">More</div>';
 
             }
             else if(data.length === 0 && FirstFetchComment === 1){
                 html += '<h4 class="text-center">No more comments</h4>';
                 FirstFetchComment++;
             }
-            // Add image HTML to the page.
+
+        // Add image HTML to the page.
 
             $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
-            if(commentStartCount===0){
-                commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
-            }
-            else{
-                commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
-            }
+
         }
 
 
+    /**
+     * click more button to display more comment of cuisine
+     */
+
+    $('body').on('click','.MoreComments',function(){
+        $(this).hide();
+        if(commentStartCount===0){
+            commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
+        }
+        else{
+            commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+        }
+        GetCuisineCommentJson();
+    });
     /**
      * fa-thumbs-o-up
      * given a good comment
@@ -548,6 +544,7 @@ $(document).ready(function(){
         JsonPass['thumbLikeOrDislike'] = 'like';
         JsonPass['CurrentUserID'] = CurrentLoginedUserID;
         JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+        JsonPass['CurrentCommentType'] = 'CuisineComment';
         thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
@@ -567,6 +564,7 @@ $(document).ready(function(){
         JsonPass['thumbLikeOrDislike'] = 'dislike';
         JsonPass['CurrentUserID'] = CurrentLoginedUserID;
         JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+        JsonPass['CurrentCommentType'] = 'CuisineComment';
         thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
@@ -574,16 +572,17 @@ $(document).ready(function(){
      * thumbs for like or dislike
      */
 
-    function thumbsLikeorDislike(Tmpsave,temp){
+    function thumbsLikeorDislike(Tmpsave,JsonPass){
 
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
-            data:temp,
+            data:JsonPass,
             dataType: "json"
         });
 
         request.done(function( msg ) {
+            console.log(msg);
             if(msg.Error===0){
                 InformationDisplay(msg.info,"alert-success");
                 if(msg.like===1){

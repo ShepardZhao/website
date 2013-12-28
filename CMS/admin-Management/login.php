@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="font/css/fontello.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,700' rel='stylesheet' type='text/css'>
 <script src="../../assets/framework/js/jquery-1.10.2.js"></script>
-<script src="js/CMS-AJAX.v1.0"></script>
+<script src="js/CMS-AJAX.v1.0.js"></script>
 
 </head>
 <body>

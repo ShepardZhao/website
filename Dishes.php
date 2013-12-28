@@ -27,7 +27,7 @@ if (isset($_GET['RootID']) && isset($_GET['SubID'])){
                     <div class="tabbable"> <!-- Only required for left/right tabs -->
                         <ul class="nav nav-tabs tabMain">
                             <li><a href="Feathured?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Featured</a></li>
-                            <li><a href="#Restaurants" data-toggle="tab" id="Restaurants-tab">Restaurants</a></li>
+                            <li><a href="Restaurants?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>" data-toggle="tab" id="Restaurants-tab">Restaurants</a></li>
                             <li class="active"><a href="Dishes?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Dishes</a></li>
                         </ul>
                         <div class="tab-content tabContent"><!--tab selection-->

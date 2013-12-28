@@ -20,6 +20,7 @@
 <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap-modal.js"></script>
 <!-- Include the plug-in -->
 <script src="<?php echo GlobalPath;?>/assets/framework/js/bootstrap-modalmanager.js"></script>
-
+<!-- typedhead search js-->
+<script src="<?php echo GlobalPath;?>/assets/framework/js/typedhead.js"></script>
 </html>
 
