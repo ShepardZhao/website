@@ -26,6 +26,14 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
       echo $JsonReturnOrDealclass -> ReturnResAndCusineAccordingToLocation($_GET['GetResAndCuByRootL'],intval($_GET['startCount']),intval($_GET['count']),$_GET['AvailabilityTags'],$_GET['CuisineTags'],$_GET['TypeTags'],$_GET['PriceTags']);// this will return json that contains Resturant and its cuisines
     }
 
+
+    /**
+     * Get Restaurants Only By Location
+     */
+    if(isset($_GET['GetRestaurantOnlyByLocation'])){
+       echo $JsonReturnOrDealclass -> ReturnRestaurantOnlyByLocation($_GET['GetRestaurantOnlyByLocation'],intval($_GET['startCount']),intval($_GET['count']),$_GET['AvailabilityTags'],$_GET['CuisineTags']);
+    }
+
     /**
      * According to paramters to get customer's favourite
      */
@@ -60,7 +68,16 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
 
     }
 
-    /*Mobile end requesed*/
+    /**
+     * Feching search value and type then return the json Data
+     */
+    if(isset($_GET['Search']) && isset($_GET['GetSearchValue']) && isset($_GET['GetType'])){
+      echo $JsonReturnOrDealclass -> ReturnSearchResult($_GET['GetSearchValue'], $_GET['GetType'],intval($_GET['startCount']),intval($_GET['count']));
+    }
+
+
+
+    /*Mobile End requesed*/
 
 
     /**

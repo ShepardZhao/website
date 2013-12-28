@@ -2,6 +2,47 @@
  * Created by zhaoxun321 on 3/11/2013.
  */
 $(document).ready(function(){
+
+    /**
+     *  Javascript time function
+     */
+    window.returnDateFunction = function () {
+        console.log(1);
+        var getDate = new Date();
+        var TheDayOfweek=getDate.getDay()
+        if ( TheDayOfweek === 0){
+            return 'Sunday';
+        }
+        else if ( TheDayOfweek === 1){
+            return 'Monday';
+        }
+        else if ( TheDayOfweek === 2){
+            return 'Tuesday';
+        }
+        else if ( TheDayOfweek === 3){
+            return 'Wednesday';
+        }
+        else if ( TheDayOfweek === 4){
+            return 'Thursday';
+        }
+        else if ( TheDayOfweek === 5){
+            return 'Friday';
+        }
+        else if ( TheDayOfweek === 6){
+            return 'Saturday';
+        }
+    }
+
+
+    /**
+     * tab switch from Feathured to Dishes
+     */
+    $('body').on('click','.tabMain>li',function(){
+        if($(this).length>0){
+            $('body').modalmanager('loading');
+        }
+    });
+
     /**
      * Selection address
      */

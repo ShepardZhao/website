@@ -1606,6 +1606,24 @@ class Restartuant {
 
     }
 
+    //fetch Restaruant filter
+    public function FetchResFilter($searchValue){
+        $object=array();
+            if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResPicWidth,ResPicHeight,ResRating,ResAvailability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResName LIKE ? AND ResReview=1")){
+            $stmt->bind_param("s", $param);
+            $param = "%{$searchValue}%";
+            $stmt->execute();
+            $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
+            $object=array();
+            while($stmt->fetch()){
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>unserialize($ResAvailability),"ResCuisine"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
+                array_push($object,$tmp);
+            }
+            $stmt->close();
+            return $object;
+        }
+    }
+
 
     //fetch restraruant with normall array
     public function FetchRestaruant(){
@@ -1615,7 +1633,7 @@ class Restartuant {
             $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
             $object=array();
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>$ResAvailability,"ResCuisine"=>$ResCuisine,"ResReview"=>$ResReview,"UserID"=>$UserID);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>unserialize($ResAvailability),"ResCuisine"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -1654,8 +1672,6 @@ class Restartuant {
             }
         }
         return $GetCuisineArray;
-
-
     }
 
 
@@ -2209,6 +2225,23 @@ class Cuisine{
     }
 
 
+    //return cuisine by like query
+    public function ReturnAllCuisineByLikeQuery($serachValue){
+        $tmp=array();
+        $param = "%{$serachValue}%";
+        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE CuName LIKE ? AND CuReview=1")){
+            $stmt->bind_param('s',$param);
+            $stmt->execute();
+            $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
+            while($stmt->fetch()){
+                $object=array("CuisineID"=>$CuID,"CuisineName"=>$CuName,"CuisineDescription"=>$CuDescr,"PicPath"=>$CuPicPath,"PicWidth"=>$CuPicWidth,"PicHeight"=>$CuPicHeight,"CuisineAvailability"=>$Availability,"AvailabilityTags"=>unserialize($CuAvailability),"CuisineTags"=>unserialize($CuCuisine),"TypeTags"=>unserialize($CuType),"PriceTags"=>unserialize($CuPrice),"CuisineRating"=>$CuRating,"CuisineRestID"=>$RestID,"CuisineOrder"=>$CuOrder,"CuisinePrice"=>$Price, "CuAddedTime"=>$CuAddedTime);
+                array_multisort($object);
+                array_push($tmp,$object);
+            }
+            $stmt->close();
+            return $tmp;
+        }
+    }
 
     //return all cuisine
     private function ReturnAllCuisine(){
@@ -2953,7 +2986,7 @@ class CuisineComemnt{
      * @return array
      */
     private function FecthResCountOfComment ($currentResID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM RestaurantsComments WHERE RestID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM RestaurantsComments WHERE RestID=? AND RescoReview=1")){
             $stmt->bind_param('s',$currentResID);
             $stmt->execute();
             $stmt->bind_result($TOTAL);
@@ -2971,7 +3004,7 @@ class CuisineComemnt{
      * @param $currentCuID
      */
     private function FetchCuisineCountOfComment($currentCuID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM CuisineComment WHERE CuID=?")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT COUNT(*) AS TOTAL FROM CuisineComment WHERE CuID=? AND CucoReview=1")){
            $stmt->bind_param('s',$currentCuID);
            $stmt->execute();
            $stmt->bind_result($TOTAL);
@@ -3062,8 +3095,8 @@ class CuisineComemnt{
             $stmt->bind_param('sssssiiii',$userID,$CurrentResID,$cuisineCommentID,$commentContent,date("Y-m-d H:i:s"),$Rating,$like,$dislike,$review);
             $stmt->execute();
             $stmt->close();
-            //session_start();
-            $_SESSION['SetUpResCommentTime'] = time();
+            $temp = $userID. '_' .$CurrentResID;
+            $_SESSION['ResStoreCommentRecord'][] = $temp;
             return 'true';
         }
         else {
@@ -3107,6 +3140,28 @@ class CuisineComemnt{
         return $tmp;
     }
 
+    /**
+     * trying to return the boolean that wheather has same user id and ResID more than once.
+     * @param $UserID
+     * @param $ResID
+     */
+    public function ReturnCommentRecordCompared($UserID,$ResID){
+        $tmpRecord = $UserID. '_' .$ResID;
+        if (!isset($_SESSION['ResStoreCommentRecord'])) {
+            $_SESSION['ResStoreCommentRecord'] = array();
+        }
+
+        $tmpArray = $_SESSION['ResStoreCommentRecord'];
+        if(in_array($tmpRecord, $tmpArray)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+
 }
 
 /***********************************************Comment like or dislike******************************************/
@@ -3119,61 +3174,144 @@ class ThumbLikeOrDislike{
     /**
      * Get Paramters to distingush like or dislike
      */
-    public function GetThumbsDistingush($thumbLikeOrDislike,$CurrentUserID,$CurrentCommmentID){
-        //session_start();
-        if (isset($_SESSION['RepeatVote']) && $_SESSION['RepeatVote'] === $CurrentUserID){
+    public function GetThumbsDistingush($thumbLikeOrDislike,$CurrentUserID,$CurrentCommmentID,$CommentType){
+        $tmpVariable = $CurrentUserID.'_'.$CurrentCommmentID.'_'.$thumbLikeOrDislike;
+         if (in_array($tmpVariable,$_SESSION['RepeatVote'])){
             return json_encode(array('Error'=>1, 'info'=>'You already vote this cuisine!'));
-        }
+          }
         else{
-            if ($thumbLikeOrDislike ==='like'){
-                 return $this->InsertLike($CurrentUserID,$CurrentCommmentID);
+            if ($thumbLikeOrDislike === 'like'){
+                 return $this -> InsertLike($CurrentUserID,$CurrentCommmentID,$CommentType);
             }
             elseif($thumbLikeOrDislike ==='dislike'){
-                 return $this->InsertDislike($CurrentUserID,$CurrentCommmentID);
+                 return $this -> InsertDislike($CurrentUserID,$CurrentCommmentID,$CommentType);
             }
         }
 
     }
 
     /**
-     * insert 1 Like into datebase according to commentID
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     * @param $CommentType
+     *
+     * @return string
      */
-    private function InsertLike($CurrentUserID,$CurrentCommmentID){
-        $like = intval($this->getCountOfLikeOrDislike($CurrentCommmentID)[0]['CuCommentLike']);
-        if($stmt=$this->DataBaseCon->prepare("UPDATE CuisineComment SET CuCommentLike=? WHERE CuisineCommentID=?")){
-           $tmp = $like+1;
-           $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
-           $stmt->execute();
-           $stmt->close();
-           $Array=array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
-           //session_start();
-           $_SESSION['RepeatVote'] = $CurrentUserID;
-           return json_encode($Array);
+    private function InsertLike($CurrentUserID,$CurrentCommmentID,$CommentType){
+        if ($CommentType === 'CuisineComment'){
+            return $this -> _Like_CuisineComment($CurrentUserID,$CurrentCommmentID);
         }
+        elseif ($CommentType === 'RestaurantsComments'){
+            return $this -> _Like_RestaurantComment($CurrentUserID,$CurrentCommmentID);
+        }
+
     }
 
     /**
-     * insert 1 dislike into databse according to commnetID
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     * @param $CommentType
      */
-    private function InsertDislike(){
-        $dislike = intval($this->getCountOfLikeOrDislike($CurrentCommmentID)[0]['CuCommentLike']);
-        if($stmt=$this->DataBaseCon->prepare("UPDATE CuisineComment SET CuCommentDislike=? WHERE CuisineCommentID=?")){
+    private function InsertDislike($CurrentUserID,$CurrentCommmentID,$CommentType){
+       if ($CommentType === 'CuisineComment'){
+           return $this -> _Dislike_CuisineComment($CurrentUserID,$CurrentCommmentID);
+       }
+       elseif ($CommentType === 'RestaurantsComments'){
+           return $this -> _Dislike_RestaurantComment($CurrentUserID,$CurrentCommmentID);
+       }
+    }
+
+
+    /**
+     * insert 1 dislike into the database according to commentID from CuisineComment
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     *
+     * @return string
+     */
+    private function _Dislike_CuisineComment($CurrentUserID,$CurrentCommmentID){
+        $dislike = intval($this->getCountOfLikeOrDislikeFromCuisineComment($CurrentCommmentID)[0]['CuCommentDislike']);
+        if($stmt = $this -> DataBaseCon -> prepare("UPDATE CuisineComment SET CuCommentDislike=? WHERE CuisineCommentID=?")){
             $tmp = $dislike+1;
-            $stmt->bind_param('is',intval($tmp),$CurrentCommmentID);
-            $stmt->execute();
-            $stmt->close();
-            $Array=array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this cuisine!');
-            //session_start();
-            $_SESSION['RepeatVote'] = $CurrentUserID;
+            $stmt -> bind_param('is',$tmp,$CurrentCommmentID);
+            $stmt -> execute();
+            $stmt -> close();
+            $Array = array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
+            $_SESSION['RepeatVote'][] = $CurrentUserID.'_'.$CurrentCommmentID.'_dislike';
             return json_encode($Array);
-
         }
-
     }
+
+
     /**
-     * Gets Current like or dislike count
+     * insert 1 dislike into the database according to commentID from RestaurantComment
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     *
+     * @return string
      */
-    private function getCountOfLikeOrDislike($CurrentCommmentID){
+    private function _Dislike_RestaurantComment($CurrentUserID,$CurrentCommmentID){
+        $dislike = intval($this->getCountOfLikeOrDislikeFromCuisineComment($CurrentCommmentID)[0]['ResCommentDislike']);
+        if($stmt = $this -> DataBaseCon -> prepare("UPDATE RestaurantsComments SET ResCommentDislike=? WHERE ResCommentID=?")){
+            $tmp = $dislike+1;
+            $stmt -> bind_param('is',$tmp,$CurrentCommmentID);
+            $stmt -> execute();
+            $stmt -> close();
+            $Array = array('Error'=>0, 'dislike'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
+            $_SESSION['RepeatVote'][] = $CurrentUserID.'_'.$CurrentCommmentID.'_dislike';
+            return json_encode($Array);
+        }
+    }
+
+
+
+
+    /**
+     * insert a like to cuisine comment
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     *
+     * @return string
+     */
+    private function _Like_CuisineComment($CurrentUserID,$CurrentCommmentID){
+        $like = intval($this->getCountOfLikeOrDislikeFromCuisineComment($CurrentCommmentID)[0]['CuCommentLike']);
+        if($stmt = $this -> DataBaseCon -> prepare("UPDATE CuisineComment SET CuCommentLike=? WHERE CuisineCommentID=?")){
+            $tmp = $like+1;
+            $stmt -> bind_param('is',$tmp,$CurrentCommmentID);
+            $stmt -> execute();
+            $stmt -> close();
+            $Array = array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
+            $_SESSION['RepeatVote'][] = $CurrentUserID.'_'.$CurrentCommmentID.'_like';
+            return json_encode($Array);
+        }
+    }
+
+
+    /**
+     * insert a like to restaruant comment
+     * @param $CurrentUserID
+     * @param $CurrentCommmentID
+     *
+     * @return string
+     */
+    private function _Like_RestaurantComment($CurrentUserID,$CurrentCommmentID){
+        $like = intval($this->getCountOfLikeOrDislikeFromResComment($CurrentCommmentID)[0]['ResCommentLike']);
+        if($stmt = $this -> DataBaseCon -> prepare("UPDATE RestaurantsComments SET ResCommentLike=? WHERE ResCommentID=?")){
+            $tmp = $like+1;
+            $stmt -> bind_param('is',$tmp,$CurrentCommmentID);
+            $stmt -> execute();
+            $stmt -> close();
+            $Array = array('Error'=>0, 'like'=>1, 'ReturntCount'=>$tmp,'info'=>'Thank you for given a thumb to this comment!');
+            $_SESSION['RepeatVote'][] = $CurrentUserID.'_'.$CurrentCommmentID.'_like';
+            return json_encode($Array);
+        }
+    }
+
+
+    /**
+     * Gets Current like or dislike count from CuisineComment
+     */
+    private function getCountOfLikeOrDislikeFromCuisineComment($CurrentCommmentID){
         if($stmt=$this->DataBaseCon->prepare("SELECT CuCommentDislike,CuCommentLike FROM CuisineComment WHERE CuisineCommentID=?")){
            $stmt->bind_param('s',$CurrentCommmentID);
            $stmt->execute();
@@ -3183,6 +3321,23 @@ class ThumbLikeOrDislike{
             }
            $stmt->close();
            return $ReturnArray;
+        }
+    }
+
+    /**
+     * Gets Current like or dislike count from RestaurantsComments
+     * @param $CurrentCommmentID
+     */
+    private function getCountOfLikeOrDislikeFromResComment($CurrentCommmentID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT ResCommentDislike,ResCommentLike FROM RestaurantsComments WHERE ResCommentID=?")){
+            $stmt->bind_param('s',$CurrentCommmentID);
+            $stmt->execute();
+            $stmt->bind_result($ResCommentDislike,$ResCommentLike);
+            while($stmt->fetch()){
+                $ReturnArray[]=array('ResCommentDislike' => $ResCommentDislike,'ResCommentLike' => $ResCommentLike);
+            }
+            $stmt->close();
+            return $ReturnArray;
         }
     }
 
@@ -3216,6 +3371,51 @@ class JsonReturnOrDeal{
         }
     }
 
+    /**
+     *
+     * Get paramters from search and return the relative json data
+     * @param $GetSearchValue
+     * @param $GetType
+     * @param $startCount
+     * @param $count
+     */
+    public function ReturnSearchResult($GetSearchValue,$GetType,$startCount,$count){
+        if($GetType === 'Default'){
+            return $this -> DefaultSearch($GetSearchValue,$startCount,$count);
+        }
+        if($GetType === 'Cuisines'){
+            return $this -> CuisineSearchOnly($GetSearchValue,$startCount,$count);
+        }
+        if($GetType === 'Restaurants'){
+            return $this -> RestaurantSearchOnly($GetSearchValue,$startCount,$count);
+        }
+        if($GetType === 'Tags'){
+            return $this -> TagesSearchOnly($GetSearchValue,$startCount,$count);
+        }
+    }
+
+
+    /**
+     * Return restaurants only by location name
+     * @param $LocationName
+     * @param $startCount
+     * @param $limitedCount
+     * @param $AvailabilityTagsArray
+     * @param $CuisineTagsArray
+     */
+
+    public function ReturnRestaurantOnlyByLocation($LocationName,$startCount,$limitedCount,$AvailabilityTagsArray,$CuisineTagsArray){
+        $RestartuantClass = new Restartuant($this -> DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $GetAllRes = $RestartuantClass -> ReturnResLocation($LocationName);
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        $FinalResult = $this -> filtertags($AvailabilityTagsArray,$CuisineTagsArray,null,null,$GetAllResWithComment);
+        $ReturnResult = $this -> returnLimitedRecord($FinalResult,$startCount,$ReturnCount);
+
+        return json_encode($ReturnResult);
+
+    }
+
 
 
     /**
@@ -3238,9 +3438,9 @@ class JsonReturnOrDeal{
         $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
         $GetResult = $CuisineClass -> ReturnCuisineOnlyAccordingToRes($GetAllResWithComment);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
-        $ReturnResult = $this -> returnLimitedRecord($GetIntergrateComments,$startCount,$ReturnCount);
-        $FinalResult = $this -> filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$ReturnResult);
-        return json_encode($FinalResult);
+        $FinalResult = $this -> filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$GetIntergrateComments);
+        $ReturnResult = $this -> returnLimitedRecord($FinalResult,$startCount,$ReturnCount);
+        return json_encode($ReturnResult);
 
     }
 
@@ -3268,7 +3468,6 @@ class JsonReturnOrDeal{
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
         $ReturnResult=$this->filtertags($AvailabilityTagsArray,$CuisineTagsArray,$TypeTagsArray,$PriceTagsArray,$GetIntergrateComments);
         $FinalResult=$this->returnLimitedRecord($ReturnResult,$startCount,$ReturnCount);
-
         return json_encode($FinalResult);
     }
 
@@ -3366,6 +3565,160 @@ class JsonReturnOrDeal{
         $getTotalCommentClass = $CuisineComemntclass-> fetchResComment($ResID);
         $ReturnResult=$this->returnLimitedRecord($getTotalCommentClass,$CurrentCount,$limitedCount);
         return json_encode($ReturnResult);
+    }
+
+
+
+
+    /*****************************************private function *********************************/
+
+
+
+    /**
+     * return search result by default
+     * @param $GetSearchValue
+     * @param $startCount
+     * @param $count
+     */
+    private function DefaultSearch($GetSearchValue,$startCount,$count){
+        $CuisineClass = new Cuisine($this->DataBaseCon);
+        $RestartuantClass = new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $GetAllRes = $RestartuantClass->FetchResFilter($GetSearchValue);//get all restaurant that corresponds to query condition
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        //cuisine only
+        $GetResult = $CuisineClass -> ReturnAllCuisineByLikeQuery($GetSearchValue);//get all cuisines without second level
+        $GetCuisine = $CuisineClass -> ReturnfinalCuisine($GetResult); //get all cuisine with second level
+        $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetCuisine);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
+        // combine the restaurants and cuisines
+        $finalReturn = array_merge($GetAllResWithComment,$GetIntergrateComments);
+        if(count($finalReturn)===0){
+            return $this -> TagesSearchOnly($GetSearchValue,$startCount,$count); //Tages Search only
+        }
+        elseif(count($finalReturn)>0){
+            $InsectArray = array_intersect_assoc ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchValue,$startCount,$count)));
+            $DifferArry = array_diff_assoc ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchValue,$startCount,$count)));
+            $ReturnArray = array_merge ($InsectArray,$DifferArry);
+            $FinalReturnResult=$this->returnLimitedRecord($ReturnArray,$startCount,$count);
+            return json_encode($FinalReturnResult);
+        }
+
+
+    }
+
+
+    /**
+     * Return cuisine result only
+     * @param $GetSearchValue
+     * @param $startCount
+     * @param $count
+     */
+    private function CuisineSearchOnly($GetSearchValue,$startCount,$count){
+        $CuisineClass = new Cuisine($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $RestartuantClass = new Restartuant($this->DataBaseCon);
+        $GetResult = $CuisineClass->ReturnAllCuisineByLikeQuery($GetSearchValue);//get all cuisines without second level
+        $GetCuisine = $CuisineClass -> ReturnfinalCuisine($GetResult); //get all cuisine with second level
+        $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetCuisine);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
+        $FinalResult=$this->returnLimitedRecord($GetIntergrateComments,$startCount,$count);
+        return json_encode($FinalResult);
+
+    }
+
+
+    /**
+     * Return restaurant result only
+     * @param $GetSearchValue
+     * @param $startCount
+     * @param $count
+     *
+     * @return string
+     */
+    private function RestaurantSearchOnly($GetSearchValue,$startCount,$count){
+        $RestartuantClass = new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $GetAllRes = $RestartuantClass->FetchResFilter($GetSearchValue);//get all restaurant that corresponds to query condition
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        $FinalResult=$this->returnLimitedRecord($GetAllResWithComment,$startCount,$count);
+        return json_encode($FinalResult);
+    }
+
+
+    /**
+     * Return Tages search only
+     * @param $GetSearchValue
+     * @param $startCount
+     * @param $count
+     */
+    private function TagesSearchOnly($GetSearchValue,$startCount,$count){
+        $CuisineClass=new Cuisine($this->DataBaseCon);
+        $RestartuantClass=new Restartuant($this->DataBaseCon);
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $GetAllRes=$RestartuantClass->FetchRestaruant();
+        $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
+        $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllResWithComment);
+        $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
+        $returndata = $this -> TagesCompared ($GetIntergrateComments,$GetSearchValue);
+        $FinalResult=$this->returnLimitedRecord($returndata,$startCount,$count);
+        return json_encode($FinalResult);
+    }
+
+    /**
+     *
+     */
+    private function TagesCompared($array,$GetSearchValue){
+       $temp = [];
+        foreach ($array as $key => $subArray){
+            foreach ($subArray as $subkey => $subArrayvalue){
+                if($subkey === 'ResAvailability'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+                if($subkey === 'ResCuisine'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+                if($subkey === 'AvailabilityTags'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+
+                if($subkey === 'CuisineTags'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+                if($subkey === 'TypeTags'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+                if($subkey === 'PriceTags'){
+                    foreach ($subArrayvalue as $value){
+                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                            array_push($temp,$subArray);
+                        }
+                    }
+                }
+
+            }
+        }
+        return $temp;
     }
 
     /**

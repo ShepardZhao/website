@@ -47,6 +47,7 @@ body{
 	
 }
 
+
 .fa-star{
 	color: #E2435A;
 }
@@ -56,7 +57,7 @@ body{
 	margin:100px auto;
 }
 
-.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,.fa-thumbs-o-up:hover,.fa-thumbs-o-down:hover,#searchImg:hover,#ClickReadMore:hover{
+.fa-chevron-down,.fa-arrow-circle-o-down,.fa-arrow-circle-o-up,.fa-star-o:hover,.fa-heart-o:hover,.fa-plus:hover,.fa-arrow-circle-down:hover,.fa-arrow-circle-up:hover,.fa-arrow-circle-left:hover,.fa-thumbs-o-up:hover,.fa-thumbs-o-down:hover,#searchImg:hover,#ClickReadMore:hover{
 	cursor:pointer;
 	color: #0088cc;
 	transition-property: color;
@@ -200,8 +201,6 @@ a{
 	height:100%;
 	border: 1px solid rgba(229, 227, 227, 0.9);	
 }
-
-
 
 /*button setting*/
 .setUp,.LoginedIn{
@@ -639,8 +638,17 @@ position:absolute;
   text-align:center;
   transition-property: background;
   transition-duration: 0.3s;
-  transition-timing-function: linear;  
+  transition-timing-function: linear;
   position:relative;
+  transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+}
+.Imagetiles li:hover {
+    -webkit-transform: scale(1.2,1.2);
+    -moz-transform:scale(1.2,1.2);
+    z-index:999;
+
 }
 
 .OutofStock{
@@ -745,7 +753,6 @@ padding:19px;
 .left-position{
 	left: -10px;
 	top: 50%;
-
 	opacity: 1;
 	display: none;	
 }
@@ -758,7 +765,16 @@ padding:19px;
 	text-decoration: underline;
 }
 /*restaurants.php*/
+.ResImage{
+    transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+}
+.ResImage:hover{
+    -webkit-transform: scale(1.2,1.2);
+    -moz-transform:scale(1.2,1.2);
 
+}
 .RestaurantsContentRight{
 	background:rgb(227,107,95);
 }
@@ -791,9 +807,22 @@ padding:19px;
 .restaurants-detailBg{
 	background:rgb(245,245,245);
 }
-
-
-/*order*/
+.RestaurantDatePosition{
+	position: relative;
+}
+.HidenResturantDate{
+	width: 200px;
+	position: absolute;
+    background-color: #e9e9e9;
+    opacity: 0.8;
+    top: 20px;
+    left: 100px;
+    padding: 19px;
+    display:none;
+    border-color:rgb(210, 210, 210);
+	
+}
+/*Feathred*/
 #Feathred-left-position{
 	position: fixed;
 	margin-left:20px;
@@ -877,6 +906,12 @@ padding:19px;
 }
 .siderbar{
 	padding-right:10px;
+}
+
+
+/*Restaurant*/
+.RestaurantsName{
+    color:#e46;
 }
 
 /*Check Part*/
@@ -978,6 +1013,38 @@ padding:19px;
 
 /*serach css*/
 
+#searchParent{
+    position:relative;
+}
+
+.SearchResult{
+    position:absolute;
+    top:50px;
+    left:10px;
+    z-index:1015;
+    background:white;
+    display:none;
+    opacity:.95;
+    -webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;
+    -webkit-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    max-height:436px;
+    overflow-y:auto;
+}
+.searchResearchAaea{
+    transition-property: background;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    overflow:auto;
+    cursor:pointer;
+    overflow-y:hidden;
+
+}
+.searchResearchAaea:hover{
+    background:rgb(236,240,241);
+}
+
 #search{
     background-color: #ffffff;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -1011,7 +1078,18 @@ padding:19px;
    margin-top:-5px;
 
 }
-
+.searchChoice{
+    margin-bottom:13px;
+    color:white;
+    background:rgb(244,112,99);
+    border:none;
+    text-shadow:none;
+    border-radius:none;
+}
+.searchChoice:hover{
+    background:rgb(231,76,60);
+    color:white;
+}
 
 /*Scrollto top*/
 #fixed_button_top{

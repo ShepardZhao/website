@@ -90,7 +90,6 @@ $(document).ready(function(){
         else{
             AvailabilityTagsArray.splice( $.inArray($(this).find('a').text(),AvailabilityTagsArray) ,1 );
         }
-        console.log(AvailabilityTagsArray);
         $('#CuisineRelateTiles').empty();
         AvailabilityTagsIndex++;
         AvailabilityTagsArray.sort();
@@ -228,12 +227,10 @@ $(document).ready(function(){
      * Receives data from the API, creates HTML for images and updates the layout
      */
     function onLoadData(data) {
-        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
         var i=0, length=data.length, image;
-        console.log(data);
         for(; i<length; i++) {
             image = data[i];
             html += '<li>';
@@ -342,7 +339,7 @@ $(document).ready(function(){
             startCount=Returncount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
         }
         else{
-            startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
+            startCount+=Returncount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=Returncount ====8
         }
     };
 

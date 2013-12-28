@@ -26,8 +26,7 @@ $(document).ready(function(){
     var CurrentLoginedUserID = $('#CurrentLoginedUserID').val();
     var GetCurrentResID = $('#RestID').val();
     var commentStartCount=0;
-    var LimitedCommentCount=4;
-    var isComment = false; //deafult status of comment display is off, but it will show up when element #Navcomments clicked
+    var LimitedCommentCount=10;
     var FirstFetchComment = 1; //set up the
 
 
@@ -228,24 +227,14 @@ $(document).ready(function(){
         else{
             $('#Restaurants-left-position').fadeIn();
         }
-        if(isComment){
-            if(!isLoading) {
-                var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-                if(closeToBottom){
-                    GetCuisineCommentJson();
-                }
-            }
-        }
-        // Only check when we're not still waiting for data.
-        else{
+
             if(!isLoading) {
                 // Check if we're within 100 pixels of the bottom edge of the broser window.
                 var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-                if(closeToBottom) {
-                    loadData();
-                }
-            }
-        }
+                        if(closeToBottom) {
+                                loadData();
+                            }
+                         }
 
     };
 
@@ -258,7 +247,6 @@ $(document).ready(function(){
      */
 
     function onLoadData(data){
-        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -510,7 +498,6 @@ $(document).ready(function(){
             dataType: "html"
         });
         request.done(function(msg) {
-            console.log(msg);
             if(msg==='true'){
                 AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
                 setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
@@ -548,7 +535,6 @@ $(document).ready(function(){
      * $modal info
      */
     function AjaxMessage(className,info){
-
         $modal.modal('loading');
         setTimeout(function(){
             $modal
@@ -560,7 +546,6 @@ $(document).ready(function(){
 
     }
 
-
     /**************************************************Switch comment page and waterfall page -- Restaurant*********************************/
     /**
      * Click #Navcomments to swithch comment or wataerfall
@@ -570,16 +555,15 @@ $(document).ready(function(){
         if($(this).hasClass('fa-arrow-circle-down')){
             $('#ResWaterfall-zone').fadeOut(500);
             $('#ClickToComment').fadeIn(500);
-            isComment = true;
             $(this).removeClass('fa-arrow-circle-down').addClass('fa-arrow-circle-up');
-            GetCuisineCommentJson();
+            $('.commentMarginBottom').empty();
+            GetRestaurantCommentJson();
         }
 
         else if($(this).hasClass('fa-arrow-circle-up')){
             $('#ClickToComment').fadeOut(500);
             $('#ResWaterfall-zone').fadeIn(500);
             $('#RestaurantCuisine').trigger('refreshWookmark');
-            isComment = false;
             $(this).removeClass('fa-arrow-circle-up').addClass('fa-arrow-circle-down');
 
         }
@@ -588,8 +572,7 @@ $(document).ready(function(){
     /**
      * Get Cuisine Comment Json
      */
-    function GetCuisineCommentJson(){
-        $('.Ajax-loading').fadeIn();
+    function GetRestaurantCommentJson(){
         $.ajax({
             type: "GET",
             url: CurrentDomain+'/json/?GetResComment=yes&GetCurrentResID='+GetCurrentResID+'&commentStartCount='+commentStartCount+'&LimitedCommentCount='+LimitedCommentCount,
@@ -602,26 +585,24 @@ $(document).ready(function(){
      * if sucessfully got json, then do followling thing
      */
     function onLoadComment(data){
-        $('.Ajax-loading').fadeOut();
         var html = '';
         if(data.length>0){
-            isLoading = false;
             var i=0, length=data.length, comment;
             for(; i<length; i++) {
                 comment = data[i];
                 html += '<li>';
-                html += '<input type="hidden" class="CommentID" value="'+comment.CuisineCommentID+'">'
+                html += '<input type="hidden" class="CommentID" value="'+comment.ResCommentID+'">'
                 html += '<div class="media">';
                 html += '<a class="pull-left" href="#">';
                 html += '<img class="media-object" src="'+comment.UserPhotoPath+'">';
                 html += '</a>';
                 html += '<div class="media-body">';
                 html += '<h5 class="media-heading">'+comment.UserName+'</h5>';
-                html += '<h6>'+comment.CuCommentDate+'</h6>';
-                html += '<p>'+comment.CuisineComent+'</p>';
+                html += '<h6>'+comment.ResCommentDate+'</h6>';
+                html += '<p>'+comment.RestaurantsComments+'</p>';
                 html += '<ul class="inline inlineLeftPadding">';
                 var total=5;
-                var solidStars=comment.CuCommentRating;
+                var solidStars=comment.ResCommentRating;
                 var emptyStars=total-solidStars;
                 for (var x=0;x<solidStars;x++){
                     html += '<i class="fa fa-star"></i>';
@@ -630,13 +611,16 @@ $(document).ready(function(){
                     html += '<i class="fa fa-star-o"></i>';
 
                 }
-                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-up"></i><span style="margin-left:9px;" class="good">'+comment.CuCommentLike+'</span></li>';
-                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-down"></i><span style="margin-left:9px;" class="bad">'+comment.CuCommentDislike+'</span></li>';
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-up"></i><span style="margin-left:9px;" class="good">'+comment.ResCommentLike+'</span></li>';
+                html += '<li style="margin-left:19px;"><i class="fa fa-thumbs-o-down"></i><span style="margin-left:9px;" class="bad">'+comment.ResCommentDislike+'</span></li>';
                 html += '</ul>';
                 html += '</div>';
                 html += '</div>';
                 html += '</li>';
+
             }
+            html += '<div class="MoreComments btn text-center">More</div>';
+
 
         }
         else if(data.length === 0 && FirstFetchComment === 1){
@@ -646,13 +630,24 @@ $(document).ready(function(){
         // Add image HTML to the page.
 
         $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
+
+
+    }
+
+    /**
+     * click comment more button for displaying more comments
+     */
+
+    $('body').on('click','.MoreComments',function(){
+        $(this).hide();
         if(commentStartCount===0){
             commentStartCount=LimitedCommentCount;//after first time stratCount was used, then added returnCount that added to startCount,i.e first time startCount=0, then next time startCount=4
         }
         else{
             commentStartCount+=LimitedCommentCount;//if current startCount is not first time load, then added startCount its self. startCount=4, then startCount+=startCount ====8
         }
-    }
+        GetRestaurantCommentJson();
+    });
 
 
     /**
@@ -669,6 +664,7 @@ $(document).ready(function(){
             JsonPass['thumbLikeOrDislike'] = 'like';
             JsonPass['CurrentUserID'] = CurrentLoginedUserID;
             JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            JsonPass['CurrentCommentType'] = 'RestaurantsComments';
             thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
@@ -688,6 +684,7 @@ $(document).ready(function(){
             JsonPass['thumbLikeOrDislike'] = 'dislike';
             JsonPass['CurrentUserID'] = CurrentLoginedUserID;
             JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            JsonPass['CurrentCommentType'] = 'RestaurantsComments';
             thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
@@ -725,4 +722,20 @@ $(document).ready(function(){
             alert( "Request failed: " + textStatus );
         });
     }
+
+    /**
+     * Restaurants-left-position button
+     */
+    $('body').on('click','#Restaurants-left-position',function(){
+        var AjaxContainter = {};
+        AjaxContainter['RootID'] = $('#RootID').val();
+        AjaxContainter['SubID'] = $('#SubID').val();
+        var result = decodeURIComponent($.param(AjaxContainter));
+        $('body').modalmanager('loading');
+        window.location = 'Restaurants?'+result;
+
+    });
+
+
+
 });
