@@ -1,6 +1,6 @@
 <?php include 'header.php'?>
 <?php
-if (isset($_SESSION['RootID']) || isset($_SESSION['SubID'])){
+if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
     $InitialLocationSelectClass->hiddenInitialLocation();
 //according RootID and SubID to get their names
     $_SESSION['RootLocation']=$InitialLocationSelectClass->GetsRootLocalName($_SESSION['RootID']);

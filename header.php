@@ -161,6 +161,7 @@ if ($user) {
                         </li>
                         <div class="SearchResult">
                         </div>
+                        <div id="close"><img src="<?php echo GlobalPath?>/assets/framework/front-images/cancel.png"></div>
                     </ul>
                 </div>
 

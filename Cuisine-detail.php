@@ -1,6 +1,5 @@
 <?php include 'header.php'?>
 <?php
-session_start();
 if (isset($_SESSION['RootID']) && isset($_SESSION['SubID'])){
 $InitialLocationSelectClass->hiddenInitialLocation();
 //according RootID and SubID to get their names
@@ -25,8 +24,8 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs tabMain">
                         <li><a href="Feathured?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Featured</a></li>
-                        <li><a href="Restaurants?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>"  id="Restaurants-tab">Restaurants</a></li>
-                        <li><a href="Dishes?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>"  id="Dishes-tab">Dishes</a></li>
+                        <li><a href="Restaurants?RootID=<?php echo $_GET['RootID']?>&SubID=<?php echo $_GET['SubID']?>">Restaurants</a></li>
+                        <li><a href="Dishes?RootID=<?php echo $_SESSION['RootID']?>&SubID=<?php echo $_SESSION['SubID']?>">Dishes</a></li>
                     </ul>
                     <div class="tab-content tabContent"><!--tab selection-->
                         <div class="tab-pane fade in active">
@@ -34,6 +33,13 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                 <input type="hidden" id="GetCurrentCuID" value="<?php echo $_GET['CuisineID']?>">
                                 <input type="hidden" id="GetCurrentResID" value="<?php echo $_GET['CuResID']?>">
                                 <input type="hidden" id="GetCurrentCuisineStatus" value="<?php echo $_GET['CurrentCuisineStatus']?>">
+                                <input type="hidden" class="CuisinePicpath" value="<?php echo $_GET['CuisinePicpath']?>">
+                                <input type="hidden" class="CuisineName" value="<?php echo $_GET['CuisineName']?>">
+                                <input type="hidden" class="CuisineResName" value="<?php echo $_GET['CuisineResName']?>">
+                                <input type="hidden" class="CuisinePrice" value="<?php echo $_GET['CuisinePrice']?>">
+
+
+
                                 <div class="row-fluid FeatureTopBackground">
                                     <div class="spa12 limitedWidth">
                                         <div class="span3">
@@ -102,18 +108,20 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                             <h2>$<?php echo number_format(floatval(preg_replace("/[^-0-9\.]/","",$_GET['CuisinePrice'])),2,".", "")?></h2>
                                             <h2>
                                                 <ul class="inline" id="rightRestaurants_heartAndPlus">
-                                                    <?php if($_GET['CuisineWhetherFavorite']==='0'){
-                                                        echo "<li><i class='AddedToFavorite fa fa-heart-o'></i></li>";
-                                                    }
-                                                    elseif($_GET['CuisineWhetherFavorite']==='1'){
-                                                        echo "<li><i class='AddedToFavorite fa fa-heart'></i></li>";
+                                                    <?php
+                                                        if($Favoriteclass -> ConfirmFavorite($_SESSION['LoginedUserID'],$_GET['CuisineID'])){
+                                                            echo "<li><i class='AddedToFavoriteOfDetail fa fa-heart'></i></li>";
+                                                        }
+                                                    else{
+                                                        echo "<li><i class='AddedToFavoriteOfDetail fa fa-heart-o'></i></li>";
                                                     }
 
+
                                                     if($_GET['CuisineWhetherInCart']==='0'){
-                                                        echo "<li><i class='AddedToCart fa fa-plus'></i></li>";
+                                                        echo "<li><i class='AddedToCartDetail fa fa-plus'></i></li>";
                                                     }
                                                     elseif($_GET['CuisineWhetherInCart']==='1'){
-                                                        echo "<li><i class='AddedToCart fa fa-shopping-cart'></i></li>";
+                                                        echo "<li><i class='AddedToCartDetail fa fa-shopping-cart'></i></li>";
                                                     }
                                                     ?>
 

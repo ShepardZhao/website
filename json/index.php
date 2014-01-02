@@ -71,8 +71,8 @@ if($_SERVER['REQUEST_METHOD']==='GET'){
     /**
      * Feching search value and type then return the json Data
      */
-    if(isset($_GET['Search']) && isset($_GET['GetSearchValue']) && isset($_GET['GetType'])){
-      echo $JsonReturnOrDealclass -> ReturnSearchResult($_GET['GetSearchValue'], $_GET['GetType'],intval($_GET['startCount']),intval($_GET['count']));
+    if(isset($_GET['Search']) && isset($_GET['GetSearchLoaction']) && isset($_GET['GetSearchValue']) && isset($_GET['GetType'])){
+      echo $JsonReturnOrDealclass -> ReturnSearchResult($_GET['GetSearchLoaction'],$_GET['GetSearchValue'], $_GET['GetType'],intval($_GET['startCount']),intval($_GET['count']));
     }
 
 

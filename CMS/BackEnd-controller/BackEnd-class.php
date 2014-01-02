@@ -1607,16 +1607,16 @@ class Restartuant {
     }
 
     //fetch Restaruant filter
-    public function FetchResFilter($searchValue){
+    public function FetchResFilter($loaction,$searchValue){
         $object=array();
-            if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResPicWidth,ResPicHeight,ResRating,ResAvailability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResName LIKE ? AND ResReview=1")){
-            $stmt->bind_param("s", $param);
+            if($stmt=$this->DataBaseCon->prepare("SELECT RestID,ResName,ResOpenTime,ResAddress,ResRootAddress,ResPicPath,ResPicWidth,ResPicHeight,ResRating,ResAvailability,ResCuisine,ResReview,UserID FROM Restaurants WHERE ResName LIKE ? AND ResRootAddress=? AND ResReview=1")){
+            $stmt->bind_param("ss",$param,$loaction);
             $param = "%{$searchValue}%";
             $stmt->execute();
             $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
             $object=array();
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>unserialize($ResAvailability),"ResCuisine"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -1633,7 +1633,7 @@ class Restartuant {
             $stmt->bind_result($RestID,$ResName,$ResOpenTime,$ResAddress,$ResRootAddress,$ResPicPath,$ResPicWidth,$ResPicHeight,$ResRating,$ResAvailability,$ResCuisine,$ResReview,$UserID);
             $object=array();
             while($stmt->fetch()){
-                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"ResAvailability"=>unserialize($ResAvailability),"ResCuisine"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
+                $tmp=array("RestID"=>$RestID,"ResName"=>$ResName,"ResOpenTime"=>unserialize($ResOpenTime),"ResAddress"=>$ResAddress,"ResRootAddress"=>$ResRootAddress,"PicPath"=>$ResPicPath,"PicWidth"=>$ResPicWidth,"PicHeight"=>$ResPicHeight,"ResRating"=>$ResRating,"AvailabilityTags"=>unserialize($ResAvailability),"CuisineTags"=>unserialize($ResCuisine),"ResReview"=>$ResReview,"UserID"=>$UserID);
                 array_push($object,$tmp);
             }
             $stmt->close();
@@ -2226,11 +2226,11 @@ class Cuisine{
 
 
     //return cuisine by like query
-    public function ReturnAllCuisineByLikeQuery($serachValue){
+    public function ReturnAllCuisineByLikeQuery($GetSearchLoaction,$serachValue){
         $tmp=array();
         $param = "%{$serachValue}%";
-        if($stmt=$this->DataBaseCon->prepare("SELECT CuID,CuName,CuDescr,CuPicPath,CuPicWidth,CuPicHeight,Availability,CuAvailability,CuCuisine,CuType,CuPrice,CuRating,RestID,CuOrder,Price,CuAddedTime FROM Cuisine WHERE CuName LIKE ? AND CuReview=1")){
-            $stmt->bind_param('s',$param);
+        if($stmt=$this->DataBaseCon->prepare("SELECT Cuisine.CuID,Cuisine.CuName,Cuisine.CuDescr,Cuisine.CuPicPath,Cuisine.CuPicWidth,Cuisine.CuPicHeight,Cuisine.Availability,Cuisine.CuAvailability,Cuisine.CuCuisine,Cuisine.CuType,Cuisine.CuPrice,Cuisine.CuRating,Cuisine.RestID,Cuisine.CuOrder,Cuisine.Price,Cuisine.CuAddedTime FROM Restaurants LEFT JOIN Cuisine ON Restaurants.RestID = Cuisine.RestID WHERE Restaurants.ResRootAddress=? AND Cuisine.CuName LIKE ? AND Restaurants.ResReview=1 AND Cuisine.CuReview=1")){
+            $stmt->bind_param('ss',$GetSearchLoaction,$param);
             $stmt->execute();
             $stmt->bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$CuPicWidth,$CuPicHeight,$Availability,$CuAvailability,$CuCuisine,$CuType,$CuPrice,$CuRating,$RestID,$CuOrder,$Price,$CuAddedTime);
             while($stmt->fetch()){
@@ -2905,6 +2905,14 @@ class favourite{
         $this->DataBaseCon=$DataBaseCon;
     }
 
+    /**
+     *
+     * return favourite that current userID has
+     * @param $UserID
+     * @param $Status
+     *
+     * @return array
+     */
     public function returnCuisineID($UserID,$Status){
         $result=[];
         if($stmt=$this->DataBaseCon->prepare("SELECT CuID FROM Userfavorite WHERE UserID=? AND FavoriteStatus=?")){
@@ -2920,6 +2928,13 @@ class favourite{
         }
     }
 
+    /**
+     * confrim current user and currnet Cuisine ID are exeisted
+     * @param $userID
+     * @param $CuisineID
+     *
+     * @return bool
+     */
     private function ConfirmExesited($userID,$CuisineID){
         if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Userfavorite WHERE UserID=? AND CuID=?")){
             $stmt->bind_param('ss',$userID,$CuisineID);
@@ -2941,6 +2956,60 @@ class favourite{
 
         }
     }
+
+
+    /**
+     * get favoriteStatus
+     */
+    public function ConfirmExesitedByFavorite(){
+        if($stmt=$this->DataBaseCon->prepare("SELECT UserID,CuID FROM Userfavorite WHERE FavoriteStatus=1")){
+            $stmt->execute();
+            $stmt->bind_result($UserID,$CuID);
+            while($stmt -> fetch()){
+                $object[] = array('UserID_CuID'=>$UserID.'_'.$CuID);
+            }
+            $stmt->close();
+            return json_encode($object);
+
+
+        }
+    }
+
+
+    /**
+     * @param $userID
+     * @param $cuID
+     */
+    public function ConfirmFavorite($userID,$cuID){
+
+        if($stmt=$this->DataBaseCon->prepare("SELECT * FROM Userfavorite WHERE UserID=? AND CuID=? AND FavoriteStatus=1")){
+            $stmt->bind_param('ss',$userID,$cuID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            if(count($object)>0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+    }
+
+    /**
+     *
+     * added to favorite
+     * @param $userID
+     * @param $CuisineID
+     * @param $FavoriteStatus
+     *
+     * @return string
+     */
 
     public function addedtoFavorite($userID,$CuisineID,$FavoriteStatus){
         if($this->ConfirmExesited($userID,$CuisineID)){
@@ -2966,6 +3035,9 @@ class favourite{
             }
         }
     }
+
+
+
 
 
 
@@ -3379,18 +3451,18 @@ class JsonReturnOrDeal{
      * @param $startCount
      * @param $count
      */
-    public function ReturnSearchResult($GetSearchValue,$GetType,$startCount,$count){
+    public function ReturnSearchResult($GetSearchLoaction,$GetSearchValue,$GetType,$startCount,$count){
         if($GetType === 'Default'){
-            return $this -> DefaultSearch($GetSearchValue,$startCount,$count);
+            return $this -> DefaultSearch($GetSearchLoaction,$GetSearchValue,$startCount,$count);
         }
         if($GetType === 'Cuisines'){
-            return $this -> CuisineSearchOnly($GetSearchValue,$startCount,$count);
+            return $this -> CuisineSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count);
         }
         if($GetType === 'Restaurants'){
-            return $this -> RestaurantSearchOnly($GetSearchValue,$startCount,$count);
+            return $this -> RestaurantSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count);
         }
         if($GetType === 'Tags'){
-            return $this -> TagesSearchOnly($GetSearchValue,$startCount,$count);
+            return $this -> TagesSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count);
         }
     }
 
@@ -3567,9 +3639,6 @@ class JsonReturnOrDeal{
         return json_encode($ReturnResult);
     }
 
-
-
-
     /*****************************************private function *********************************/
 
 
@@ -3580,25 +3649,28 @@ class JsonReturnOrDeal{
      * @param $startCount
      * @param $count
      */
-    private function DefaultSearch($GetSearchValue,$startCount,$count){
+    private function DefaultSearch($GetSearchLoaction,$GetSearchValue,$startCount,$count){
+        //decaler the new class
         $CuisineClass = new Cuisine($this->DataBaseCon);
         $RestartuantClass = new Restartuant($this->DataBaseCon);
         $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
-        $GetAllRes = $RestartuantClass->FetchResFilter($GetSearchValue);//get all restaurant that corresponds to query condition
+        $InitialLocationSelectClass=new InitialLocationSelect($this -> DataBaseCon);
+        //get Restaurants that belonged to 'Search loaction';
+        $GetAllRes = $RestartuantClass->FetchResFilter($InitialLocationSelectClass->GetsRootLocalName($GetSearchLoaction),$GetSearchValue);//get all restaurant that corresponds to query condition
         $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
         //cuisine only
-        $GetResult = $CuisineClass -> ReturnAllCuisineByLikeQuery($GetSearchValue);//get all cuisines without second level
+        $GetResult = $CuisineClass -> ReturnAllCuisineByLikeQuery($InitialLocationSelectClass->GetsRootLocalName($GetSearchLoaction), $GetSearchValue);//get all cuisines without second level
         $GetCuisine = $CuisineClass -> ReturnfinalCuisine($GetResult); //get all cuisine with second level
         $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetCuisine);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
         // combine the restaurants and cuisines
         $finalReturn = array_merge($GetAllResWithComment,$GetIntergrateComments);
         if(count($finalReturn)===0){
-            return $this -> TagesSearchOnly($GetSearchValue,$startCount,$count); //Tages Search only
+            return $this -> TagesSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count); //Tages Search only
         }
         elseif(count($finalReturn)>0){
-            $InsectArray = array_intersect_assoc ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchValue,$startCount,$count)));
-            $DifferArry = array_diff_assoc ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchValue,$startCount,$count)));
+            $InsectArray = array_intersect ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count)));
+            $DifferArry = array_diff ($finalReturn,json_decode($this -> TagesSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count)));
             $ReturnArray = array_merge ($InsectArray,$DifferArry);
             $FinalReturnResult=$this->returnLimitedRecord($ReturnArray,$startCount,$count);
             return json_encode($FinalReturnResult);
@@ -3614,11 +3686,12 @@ class JsonReturnOrDeal{
      * @param $startCount
      * @param $count
      */
-    private function CuisineSearchOnly($GetSearchValue,$startCount,$count){
+    private function CuisineSearchOnly($GetSearchLoaction, $GetSearchValue,$startCount,$count){
         $CuisineClass = new Cuisine($this->DataBaseCon);
-        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
         $RestartuantClass = new Restartuant($this->DataBaseCon);
-        $GetResult = $CuisineClass->ReturnAllCuisineByLikeQuery($GetSearchValue);//get all cuisines without second level
+        $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
+        $InitialLocationSelectClass=new InitialLocationSelect($this -> DataBaseCon);
+        $GetResult = $CuisineClass->ReturnAllCuisineByLikeQuery($InitialLocationSelectClass->GetsRootLocalName($GetSearchLoaction),$GetSearchValue);//get all cuisines without second level
         $GetCuisine = $CuisineClass -> ReturnfinalCuisine($GetResult); //get all cuisine with second level
         $GetFinalCuisineAndResName = $RestartuantClass->ReturnResNameOfCuisine($GetCuisine);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetFinalCuisineAndResName);
@@ -3636,10 +3709,11 @@ class JsonReturnOrDeal{
      *
      * @return string
      */
-    private function RestaurantSearchOnly($GetSearchValue,$startCount,$count){
+    private function RestaurantSearchOnly($GetSearchLoaction, $GetSearchValue,$startCount,$count){
         $RestartuantClass = new Restartuant($this->DataBaseCon);
         $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
-        $GetAllRes = $RestartuantClass->FetchResFilter($GetSearchValue);//get all restaurant that corresponds to query condition
+        $InitialLocationSelectClass=new InitialLocationSelect($this -> DataBaseCon);
+        $GetAllRes = $RestartuantClass->FetchResFilter($InitialLocationSelectClass->GetsRootLocalName($GetSearchLoaction),$GetSearchValue);//get all restaurant that corresponds to query condition
         $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
         $FinalResult=$this->returnLimitedRecord($GetAllResWithComment,$startCount,$count);
         return json_encode($FinalResult);
@@ -3652,11 +3726,13 @@ class JsonReturnOrDeal{
      * @param $startCount
      * @param $count
      */
-    private function TagesSearchOnly($GetSearchValue,$startCount,$count){
+    private function TagesSearchOnly($GetSearchLoaction,$GetSearchValue,$startCount,$count){
         $CuisineClass=new Cuisine($this->DataBaseCon);
         $RestartuantClass=new Restartuant($this->DataBaseCon);
         $CuisineComemnt = new CuisineComemnt($this -> DataBaseCon);
-        $GetAllRes=$RestartuantClass->FetchRestaruant();
+        $InitialLocationSelectClass=new InitialLocationSelect($this -> DataBaseCon);
+
+        $GetAllRes = $RestartuantClass->ReturnResLocation($InitialLocationSelectClass->GetsRootLocalName($GetSearchLoaction));//get all restaurant that corresponds to query condition
         $GetAllResWithComment = $CuisineComemnt -> IntergrateCommentWithRestaruant($GetAllRes);
         $GetResult=$CuisineClass->ReturnCuisineAccordingToRes($GetAllResWithComment);
         $GetIntergrateComments = $CuisineComemnt -> IntergrateCommentWithCuisine($GetResult);
@@ -3672,23 +3748,9 @@ class JsonReturnOrDeal{
        $temp = [];
         foreach ($array as $key => $subArray){
             foreach ($subArray as $subkey => $subArrayvalue){
-                if($subkey === 'ResAvailability'){
-                    foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
-                            array_push($temp,$subArray);
-                        }
-                    }
-                }
-                if($subkey === 'ResCuisine'){
-                    foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
-                            array_push($temp,$subArray);
-                        }
-                    }
-                }
                 if($subkey === 'AvailabilityTags'){
                     foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                        if (strtoupper($GetSearchValue) === strtoupper($value)){
                             array_push($temp,$subArray);
                         }
                     }
@@ -3696,21 +3758,21 @@ class JsonReturnOrDeal{
 
                 if($subkey === 'CuisineTags'){
                     foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                        if (strtoupper($GetSearchValue) === strtoupper($value)){
                             array_push($temp,$subArray);
                         }
                     }
                 }
                 if($subkey === 'TypeTags'){
                     foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                        if (strtoupper($GetSearchValue) === strtoupper($value)){
                             array_push($temp,$subArray);
                         }
                     }
                 }
                 if($subkey === 'PriceTags'){
                     foreach ($subArrayvalue as $value){
-                        if (ucfirst($GetSearchValue) === ucfirst($value)){
+                        if (strtoupper($GetSearchValue) === strtoupper($value)){
                             array_push($temp,$subArray);
                         }
                     }

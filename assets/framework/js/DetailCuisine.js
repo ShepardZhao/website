@@ -134,7 +134,12 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="UnAvailability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
-                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    if(ReturnFavoriteStauts($('#CurrentLoginedUserID').val(),image.CuisineID) === 'true'){
+                        html += '<h5><i id="'+image.CuisineID+'" class="AddedToFavoriteInWaterfall BackgroundOfStarAndPlus fa fa-heart"></i></h5>';
+                    }
+                    else{
+                        html += '<h5><i id="'+image.CuisineID+'" class="AddedToFavoriteInWaterfall BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    }
                     html += '</div>';
                     html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
                     html += '</div>';
@@ -177,7 +182,12 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
-                    html += '<h5><i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    if(ReturnFavoriteStauts($('#CurrentLoginedUserID').val(),image.CuisineID) === 'true'){
+                        html += '<h5><i id="'+image.CuisineID+'" class="AddedToFavoriteInWaterfall BackgroundOfStarAndPlus fa fa-heart"></i></h5>';
+                    }
+                    else{
+                        html += '<h5><i id="'+image.CuisineID+'" class="AddedToFavoriteInWaterfall BackgroundOfStarAndPlus fa fa-heart-o"></i></h5>';
+                    }
                     html += '</div>';
                     html += '<div class="span4 blodOfPrice"><h5>$'+image.CuisinePrice+'</h5>';
                     html += '</div>';
@@ -604,5 +614,29 @@ $(document).ready(function(){
         });
 
     }
+
+
+    /**
+     * added into temp shopping cart
+     */
+    $('body').on('click','.AddedToCartDetail',function(){
+        var ParentNode = $(this).parent().parent().parent().parent().parent().parent().parent();
+        jumpAnimate('.OrderNumberDisplay');
+        if($('.AddedNewItem').css('display') === 'block'){
+            $('.AddedNewItem').slideUp("slow",function(){
+                $(this).empty();
+                pushItemIntoBottomSlide(ParentNode);
+                $(this).slideDown("slow").fadeIn();
+            });
+        }
+        else{
+            pushItemIntoBottomSlide(ParentNode);
+            $('.AddedNewItem').slideDown("slow").fadeIn();
+
+        }
+        setTimeout(function(){$('.AddedNewItem').slideUp('slow').fadeOut();},5000);
+    });
+
+
 });
 

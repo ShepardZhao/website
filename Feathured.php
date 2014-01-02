@@ -3,7 +3,6 @@
 <?php
 if (isset($_GET['RootID']) && isset($_GET['SubID'])){
     $InitialLocationSelectClass->hiddenInitialLocation();
-    session_start();
 //according RootID and SubID to get their names
     $_SESSION['RootID']=$_GET['RootID'];
     $_SESSION['SubID']=$_GET['SubID'];

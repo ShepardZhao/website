@@ -21,9 +21,6 @@ $(document).ready(function(){
     /**
      * checks the key up when user relases the input key
      */
-
-
-
     $(document).keypress(function(e) {
         if(e.which == 13) {
                 $('.searchItem').select();
@@ -56,28 +53,39 @@ $(document).ready(function(){
         $('.SearchResult').empty();
         var getWidth = $('#search').width();
         $('.SearchResult').css('width',getWidth+'px');
-        sendData($('.searchItem').val(),$('.searchChoice>h7').text());
+        sendData($('#RootID').val(),$('.searchItem').val(),$('.searchChoice>h7').text());
         $('.SearchResult').fadeIn();
+        $('#close').fadeIn();
         }
     }
 
+
+    /**
+     * click close then closes the serach window
+     */
+
+    $('body').on('click','#close',function(){
+        $('.SearchResult').fadeOut();
+        $('#close').fadeOut();
+    });
     /**
      * if current input function is empty then hide .SearchResult
      */
     function checkEmptySearchBlock(){
     if($('.searchItem').val() === ''){
         $('.SearchResult').fadeOut();
+        $('#close').fadeOut();
     }
     }
 
     /**
      * Send Ajax data to query
      */
-    function sendData(value,type){
+    function sendData(localtion,value,type){
     $('<div class="AjaxLoading text-center"><img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif></div>').appendTo($('.SearchResult'));
         $.ajax({
             type: "GET",
-            url: CurrentDomain+'/json/?Search=yes&GetSearchValue='+value+'&GetType='+type,//api,
+            url: CurrentDomain+'/json/?Search=yes&GetSearchLoaction='+localtion+'&GetSearchValue='+value+'&GetType='+type,//api,
             dataType: 'json',
             data:{startCount:startCount,count:limitedCount},
             success: onLoadData
@@ -88,7 +96,6 @@ $(document).ready(function(){
      * Fecthing the result
      */
     function onLoadData(data){
-        console.log(data);
         $('.AjaxLoading').fadeOut();
         isLoading = false;
         var html = '';
@@ -98,7 +105,8 @@ $(document).ready(function(){
             for(; i<length; i++) {
                 type = data[i];
                     if(type.RestID !== undefined){
-                          html += '<div class="container-fluid">';
+                          html += '<div class="container-fluid searchResearchAaea">';
+
                           html += '<input type="hidden" class="RestID" value="'+type.RestID+'">';//Restaurants id
                           html += '<input type="hidden" class="ResName" value="'+type.ResName+'">';//Restaurants Name
                           html += '<input type="hidden" class="ResPicPath" value="'+type.PicPath+'">';//Restaurants PicPath
@@ -107,7 +115,8 @@ $(document).ready(function(){
                           html += '<input type="hidden" class="ResTotalComments" value="'+type.TotalComments+'">';//Restaurants comments
                           html += '<input type="hidden" class="ResOpenTime" value='+JSON.stringify(type.ResOpenTime)+'>';//Restaurants ResOpenTime
                           html += '<input type="hidden" class="ResRating" value="'+type.ResRating+'">';//Restaurants ResRating
-                          html += '<div class="row-fluid searchResearchAaea" style="max-height:60px; padding-top:9px;padding-bottom:9px">';
+                          html += '<div class="row-fluid" style="max-height:60px; padding-top:9px;padding-bottom:9px">';
+                          html += '<div class="clickwrap">';
                           html += '<div class="span1">';
                           html += '<img src="'+type.PicPath+'" class="img-polaroid">';
                           html += '</div>';
@@ -116,11 +125,11 @@ $(document).ready(function(){
                           html += '</div>';
                           html += '<div class="span4">';
                           html += '<ul class="nav">';
-                          for (var x=0;x<type.ResAvailability.length;x++){
-                              html += '<li class="btn btn-mini pull-left">'+type.ResAvailability[x]+'</li>';
+                          for (var x=0;x<type.AvailabilityTags.length;x++){
+                              html += '<li class="btn btn-mini pull-left">'+type.AvailabilityTags[x]+'</li>';
                           }
-                         for (var y=0;y<type.ResCuisine.length;y++){
-                            html += '<li class="btn btn-mini pull-left">'+type.ResCuisine[y]+'</li>';
+                         for (var y=0;y<type.CuisineTags.length;y++){
+                            html += '<li class="btn btn-mini pull-left">'+type.CuisineTags[y]+'</li>';
                         }
 
                           html += '</ul>';
@@ -136,6 +145,7 @@ $(document).ready(function(){
                           for (var j=0;j<emptyStars;j++){
                             html += '<i class="fa fa-star-o"></i>';
                            }
+                          html += '</ul>';
                           html += '</div>';
                           html += '<div class="span1">';
                           html += '</div>';
@@ -143,16 +153,36 @@ $(document).ready(function(){
                           html += '</div>';
                           html += '<div class="span1">';
                           html += '</div>';
-
+                          html += '</div>';
                           html += '</div>';
                           html += '</div>';
                     }
 
 
                 //Cuisine Part
-                    if(type.CuisineID !== undefined){
-                        html += '<div class="container-fluid">';
-                        html += '<div class="row-fluid searchResearchAaea" style="max-height:55px; padding-top:9px;padding-bottom:9px">';
+                    else if(type.CuisineID !== undefined){
+                        html += '<div class="container-fluid searchResearchAaea">';
+
+                        html += '<input type="hidden" class="CuisineID" value="'+type.CuisineID+'">';//Cuisine id
+                        html += '<input type="hidden" class="CuisineAvailability" value="'+type.CuisineAvailability+'">'; //Cuisine CuisineAvailability
+                        html += '<input type="hidden" class="CuisineName" value="'+type.CuisineName+'">';//Cuisine Name
+                        html += '<input type="hidden" class="CuisineDesc" value="'+type.CuisineDescription+'">';//Cuisine description
+                        html += '<input type="hidden" class="CuisinePrice" value="'+type.CuisinePrice+'">';//Cuisine price
+                        html += '<input type="hidden" class="CuisinePicpath" value="'+type.PicPath+'">';//Cuisine pic path
+
+                        html += '<input type="hidden" class="CuisineAvaliabilityTag" value="'+type.AvailabilityTags+'">';//Cuisine AvaliabilityTag
+                        html += '<input type="hidden" class="CuisinePriceTag" value="'+type.PriceTags+'">';//Cuisine price tag
+                        html += '<input type="hidden" class="CuisineTypeTag" value="'+type.TypeTags+'">';//Cuisine type tag
+                        html += '<input type="hidden" class="CuisineCuisineTag" value="'+type.CuisineTags+'">';//Cuisine tag
+                        html += '<input type="hidden" class="CuisineResName" value="'+type.CuisineResName+'">';//Cuisine name and its Rest Name
+                        html += '<input type="hidden" class="CuResID" value="'+type.CuisineRestID+'">';//Cuisine and its Res ID
+                        html += '<input type="hidden" class="CuisineRating" value="'+type.CuisineRating+'">';//Cuisine and its Res ID
+                        html += '<input type="hidden" class="CuisineTotalComments" value="'+type.TotalComments+'">';//Cuisine and its total comments
+                        html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
+                        html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
+                        html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
+                        html += '<div class="row-fluid" style="max-height:55px; padding-top:9px;padding-bottom:9px">';
+                        html += '<div class="clickwrap">';
                         html += '<div class="span1">';
                         html += '<img src="'+type.PicPath+'" class="img-polaroid">';
                         html += '</div>';
@@ -188,17 +218,27 @@ $(document).ready(function(){
                         for (var j=0;j<emptyStars;j++){
                             html += '<i class="fa fa-star-o"></i>';
                         }
+                        html += '</ul>';
                         html += '</div>';
                         html += '<div class="span1" style="height:55px; line-height:55px;">';
                         html += '$'+type.CuisinePrice;
                         html += '</div>';
-                        html += '<div class="span1" style="height:55px; line-height:55px;">';
-                        html += '<i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-heart-o"></i>';
                         html += '</div>';
                         html += '<div class="span1" style="height:55px; line-height:55px;">';
-                        html += '<i class="AddedToFavorite BackgroundOfStarAndPlus fa fa-plus"></i>';
+                        if(ReturnFavoriteStauts($('#CurrentLoginedUserID').val(),type.CuisineID) === 'true'){
+                        html += '<i id="'+type.CuisineID+'" class="AddedToFavoriteOfSearch BackgroundOfStarAndPlus fa fa-heart"></i>';
+                        }
+                        else{
+                        html += '<i id="'+type.CuisineID+'" class="AddedToFavoriteOfSearch BackgroundOfStarAndPlus fa fa-heart-o"></i>';
+                        }
+                        html += '</div>';
+                        html += '<div class="span1" style="height:55px; line-height:55px;">';
+                        html += '<i id="'+type.CuisineID+'" class="AddedToCartOfSearch BackgroundOfStarAndPlus fa fa-plus"></i>';
                         html += '</div>';
                         html += '</div>';
+                        if(type.CuisineAvailability === 'No'){
+                            html += '<div style="position:absolute;top:0;left:10px;width:70px;"><img src="'+CurrentDomain+'/assets/framework/front-images/SoldOut.png"></div>';
+                        }
                         html += '</div>';
                     }
 
@@ -212,7 +252,6 @@ $(document).ready(function(){
             FirstFetch++;
         }
         else {
-            console.log(1);
             $("<div class='text-center'><h4>Sorry, there is no result that matches to your query</h4><h4><i class='fa fa-frown-o'></i><h4></div>").hide().fadeIn(1000).appendTo($('.SearchResult'));
 
         }
@@ -224,15 +263,45 @@ $(document).ready(function(){
     /**
      * Clike result of search and redirect to relative page
      */
-    $('body').on('click','.SearchResult>.container-fluid',function(){
-       if($(this).find('.RestID').val()!==''){
-            //passParamterToResOnly($(this));
+    $('body').on('click','.clickwrap',function(){
+       if($(this).parent().parent().find('.RestID').length>0){
+            passParamterToResOnly($(this).parent().parent());
         }
+       else if($(this).parent().parent().find('.CuisineID').length>0){
+            passParamterToCuisineOnly($(this).parent().parent());
+       }
     });
 
 
-
-
+    /**
+     *
+     * @param Parent
+     */
+    function passParamterToCuisineOnly(parent){
+        var AjaxContainter = {};
+        AjaxContainter['RootID'] = $('#RootID').val();
+        AjaxContainter['SubID'] = $('#SubID').val();
+        AjaxContainter['CuisineID'] = parent.find('.CuisineID').val();
+        AjaxContainter['CuisineName'] = parent.find('.CuisineName').val();
+        AjaxContainter['CuisineDesc'] = parent.find('.CuisineDesc').val();
+        AjaxContainter['CuisinePrice'] = parent.find('.CuisinePrice').val();
+        AjaxContainter['CuisinePicpath'] = parent.find('.CuisinePicpath').val();
+        AjaxContainter['CuisineAvaliabilityTag'] = parent.find('.CuisineAvaliabilityTag').val();
+        AjaxContainter['CuisineTypeTag'] = parent.find('.CuisineTypeTag').val();
+        AjaxContainter['CuisinePriceTag'] = parent.find('.CuisinePriceTag').val();
+        AjaxContainter['CuisineCuisineTag'] = parent.find('.CuisineCuisineTag').val();
+        AjaxContainter['CuisineResName'] = parent.find('.CuisineResName').val();
+        AjaxContainter['CuResID'] = parent.find('.CuResID').val();
+        AjaxContainter['CuisineRating'] = parent.find('.CuisineRating').val();
+        AjaxContainter['CuisineTotalComments'] = parent.find('.CuisineTotalComments').val();
+        AjaxContainter['CuisineWhetherInCart'] = parent.find('.CuisineWhetherInCart').val();
+        AjaxContainter['CuisineWhetherFavorite'] = parent.find('.CuisineWhetherFavorite').val();
+        AjaxContainter['CurrentCuisineStatus'] = parent.find('.CurrentCuisineStatus').val();
+        AjaxContainter['TabChoose'] = 'DishesPages';
+        var result = decodeURIComponent($.param(AjaxContainter));
+        $('body').modalmanager('loading');
+        window.location = 'Cuisine-detail?'+result;
+    }
 
 
     /**
@@ -269,9 +338,107 @@ $(document).ready(function(){
         else{
             startCount+=limitedCount;
         }
-        sendData($('.searchItem').val(),$('.searchChoice>h7').text());
+        sendData($('#RootID').val(),$('.searchItem').val(),$('.searchChoice>h7').text());
 
     });
+
+
+    /**
+     * added current cuisine into user faviours
+     */
+    $('body').on('click','.AddedToFavoriteOfSearch',function(){
+        var CurrentUserID = $('#CurrentLoginedUserID').val();
+        var CurrentCuisineID = $(this).attr('id');
+        var passThis = $(this);
+        var tmp = {};
+        //if have this cuisine has been added as favorite
+       if(CurrentUserID !== ''){
+        if($(this).hasClass('fa-heart')){
+            $(this).removeClass('fa-heart').empty().append('<img class="ajax-loading-favorite" width="15" hegiht="15" src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>');
+            tmp['AddedFavorite']=0;
+            tmp['CuisineID']= CurrentCuisineID;
+            tmp['LoginUserID']= CurrentUserID;
+            favoriteAJax(passThis,tmp,'ToCancel');
+
+        }
+
+
+        //if empty star (prepare to add this cuisine as a favorite)
+        else if($(this).hasClass('fa-heart-o')){
+            $(this).removeClass('fa-heart-o').empty().append('<img class="ajax-loading-favorite" width="15" hegiht="15" src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>');
+            tmp['AddedFavorite']=1;
+            tmp['CuisineID']= CurrentCuisineID;
+            tmp['LoginUserID']= CurrentUserID;
+            favoriteAJax(passThis,tmp,'ToAdd');
+
+        }
+    }
+    else{
+        InformationDisplay('Sorry!, You have to login first','alert-error');
+    }
+
+    function favoriteAJax(passThis,tmp,condition){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data: tmp,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+            if(msg==='true' && condition==='ToAdd'){
+                passThis.empty().addClass('fa-heart');
+                InformationDisplay('you have added a new cuisine into your favorite cart','alert-success');
+
+            }
+            else if(msg==='true' && condition==='ToCancel'){
+                passThis.empty().addClass('fa-heart-o');
+                InformationDisplay('you have removed current cuisine from your favorite list','alert-warning');
+
+
+
+            }
+            else if(msg==='false'){
+                InformationDisplay('Sorry!, Something is error to add this cuisine to your favorite','alert-error');
+
+            }
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    }
+
+
+    });
+
+
+    /**
+     *Added current item into the temp shopping cart
+     */
+
+    $('body').on('click','.AddedToCartOfSearch',function(){
+        var ParentNode = $(this).parent().parent().parent();
+        jumpAnimate('.OrderNumberDisplay');
+        if($('.AddedNewItem').css('display') === 'block'){
+            $('.AddedNewItem').slideUp("slow",function(){
+                $(this).empty();
+                pushItemIntoBottomSlide(ParentNode);
+                $(this).slideDown("slow").fadeIn();
+            });
+        }
+        else{
+            pushItemIntoBottomSlide(ParentNode);
+            $('.AddedNewItem').slideDown("slow").fadeIn();
+
+        }
+        setTimeout(function(){$('.AddedNewItem').slideUp('slow').fadeOut();},5000);
+    });
+
+
+
+
+
 
 
 

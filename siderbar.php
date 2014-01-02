@@ -28,15 +28,12 @@
             <hr class="hrline"> </hr>
 
             <section class="clearfix"><!--order section begins-->
-                <div class="row-fluid">
-                <div class="span12">
-                    <table class="table" id="orderTable">
-                        <tbody>
-                        <tr id="initialOrderListSMS"><td style="color:#c09853">There is nothing yet~~</td></tr>
-                        </tbody>
-                    </table>
-
+                <div class="row-fluid text-center">
+                <div class="span12" id="orderClass">
+                    <div class="btn vshopingcart"><h5>Visit My Shopping cart</h5></div>
+                    <span class="badge badge-important OrderNumberDisplay" ></span>
                 </div>
+
                </div>
 
             </section><!--order section ends-->

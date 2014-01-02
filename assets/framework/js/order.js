@@ -3,11 +3,75 @@
  */
 $(document).ready(function(){
 
+    window.jumpAnimate = function (ClassOID){
+        //added cuisine count for current user
+        var CountOfCuisine = parseInt($('.OrderNumberDisplay').text(), 10);
+        $('.OrderNumberDisplay').text(CountOfCuisine+1);
+        $(ClassOID).animate({top: "-20px"}, 500,function(){
+            $(this).animate({top:"20px"},500,function(){
+                $(this).animate({top:"0"},500);
+            });
+
+        });
+    }
+
+
+    window.pushItemIntoBottomSlide = function (ParentNode){
+        var pic = ParentNode.find('.CuisinePicpath').val();
+        var name = ParentNode.find('.CuisineName').val();
+        var RestaruantName = ParentNode.find('.CuisineResName').val();
+        var price = ParentNode.find('.CuisinePrice').val();
+
+        $('<div class="row-fluid text-center"><div class="span2 addeditemCSS"><img src="'+pic+'" class="img-polaroid"></div><div class="span4 addeditemCSS">'+name+'</div><div class="span4 addeditemCSS">Made by '+RestaruantName+'</div><div class="span2 addeditemCSS">$'+price+'</div></div>').appendTo($('.AddedNewItem'));
+
+        InformationDisplay('you have added a new cuisine into your shopping cart!','alert-success');
+
+    }
+
+
+
+    var array = new Array();
+    favoriteArray();
+    function favoriteArray (){
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            data:{FavoriteStatus:'FavoriteStatus'},
+            success:function(data) {
+                array = data;
+            }
+        });
+    }
+
+
+    function comparedfavorite(tmpstring){
+
+        for (var x=0;x<array.length;x++ ){
+            if(tmpstring === array[x].UserID_CuID){
+                return 'true';
+            }
+
+
+        }
+    }
+    /**
+     * return current userID and cuisineID are having the postive status of Favorite
+     */
+
+
+
+    window.ReturnFavoriteStauts = function (userID,cuisineID){
+                var tmpstring = userID + '_' + cuisineID;
+                return comparedfavorite(tmpstring);
+    }
+
+
+
     /**
      *  Javascript time function
      */
     window.returnDateFunction = function () {
-        console.log(1);
         var getDate = new Date();
         var TheDayOfweek=getDate.getDay()
         if ( TheDayOfweek === 0){
@@ -140,8 +204,50 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
 
     }
 
-//added to favorite
-    $('body').on('click','.AddedToFavorite',function(){
+
+
+//added to favorite with cuisine main area
+    $('body').on('click','.AddedToFavoriteOfDetail',function(){
+        if(CurrentLoginUser){
+            var tmThis=$(this);
+            var tmp={};
+            var ThisCuisineID=$('#GetCurrentCuID').val();
+
+
+            //if have this cuisine has been added as favorite
+            if($(this).hasClass('fa-heart')){
+                $(this).removeClass('fa-heart').empty().append('<img class="ajax-loading-favorite" width="15" hegiht="15" src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>');
+                tmp['AddedFavorite']=0;
+                tmp['CuisineID']= ThisCuisineID;
+                tmp['LoginUserID']= CurrentLoginUser;
+                favoriteAJax(tmThis,tmp,'ToCancel');
+
+            }
+
+
+            //if empty star (prepare to add this cuisine as a favorite)
+            else if($(this).hasClass('fa-heart-o')){
+                $(this).removeClass('fa-heart-o').empty().append('<img class="ajax-loading-favorite" width="15" hegiht="15" src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif>');
+                tmp['AddedFavorite']=1;
+                tmp['CuisineID']= ThisCuisineID;
+                tmp['LoginUserID']= CurrentLoginUser;
+                favoriteAJax(tmThis,tmp,'ToAdd');
+
+            }
+        }
+        else{
+            InformationDisplay('Sorry!, You have to login first','alert-error');
+        }
+
+
+
+
+    });
+
+
+
+//added to favorite with wafterfall area
+    $('body').on('click','.AddedToFavoriteInWaterfall',function(){
         if(CurrentLoginUser){
             var tmThis=$(this);
             var tmp={};
@@ -154,9 +260,7 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
            tmp['AddedFavorite']=0;
            tmp['CuisineID']= ThisCuisineID;
            tmp['LoginUserID']= CurrentLoginUser;
-           favoriteAJax(tmp,'ToCancel');
-           $(this).parent().parent().parent().parent().find('.CuisineWhetherFavorite').val("0");
-           InformationDisplay('you have removed this cuisine from your favorite cart','alert-warning');
+           favoriteAJax(tmThis,tmp,'ToCancel');
 
            }
 
@@ -167,17 +271,16 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
            tmp['AddedFavorite']=1;
            tmp['CuisineID']= ThisCuisineID;
            tmp['LoginUserID']= CurrentLoginUser;
-           favoriteAJax(tmp,'ToAdd');
-           $(this).parent().parent().parent().parent().find('.CuisineWhetherFavorite').val("1");
-           InformationDisplay('you have added a new cuisine into your favorite cart','alert-success');
+           favoriteAJax(tmThis,tmp,'ToAdd');
 
            }
         }
         else{
             InformationDisplay('Sorry!, You have to login first','alert-error');
         }
+    });
 
-    function favoriteAJax(tmp,condition){
+    function favoriteAJax(tmThis,tmp,condition){
         var request = $.ajax({
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             type: "POST",
@@ -188,9 +291,13 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
         request.done(function( msg ) {
             if(msg==='true' && condition==='ToAdd'){
                 tmThis.empty().addClass('fa-heart');
+                InformationDisplay('you have added a new cuisine into your favorite cart','alert-success');
+
             }
             else if(msg==='true' && condition==='ToCancel'){
                 tmThis.empty().addClass('fa-heart-o');
+                InformationDisplay('you have removed this cuisine from your favorite cart','alert-warning');
+
 
 
             }
@@ -204,8 +311,9 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
             alert( "Request failed: " + textStatus );
         });
     }
-    });
+
 //added to cart
+    /*
     $('body').on('click','.AddedToCart',function(e){
     if(CurrentLoginUser){// see whether have login or not
         var CuisineID = $(this).parent().parent().parent().parent().find('.CuisineID').val();
@@ -241,6 +349,7 @@ $('.price>h2').text('$'+parseFloat($('.Delivery_Margin').text()).toFixed(2));
     }
         return false;
     });
+    */
 
 //compare cuisineID of order list with cuisine of waterfall, if same then find restore 'AddedToCart' button
     function cancelCurrent(getCuID){
@@ -324,12 +433,67 @@ $('body').on('click','.checkOut',function(){
 });
 
 
+/****************************************visit my shopping cart****************************************************/
+
+    $('body').on('click','.vshopingcart',function(){
+        var element_width = $('.VPurchaseItems').width();
+        var element_left =  $('.VPurchaseItems').position().left;
+        $('.closeShoppingCart').fadeIn();
+
+        $(".VPurchaseItems").css({left:element_left })  // Set the left to its calculated position
+            .animate({"left": (element_left - element_width + 60) + "px"}, 1000);
+    });
+
+    $('body').on('click','.closeShoppingCart',function(){
+        var element_width = $('.VPurchaseItems').width();
+        var element_left =  $('.VPurchaseItems').position().left;
+        $(".VPurchaseItems").css({left:element_left})  // Set the left to its calculated position
+            .animate({"left":(element_left + element_width) + 'px'}, 1000,function() {
+                $('.closeShoppingCart').fadeOut();
+            });
+
+
+
+    });
+
+
+/***************************************added new temp item*********************************************************/
+
+    /**
+     *Added current item into the temp shopping cart
+     */
+
+    $('body').on('click','.AddedToCart',function(){
+        var ParentNode = $(this).parent().parent().parent().parent();
+        jumpAnimate('.OrderNumberDisplay');
+        if($('.AddedNewItem').css('display') === 'block'){
+            $('.AddedNewItem').slideUp("slow",function(){
+                $(this).empty();
+                pushItemIntoBottomSlide(ParentNode);
+                $(this).slideDown("slow").fadeIn();
+            });
+        }
+        else{
+            pushItemIntoBottomSlide(ParentNode);
+            $('.AddedNewItem').slideDown("slow").fadeIn();
+
+        }
+        setTimeout(function(){$('.AddedNewItem').slideUp('slow').fadeOut();},5000);
+    });
+
+
+
+
+
+
 
 
 
 /****************************************Other operation***********************************************************/
 //prevent parent opertation
     $('body').on('click','.TopOptions',function(e){return false;});
+//display the serach control
+    $('#searchParent').fadeIn();
 
 
 });

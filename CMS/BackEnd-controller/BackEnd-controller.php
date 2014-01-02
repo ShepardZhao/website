@@ -162,6 +162,9 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     if(isset($_POST['CuisinePhotoUploading']) && isset($_POST['CuisineCuid']) && isset($_POST['CuisinePhotoPath']) && isset($_POST['CuisinePicWidth']) && isset($_POST['CuisinePicHeight']) ){echo $CuisineClass->CuisinePhotoUploadingAndUpdating($_POST['CuisineCuid'],$_POST['CuisinePhotoPath'],$_POST['OldPhotoPath'],$_POST['CuisinePicWidth'],$_POST['CuisinePicHeight']);}
 /********************************************Added to favourite*****************************************************/
     if(isset($_POST['CuisineID'])&&isset($_POST['LoginUserID'])&&isset($_POST['AddedFavorite'])){echo $Favoriteclass->addedtoFavorite($_POST['LoginUserID'],$_POST['CuisineID'],$_POST['AddedFavorite']);}
+/********************************************Distinguish favourite**************************************************/
+    if(isset($_POST['FavoriteStatus'])){echo $Favoriteclass->ConfirmExesitedByFavorite();}
+
 /********************************************Added cuisine comment**************************************************/
     //added cuisine comment
     if(isset($_POST['CurrentCuisineID']) && isset($_POST['CurrentUserID']) && isset($_POST['Currentstars']) && isset($_POST['CurrentCommentContent'])){

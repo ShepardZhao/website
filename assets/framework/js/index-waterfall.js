@@ -4,6 +4,8 @@ $(window).load(function(){
 
 
 $(document).ready(function(){
+
+
     $(function(){
         var handler = null,
             isLoading = false,
@@ -45,13 +47,18 @@ $(document).ready(function(){
         /**
          * Loads data from the API.
          */
+
         function loadData() {
             isLoading = true;
-
             $.ajax({
+                type:'GET',
                 url: apiURL,
                 dataType: 'json',
-                success: onLoadData
+                cache : false,
+                success: onLoadData,
+                error:function(xhr, status, errorThrown) {
+                    alert(errorThrown+'\n'+status+'\n'+xhr.statusText);
+                }
             });
         };
 
@@ -59,6 +66,7 @@ $(document).ready(function(){
          * Receives data from the API, creates HTML for images and updates the layout
          */
         function onLoadData(data) {
+
             isLoading = false;
             // Create HTML for the images.
             var html = '';

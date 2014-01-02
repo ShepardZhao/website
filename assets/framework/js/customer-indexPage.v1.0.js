@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+    }
     //lazy image
     var isDisplay=true;
     window.CurrentDomain=window.location.origin;
@@ -17,7 +20,7 @@ $(document).ready(function(){
 //common window pop out
      function popup (popupName){
         var _scrollHeight = $(document).scrollTop(),//get offset distance from pop windows to body windows
-            _windowHeight = $(window).height(),//get  height from current windows
+            _windowHeight = $(window).height(),//get height from current windows
             _windowWidth = $(window).width(),//get width from current windows
             _popupHeight = popupName.height(),//get altitude
             _popupWeight = popupName.width();//get width
