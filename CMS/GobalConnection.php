@@ -53,6 +53,12 @@ $Favoriteclass=new favourite($Mysql_Connection);
 $CuisineComemnt=new CuisineComemnt($Mysql_Connection);
 /*******************************Declare ThumbLikeOrDislike*************************************/
 $ThumbLikeOrDislikeclass= new ThumbLikeOrDislike($Mysql_Connection);
+/*******************************Declare order**************************************************/
+$classOrder = new order($Mysql_Connection);
+/*******************************Declare Manager**************************************************/
+$ManagerClass = new Manager($Mysql_Connection);
+
+
 
 /**************************************Extendedd define******************************************/
 //Gobal path: this is very much important for global path setting. it contorls the global css and js

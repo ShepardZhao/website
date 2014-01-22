@@ -105,6 +105,7 @@ else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not
 ?>
 <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
 <script src="<?php echo GlobalPath;?>/assets/framework/js/Restaurants.js"></script>
+
 <?php include 'footer.php'?>
 
 

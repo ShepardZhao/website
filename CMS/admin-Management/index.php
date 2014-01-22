@@ -27,7 +27,13 @@
     </div>
     <!-- End #sidebar -->
     <div class="span10" id="main-content">
+
+    <!-----------------------------------------Display initial page --------------------------------------->
     <?php require_once 'SubPages/initialpage.php'?>
+    <!-----------------------------------------Mobile end online page ------------------------------------->
+    <?php require_once 'SubPages/MobileEndOnline.php'?>
+
+    <?php require_once 'SubPages/AddManager_Mobile.php'?>
     <!-----------------------------------------Restaurant&Cuisines Management------------------------------>
     <!-----------------------------------------Register Restaurant----------------------------------------->
     <?php require_once 'SubPages/Register_restaurant.php'?>

@@ -27,26 +27,19 @@ if(isset($_POST['TagsTableName']) && isset($_POST['TagsID']) && isset($_POST['Ta
 /**************************************Location Controller********************************************************/
 
 
-if((isset($_POST['RootLocationPic']) && isset($_POST['RootLocation'])) ||isset($_POST['SubLocation'])){
-   $RootLocation=$_POST['RootLocation'];
-   $SubLocation=$_POST['SubLocation'];
-   echo $LocationClass->GetAddLocation($_POST['RootLocationPic'],serialize($RootLocation),serialize($SubLocation)); //add new Location into the database
+if((isset($_POST['RootLocationID']) && isset($_POST['RootLocation'])) && isset($_POST['RootLocationPic']) && isset($_POST['SubLocation'])){
+   echo $LocationClass->GetAddLocation($_POST['RootLocationID'],$_POST['RootLocation'],$_POST['RootLocationPic'],$_POST['SubLocation']); //add new Location into the database
 }
 
 if(isset($_POST['ReFreshList'])){
     $LocationClass->CmsDisplay();//Display the result at the CMS Location page
 }
 
-if(isset($_POST['GetDeleteLocationID'])){//delete
-    $GetDeleteLocationID=$_POST['GetDeleteLocationID'];
-    echo $LocationClass->getIDToDelete($GetDeleteLocationID);
+if(isset($_POST['GetDeleteRootLocationID']) && isset($_POST['GetDeleteSubLocationID'])){//delete
+    echo $LocationClass->getIDToDelete($_POST['GetDeleteRootLocationID'],$_POST['GetDeleteSubLocationID']);
 
 }
-if(isset($_POST['GetModifyLocationID'])){//modify display
-    $GetModifyLocationID=$_POST['GetModifyLocationID'];
-    $LocationClass->ModifyLocation($GetModifyLocationID);
 
-}
 if(isset($_POST['GetID']) && isset($_POST['ChangeRootLocation']) && isset($_POST['ChangeSubLocation'])){
 
     $GetModifyLocationID=$_POST['GetID'];
@@ -85,10 +78,7 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 
         }
         if(isset($_POST['SetDefault'])){
-
             echo $MyaddressBookClass->SetMyaddressBook($_POST['GetCustomerUserID'],$_POST['SetDefault']);
-
-
         }
 
         if($_POST['Mode']==='1'){//register user's basic info updating
@@ -144,6 +134,20 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 /********************************************list Cuisine's data***************************************************/
     if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable($_POST['GetCurrentResID']);}
+/********************************************Added into temp order list********************************************/
+    if(isset($_POST['TempOrder']) && isset($_POST['CurrentUserID']) && isset($_POST['CurrentCuisineID']) && isset($_POST['CurrentResID']) && isset($_POST['CurrentCuisineName']) && isset($_POST['CurrentCuisinePicPath']) && isset($_POST['CurrentCuisinePrice']) && isset($_POST['CurrentCuisineSecondLevel'])){ $tempCode=$RegisterUserClass->GenerateRandomUserID(); $TempOderID = 'TM'.$tempCode; echo $classOrder -> AddedTOATempOrder($_POST['CurrentUserID'], $TempOderID, $_POST['CurrentCuisineID'],$_POST['CurrentResID'], $_POST['CurrentCuisineName'], $_POST['CurrentCuisinePicPath'], $_POST['CurrentCuisinePrice'],$_POST['CurrentCuisineSecondLevel']); }
+/*******************************************Fetch Temp order Items ************************************************/
+    if(isset($_POST['FetchTempOrderItems']) && isset($_POST['CurrentUserID'])){echo $classOrder -> GetTempItemsFromUserID($_POST['CurrentUserID']);}
+/*******************************************CancelCurrentOrderItem*************************************************/
+    if(isset($_POST['CancelCurrentOrderItem'])){echo $classOrder -> cancelTempOrderItem($_POST['CancelCurrentOrderItem']); }
+/*******************************************reset Count Number***********************************************************/
+    if(isset($_POST['resetCountNumber']) && isset($_POST['CurrentUserID'])){echo $classOrder -> GetTotalCountOfAccodringToUserID ($_POST['CurrentUserID']);}
+/*******************************************update current temp order ***************************************************/
+    if(isset($_POST['updateCurrentOrder']) && isset($_POST['tempOrderID']) && isset($_POST['NewCount']) && isset($_POST['NewPrice'])){$classOrder -> updateCurrentSubTempOrder($_POST['tempOrderID'],$_POST['NewCount'],$_POST['NewPrice']);}
+/****************************************** set up deliver fee **********************************************************/
+    if(isset($_POST['DeliverCondition'])){echo $classOrder -> CaculatedDeliverFee($_POST['CurrentUserID']);}
+/******************************************* fetch total price **********************************************************/
+    if(isset($_POST['GetSumPrice']) && isset($_POST['CurrentUserID'])){echo $classOrder -> fetchTotalPrice($_POST['CurrentUserID']);}
 /********************************************Cuisine order check***************************************************/
     if(isset($_POST['GetOrginalOrder'])){echo $CuisineClass->CuisineOrderCheck($_POST['GetOrginalOrder'],$_POST['GetOrginalResID']);}
 /********************************************Cuisine order reset***************************************************/
@@ -207,13 +211,36 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 
 
+
+/******************************************Final check&payment setting ***************************************************/
+    /**
+     * set up current payment address as default for current user
+     */
+
+    if(isset($_POST['PaymentAddressSet']) && isset($_POST['PaymentNiceName']) && isset($_POST['PaymentNumber']) && isset($_POST['PaymentUserID']) && isset($_POST['PaymentSetDefaultStatus'])){
+
+        echo $MyaddressBookClass -> PaymentSetDefaultAddress($_POST['PaymentUserID'],$_POST['PaymentNiceName'],$_POST['PaymentNumber'],$_POST['PaymentAddressSet'],$_POST['PaymentSetDefaultStatus']);
+    }
+
+
+/****************************************Co - Mobile end *****************************************************/
+    //add record
+    if(isset($_POST['managerAJAX']) && isset($_POST['managerInputFiled']) && isset($_POST['SelectedLocationID'])){
+        $MangerID = 'M'.$RegisterUserClass->GenerateRandomUserID();
+        echo $ManagerClass -> FetchParamerAndReadyInsert($MangerID, $_POST['managerInputFiled'], $_POST['SelectedLocationID']);
+    }
+    //delete reocrd
+    if(isset($_POST['ManagerDelete']) && isset($_POST['GetManagerID'])){
+        echo $ManagerClass -> DeleteMnager($_POST['GetManagerID']);
+    }
+
+    //refresh manager table
+    if(isset($_POST['refreshManagerTable'])){
+        echo $ManagerClass -> qViewTable();
+    }
+
+
 }
-
-
-
-
-
-
 
 
 ?>

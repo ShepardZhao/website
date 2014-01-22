@@ -256,6 +256,11 @@ $(document).ready(function(){
             if(image.PicPath.length){
                 html += '<li>';
                 if(image.CuisineAvailability === 'No'){
+                    if(image.SecondLevel.length>0){
+                        html += '<div class="secondLevel">';
+                        html += JSON.stringify(image.SecondLevel);
+                        html +='</div>';
+                    }
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -269,8 +274,6 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
-                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
-                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="UnAvailability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
@@ -304,6 +307,11 @@ $(document).ready(function(){
                     }
                 }
                 else if(image.CuisineAvailability === 'Yes'){
+                    if(image.SecondLevel.length>0){
+                        html += '<div class="secondLevel">';
+                        html += JSON.stringify(image.SecondLevel);
+                        html +='</div>';
+                    }
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -317,8 +325,6 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
-                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
-                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';

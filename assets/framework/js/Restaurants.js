@@ -248,9 +248,7 @@ function onLoadData(data) {
         html += '</ul>';
         html += '</h4>';
         html += '<p class="resetColor">'+image.TotalComments+' Comments </p>';
-        html += '<a class="accordion-toggle" data-toggle="collapse"  href="#'+collapseOne+'" >';
-        html += '<h3><i class="Navcomments resetColor fa fa-arrow-circle-down"></i></h3>';
-        html += '</a>';
+        html += '<h3><a class="accordion-toggle" data-toggle="collapse"  href="#'+collapseOne+'" ><i class="Navcomments resetColor fa fa-arrow-circle-down"></i></a>';
         html += '</div>';
         html += '</div>';
         html += '</div>';

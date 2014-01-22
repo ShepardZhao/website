@@ -146,7 +146,10 @@ a{
 	background-color: #fff;
 	display: none;
 	padding: 10px;
-    box-shadow: 0px 3px 5px #444;
+    -webkit-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    box-shadow: 0 15px 65px rgba(0,0,0,.2);
+
 
 }
 .thumClick>li>.thumbnail{
@@ -687,6 +690,11 @@ position:absolute;
 	display:none;
 	line-height:30px;
 }
+
+.secondLevel{
+    display:none;
+}
+
 .common{
 	width: 66px;
 	float: left;
@@ -836,7 +844,7 @@ padding:19px;
     border-color:rgb(210, 210, 210);
 	
 }
-/*Feathred*/
+/*cuisine*/
 #Feathred-left-position{
 	position: fixed;
 	margin-left:20px;
@@ -1158,13 +1166,14 @@ padding:19px;
     width:1000px;
     margin-top: -200px;
     opacity: .95;
-    z-index:1001;
+    z-index:1090;
 
 }
 
 .VPurchaseItemsInner{
     display:block;
-
+    overflow-y:scroll;
+    overflow-x:hidden;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -1199,7 +1208,48 @@ padding:19px;
     position:absolute;
     top:45%;
     left: 50%;
+    display:none;
 }
+
+.Rootset{
+    margin:19px;
+    display:table !important;
+    height:60px;
+}
+.GSet{
+    display: table-cell;
+    vertical-align: middle;
+}
+.TempItemsPrice{
+    opacity: .95;
+    position: absolute;
+    bottom: -70px;
+    left: 660px;
+    padding: 7px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    box-shadow: 0 15px 65px rgba(0,0,0,.2);
+    background: white;
+    color: #FC5242;
+}
+.countPosition {
+    position:relative;
+}
+.countPosition-top{position:absolute;top: 25px}
+.countPosition-down{position:absolute;bottom:25px;}
+.fa-caret-down:hover,.fa-caret-up:hover{
+    cursor:pointer;
+}
+
+
+/*final order*/
+#OrderItems-zone{
+    position:relative;
+}
+
 /*Scrollto top*/
 #fixed_button_top{
     width: 50px;

@@ -244,7 +244,7 @@ class InitialLocationSelect extends Location{
 
     public function GetLocation($getCondition){
 
-        $GetLocationArray=parent::GetLocationNoParma();
+        $GetLocationArray=parent::GetRootLocationOnly();
         return self::InitialDisplay($getCondition,$GetLocationArray);
     }
 
@@ -258,17 +258,7 @@ class InitialLocationSelect extends Location{
 
     //according RootID gets its name
     public function GetsRootLocalName($getRootid){
-        $GetLocation=parent::GetLocationWithParma($getRootid);
-        foreach ($GetLocation as $Rootkey=>$SubArray){
-            foreach($SubArray as $secondkey=>$SecondArray){
-                if($secondkey==='LevelOne'){
-                    foreach ($SecondArray as $key=>$value){
-                        return $value;
-                    }
-                }
-            }
-
-        }
+        return parent::ReturnNameAccordingID($getRootid,null);
     }
 
 
@@ -276,18 +266,7 @@ class InitialLocationSelect extends Location{
 
     //according SubID gets its name
     public function GetsSubLocalName($getRootid,$GetSubLocalID){
-        $GetLocations=parent::GetLocationWithParma($getRootid);
-        foreach ($GetLocations as $Rootkey=>$SubArray){
-            foreach($SubArray as $secondkey=>$SecondArray){
-                if($secondkey==='LevelTwo'){
-                    foreach ($SecondArray as $key=>$value){
-                        if($key===$GetSubLocalID){
-                            return $value;
-                        }
-                    }
-                }
-            }
-        }
+       return parent::ReturnNameAccordingID($getRootid,$GetSubLocalID);
     }
 
 
@@ -301,15 +280,20 @@ class InitialLocationSelect extends Location{
         echo '<div class="span12">';
         echo '<ul class="nav nav-pills SubLocationGroup">';
         foreach ($GetSubLocationArray as $Rootkey=>$SubArray){
+            echo "<li>";
             foreach($SubArray as $secondkey=>$SecondArray){
+
+                if($secondkey==='LevelTwoID'){
+                    echo "<input type='hidden' class='sublocation_hiden' value='$SecondArray'>";
+                }
                 if($secondkey==='LevelTwo'){
-                    foreach ($SecondArray as $key=>$value){
-                        echo "<li id='$key'><a href='#'>$value</a></li>";
+                        echo "<a href='#'>$SecondArray</a>";
 
                     }
+
                 }
+            echo "</li>";
             }
-        }
         echo '</ul>';
         echo '</div>';
         echo  '<div class="control-group text-center">';
@@ -345,7 +329,7 @@ class InitialLocationSelect extends Location{
             echo  '<li class="span6">';
             echo  '<div class="thumbnail">';
             foreach ($SubArray as $secondKey=>$SecondValue){
-                if($secondKey==='LocationID'){
+                if($secondKey==='LevelOneID'){
                     echo "<input type='hidden' class='hidenLocationID' id='$SecondValue'>";
                 }
                 if($secondKey==='LevelOnePic'){
@@ -353,10 +337,7 @@ class InitialLocationSelect extends Location{
                 }
                 if($secondKey==='LevelOne'){
                     echo  '<div class="caption">';
-                    foreach ($SecondValue as $subKEY=>$value){
-                        echo  "<h4>$value</h4>";
-
-                    }
+                    echo  "<h4>$SecondValue</h4>";
                     echo  '</div>';
                 }
             }

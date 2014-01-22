@@ -37,7 +37,7 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                 <input type="hidden" class="CuisineName" value="<?php echo $_GET['CuisineName']?>">
                                 <input type="hidden" class="CuisineResName" value="<?php echo $_GET['CuisineResName']?>">
                                 <input type="hidden" class="CuisinePrice" value="<?php echo $_GET['CuisinePrice']?>">
-
+                                <div class="secondLevel"><?php echo $_GET['CurrentsecondLevel']?></div>
 
 
                                 <div class="row-fluid FeatureTopBackground">
@@ -115,14 +115,9 @@ $_SESSION['SubLocation']=$InitialLocationSelectClass->GetsSubLocalName($_SESSION
                                                     else{
                                                         echo "<li><i class='AddedToFavoriteOfDetail fa fa-heart-o'></i></li>";
                                                     }
+                                                    echo "<li><i class='AddedToCartDetail fa fa-plus'></i></li>";
 
 
-                                                    if($_GET['CuisineWhetherInCart']==='0'){
-                                                        echo "<li><i class='AddedToCartDetail fa fa-plus'></i></li>";
-                                                    }
-                                                    elseif($_GET['CuisineWhetherInCart']==='1'){
-                                                        echo "<li><i class='AddedToCartDetail fa fa-shopping-cart'></i></li>";
-                                                    }
                                                     ?>
 
                                                 </ul>
@@ -208,5 +203,6 @@ else if($_GET['RootID']==='' || $_GET['SubID']===''){//if RootID or SubID is not
 
 <script src="<?php echo GlobalPath;?>/assets/framework/js/order.js"></script>
 <script src="<?php echo GlobalPath;?>/assets/framework/js/DetailCuisine.js"></script>
+
 
 <?php include 'footer.php'?>

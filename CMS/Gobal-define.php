@@ -4,7 +4,7 @@
 define("HostName","127.0.0.1");//hostname for database
 define("UserName",'root');//usename for datebase
 define("Password",'4414463');//password for database
-define("Database",'client_b2c');//selected database for database
+define("Database",'client_o2o');//selected database for database
 //set the session time framwork
 //session_set_cookie_params('1000');
 

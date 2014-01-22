@@ -305,7 +305,7 @@ $(document).ready(function(){
     //Select sub array
 
     $('body').on('click','.SubLocationGroup>li',function(){
-        window.SubID=$(this).attr('id');
+        window.SubID=$(this).find('.sublocation_hiden').val();
 
     });
 

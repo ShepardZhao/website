@@ -5,6 +5,8 @@ $(document).ready(function(){
     /**
      * initial variable
      */
+    var CurrentUserID = $('#CurrentLoginedUserID').val();
+
     var startCount = 0,
         isLoading = false,
         FirstFetch = 1,
@@ -162,7 +164,11 @@ $(document).ready(function(){
                 //Cuisine Part
                     else if(type.CuisineID !== undefined){
                         html += '<div class="container-fluid searchResearchAaea">';
-
+                        if(type.SecondLevel.length>0){
+                            html += '<div class="secondLevel">';
+                            html += JSON.stringify(type.SecondLevel);
+                            html +='</div>';
+                        }
                         html += '<input type="hidden" class="CuisineID" value="'+type.CuisineID+'">';//Cuisine id
                         html += '<input type="hidden" class="CuisineAvailability" value="'+type.CuisineAvailability+'">'; //Cuisine CuisineAvailability
                         html += '<input type="hidden" class="CuisineName" value="'+type.CuisineName+'">';//Cuisine Name
@@ -347,7 +353,6 @@ $(document).ready(function(){
      * added current cuisine into user faviours
      */
     $('body').on('click','.AddedToFavoriteOfSearch',function(){
-        var CurrentUserID = $('#CurrentLoginedUserID').val();
         var CurrentCuisineID = $(this).attr('id');
         var passThis = $(this);
         var tmp = {};
@@ -418,21 +423,37 @@ $(document).ready(function(){
      */
 
     $('body').on('click','.AddedToCartOfSearch',function(){
+        if(CurrentLoginUser!==''){
         var ParentNode = $(this).parent().parent().parent();
-        jumpAnimate('.OrderNumberDisplay');
-        if($('.AddedNewItem').css('display') === 'block'){
-            $('.AddedNewItem').slideUp("slow",function(){
-                $(this).empty();
-                pushItemIntoBottomSlide(ParentNode);
-                $(this).slideDown("slow").fadeIn();
-            });
-        }
-        else{
-            pushItemIntoBottomSlide(ParentNode);
-            $('.AddedNewItem').slideDown("slow").fadeIn();
+        var tmp = {};
+        if(ParentNode.find('.CurrentCuisineStatus').val() === 'UnAvailability'){
+            InformationDisplay('Sorry!, Currently, The status of this cuisine is UnAvailabile, plese visit this page later','alert-error');
 
         }
-        setTimeout(function(){$('.AddedNewItem').slideUp('slow').fadeOut();},5000);
+        else{
+        tmp ['TempOrder'] = 'TempOrder';
+        tmp ['CurrentCuisineID'] = ParentNode.find('.CuisineID').val();
+        tmp ['CurrentUserID'] = CurrentUserID;
+        tmp ['CurrentResID'] = ParentNode.find('.CuResID').val();
+        tmp ['CurrentCuisineName'] = ParentNode.find('.CuisineName').val();
+        tmp ['CurrentCuisinePicPath'] = ParentNode.find('.CuisinePicpath').val();
+        tmp ['CurrentCuisinePrice'] = ParentNode.find('.CuisinePrice').val();
+            if(ParentNode.find('.secondLevel').text().length>0){
+                tmp['CurrentCuisineSecondLevel'] = ParentNode.find('.secondLevel').text();
+                SecondLevelPassFunction(tmp,ParentNode);
+            }
+            else{
+                tmp['CurrentCuisineSecondLevel'] = 'Empty';
+                WithoutSeoncdLevel($(this),tmp,ParentNode);
+            }
+        }
+        }
+
+        else{
+            InformationDisplay('Sorry!, You have to login first','alert-error');
+
+        }
+
     });
 
 

@@ -31,7 +31,11 @@
                 <div class="row-fluid text-center">
                 <div class="span12" id="orderClass">
                     <div class="btn vshopingcart"><h5>Visit My Shopping cart</h5></div>
-                    <span class="badge badge-important OrderNumberDisplay" ></span>
+                    <span class="badge badge-important OrderNumberDisplay" >
+                        <?php
+                                echo intval(json_decode($classOrder -> GetTotalCountOfAccodringToUserID ($_SESSION['LoginedUserID'])));
+                        ?>
+                    </span>
                 </div>
 
                </div>

@@ -98,12 +98,28 @@ $(document).ready(function(){
         $('#addedRestaurant').fadeIn(200);// when #addsRestaurant-clicked is cliked, the #addedCuisines will be showing
 
     });
+
     $('body').on('click','#AddedCuisines-clicked',function(){
         __hidenDiv();
         $(this).find('a').addClass('achieve');
         $('#addedCuisines').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
 
     });
+
+    $('body').on('click','#MobileEndOnline-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#MobileEndOnline').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+
+    });
+
+    $('body').on('click','#AddedManagerAndBinded-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#AddedManagerAndBinded').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+
+    });
+
 
     function __hidenDiv(){
         $('#main-nav li').find('.Nav-list li a').removeClass('achieve');
@@ -116,6 +132,8 @@ $(document).ready(function(){
         $('#Mail_Setting').fadeOut(200);//hiding the Mail_Setting page
         $('#addedRestaurant').fadeOut(200);//hiding the addsRestaurant page
         $('#addedCuisines').fadeOut(200);//hiding the addedCuisines page
+        $('#AddedManagerAndBinded').fadeOut(200);//hiding the  $('#AddedManagerAndBinded')
+        $('#MobileEndOnline').fadeOut(200);//hiding the $('#MobileEndOnline')
     }
 
 
@@ -564,8 +582,6 @@ $(document).ready(function(){
 
 
     $('body').on('click','#AddLocationButton',function(){//here is using click function instead of submit because of security
-
-
         var RootLocation= $("input[name='RootLocation']").val();
         var RootLocationPic=$("#LocationImagePath").val();
         var RootLocationID=$("input[name='RootLocationID']").val();
@@ -573,15 +589,11 @@ $(document).ready(function(){
         TemporaryArray[RootLocationID]=RootLocation;
         var SubLocation=returnInputArray("SubLocation","SubLocationID");
         if (RootLocation!==""){
-            var name1 = "RootLocation";
-            var name2 = "SubLocation";
-            var name3="RootLocationPic";
-            var value3=RootLocationPic;
-            var value2 =SubLocation;
             var dataObj = {};
-            dataObj[name1]=TemporaryArray;
-            dataObj[name2]=value2;
-            dataObj[name3]=value3;
+            dataObj["RootLocationID"]=RootLocationID;
+            dataObj["RootLocation"]=RootLocation;
+            dataObj["RootLocationPic"]=RootLocationPic;
+            dataObj["SubLocation"]=SubLocation;
 
             Ajax('#AddLocationButton',dataObj);
 
@@ -662,7 +674,7 @@ $(document).ready(function(){
 
             else if (msg==="Error"){
 
-                $('<div class="alert alert-error"><strong>Cannot Added Location</strong></div>').insertBefore($('#AddLocationButton')).fadeIn(200);
+                $('<div class="alert alert-error"><strong>Cannot Added Location due to database error or replated data</strong></div>').insertBefore($('#AddLocationButton')).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
 
             }
@@ -704,20 +716,15 @@ $(document).ready(function(){
 
     }
 
-    //Modify current record
-    $('body').on('click','.Modify',function(){
-        var temGetID=$(this).attr('id');
-        var dataObj = {};
-        dataObj["GetModifyLocationID"]=temGetID;
-        ModifyAndDeleteAjax(dataObj);
-    });
 
 
 //delete current record
     $('body').on('click','.delete',function(){
-        var temGetID=$(this).attr('id');
+        var GetRootID=$(this).parent().parent().find('.GetLevelOneID').text();
+        var GetSubID=$(this).parent().parent().find('.GetLevelTwoID').text();
         var dataObj = {};
-        dataObj["GetDeleteLocationID"]=temGetID;
+        dataObj["GetDeleteRootLocationID"]=GetRootID;
+        dataObj["GetDeleteSubLocationID"]=GetSubID;
         ModifyAndDeleteAjax(dataObj);
 
 
@@ -868,13 +875,14 @@ $('body').on('click','#UserListDelete',function(){
         tmp['RegisterStatus']=1;
         tmp['RegisterType']=RegisterType;
         tmp['RegisterPicpathPrefix']=CurrentDomain;
+        console.log(tmp);
         if(GetResturantEmail==='' || GetResturantPass===''){
             $('<div class="alert alert-error"><strong>Sorry, you have to fill all fields</div>').insertAfter($('#infozone')).fadeIn(200);
             setTimeout(function(){$('.alert-error').fadeOut(); },5000);
         }
         else{
         var request= $.ajax({
-            url:CurrentDomain+'/cms/BackEnd-controller/BackEnd-controller.php',
+            url:CurrentDomain+'/CMS/BackEnd-controller/BackEnd-controller.php',
             type: "POST",
             cache: false,
             data:tmp,
@@ -901,5 +909,126 @@ $('body').on('click','#UserListDelete',function(){
 
         return false;
     });
+
+
+
+    /*****************************************Cop - Mobile end js******************************/
+    /**
+     * ajax refresh the query table
+     */
+
+    function refresh_query_table(){
+        var request = $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            data:{'refreshManagerTable':'yes'}
+        });
+
+        request.done(function(data){
+            console.log(data);
+            $('#refreshManagerTable').fadeOut(500,function(){$(this).empty().append(data).fadeIn(500);});
+
+        });
+    }
+
+
+
+
+
+    $('.submitManager').on('click',function(){
+        //input field
+        var managerInputFiled = $('#managerInputFiled').val();
+        //select LocationID
+        var SelectedLocationID = $('.SelectedLocationID').attr('id');
+        var managerAJAXVariable = {};
+
+        managerAJAXVariable['managerAJAX'] = 'managerAJAX';
+        managerAJAXVariable['managerInputFiled'] = managerInputFiled;
+        managerAJAXVariable['SelectedLocationID'] = SelectedLocationID;
+        managerAJAX(managerAJAXVariable);
+
+    });
+
+    /**
+     * ajax submit ---- insert record
+     */
+    function managerAJAX(p){
+        var request= $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            data:p,
+            dataType: "json"
+        });
+
+        request.done(function(data){
+            if(data.status === 'successed'){
+                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.input-append')).fadeIn(200);
+                refresh_query_table();
+                setTimeout(function(){$('.alert-success').fadeOut(); },5000);
+            }
+            if(data.status === 'failed'){
+                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').insertAfter($('.input-append')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+        });
+    }
+
+
+    /**
+     * Delete current Manager
+     */
+    $('body').on('click','.deleteManager',function(){
+        var GetManagerID = $(this).parent().parent().find('.ManagerID').text();
+        var tmp = {};
+        tmp['ManagerDelete'] = 'yes';
+        tmp['GetManagerID'] = GetManagerID;
+        AjaxManagerDeletefunction(tmp,$(this).parent().parent());
+
+    });
+
+    /**
+     * Ajax submit ---- delete
+     */
+
+    function AjaxManagerDeletefunction(tmp,getThis){
+
+        var request = $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            dataType: "json",
+            data:tmp
+        });
+
+        request.done(function(data){
+
+            if(data.status === 'successed'){
+                getThis.remove();
+                refresh_query_table();
+            }
+            if(data.status === 'failed'){
+                getThis.empty();
+                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').appendTo(getThis).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+
+
+
+        });
+
+
+    }
+
+
+
+
+
+
+
+
+
 
 });

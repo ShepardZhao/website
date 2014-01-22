@@ -92,13 +92,13 @@ $(document).ready(function(){
         else{
             $('#Feathred-left-position').fadeIn();
         }
-            if(!isLoading) {
-                // Check if we're within 100 pixels of the bottom edge of the broser window.
-                var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
-                if(closeToBottom) {
-                    loadData();
-                }
+        if(!isLoading) {
+            // Check if we're within 100 pixels of the bottom edge of the broser window.
+            var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 10);
+            if(closeToBottom) {
+                loadData();
             }
+        }
     };
 
     /**
@@ -116,6 +116,11 @@ $(document).ready(function(){
             if(image.PicPath.length){
                 html += '<li>';
                 if(image.CuisineAvailability === 'No'){
+                    if(image.SecondLevel.length>0){
+                        html += '<div class="secondLevel">';
+                        html += JSON.stringify(image.SecondLevel);
+                        html +='</div>';
+                    }
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -129,8 +134,6 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
-                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
-                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="UnAvailability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
@@ -164,6 +167,11 @@ $(document).ready(function(){
                     }
                 }
                 else if(image.CuisineAvailability === 'Yes'){
+                    if(image.SecondLevel.length>0){
+                        html += '<div class="secondLevel">';
+                        html += JSON.stringify(image.SecondLevel);
+                        html +='</div>';
+                    }
                     html += '<input type="hidden" class="CuisineID" value="'+image.CuisineID+'">';//Cuisine id
                     html += '<input type="hidden" class="CuisineName" value="'+image.CuisineName+'">';//Cuisine Name
                     html += '<input type="hidden" class="CuisineDesc" value="'+image.CuisineDescription+'">';//Cuisine description
@@ -177,8 +185,6 @@ $(document).ready(function(){
                     html += '<input type="hidden" class="CuResID" value="'+image.CuisineRestID+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineRating" value="'+image.CuisineRating+'">';//Cuisine and its Res ID
                     html += '<input type="hidden" class="CuisineTotalComments" value="'+image.TotalComments+'">';//Cuisine and its total comments
-                    html += '<input type="hidden" class="CuisineWhetherFavorite" value="0">';
-                    html += '<input type="hidden" class="CuisineWhetherInCart" value="0">';
                     html += '<input type="hidden" class="CurrentCuisineStatus" value="Availability">';
                     html += '<div class="TopOptions">';
                     html += '<div class="span4">';
@@ -309,15 +315,15 @@ $(document).ready(function(){
      */
     $('body').on('click','.CuisineCommentStar',function(){
         if($('#CurrentLoginedUserID').val() != ''){
-        var CurrentUserID=encodeURIComponent($('#CurrentLoginedUserID').val());
-        var CuisineID=encodeURIComponent($('#GetCurrentCuID').val());
-        var CuisineName=encodeURIComponent($('#CuisineName').text());
-        $('body').modalmanager('loading');
-        setTimeout(function(){
-            $modal.load(CurrentDomain+'/Cuisine-comment?CuisineName='+CuisineName+'&CurrentUserID='+CurrentUserID+'&CuisineID='+CuisineID, '', function(){
-                $modal.modal();
-            });
-        }, 1000);
+            var CurrentUserID=encodeURIComponent($('#CurrentLoginedUserID').val());
+            var CuisineID=encodeURIComponent($('#GetCurrentCuID').val());
+            var CuisineName=encodeURIComponent($('#CuisineName').text());
+            $('body').modalmanager('loading');
+            setTimeout(function(){
+                $modal.load(CurrentDomain+'/Cuisine-comment?CuisineName='+CuisineName+'&CurrentUserID='+CurrentUserID+'&CuisineID='+CuisineID, '', function(){
+                    $modal.modal();
+                });
+            }, 1000);
         }
         else{
             InformationDisplay('Sorry!, You have to login first','alert-error');
@@ -389,22 +395,22 @@ $(document).ready(function(){
             dataType: "html"
         });
         request.done(function(msg) {
-           if(msg==='true'){
-               comment_time = Math.round((new Date()).getTime() / 1000); //handel current time frame
-               AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
-               RestStars(tmp['Currentstars']);
-           }
-           else if(msg==='Over Comment'){
-               AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+            if(msg==='true'){
+                comment_time = Math.round((new Date()).getTime() / 1000); //handel current time frame
+                AjaxMessage('alert-success','Congratulations! you have successfully submited the comment, please waiting for you comment review.');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+                RestStars(tmp['Currentstars']);
+            }
+            else if(msg==='Over Comment'){
+                AjaxMessage('alert-error','Be careful, you cannot submit comment more than once within limited time');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
 
-           }
-           else if(msg==='false'){
-               AjaxMessage('alert-error','Datebase operation error');
-               setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
+            }
+            else if(msg==='false'){
+                AjaxMessage('alert-error','Datebase operation error');
+                setTimeout(function(){$('#ajax-modal').modal('hide');},4000);
 
-           }
+            }
         });
 
         request.fail(function( jqXHR, textStatus ) {
@@ -417,9 +423,9 @@ $(document).ready(function(){
      * Reset stars
      */
     function RestStars(SoldStars){
-       var getStarsLength = $('.CuisineCommentStar').length;
+        var getStarsLength = $('.CuisineCommentStar').length;
         for (var i=0;i<SoldStars;i++){
-                $('.CuisineCommentStar').eq(i).removeClass('fa-star-o').addClass('fa-star');
+            $('.CuisineCommentStar').eq(i).removeClass('fa-star-o').addClass('fa-star');
         }
     }
 
@@ -439,7 +445,7 @@ $(document).ready(function(){
 
     }
 
-/**************************************************Switch comment page and waterfall page*********************************/
+    /**************************************************Switch comment page and waterfall page*********************************/
     /**
      * Click #Navcomments to swithch comment or wataerfall
      */
@@ -510,20 +516,20 @@ $(document).ready(function(){
                 html += '</div>';
                 html += '</div>';
                 html += '</li>';
-                }
-                html += '<div class="MoreComments btn text-center">More</div>';
+            }
+            html += '<div class="MoreComments btn text-center">More</div>';
 
-            }
-            else if(data.length === 0 && FirstFetchComment === 1){
-                html += '<h4 class="text-center">No more comments</h4>';
-                FirstFetchComment++;
-            }
+        }
+        else if(data.length === 0 && FirstFetchComment === 1){
+            html += '<h4 class="text-center">No more comments</h4>';
+            FirstFetchComment++;
+        }
 
         // Add image HTML to the page.
 
-            $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
+        $(html).hide().fadeIn(1000).appendTo($('.commentMarginBottom'));
 
-        }
+    }
 
 
     /**
@@ -549,13 +555,13 @@ $(document).ready(function(){
             InformationDisplay('You have to login before you are going to vote','alert-error');
         }
         else{
-        var Tmpsave = $(this);
-        var JsonPass = {};
-        JsonPass['thumbLikeOrDislike'] = 'like';
-        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
-        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
-        JsonPass['CurrentCommentType'] = 'CuisineComment';
-        thumbsLikeorDislike(Tmpsave,JsonPass);
+            var Tmpsave = $(this);
+            var JsonPass = {};
+            JsonPass['thumbLikeOrDislike'] = 'like';
+            JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+            JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            JsonPass['CurrentCommentType'] = 'CuisineComment';
+            thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
 
@@ -569,13 +575,13 @@ $(document).ready(function(){
             InformationDisplay('You have to login before you are going to vote','alert-error');
         }
         else{
-        var Tmpsave = $(this);
-        var JsonPass = {};
-        JsonPass['thumbLikeOrDislike'] = 'dislike';
-        JsonPass['CurrentUserID'] = CurrentLoginedUserID;
-        JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
-        JsonPass['CurrentCommentType'] = 'CuisineComment';
-        thumbsLikeorDislike(Tmpsave,JsonPass);
+            var Tmpsave = $(this);
+            var JsonPass = {};
+            JsonPass['thumbLikeOrDislike'] = 'dislike';
+            JsonPass['CurrentUserID'] = CurrentLoginedUserID;
+            JsonPass['CurrentCommmentID'] = $(this).parent().parent().parent().parent().parent().find('.CommentID').val();
+            JsonPass['CurrentCommentType'] = 'CuisineComment';
+            thumbsLikeorDislike(Tmpsave,JsonPass);
         }
     });
     /**
@@ -596,12 +602,12 @@ $(document).ready(function(){
             if(msg.Error===0){
                 InformationDisplay(msg.info,"alert-success");
                 if(msg.like===1){
-                   Tmpsave.parent().find('.good').text(msg.ReturntCount);
+                    Tmpsave.parent().find('.good').text(msg.ReturntCount);
                 }
                 else if(msg.dislike===1){
                     Tmpsave.parent().find('.bad').text(msg.ReturntCount);
                 }
-                }
+            }
             else if (msg.Error===1){
                 InformationDisplay(msg.info,"alert-error");
             }
@@ -620,21 +626,37 @@ $(document).ready(function(){
      * added into temp shopping cart
      */
     $('body').on('click','.AddedToCartDetail',function(){
-        var ParentNode = $(this).parent().parent().parent().parent().parent().parent().parent();
-        jumpAnimate('.OrderNumberDisplay');
-        if($('.AddedNewItem').css('display') === 'block'){
-            $('.AddedNewItem').slideUp("slow",function(){
-                $(this).empty();
-                pushItemIntoBottomSlide(ParentNode);
-                $(this).slideDown("slow").fadeIn();
-            });
+        if(CurrentLoginUser!==''){
+
+            var ParentNode = $(this).parent().parent().parent().parent().parent().parent().parent();
+            var tmp = {};
+            if(ParentNode.find('#GetCurrentCuisineStatus').val() === 'UnAvailability'){
+                InformationDisplay('Sorry!, Currently, The status of this cuisine is UnAvailabile, plese visit this page later','alert-error');
+            }
+            else{
+                tmp ['TempOrder'] = 'TempOrder';
+                tmp ['CurrentCuisineID'] = ParentNode.find('.CuisineID').val();
+                tmp ['CurrentUserID'] = CurrentLoginedUserID;
+                tmp ['CurrentResID'] = ParentNode.find('.CuResID').val();
+                tmp ['CurrentCuisineName'] = ParentNode.find('.CuisineName').val();
+                tmp ['CurrentCuisinePicPath'] = ParentNode.find('.CuisinePicpath').val();
+                tmp ['CurrentCuisinePrice'] = ParentNode.find('.CuisinePrice').val();
+                if(ParentNode.find('.secondLevel').text().length>0){
+
+                    tmp['CurrentCuisineSecondLevel'] = ParentNode.find('.secondLevel').text();
+                    SecondLevelPassFunction(tmp,ParentNode);
+                }
+                else{
+                    tmp['CurrentCuisineSecondLevel'] = 'Empty';
+                    WithoutSeoncdLevel($(this),tmp,ParentNode);
+                }
+
+            }
         }
         else{
-            pushItemIntoBottomSlide(ParentNode);
-            $('.AddedNewItem').slideDown("slow").fadeIn();
+            InformationDisplay('Sorry!, You have to login first','alert-error');
 
         }
-        setTimeout(function(){$('.AddedNewItem').slideUp('slow').fadeOut();},5000);
     });
 
 

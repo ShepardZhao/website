@@ -198,7 +198,7 @@ label{color:#333;font-size:13px!important;}
 table>tbody>tr>td{
 
     font-size:14px;
-
+    vertical-align:middle !important;
 }
 
 .thead{
@@ -296,4 +296,10 @@ table>tbody>tr>td{
 #addedCuisines{
     display:none;
 }
+#MobileEndOnline{
+    display:none;
+}
+#AddedManagerAndBinded{
+    display:none;
 
+}

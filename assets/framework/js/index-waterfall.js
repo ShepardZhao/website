@@ -85,11 +85,11 @@ $(document).ready(function(){
 
                     html += '<blockquote>';
                     if(image.CuisineName===undefined){
-                        html += '<p>'+image.ResName+'</p>';
+                        html += '<p style="width:180px">'+image.ResName+'</p>';
                     }
                     else{
-                        html += '<p>'+image.CuisineName+'</p>';
-                        html += '<small><i>by '+image.CuisineResName+'</i></small>'
+                        html += '<p style="width:180px">'+image.CuisineName+'</p>';
+                        html += '<small style="width:180px"><i>by '+image.CuisineResName+'</i></small>'
                     }
                     html += '</blockquote>';
 

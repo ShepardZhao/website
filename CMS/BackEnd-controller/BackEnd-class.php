@@ -247,10 +247,75 @@ class Location{
     }
 
 
-    public function PushValueCompared($getRootLocation){
+    /**
+     *
+     * according to id then reutrn the relative name
+     * @param $RootID
+     * @param $SubID
+     *
+     * @return null
+     */
+    public function ReturnNameAccordingID($RootID,$SubID){
+        $returnValue = null;
+        if($SubID===null){
+            if($stmt=$this->DataBaseCon->prepare("SELECT LevelOne FROM Location WHERE LevelOneID=?")){
+                $stmt->bind_param('s',$RootID);
+                $stmt->execute();
+                $stmt->bind_result($LevelOne);
+                while($stmt->fetch()){
+                    $returnValue=$LevelOne;
+                }
+                $stmt->close();
+                return $returnValue;
+            }
+        }
+        else{
+            if($stmt=$this->DataBaseCon->prepare("SELECT LevelTwo FROM SubLocation WHERE LevelOneID=? AND LevelTwoID=?")){
+                $stmt->bind_param('ss',$RootID,$SubID);
+                $stmt->execute();
+                $stmt->bind_result($LevelTwo);
+                while($stmt->fetch()){
+                    $returnValue=$LevelTwo;
+                }
+                $stmt->close();
+                return $returnValue;
+            }
+        }
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOne FROM Location WHERE LevelOne=?")){
-            $stmt->bind_param('s',$getRootLocation);
+    }
+
+
+
+    public function GetRootLocationWithIDAskey(){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOneID,LevelOne FROM Location")){
+            $stmt->execute();
+            $stmt->bind_result($LevelOneID,$LevelOne);
+            while($stmt->fetch()){
+                $array[]=array($LevelOneID => $LevelOne);
+            }
+            $stmt->close();
+            return $array;
+        }
+    }
+
+
+    public function GetRootLocationOnly(){
+
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOneID,LevelOnePic,LevelOne FROM Location")){
+            $stmt->execute();
+            $stmt->bind_result($LevelOneID,$LevelOnePic,$LevelOne);
+            while($stmt->fetch()){
+                $array[]=array('LevelOneID'=>$LevelOneID,'LevelOnePic'=>$LevelOnePic,'LevelOne'=>$LevelOne);
+            }
+            $stmt->close();
+            return $array;
+        }
+    }
+
+    public function PushValueCompared($getRootLocation,$getRootLocationID){
+
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOne FROM Location WHERE LevelOne=? AND LevelOneID=?")){
+            $stmt->bind_param('ss',$getRootLocation,$getRootLocationID);
             $stmt->bind_result($LevelOne);
             $stmt->execute();
             while($stmt->fetch()){
@@ -263,20 +328,107 @@ class Location{
 
     }
 
-    public function GetAddLocation($getRootLocationPic,$getRootLocation,$GetSubLocationArray){//check whether has same value that is in the database
-        if( self::PushValueCompared($getRootLocation)==="existed"){
+    private function comparedSubLocation($RootID){
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelOneID FROM SubLocation WHERE LevelOneID=?")){
+            $stmt->bind_param('s',$RootID);
+            $stmt->bind_result($RootID);
+            $stmt->execute();
+            while($stmt->fetch()){
+               $arry[]=array('LevelOneID'=>$LevelOneID);
+            }
+            $stmt->close();
+            if(count($arry)>0){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+    }
+
+    /**
+     * @param $getRootLocationID
+     * @param $getRootLocation
+     * @param $getRootLocationPic
+     *
+     * @return bool
+     */
+    public function InsertNewRootRecord($getRootLocationID,$getRootLocation,$getRootLocationPic){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO Location (LevelOneID,LevelOne,LevelOnePic) VALUE (?,?,?)")){
+            $stmt->bind_param('sss',$getRootLocationID,$getRootLocation,$getRootLocationPic);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+
+    }
+
+    /**
+     * @param $getRootLocationID
+     * @param $getSubLocationArray
+     */
+    private function CheckSubLocationReplated($getRootLocationID,$getSubLocationArray){
+        foreach ($getSubLocationArray as $key => $value){
+            if($stmt=$this->DataBaseCon->prepare("SELECT LevelOneID,LevelTwoID,LevelTwo FROM SubLocation WHERE LevelOneID=? AND LevelTwoID=? AND LevelTwo=?")){
+                $stmt->bind_param('sss',$getRootLocationID,$key,$value);
+                $stmt->bind_result($LevelOneID,$LevelTwoID,$LevelTwo);
+                $stmt->execute();
+                while($stmt->fetch()){
+                   $temp[] = array("LevelOneID"=>$LevelOneID,"LevelTwoID"=>$LevelTwoID,"LevelTwo"=>$LevelTwo);
+
+                }
+                $stmt->close();
+            }
+        }
+        if(count($temp)>0){
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+
+    /**
+     * @param $getRootLocationID
+     * @param $getSubLocationArray
+     *
+     * @return bool
+     */
+    public function InsertNewSubRecord($getRootLocationID,$getSubLocationArray){
+        if($this -> CheckSubLocationReplated($getRootLocationID,$getSubLocationArray)){
+        $Condition = false;
+        foreach ($getSubLocationArray as $key => $value){
+        if($stmt=$this->DataBaseCon->prepare("INSERT INTO SubLocation (LevelOneID,LevelTwoID,LevelTwo) VALUE (?,?,?)")){
+            $stmt->bind_param('sss',$getRootLocationID,$key,$value);
+            $stmt->execute();
+            $stmt->close();
+            $Condition = true;
+        }
+            if (!$Condition){return false;}
+        }
+        return true;
+        }
+        else{
+        return false;
+
+        }
+
+
+
+    }
+
+    public function GetAddLocation($getRootLocationID,$getRootLocation,$getRootLocationPic,$getSubLocationArray){//check whether has same value that is in the database
+        if( self::PushValueCompared($getRootLocation,$getRootLocationID)==="existed"){
             return "repeated";
         }
 
-        else if($stmt=$this->DataBaseCon->prepare("INSERT INTO Location (LevelOnePic,LevelOne, LevelTwo) VALUE (?,?,?)")){
-            $stmt->bind_param('sss',$getRootLocationPic,$getRootLocation,$GetSubLocationArray);
-            $stmt->execute();
-            $stmt->close();
+        elseif($this -> InsertNewRootRecord($getRootLocationID,$getRootLocation,$getRootLocationPic) && $this -> InsertNewSubRecord($getRootLocationID,$getSubLocationArray)){
             return "Successed";
         }
-        else
-        {
-
+        else{
             return "Error";
         }
     }
@@ -284,14 +436,14 @@ class Location{
 
     public function GetLocationNoParma(){//This function only return the array without Condition
 
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic, LevelOne, LevelTwo FROM Location")){
+        if($stmt=$this->DataBaseCon->prepare("SELECT Location.LevelOneID, Location.LevelOnePic, Location.LevelOne,SubLocation.LevelTwoID,SubLocation.LevelTwo FROM Location LEFT JOIN SubLocation ON Location.LevelOneID = SubLocation.LevelOneID")){
             $stmt->execute();
-            $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
+            $stmt->bind_result($LevelOneID,$LevelOnePic, $LevelOne, $LevelTwoID, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOnePic'=>$LevelOnePic,'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
-
+                $TemLocationArray[]=array('LevelOnePic'=>$LevelOnePic,'LevelOneID'=>$LevelOneID,'LevelOne'=>$LevelOne,'LevelTwoID'=>$LevelTwoID,'LevelTwo'=>$LevelTwo);
             }
+
 
             $stmt->close();
             return $TemLocationArray;
@@ -300,13 +452,13 @@ class Location{
     }
 
     public function GetLocationWithParma($getID){
-        if($stmt=$this->DataBaseCon->prepare("SELECT LocationID, LevelOnePic,LevelOne, LevelTwo FROM Location WHERE LocationID=?")){
-            $stmt->bind_param('i',$getID);
+        if($stmt=$this->DataBaseCon->prepare("SELECT LevelTwoID,LevelTwo FROM SubLocation WHERE LevelOneID=?")){
+            $stmt->bind_param('s',$getID);
             $stmt->execute();
-            $stmt->bind_result($LocationID,$LevelOnePic, $levelOne, $LevelTwo);
+            $stmt->bind_result($LevelTwoID, $LevelTwo);
             $TemLocationArray=array();
             while($stmt->fetch()){
-                $TemLocationArray[]=array('LocationID'=>$LocationID,'LevelOnePic'=>$LevelOnePic, 'LevelOne'=>unserialize($levelOne),'LevelTwo'=>unserialize($LevelTwo));
+                $TemLocationArray[]=array('LevelTwoID'=>$LevelTwoID, 'LevelTwo'=>$LevelTwo);
 
             }
 
@@ -317,16 +469,65 @@ class Location{
 
     }
 
-    public function getIDToDelete($getLocationID){//according to LocationID then delete the record from the database: return the status that is including: success or error
-        if($stmt=$this->DataBaseCon->prepare("DELETE FROM Location WHERE LocationID=?")){
-            $stmt->bind_param('i',$getLocationID);
+
+    private function DeleteRootLocation($RootLocationID){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM Location WHERE LevelOneID=?")){
+            $stmt->bind_param('s',$RootLocationID);
             $stmt->execute();
             $stmt->close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private function DeleteSubLocation($getRootLocationID,$getSubLocationID){
+        if($stmt=$this->DataBaseCon->prepare("DELETE FROM SubLocation WHERE LevelOneID=? AND LevelTwoID=?")){
+            $stmt->bind_param('ss',$getRootLocationID,$getSubLocationID);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
+     * @param $getRootLocationID
+     * @param $getSubLocationID
+     *
+     * @return string
+     */
+    public function getIDToDelete($getRootLocationID,$getSubLocationID){//according to LocationID then delete the record from the database: return the status that is including: success or error
+    if($this -> comparedSubLocation($getRootLocationID)){
+        if($this-> DeleteSubLocation($getRootLocationID,$getSubLocationID)){
+          if(!$this -> comparedSubLocation($getRootLocationID)){
+              if($this-> DeleteRootLocation($getRootLocationID)){
+                  return "Deleted successfully";
+              }
+          }
+            else{
             return "Deleted successfully";
+            }
         }
         else{
             return "Deleted error";
+
         }
+    }
+     else{
+         if($this-> DeleteSubLocation($getRootLocationID,$getSubLocationID) && $this-> DeleteRootLocation($getRootLocationID)){
+             return "Deleted successfully";
+         }
+         else{
+             return "Deleted error";
+
+         }
+
+        }
+
 
     }
 
@@ -347,87 +548,35 @@ class Location{
 
     }
 
+    public function GenerateFinalRootLocationWithID(){
+        $newarray = array();
+        $array = $this -> GetLocationNoParma();
 
+    }
 
+    private function GenerateFinalrootLocation(){
+       $newarray = array();
+       $array = $this -> GetLocationNoParma();
+       foreach($array as $key => $subarray){
+           foreach($subarray as $subkey => $value){
+               if($subkey === 'LevelOne'){
+                   array_push($newarray,$value);
+               }
+           }
+       }
+       return array_unique($newarray);
+    }
 
     public function GetRootLocationBySelectOption(){
-        $GetLocationArray=self::GetLocationNoParma();
+
         echo "<select id='MyRestartuant' class='span4 MyResRootAddress'>";
-        foreach ($GetLocationArray as $key=>$subArray){
-            foreach ($subArray as $Secondkey=>$secondvalue){
-                if($Secondkey==='LevelOne'){
-                    foreach($secondvalue as $finalKey=>$value)
-                        echo "<option value='$value' id='$finalKey'>$value</option>";
-                }
-            }
+        foreach ($this -> GenerateFinalrootLocation() as $key=>$subArray){
+                echo "<option value='$subArray'>$subArray</option>";
 
         }
         echo "</select>";
-
-
-
-
-
-
-
-
-
-
     }
 
-
-
-    public function ModifyLocation($GetModifyLocationID){//Change Location value
-        $TmpArray=self::GetLocationWithParma($GetModifyLocationID);
-        $getid=null;
-        echo "<div class='LocationModify'>";
-        echo "<div class='row-fluid'>";
-        echo  "<div class='span12'>";
-        echo "<div class='divhead'><h4><i class='icon-list-ul'>  Please Change Location below</i><h4></div>";
-        echo "<div class='basicInfo-box'>";
-        echo "<div class='form-horizontal'>";
-        foreach($TmpArray as $subvaluearray){
-            foreach($subvaluearray as $key=>$value){
-                if($key==="LocationID"){
-                    $getid=$value;
-                }
-                else if($key==="LevelOne"){
-                    foreach($value as $key=>$getvalue){
-                        echo  "<div class='control-group'>";
-                        echo  "<label class='control-label'>Please Change Root Location:</label>";
-                        echo "<div class='controls'>";
-                        echo "<input type='text'  id='ChangeRootLocation' class='input-xlarge' name='ChangeRootLocation[]' value='$getvalue'>";
-                        echo " <input type='text'  id='ChangeRootLocationID' class='input-xlarge' name='ChangeRootLocationID[]' value='$key'>";
-                        echo "</div>";
-                        echo "</div>";
-                    }
-                    echo "<br>";
-                    echo  "<label class='control-label'>Please Change Sub Location:</label>";
-
-                }
-                else if($key==="LevelTwo"){
-                    foreach($value as $key=>$finalvalue){
-                        echo "<div class='control-group changeSubGroup'>";
-                        echo "<div class='controls'>";
-                        echo  "<input type='text' class='input-xlarge' name='ChangeSubLocation[]' value='$finalvalue' >";
-                        echo  " <input type='text' class='input-xlarge' name='ChangeSubLocationID[]' value='$key' >";
-                        echo "</div>";
-                        echo "</div>";
-                    }
-                }
-            }
-        }
-        echo "</div>";
-        echo "<button class='button ChangeLocationButton_AddMore' type='button'>More</button> ";
-        echo "<button id='$getid' class='button ChangeLocationButton' type='button'>Change</button>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        echo "<div class='span12'></div>";
-
-        echo "</div>";
-
-    }
 
 
 
@@ -435,52 +584,47 @@ class Location{
         echo '<table  class="table table-striped">';
         echo  '<thead>';
         echo '<tr class="thead">';
-        echo '<td><h6>Location ID</h6></td>';
         echo '<td><h6>Root Location photo</h6></td>';
-        echo '<td><h6>Root Location</h6></td>';
-        echo '<td><h6>Sub Location</h6></td>';
-        echo '<td><h6>Change</h6></td>';
+        echo '<td><h6>Root Location ID</h6></td>';
+        echo '<td><h6>Root Location Name</h6></td>';
+        echo '<td><h6>Sub Location ID</h6></td>';
+        echo '<td><h6>Sub Location Name</h6></td>';
         echo '<td><h6>Delete</h6></td>';
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
-        foreach(self::GetLocationNoParma() as $subArray){
+        foreach($this -> GetLocationNoParma() as $Rootkey => $Subvalue){
             echo '<tr>';
-            $temID=null;
-            foreach($subArray as $key=>$subarray){
 
-                if($key==="LocationID"){
-                    $temID=$subarray;
-                    //echo "<td><label class='checkbox'><input name='Locationcheckbox[$subarray]' id=".$subarray." type='checkbox'></label></td>";
-                    echo '<td>'.$subarray.'</td>';
+            foreach ($Subvalue as $key => $value){
 
+                if ($key==='LevelOnePic'){
 
-                }
-                elseif ($key==='LevelOnePic'){
-
-                    echo "<td><img src='$subarray' style='width:150px;height:90px;'></td>";
+                    echo "<td><img src='$value' style='width:120px;height:70px;'></td>";
 
                 }
 
-                else if($key==="LevelTwo"){
+                else if($key==="LevelOneID"){
                     echo '<td>';
-                    foreach($subarray as $key=>$value){
-                        echo "<p>ID($key)  Name($value)</p>";
-                    }
+                    echo "<p class='GetLevelOneID'>$value</p>";
                     echo '</td>';
                 }
                 else if($key==="LevelOne"){
-                    foreach($subarray as $key=>$value){
-                        echo "<td>ID ($key)  Name($value)</td>";
-                    }
+                    echo '<td>';
+                    echo "<p>$value</p>";
+                    echo '</td>';
                 }
 
+                else if($key==="LevelTwoID"){
+                        echo "<td><p class='GetLevelTwoID'>$value</p></td>";
+                }
+                else if($key==="LevelTwo"){
+                        echo "<td>$value</td>";
 
+                }
             }
 
-            echo "<td><button id='$temID' class='button Modify' type='button'>Modify</button></td>";
-            echo "<td><button id='$temID' class='button delete' type='button'>Delete</button></td>";
-
+            echo "<td><button class='button delete' type='button'>Delete</button></td>";
             echo '</tr>';
 
         }
@@ -948,6 +1092,10 @@ class MyaddressBook {
 
     }
 
+
+
+
+
     public function GetParamOfMyaddressBookForFrontEndAddress($GetUserID,$GetNickName,$GetPhone,$GetAddress,$DefaultStauts){
         $this->GetUserID=$GetUserID;
         $this->GetNickName=$GetNickName;
@@ -960,7 +1108,7 @@ class MyaddressBook {
 
     private function AddMyaddressbook($DefaultStauts){
         if (self::CompareInfo()==='pass'){
-            if($stmt=$this->DataBaseCon->prepare("INSERT INTO UserAddressBook (AddressBookID,UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (null,?,?,?,?,?)")){
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO UserAddressBook (UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (?,?,?,?,?)")){
                 //default is not been taken;
                 $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
                 $stmt->execute();
@@ -1136,6 +1284,41 @@ class MyaddressBook {
         }
 
 
+
+    }
+
+
+
+
+   /**
+    * check and payment address function
+    */
+    public function PaymentSetDefaultAddress($GetUserID,$GetNickName,$GetPhone,$GetAddress,$DefaultStauts){
+        $this->GetUserID=$GetUserID;
+        $this->GetNickName=$GetNickName;
+        $this->GetPhone=$GetPhone;
+        $this->GetAddress=$GetAddress;
+        return $this -> paymentAddressbook($DefaultStauts);
+    }
+
+    private function paymentAddressbook($DefaultStauts){
+        if (self::CompareInfo()==='pass'){
+            $this -> ResetPastDefault($this -> GetUserID);
+            if($stmt=$this->DataBaseCon->prepare("INSERT INTO UserAddressBook (UserID, AddreNickName,AddrePhone,AddresAddress,AddreStatus) VALUES (?,?,?,?,?)")){
+                //default is not been taken;
+                $stmt->bind_param('isisi',$this->GetUserID,$this->GetNickName,$this->GetPhone,$this->GetAddress,$DefaultStauts);
+                $stmt->execute();
+                $stmt->close();
+                return 'ok';
+            }
+            else {
+                return 'Error';
+            }
+
+        }
+        else if (self::CompareInfo()==='fail'){
+            return 'Repeated Addressbook';
+        }
 
     }
 
@@ -3415,6 +3598,416 @@ class ThumbLikeOrDislike{
 
 
 }
+
+/**************************************************order*********************************************************/
+class order{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+
+
+
+    /************************************************Temp order********************************/
+
+    /**
+     * this function is changed while user chagnes the count or price in that cuisine
+     * @param $tempOrderID
+     * @param $NewCount
+     * @param $NewPrice
+     */
+    public function updateCurrentSubTempOrder($tempOrderID,$NewCount,$NewPrice){
+
+        if($stmt = $this -> DataBaseCon -> prepare ("UPDATE Order_temp SET Temp_OrderCuCount = ?, Temp_OrderCuPrice = ? WHERE Temp_OrderID = ?")){
+            $stmt -> bind_param('ids',$NewCount,$NewPrice,$tempOrderID);
+            $stmt -> execute();
+            $stmt->close();
+        }
+
+    }
+
+
+
+    /**
+     * Get Temp items is accoridng to current userID
+     * @param $UserID
+     *
+     * @return mixed
+     */
+    public function GetTempItemsFromUserID($UserID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT UserID,Temp_OrderID,CuID,ResID,Temp_OrderCuName,Temp_OrderCuSecondLevel,Temp_OrderCuPicPath,Temp_OrderCuPrice,Temp_OrderCuCount,Temp_OrderDate FROM Order_temp WHERE UserID = ?")){
+            $stmt -> bind_param('s',$UserID);
+            $stmt -> execute();
+            $stmt -> bind_result($UserID,$Temp_OrderID,$CuID,$ResID,$Temp_OrderCuName,$Temp_OrderCuSecondLevel,$Temp_OrderCuPicPath,$Temp_OrderCuPrice,$Temp_OrderCuCount,$Temp_OrderDate);
+            while($stmt -> fetch()){
+                $object[] = array('UserID' => $UserID, 'Temp_OrderID' => $Temp_OrderID, 'CuID' => $CuID, 'ResID' => $ResID, 'Temp_OrderCuName' => $Temp_OrderCuName, 'Temp_OrderCuSecondLevel'=> unserialize($Temp_OrderCuSecondLevel),'Temp_OrderCuPicPath' => $Temp_OrderCuPicPath, 'Temp_OrderCuPrice' => $Temp_OrderCuPrice, 'Temp_OrderCuCount' => $Temp_OrderCuCount, 'Temp_OrderDate' => $Temp_OrderDate);
+            }
+            $stmt->close();
+            return json_encode($object);
+        }
+    }
+
+    /**
+     * Delete temp order by Temp_OrderID
+     * @param $TempOrderID
+     *
+     * @return string
+     */
+
+    public function cancelTempOrderItem($TempOrderID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Order_temp WHERE Temp_OrderID = ?")){
+           $stmt -> bind_param('s',$TempOrderID);
+           $stmt -> execute();
+           $stmt -> close();
+           return json_encode(array('Deleted' => 1));
+        }
+
+    }
+
+
+
+    /**
+     * Get total sum of cuisine of current user
+     * @param $UserID
+     *
+     * @return mixed
+     */
+    public function GetTotalCountOfAccodringToUserID($UserID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT SUM(Temp_OrderCuCount) AS count FROM Order_temp WHERE UserID = ?")){
+            $stmt -> bind_param('s',$UserID);
+            $stmt -> execute();
+            $stmt -> bind_result($count);
+            while($stmt -> fetch()){
+                $object = $count;
+            }
+            $stmt->close();
+            if($object === null ){
+                $object = 0;
+            }
+            return json_encode($object);
+        }
+    }
+
+    /**
+     * fetch temp paramters
+     * @param $userID
+     * @param $cuID
+     */
+    public function AddedTOATempOrder($userID,$temOderID,$cuID,$currenResID,$currentCuName,$currentCuPicPath,$currentPrice,$currentCuSecondLevel){
+        if(count($this -> checkTempOrder($userID,$cuID,serialize($currentCuSecondLevel))) === 0){
+            $getTempOrderID = $temOderID;
+            $getTemp_OrderCuCount = 1;
+            $getTemp_OrderDate = date("Y-m-d H:i:s");
+
+            if($stmt = $this -> DataBaseCon -> prepare("INSERT INTO Order_temp (UserID, Temp_OrderID, CuID, ResID,Temp_OrderCuName,Temp_OrderCuSecondLevel,Temp_OrderCuPicPath, Temp_OrderCuPrice, Temp_OrderCuCount, Temp_OrderDate) VALUES (?,?,?,?,?,?,?,?,?,?)")){
+                $stmt -> bind_param('sssssssdis',$userID,$getTempOrderID,$cuID,$currenResID,$currentCuName,serialize($currentCuSecondLevel),$currentCuPicPath,$currentPrice,$getTemp_OrderCuCount,$getTemp_OrderDate);
+                $stmt -> execute();
+                $stmt -> close();
+                return json_encode(array('sucess' => 1));
+            }
+        }
+        else{
+          return  $this -> updateTempOrder ($userID,$cuID,$currentPrice,serialize($currentCuSecondLevel));
+        }
+    }
+
+
+
+
+
+    /**
+     * Calculate the Deliver fee
+     */
+    public function CaculatedDeliverFee($USERID){
+        if($USERID!==""){
+            $OldTotalPrice = json_decode($this -> fetchTotalPrice($USERID)) -> result;
+            $GenerateDeliveryFee = $this -> feeDistinguish($OldTotalPrice);
+            $GetExtraFee = $this -> fetchTheNumberOfRest($USERID);
+            $finalDeliverFee = intval($GenerateDeliveryFee) + intval($GetExtraFee);
+            return json_encode(array('ReturnedDeliveryFee' =>1, 'finalDeliverFee' => $finalDeliverFee, 'CuisineFee'=>$GenerateDeliveryFee, 'ExtraFee'=>$GetExtraFee));
+        }
+        else{
+            return json_encode(array('ReturnedDeliveryFee' =>1, 'finalDeliverFee' => 0));
+
+        }
+
+    }
+
+
+    /**
+     *fetch the total price from the table of Order_temp
+     */
+    public function fetchTotalPrice($USERID){
+        if($stmt = $this -> DataBaseCon -> prepare("SELECT SUM(Temp_OrderCuPrice) AS Total FROM Order_temp WHERE UserID=?")){
+            $stmt -> bind_param('s',$USERID);
+            $stmt -> execute();
+            $stmt -> bind_result($Total);
+            while($stmt -> fetch()){
+                $object = $Total;
+            }
+            $stmt -> close();
+
+            return json_encode(array('success' => 1,'result' => $object));
+        }
+
+
+    }
+
+
+    /**
+     *
+     * Distinguish different fee
+     * @param $totalprice
+     *
+     * @return string
+     */
+    private function feeDistinguish($totalprice){
+        $getFormatTotalprice = number_format((float)$totalprice, 2, '.', '');
+        if($getFormatTotalprice === 0.00){
+            return '0';
+        }
+        else if($getFormatTotalprice > 0.00 && $getFormatTotalprice < 29.99){
+            return '3';
+        }
+        else if($getFormatTotalprice > 30.00 && $getFormatTotalprice < 49.99){ // if current total price is between 30.00 and 49.99
+            return '4';
+        }
+        else if($getFormatTotalprice > 50.00 && $getFormatTotalprice < 69.99){// if current total price is from 50.00 to 69.99
+            return '5';
+        }
+        else if($getFormatTotalprice > 70.00 && $getFormatTotalprice < 100.00){ // if current total price has scope between 70.00 and 100.00
+            return '6';
+        }
+        else if($getFormatTotalprice > 100.99){
+            return '7';
+        }
+
+    }
+
+    /**
+     * fetch the number of restaurants in Order_temp
+     * return the count that displays how many different resurants
+     */
+    private function fetchTheNumberOfRest($USERID) {
+        if($stmt = $this -> DataBaseCon -> prepare("SELECT COUNT(ResID) AS different FROM Order_temp WHERE UserID =? GROUP BY ResID")){
+            $stmt -> bind_param('s',$USERID);
+            $stmt -> execute();
+            $stmt -> bind_result($different);
+            while($stmt -> fetch()){
+                $object = $different;
+            }
+            $stmt -> close();
+
+            return $object;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * checking exeisting record
+     * @param $userID
+     * @param $cuID
+     */
+    private function checkTempOrder($userID,$cuID,$CusecondLevel){
+
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Order_temp WHERE UserID = ? AND CuID = ? AND Temp_OrderCuSecondLevel=?")){
+           $stmt -> bind_param('sss',$userID,$cuID,$CusecondLevel);
+           $stmt -> execute();
+           $result = $stmt->get_result();
+           $object=array();
+           while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+           }
+           $stmt->close();
+           return $object;
+        }
+
+    }
+
+    /**
+     * Updating the record for temp order
+     * @param $userID
+     * @param $cuID
+     * @param $currentPrice
+     */
+    private function updateTempOrder($userID,$cuID,$currentPrice,$currentSecondLevel){
+        $getCuprice = $this -> checkTempOrder ($userID, $cuID,$currentSecondLevel)[0]['Temp_OrderCuPrice'];
+        $getCount = $this -> checkTempOrder ($userID, $cuID,$currentSecondLevel)[0]['Temp_OrderCuCount'];
+        //passed parameters
+        $newPrice = $getCuprice + $currentPrice;
+        $newCount = $getCount + 1;
+        if($stmt = $this -> DataBaseCon -> prepare ("UPDATE Order_temp SET Temp_OrderCuPrice = ?, Temp_OrderCuCount = ? WHERE  UserID=? AND CuID = ?")){
+           $stmt -> bind_param('diss',$newPrice, $newCount, $userID, $cuID );
+           $stmt -> execute();
+           $stmt -> close();
+        }
+        return json_encode(array('update' => 1));
+
+    }
+}
+
+
+
+/********************************************Co - Mobile end ****************************************************/
+//Manager class that will manager the relationship between manager and delivery
+class Manager{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+
+    /**
+     * Fetch the paramters then validates them first if okay then insert record else return failure
+     * @param $UniqueID
+     * @param $Name
+     * @param $RootID
+     *
+     * @return string
+     */
+    public function FetchParamerAndReadyInsert($UniqueID, $Name, $RootID){
+        if($this -> Validation($Name)){
+            return $this -> InsertNewManager($UniqueID, $Name, $RootID);
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
+    }
+
+
+
+    /**
+     *
+     * This function is getting the paramters from front end and inserts the record into the db
+     * @param $Name
+     * @param $RootID
+     */
+    private function InsertNewManager($UniqueID, $Name, $RootID){
+        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO Manager (ManagerID,Manager,RootID) VALUES (?,?,?)")){
+            $stmt -> bind_param('sss',$UniqueID, $Name, $RootID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+    }
+
+    /**
+     *
+     * do validation if it is possible
+     * @param $Name
+     *
+     * @return bool
+     */
+    private function Validation($Name){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Manager WHERE Manager=?")){
+            $stmt->bind_param('s',$Name);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            if(count($object)>0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
+
+    /**
+     * return the whole table
+     * @return array
+     */
+    private function GenerateQueryInfo(){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Manager")){
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return $object;
+        }
+    }
+
+
+
+    /**
+     * This function is only generating the query view by table
+     */
+    public function qViewTable(){
+
+      echo  '<table class="table table-striped">';
+      echo  '<thead>';
+      echo  '<tr>';
+      echo  '<th>Manager ID</th>';
+      echo  '<th>Current Root ID</th>';
+      echo  '<th>Manager Name</th>';
+      echo  '<th>Change</th>';
+      echo  '<th>Delete</th>';
+      echo  '</tr>';
+      echo  '</thead>';
+      echo  '<tbody>';
+      foreach ($this -> GenerateQueryInfo() as $index => $subarray){
+          echo  '<tr>';
+          foreach ($subarray as $key => $value){
+              if($key === 'ManagerID'){
+                  echo '<td class="ManagerID">'.$value.'</td>';
+              }
+              if($key === 'RootID'){
+                  echo '<td>'.$value.'</td>';
+              }
+              if($key === 'Manager'){
+                  echo '<td>'.$value.'</td>';
+              }
+
+          }
+          echo '<td><button class="button ChangeManager" type="button">Change</button></td>';
+          echo '<td><button class="button deleteManager" type="button">Delete</button></td>';
+          echo '</tr>';
+      }
+
+     echo  '</tbody>';
+     echo  '</table>';
+    }
+
+    /**
+     * Delete current Manager according ID
+     * @param $getID
+     *
+     * @return string
+     */
+    public function DeleteMnager($getID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Manager WHERE ManagerID=? ")){
+            $stmt -> bind_param('s',$getID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
+
+    }
+
+}
+
+
 
 
 
