@@ -32,11 +32,13 @@
     <?php require_once 'SubPages/initialpage.php'?>
     <!-----------------------------------------Mobile end online page ------------------------------------->
     <?php require_once 'SubPages/MobileEndOnline.php'?>
-
-    <?php require_once 'SubPages/AddManager_Mobile.php'?>
+    <?php require_once 'SubPages/RegisterNewManager_Deliver.php'?>
+    <?php require_once 'SubPages/ConfigureManager_Mobile.php'?>
     <!-----------------------------------------Restaurant&Cuisines Management------------------------------>
     <!-----------------------------------------Register Restaurant----------------------------------------->
     <?php require_once 'SubPages/Register_restaurant.php'?>
+    <!-----------------------------------------Featured Management ---------------------------------------->
+    <?php require_once 'SubPages/FeaturedManagement.php'?>
     <!--------------------------------------------------basic info----------------------------------------->
     <?php require_once 'SubPages/Basic_info.php'?>
     <!-----------------------------------------Admin Management-------------------------------------------->

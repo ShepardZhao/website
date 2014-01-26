@@ -49,6 +49,7 @@ if ($user) {
     <![endif]-->
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/assets/framework/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/assets/framework/css/customer.v1.0.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<?php echo GlobalPath;?>/assets/framework/css/animate.css" />
     <link rel="stylesheet" media="screen and (max-width: 500px)" href="<?php echo GlobalPath;?>/assets/framework/css/mobile.css" type="text/css" /><!--mobile css-->
     <link rel="stylesheet" href="<?php echo GlobalPath;?>/assets/framework/css/font-awesome.min.css">
     <!-- include jQuery -->
@@ -185,7 +186,7 @@ if ($user) {
 
                                 <?php }?>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://cometome.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
+                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://www.cometome.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
 
 
                             </ul>

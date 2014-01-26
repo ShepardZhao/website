@@ -1,5 +1,5 @@
 <?php
-    include '../cms/GobalConnection.php';
+    include '../CMS/GobalConnection.php';
     session_start();
 
     if(isset($_GET['UserID'])&& isset($_GET['a']) && isset($_GET['ust'])){

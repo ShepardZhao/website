@@ -66,14 +66,13 @@ $(document).ready(function(){
          * Receives data from the API, creates HTML for images and updates the layout
          */
         function onLoadData(data) {
-
             isLoading = false;
             // Create HTML for the images.
             var html = '';
             var i=0, length=data.length, image;
             for(; i<length; i++) {
                 image = data[i];
-                if(image.PicPath.length){
+                if(image.PicPath){
                     html += '<li>';
 
                     // Image tag (preview in Wookmark are 200px wide, so we calculate the height based on that).

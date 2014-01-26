@@ -2,6 +2,12 @@
  * Created by zhaoxun321 on 3/11/2013.
  */
 $(document).ready(function(){
+
+
+
+//footer initialization
+    $('#footerButton').fadeIn(500);
+
     /**
      * return current userID and cuisineID are having the postive status of Favorite
      */
@@ -265,9 +271,11 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             dataType: "json",
+            cache:false,
             url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
             data:{FavoriteStatus:'FavoriteStatus'},
             success:function(data) {
+                console.log(data);
                 array = data;
             }
         });
@@ -930,6 +938,19 @@ function DeliverFeeCaul(){
     $('body').on('click','.TopOptions',function(e){return false;});
 //display the serach control
     $('#searchParent').fadeIn();
+
+
+    /************************************ footer js *****************************************/
+    $('#footerButton').hover(function(){
+        $(this).addClass('animated rollOut');
+        $('.footer').removeClass('animated bounceOutDown').fadeIn().addClass('animated bouncelnUp');
+    });
+
+    $('.footer-close').on('click',function(){
+        $('.footer').addClass('animated bounceOutDown');
+
+        $('#footerButton').removeClass('animated rollOut').addClass('animated rotateInDownRight');
+    });
 
 
 });

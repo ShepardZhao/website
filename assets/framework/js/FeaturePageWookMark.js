@@ -227,6 +227,7 @@ $(document).ready(function(){
      * Receives data from the API, creates HTML for images and updates the layout
      */
     function onLoadData(data) {
+        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
@@ -234,7 +235,7 @@ $(document).ready(function(){
         for(; i<length; i++) {
             image = data[i];
             html += '<li>';
-            if(image.PicPath.length){
+            if(image.PicPath){
                 if(image.RestID !== undefined){
 
                     html += '<input type="hidden" class="RestID" value="'+image.RestID+'">';//Restaurants id
@@ -367,7 +368,6 @@ $(document).ready(function(){
     function parse_date(string) {
         var date = new Date();
         var parts = String(string).split(/[- :]/);
-
         date.setFullYear(parts[0]);
         date.setMonth(parts[1] - 1);
         date.setDate(parts[2]);

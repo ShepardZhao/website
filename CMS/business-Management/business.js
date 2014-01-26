@@ -498,6 +498,7 @@ $(document).ready(function(){
 
 
 
+
     /*******************************************Dishes setting************************************/
         //added dished by button AddedNewDish -- method is modal
     $('#AddedNewDish').on('click',function(){
@@ -856,6 +857,12 @@ $(document).ready(function(){
 
     });
 
+    $('body').on('click','#click-Promotion',function(){
+
+        PromotionAJAXList();
+
+    });
+
 
 
     /*******************************************Restaurant avatar upload**************************************/
@@ -1120,6 +1127,129 @@ $(document).ready(function(){
     $('body').on('click','.dropdown-menu li',function(e){
         e.stopPropagation();
     });
+
+
+   /***************************************** ADDED TO PROMOTION ************************************/
+    $('body').on('click','.addedtoPromotion',function(){
+        InformationDisplay('Warning, this function is for adding current cuisine into the list of promotion, and it will be charged after we contact to you',"alert-warning");
+        var Tmp = {};
+        var GetFeatureID = $(this).parent().find('.button-delete').attr('id');
+        Tmp['Featured'] = 'Yes';
+        Tmp['FeaturedType'] = 'Cuisine';
+        Tmp['FeaturedID'] = GetFeatureID;
+        PromotionAjax(Tmp,$(this),true);
+
+
+    });
+
+
+    $('body').on('click','#Applyfor',function(){
+        InformationDisplay('Warning, this function is for adding current Restaurant into the list of promotion, and it will be charged after we contact to you',"alert-warning");
+        var Tmp = {};
+        var GetFeatureID = $('#RestaruantID').val();
+        Tmp['Featured'] = 'Yes';
+        Tmp['FeaturedType'] = 'Restaurant';
+        Tmp['FeaturedID'] = GetFeatureID;
+        PromotionAjax(Tmp,$(this),false);
+    });
+
+
+    function PromotionAjax(p,GetThis,condition){
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:p,
+            dataType: "json"
+        });
+        request.done(function( msg ) {
+           if (msg.status === 'successed'){
+               if(condition){
+               GetThis.remove();
+               }
+               else{
+                   GetThis.fadeOut(500,function(){$(this).empty(); $(this).text('Pending...').fadeIn();});
+               }
+           }
+           else if(msg.status === 'failured'){
+               InformationDisplay('Error',"alert-error");
+
+
+           }
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+    }
+    /******************************************ajax list promotion**********************************/
+
+    function PromotionAJAXList(){
+        var tmp={};
+        tmp['ajaxPromotionList']='yes';
+        tmp['GetCurrentResID']=$('#RestaruantID').val();
+        $('#ajaxPromotionTable').empty().append('<div class="AjaxLoading"><img src='+CurrentDomain+'/assets/framework/img/ajax-loader.gif></div>').fadeIn();
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:tmp,
+            dataType: "html"
+        });
+
+        request.done(function( msg ) {
+
+            $('#ajaxPromotionTable').empty().append(msg).fadeIn();
+
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+
+    }
+
+    /***************************************** Requesting deleting ----cuisine********************************/
+    $('body').on('click','.Requesting-delete',function(){
+        var RequestingDeleteID = $(this).attr('id');
+        var GetThis = $(this);
+        PromotionRequestionDelete(RequestingDeleteID,GetThis.text('Requesting to Cancel'));
+    });
+
+
+    /***************************************** Requesting deleting ----Restaurant********************************/
+    $('body').on('click','.RestPromotion-cancel',function(){
+        var GetThis = $(this);
+        var RequestingDeleteID = GetThis.attr('id');
+        GetThis.parent().empty().append('<button class="button" type="button">Requesting to Cancel ...</button>');
+        PromotionRequestionDelete(RequestingDeleteID,null);
+
+    });
+
+
+    function PromotionRequestionDelete(ReID,GetThisFunction){
+
+        var request = $.ajax({
+            url: CurrentDomain+"/CMS/BackEnd-controller/BackEnd-controller.php",
+            type: "POST",
+            data:{RequestingDeleteID:ReID},
+            dataType: "json"
+        });
+
+        request.done(function( msg ) {
+            if(msg.status === 'successed'){
+                InformationDisplay('Warning! your have requesting to cancel a promotion from your promotion list',"alert-warning");
+                GetThisFunction;
+            }
+
+        });
+
+        request.fail(function( jqXHR, textStatus ) {
+            alert( "Request failed: " + textStatus );
+        });
+
+    }
 
 
 });

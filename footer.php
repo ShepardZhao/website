@@ -1,6 +1,13 @@
 <div class="fixed_button_top"></div>
 <!--footer zone--->
-<!--<footer class="row-fluid footer"><div class="span12"></div></footer>-->
+<footer class="row-fluid footer">
+    <div class="span12" style="position:relative">
+        <div style="position:absolute; right:0; top:9px;color: white;font-size: 8em;margin: 19px;"><i class="fa fa-times-circle footer-close"></i></div>
+
+
+    </div>
+</footer>
+<div id="footerButton"><h4>About Us</h4></div>
 <?php  echo $InitialLocationSelectClass->GetLocation('LoginedIn');?>
 </body>
 

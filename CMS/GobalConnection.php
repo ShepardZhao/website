@@ -55,8 +55,10 @@ $CuisineComemnt=new CuisineComemnt($Mysql_Connection);
 $ThumbLikeOrDislikeclass= new ThumbLikeOrDislike($Mysql_Connection);
 /*******************************Declare order**************************************************/
 $classOrder = new order($Mysql_Connection);
-/*******************************Declare Manager**************************************************/
-$ManagerClass = new Manager($Mysql_Connection);
+/*******************************Declare _ManagerDeliverer**************************************************/
+$ManagerDelivererClass = new _ManagerDeliverer($Mysql_Connection);
+/*******************************Promotion******************************************************/
+$PromotionClass = new Promotion($Mysql_Connection);
 
 
 

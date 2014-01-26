@@ -34,7 +34,7 @@
 
                     <div class="tab-pane" id="Promotion">
                         <!--Promotion-->
-
+                        <?php require_once 'SubPages/MyPromotion.php'?>
                     </div>
                     <!--Orders-->
                     <div class="tab-pane" id="Order">

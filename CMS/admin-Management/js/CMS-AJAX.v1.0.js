@@ -113,12 +113,27 @@ $(document).ready(function(){
 
     });
 
-    $('body').on('click','#AddedManagerAndBinded-clicked',function(){
+    $('body').on('click','#ConfigureManagerAndBinded-clicked',function(){
         __hidenDiv();
         $(this).find('a').addClass('achieve');
-        $('#AddedManagerAndBinded').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+        $('#ConfigureManagerAndBinded').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
 
     });
+
+    $('body').on('click','#RegisterNewManagerOrDelivery-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#RegisterNewManager_Deliver').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+
+    });
+
+    $('body').on('click','#FeaturedManagement-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#FeaturedManagement').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+
+    });
+
 
 
     function __hidenDiv(){
@@ -132,8 +147,11 @@ $(document).ready(function(){
         $('#Mail_Setting').fadeOut(200);//hiding the Mail_Setting page
         $('#addedRestaurant').fadeOut(200);//hiding the addsRestaurant page
         $('#addedCuisines').fadeOut(200);//hiding the addedCuisines page
-        $('#AddedManagerAndBinded').fadeOut(200);//hiding the  $('#AddedManagerAndBinded')
+        $('#ConfigureManagerAndBinded').fadeOut(200);//hiding the  $('#ConfigureManagerAndBinded')
         $('#MobileEndOnline').fadeOut(200);//hiding the $('#MobileEndOnline')
+        $('#RegisterNewManager_Deliver').fadeOut(200);//hiding the $('#RegisterNewManager_Deliver')
+        $('#FeaturedManagement').fadeOut(200);//hiding the $('#FeaturedManagement-clicked')
+
     }
 
 
@@ -913,22 +931,69 @@ $('body').on('click','#UserListDelete',function(){
 
 
     /*****************************************Cop - Mobile end js******************************/
+
+    /**
+     * Register Manager or Deliverer
+     */
+    $('body').on('submit','#Register_Manager_Deliverer_form',function(e){
+        event.preventDefault();
+        var data = {};
+        data['Manager_Deliverer_Register'] = 'yes';
+        data['Manager_DeliverEmail'] = $('#Manager_DeliverEmail').val();
+        data['Manager_DeliverPassword'] = $('#Manager_DeliverPassword').val();
+        data['Manager_Deliver_Name'] = $('#Manager_Deliver_Name').val();
+        data['Manager_Deliver_Type'] = $('.Manager_Deliver_selection').val();
+        data['Manager_Deliver_Phone'] = $('#Manager_Deliver_Phone').val();
+        RegisterManager_Deliverer_AJAX(data);
+        return false;
+    });
+
+
+    /**
+     * send register function
+     *
+     */
+    function RegisterManager_Deliverer_AJAX(data){
+        var request = $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            dataType: "json",
+            data:data
+        });
+
+        request.done(function(data){
+            if(data.status === 'successed'){
+                refresh_query_table({'refreshManagerTable':'yes','refreshType':'Manager'},'.ManagerTable');
+                refresh_query_table({'refreshManagerTable':'yes','refreshType':'Deliverer'},'.DeliververTable');
+                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').appendTo($('.DisplayForm')).fadeIn(200);
+                setTimeout(function(){$('.alert-success').fadeOut(); },5000);
+
+            }
+            else if(data.status === 'failured'){
+                $('<div class="alert alert-error"><strong>Sorry, repeat User registered info</div>').appendTo($('.DisplayForm')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+
+        });
+    }
+
+
     /**
      * ajax refresh the query table
      */
 
-    function refresh_query_table(){
+    function refresh_query_table(data,element){
         var request = $.ajax({
             url:'../BackEnd-controller/BackEnd-controller.php',
             type: "POST",
             cache: false,
             dataType: "html",
-            data:{'refreshManagerTable':'yes'}
+            data:data
         });
 
         request.done(function(data){
-            console.log(data);
-            $('#refreshManagerTable').fadeOut(500,function(){$(this).empty().append(data).fadeIn(500);});
+            $(element).fadeOut(500,function(){$(this).empty().append(data).fadeIn(500);});
 
         });
     }
@@ -965,12 +1030,12 @@ $('body').on('click','#UserListDelete',function(){
 
         request.done(function(data){
             if(data.status === 'successed'){
-                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.input-append')).fadeIn(200);
+                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.DisplayForm')).fadeIn(200);
                 refresh_query_table();
                 setTimeout(function(){$('.alert-success').fadeOut(); },5000);
             }
             if(data.status === 'failed'){
-                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').insertAfter($('.input-append')).fadeIn(200);
+                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').insertAfter($('.DisplayForm')).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
             }
         });
@@ -1007,7 +1072,6 @@ $('body').on('click','#UserListDelete',function(){
 
             if(data.status === 'successed'){
                 getThis.remove();
-                refresh_query_table();
             }
             if(data.status === 'failed'){
                 getThis.empty();

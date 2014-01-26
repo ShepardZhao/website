@@ -2575,6 +2575,29 @@ return $ResArray;
     }
 
 
+
+    //filter promotion
+    private function FilterPromotion($CuID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Featured WHERE FeaturedID=?")){
+            $stmt->bind_param('s',$CuID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            if(count($object)>0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
+
+
     //list cuisine into table
     public function listCuisineTable($getResid){
         $GetNormalDataset=json_decode(self::ReturnDataOfNormalCuisine($getResid));
@@ -2625,7 +2648,7 @@ return $ResArray;
                 }
 
                 if($key==='CuID'){
-                    echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Shows Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
+                    echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle ShowTags dropdown-toggle' data-toggle='dropdown' id='$value' type='button'>Show Tags</button><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu'>";
                     foreach (self::ReturnTagsOnly($value) as $TagKeys=>$Tagvalue){
                         echo "<li><a tabindex='-1'>$TagKeys:";
 
@@ -2642,12 +2665,17 @@ return $ResArray;
                         echo "<td><div class='btn-group dropup'><button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'>Edit&Show</button>  <button class='btn TableButtonStyle dropdown-toggle' data-toggle='dropdown'><span class='caret'></span></button><ul class='dropdown-menu dropdown-menu-Cuisine-table'><li><a tabindex='-1' id='$value' class='EditSecondLevel'>Edits Second Level</a></li></ul></div>";
                     }
                     else{
-                        echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Adds Second Level</button></td>";
+                        echo "<td><button class='btn TableButtonStyle AddSecondLevel' id='$value' type='button'>Add Second Level</button></td>";
                     }
                     echo '<td>';
                     echo '<div class="form-inline">';
                     echo "<button class='button subbutton subAddNewBotton EditCusine' id='$value' type='button' >Edit</button> ";
                     echo "<button class='button text-right button-delete' id='$value' type='button'>Delete</button>";
+                        if($this -> FilterPromotion($value)){
+                        echo "  <i class='fa fa-plus addedtoPromotion'></i>";
+                        }
+
+
                     echo '</div>';
                     echo '</td>';
 
@@ -3152,8 +3180,12 @@ class favourite{
                 $object[] = array('UserID_CuID'=>$UserID.'_'.$CuID);
             }
             $stmt->close();
+            if(count($object)>0){
             return json_encode($object);
-
+            }
+            else{
+            return json_encode(array('UserID_CuID'=>'none'));
+            }
 
         }
     }
@@ -3858,13 +3890,474 @@ class order{
 
 
 
-/********************************************Co - Mobile end ****************************************************/
-//Manager class that will manager the relationship between manager and delivery
-class Manager{
+/****************************************** Promotion *************************************************/
+class Promotion{
     private $DataBaseCon=null;
     public function __construct($DataBaseCon){
         $this->DataBaseCon=$DataBaseCon;
     }
+
+    /**
+     * @param $GetFeaturedID
+     * @param $GetFeaturedType
+     *
+     * @return string
+     */
+    public function CuisinePromotion($GetFeaturedID,$GetFeaturedType){
+        if($this -> AddedPromotion($GetFeaturedID, $GetFeaturedType)){
+            return json_encode(array('status'=>'successed'));
+        }
+        else{
+            return json_encode(array('status'=>'failured'));
+
+        }
+
+    }
+
+    /**
+     * @param $GetFeaturedID
+     * @param $GetFeaturedType
+     *
+     * @return bool
+     */
+    private function AddedPromotion($GetFeaturedID,$GetFeaturedType){
+        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO Featured (FeaturedID,Type) VALUES (?,?)")){
+            $stmt -> bind_param('ss',$GetFeaturedID, $GetFeaturedType);
+            $stmt -> execute();
+            $stmt -> close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    public function RequestingDelete($ID){
+        if($stmt = $this -> DataBaseCon -> prepare ("UPDATE Featured SET RequestingDel=1 WHERE FeaturedID=?")){
+            $stmt -> bind_param('s',$ID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+        else{
+            return json_encode(array('status'=>'failured'));
+        }
+    }
+
+    /**
+     * @return array
+     */
+
+    public function FetchPromotionDataWithRestaruant($ResID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT Restaurants.RestID,Restaurants.ResName,Restaurants.ResPicPath, Restaurants.ResAddress, Restaurants.ResRootAddress, Featured.Type, Featured.Status, Featured.RequestingDel FROM Restaurants INNER JOIN Featured ON Restaurants.RestID=Featured.FeaturedID WHERE Restaurants.RestID=? AND Restaurants.ResReview=1")){
+            $stmt -> bind_param('s',$ResID);
+            $stmt -> execute();
+            $stmt -> bind_result($RestID,$ResName,$ResPicPath,$ResAddress,$ResRootAddress,$Type,$Status,$RequestingDel);
+            while($stmt -> fetch()){
+                $array[] = array('ResName'=>$ResName,'ResPicPath'=>$ResPicPath,'ResAddress'=>$ResAddress.', '.$ResRootAddress,'Type'=>$Type,'RestID'=>$RestID,'Status'=>$Status,'RequestingDel'=>$RequestingDel);
+            }
+            $stmt -> close();
+            return $array;
+        }
+    }
+
+    /**
+     * @return array
+     */
+
+    private function FetchPromotionDataWithRestaruant_noPa(){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT Restaurants.RestID,Restaurants.ResName,Restaurants.ResPicPath, Restaurants.ResAddress, Restaurants.ResRootAddress, Featured.Type, Featured.Status, Featured.RequestingDel FROM Restaurants INNER JOIN Featured ON Restaurants.RestID=Featured.FeaturedID WHERE Restaurants.ResReview=1")){
+            $stmt -> execute();
+            $stmt -> bind_result($RestID,$ResName,$ResPicPath,$ResAddress,$ResRootAddress,$Type,$Status,$RequestingDel);
+            while($stmt -> fetch()){
+                $array[] = array('RestID'=>$RestID,'ResPicPath'=>$ResPicPath, 'ResName'=>$ResName,'ResAddress'=>$ResAddress.', '.$ResRootAddress,'Type'=>$Type,'Status'=>$Status,'RequestingDel'=>$RequestingDel);
+
+            }
+            $stmt -> close();
+            return $array;
+        }
+    }
+
+
+    /**
+     *
+     * Fetch promotion data cuisines only
+     * @param $ResID
+     *
+     * @return array
+     */
+
+    private function FetchPromotionDataWithCuisines($ResID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT Cuisine.CuID, Cuisine.CuName, Cuisine.CuDescr, Cuisine.CuPicPath, Cuisine.Price, Featured.Type, Featured.Status, Featured.RequestingDel FROM Cuisine INNER JOIN Featured ON Cuisine.CuID=Featured.FeaturedID WHERE Cuisine.RestID = ? AND Cuisine.CuReview=1")){
+            $stmt -> bind_param('s',$ResID);
+            $stmt -> execute();
+            $stmt -> bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Price,$Type,$Status,$RequestingDel);
+            while($stmt -> fetch()){
+                $array[] = array('Status'=>$Status,'CuName'=>$CuName,'CuDescr'=>$CuDescr,'CuPicPath'=>$CuPicPath,'Price'=>$Price,'Type'=>$Type,'CuID'=>$CuID,'RequestingDel'=>$RequestingDel);
+            }
+            $stmt -> close();
+            return $array;
+        }
+
+    }
+
+
+    /**
+     * @return array
+     */
+    private function FetchPromotionDataWithCuisines_noPa(){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT Cuisine.CuID, Cuisine.CuName, Cuisine.CuDescr, Cuisine.CuPicPath, Cuisine.Price, Featured.Type, Featured.Status, Featured.RequestingDel FROM Cuisine INNER JOIN Featured ON Cuisine.CuID=Featured.FeaturedID WHERE Cuisine.CuReview=1")){
+            $stmt -> bind_param('s',$ResID);
+            $stmt -> execute();
+            $stmt -> bind_result($CuID,$CuName,$CuDescr,$CuPicPath,$Price,$Type,$Status,$RequestingDel);
+            while($stmt -> fetch()){
+                $array[] = array('CuID'=>$CuID,'CuPicPath'=>$CuPicPath,'CuName'=>$CuName,'CuDescr'=>$CuDescr,'Price'=>$Price,'Type'=>$Type,'Status'=>$Status,'RequestingDel'=>$RequestingDel);
+            }
+            $stmt -> close();
+            return $array;
+        }
+
+    }
+
+
+
+    /**
+     * @param $getResID
+     */
+    public function listPromotion($getResID){
+        $array = $this -> FetchPromotionDataWithCuisines($getResID);
+        echo '<table class="table table-striped" id="CusinesTable">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Name</th>';
+        echo '<th>Description</th>';
+        echo '<th>Picture</th>';
+        echo '<th>Price</th>';
+        echo '<th>Operation</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        foreach ($array as $Rootkey=>$SubArray){
+            if($SubArray['Status'] === 0){
+            echo "<tr class='warning'>";
+            }
+            elseif($SubArray['Status'] === 1){
+            echo "<tr class='success'>";
+
+            }
+            foreach ($SubArray as $key=>$value){
+                if($key==='CuName'){
+                    echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+                if($key==='CuDescr'){
+                    echo "<td><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+                if($key==='CuPicPath'){
+                        echo "<td><a href='$value' target='_blank'><img style='width:50px;height:50px' src='$value'></a></td>";
+                }
+
+                if($key==='Price'){
+                    echo '<td>$'.$value.'</td>';
+                }
+
+
+                if($key==='CuID'){
+                    echo '<td>';
+                    if($SubArray['RequestingDel'] === 0){
+                        echo "<button class='button text-right Requesting-delete' id='$value' type='button'>Pending...</button>";
+                    }
+                    elseif($SubArray['RequestingDel'] === 1){
+                        echo "<button class='button text-right' type='button'>Requesting to Cancel ...</button>";
+                    }
+
+
+                    echo '</td>';
+
+                }
+
+
+            }
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+
+    }
+
+
+
+
+
+
+
+    //CMS only for cuisine
+    public function FeaturedManagementTable_cuisine(){
+        $array = $this -> FetchPromotionDataWithCuisines_noPa();
+        echo '<table class="table table-striped">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Operation</th>';
+        echo '<th>Picture</th>';
+        echo '<th>Name</th>';
+        echo '<th>Description</th>';
+        echo '<th>Price</th>';
+        echo '<th>Type</th>';
+        echo '<th>Status</th>';
+        echo '<th>Deleting</th>';
+
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        foreach ($array as $Rootkey=>$SubArray){
+            echo '<tr>';
+            foreach ($SubArray as $key=>$value){
+                if($key==='CuID'){
+                    echo '<td>';
+                    echo '<label class="checkbox">';
+                    echo "<input id='$value' type='checkbox'>";
+                    echo '</label>';
+
+
+                    echo '</td>';
+
+                }
+                if($key==='CuPicPath'){
+                    echo "<td><a href='$value' target='_blank'><img style='width:50px;height:50px' src='$value'></a></td>";
+                }
+
+                if($key==='CuName'){
+                    echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+                if($key==='CuDescr'){
+                    echo "<td><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+
+                if($key==='Price'){
+                    echo '<td>$'.$value.'</td>';
+                }
+                if($key==='Type'){
+                    echo '<td>'.$value.'</td>';
+                }
+                if($key==='Status'){
+                    if($value === 0){
+                    echo '<td>InActive</td>';
+                    }
+                    elseif($value === 1){
+                    echo '<td>Active</td>';
+                    }
+                }
+
+                if($key==='RequestingDel'){
+                    if($value === 0){
+                    echo '<td>None</td>';
+                    }
+                    elseif($value === 1){
+                    echo '<td>Yes</td>';
+                    }
+                }
+
+
+
+
+            }
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+
+        echo '</table>';
+        echo "<button class='btn text-right ' type='button'>Active</button>";
+
+    }
+
+
+
+
+    public function FeaturedManagementTable_Restaruant(){
+
+        $array = $this -> FetchPromotionDataWithRestaruant_noPa();
+        echo '<table class="table table-striped">';
+        echo '<thead>';
+        echo '<tr>';
+        echo '<th>Operation</th>';
+        echo '<th>Picture</th>';
+        echo '<th>Name</th>';
+        echo '<th>Address</th>';
+        echo '<th>Type</th>';
+        echo '<th>Status</th>';
+        echo '<th>Deleting</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        foreach ($array as $Rootkey=>$SubArray){
+            echo '<tr>';
+            foreach ($SubArray as $key=>$value){
+                if($key==='RestID'){
+                    echo '<td>';
+                    echo '<label class="checkbox">';
+                    echo "<input id='$value' type='checkbox'>";
+                    echo '</label>';
+                    echo '</td>';
+
+                }
+                if($key==='ResPicPath'){
+                    echo "<td><a href='$value' target='_blank'><img style='width:50px;height:50px' src='$value'></a></td>";
+                }
+
+                if($key==='ResName'){
+                    echo "<td class='CuName' id='$value'><div class='TablePreventOverflow' title='$value'>$value</div></td>";
+                }
+
+                if($key==='ResAddress'){
+                    echo '<td>$'.$value.'</td>';
+                }
+                if($key==='Type'){
+                    echo '<td>'.$value.'</td>';
+                }
+                if($key==='Status'){
+                    if($value === 0){
+                        echo '<td>InActive</td>';
+                    }
+                    elseif($value === 1){
+                        echo '<td>Active</td>';
+                    }
+                }
+                if($key==='RequestingDel'){
+                    if($value === 0){
+                        echo '<td>None</td>';
+                    }
+                    elseif($value === 1){
+                        echo '<td>Yes</td>';
+                    }
+                }
+
+
+
+            }
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+        echo "<button class='btn text-right' type='button'>Active</button>";
+
+    }
+}
+
+
+
+/********************************************Co - Mobile end ****************************************************/
+//Manager class that will manager the relationship between manager and delivery
+class _ManagerDeliverer{
+    private $DataBaseCon=null;
+    public function __construct($DataBaseCon){
+        $this->DataBaseCon=$DataBaseCon;
+    }
+
+    /**
+     *
+     * Get paramters then insert into database
+     * @param $Manager_DelivererID
+     * @param $Manager_DeliverEmail
+     * @param $Manager_DeliverPassword
+     * @param $Manager_Deliver_Name
+     * @param $Type
+     */
+    public function RegisterManagerOrDeliverer($Manager_DelivererID,$Manager_DeliverEmail,$Manager_DeliverPassword,$Manager_Deliver_Name,$Manager_Deliver_Phone,$Type){
+            if($this -> RegisterValidation($Manager_DeliverEmail)){
+                if($this -> InsertRegisterData($Manager_DelivererID,$Manager_DeliverEmail,$Manager_DeliverPassword,$Manager_Deliver_Name,$Manager_Deliver_Phone,$Type)){
+                    return json_encode(array('status'=>'successed'));
+                }
+                else
+                {
+                    return json_encode(array('status'=>'failured'));
+                }
+            }
+            else{
+            return json_encode(array('status'=>'failured'));
+              }
+    }
+
+    /**
+     *
+     * @param $Manager_DelivererID
+     * @param $Manager_DeliverEmail
+     * @param $Manager_DeliverPassword
+     * @param $Manager_Deliver_Name
+     * @param $Type
+     */
+    private function InsertRegisterData($Manager_DelivererID,$Manager_DeliverEmail,$Manager_DeliverPassword,$Manager_Deliver_Name,$Manager_Deliver_Phone,$Type){
+        $val = 1;
+        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO User (UserID,UserMail,UserPassWord,UserName,UserPhone,UserType,UserStatus) VALUES (?,?,?,?,?,?,?)")){
+            $stmt -> bind_param('isssisi',$Manager_DelivererID, $Manager_DeliverEmail, md5(base64_encode($Manager_DeliverPassword)),$Manager_Deliver_Name,$Manager_Deliver_Phone,$Type,intval($val));
+            $stmt -> execute();
+            $stmt -> close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    /**
+     *
+     * validation that is repeated registers
+     * @param $Manager_DeliverEmail
+     *
+     * @return bool
+     */
+    private function RegisterValidation($Manager_DeliverEmail){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM User WHERE UserMail=?")){
+            $stmt->bind_param('s',$Manager_DeliverEmail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            if(count($object)>0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
+    /**
+     *
+     * @param $Type
+     */
+    private function SelectManagerOrDeliverer($Type){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT UserID, UserName, UserMail, UserPhone, UserType FROM User WHERE UserType=?")){
+            $stmt->bind_param('s',$Type);
+            $stmt->execute();
+            $stmt->bind_result($UserID, $UserName, $UserMail, $UserPhone, $UserType);
+            while($stmt -> fetch()){
+                $array[]=array('UserID' => $UserID, 'UserName'=> $UserName, 'UserMail' => $UserMail, 'UserPhone' => $UserPhone, 'UserType' => $UserType);
+            }
+            $stmt->close();
+            return $array;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -3945,7 +4438,50 @@ class Manager{
         }
     }
 
+    /**
+     * This function is only displying the view of Manager table that comes from User table
+     */
+    public function qViewManagerOrDelivererTable($type){
+           echo  '<table class="table table-striped">';
+           echo  '<thead>';
+           echo  '<tr>';
+           echo  '<th>User ID</th>';
+           echo  '<th>User Name</th>';
+           echo  '<th>User Mail</th>';
+           echo  '<th>User Type</th>';
+           echo  '<th>Delete</th>';
+           echo  '</tr>';
+           echo  '</thead>';
+           echo  '<tbody>';
+           foreach ($this -> SelectManagerOrDeliverer($type) as $index => $subarray){
+               echo  '<tr>';
+               foreach ($subarray as $key => $value){
+                   if($key === 'UserID'){
+                       echo '<td class="ManagerID">'.$value.'</td>';
+                   }
+                   if($key === 'UserMail'){
+                       echo '<td>'.$value.'</td>';
+                   }
+                   if($key === 'UserName'){
+                       echo '<td>'.$value.'</td>';
+                   }
+                   if($key === 'UserPhone'){
+                       echo '<td>'.$value.'</td>';
+                   }
 
+                   if($key === 'UserType'){
+                       echo '<td>'.$value.'</td>';
+                   }
+               }
+               echo '<td><button class="button deleteManager" type="button">Delete</button></td>';
+               echo '</tr>';
+           }
+
+           echo  '</tbody>';
+           echo  '</table>';
+
+
+    }
 
     /**
      * This function is only generating the query view by table
@@ -3993,8 +4529,8 @@ class Manager{
      * @return string
      */
     public function DeleteMnager($getID){
-        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Manager WHERE ManagerID=? ")){
-            $stmt -> bind_param('s',$getID);
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM User WHERE UserID=? ")){
+            $stmt -> bind_param('i',$getID);
             $stmt -> execute();
             $stmt -> close();
             return json_encode(array('status'=>'successed'));

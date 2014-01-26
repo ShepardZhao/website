@@ -113,7 +113,7 @@ $(document).ready(function(){
         var i=0, length=data.length, image;
         for(; i<length; i++) {
             image = data[i];
-            if(image.PicPath.length){
+            if(image.PicPath){
                 html += '<li>';
                 if(image.CuisineAvailability === 'No'){
                     if(image.SecondLevel.length>0){

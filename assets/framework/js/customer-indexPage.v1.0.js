@@ -32,6 +32,9 @@ $(document).ready(function(){
 
  //common modal
     window.$modal=$('#ajax-modal');
+
+
+
     $(function(){
 
         var email_str=/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
@@ -509,6 +512,9 @@ $(window).load(function(){
 
 
     });
+
+
+
 
 
 

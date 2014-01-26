@@ -93,7 +93,6 @@ $(document).ready(function(){
         else{
             AvailabilityTagsArray.splice( $.inArray($(this).find('a').text(),AvailabilityTagsArray) ,1 );
         }
-        console.log(AvailabilityTagsArray);
         $('#CuisineRelateTiles').empty();
         AvailabilityTagsIndex++;
         AvailabilityTagsArray.sort();
@@ -230,14 +229,13 @@ $(document).ready(function(){
      * Receives data from the API, creates HTML for images and updates the layout
      */
     function onLoadData(data) {
-        console.log(data);
         isLoading = false;
         $('.Ajax-loading').fadeOut();
         var html = '';
         var i=0, length=data.length, image;
         for(; i<length; i++) {
             image = data[i];
-            if(image.PicPath.length){
+            if(image.PicPath){
                 html += '<li>';
                 //if current cuisine is unavailability
                 if(image.CuisineAvailability === 'No'){
@@ -329,6 +327,10 @@ $(document).ready(function(){
                 html += '</li>';
 
             }
+            else{
+                console.log(image);
+            }
+
            }
 
         // Add image HTML to the page.

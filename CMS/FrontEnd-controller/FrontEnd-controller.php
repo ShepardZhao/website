@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
        $RegisterUserType='Users';//in this case, sets current register user type is users.
        session_start();
      if ($_POST['RegisterCaptcha']===$_SESSION['6_letters_code']){
-      echo $RegisterUserClass->GetUserRegisterData($RegisterUserID,$_POST['RegisterUserMail'],$_POST['RegisterUserPassWord'],$RegisterUserType,$_POST['RegisterPhotoPrefix']);
+      echo $RegisterUserClass->GetUserRegisterData($RegisterUserID,strtolower($_POST['RegisterUserMail']),$_POST['RegisterUserPassWord'],$RegisterUserType,$_POST['RegisterPhotoPrefix']);
      }
        else{
            echo 'Captcha Error';
@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
     if (isset($_POST['LoginedInEmail']) && isset($_POST['LoginedInPassword'])){
 
-        echo $LoginedInClass->ValidNormalUserLogining($_POST['LoginedInEmail'],$_POST['LoginedInPassword']);
+        echo $LoginedInClass->ValidNormalUserLogining(strtolower($_POST['LoginedInEmail']),$_POST['LoginedInPassword']);
 
     }
 

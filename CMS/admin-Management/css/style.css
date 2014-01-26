@@ -299,7 +299,13 @@ table>tbody>tr>td{
 #MobileEndOnline{
     display:none;
 }
-#AddedManagerAndBinded{
+#ConfigureManagerAndBinded{
     display:none;
 
+}
+#RegisterNewManager_Deliver{
+    display:none;
+}
+#FeaturedManagement{
+    display:none;
 }

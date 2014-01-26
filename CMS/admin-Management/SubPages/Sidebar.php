@@ -13,9 +13,9 @@
 
     <li> <a href="#" class="nav-top-item ">Mobile End Online</a>
         <ul class="Nav-list">
-            <li id="MobileEndOnline-clicked"><a title="Check current mobile online">Current Online staffs</a></li><!--Added location-->
-            <li id="AddedManagerAndBinded-clicked"><a title="Added a new manager and binded with root zone">Added a new manager</a></li><!--Added location-->
-
+            <li id="MobileEndOnline-clicked"><a title="Check current mobile online">Current Online staffs</a></li>
+            <li id="RegisterNewManagerOrDelivery-clicked"><a title="Manually add the new manager or deliver ">Register Manager&Deliver</a></li>
+            <li id="ConfigureManagerAndBinded-clicked"><a title="Binding Manager and Root location">Binding Manager and Root location</a></li>
         </ul>
     </li>
 
@@ -48,6 +48,15 @@
         </ul>
     </li>
 
+    <li> <a href="#" class="nav-top-item ">
+            <!-- Add the class "current" to current menu item -->
+            Featured Management </a>
+        <ul class="Nav-list">
+            <li id="FeaturedManagement-clicked" ><a title="Manage the featured including cuisines and restaurants">Featured Managementt</a></li><!--An able to add the new restaurants-->
+
+
+        </ul>
+    </li>
 
 
     <li> <a href="#" class="nav-top-item">User Management </a>

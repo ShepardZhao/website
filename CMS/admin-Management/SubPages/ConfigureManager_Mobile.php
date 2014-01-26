@@ -1,4 +1,4 @@
-<div id="AddedManagerAndBinded">
+<div id="ConfigureManagerAndBinded">
     <div class="row-fluid">
         <div class="span12">
 
@@ -39,7 +39,6 @@
                 <div class="basicInfo-box">
                     <div class="row-fluid">
                         <div class="span12" id="refreshManagerTable">
-                            <?php echo $ManagerClass -> qViewTable();?>
                         </div>
                     </div>
                 </div>

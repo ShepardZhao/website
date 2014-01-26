@@ -107,7 +107,7 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
 /***********************************************Restaruant regisation*********************************************/
     if(isset($_POST['RegResturantEmail']) && isset($_POST['RegGetResturantPass']) && isset($_POST['RegisterStatus']) && isset($_POST['RegisterType']) && isset($_POST['RegisterPicpathPrefix'])){
         $ResturantRegisterID=$RegisterUserClass->GenerateRandomUserID();
-        echo $ResturantsRegClass->ResturantRegisation($ResturantRegisterID,$_POST['RegResturantEmail'],$_POST['RegGetResturantPass'],$_POST['RegisterStatus'],$_POST['RegisterType'],$_POST['RegisterPicpathPrefix']);
+        echo $ResturantsRegClass->ResturantRegisation($ResturantRegisterID,strtolower($_POST['RegResturantEmail']),$_POST['RegGetResturantPass'],$_POST['RegisterStatus'],$_POST['RegisterType'],$_POST['RegisterPicpathPrefix']);
     }
 
 /***********************************************Restaruant password changing***************************************/
@@ -134,6 +134,12 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 /********************************************list Cuisine's data***************************************************/
     if(isset($_POST['ajaxCuisineList'])){ echo $CuisineClass->listCuisineTable($_POST['GetCurrentResID']);}
+/******************************************** Cuisine promotion ***************************************************/
+    if(isset($_POST['Featured']) && isset($_POST['FeaturedID']) && isset($_POST['FeaturedType'])){echo $PromotionClass -> CuisinePromotion($_POST['FeaturedID'],$_POST['FeaturedType']);}
+/******************************************** list promotion data **************************************************/
+    if(isset($_POST['ajaxPromotionList']) && isset($_POST['GetCurrentResID'])){echo $PromotionClass -> listPromotion($_POST['GetCurrentResID']);}
+/******************************************* Requesting Delete *****************************************************/
+    if(isset($_POST['RequestingDeleteID'])){echo $PromotionClass -> RequestingDelete($_POST['RequestingDeleteID']);}
 /********************************************Added into temp order list********************************************/
     if(isset($_POST['TempOrder']) && isset($_POST['CurrentUserID']) && isset($_POST['CurrentCuisineID']) && isset($_POST['CurrentResID']) && isset($_POST['CurrentCuisineName']) && isset($_POST['CurrentCuisinePicPath']) && isset($_POST['CurrentCuisinePrice']) && isset($_POST['CurrentCuisineSecondLevel'])){ $tempCode=$RegisterUserClass->GenerateRandomUserID(); $TempOderID = 'TM'.$tempCode; echo $classOrder -> AddedTOATempOrder($_POST['CurrentUserID'], $TempOderID, $_POST['CurrentCuisineID'],$_POST['CurrentResID'], $_POST['CurrentCuisineName'], $_POST['CurrentCuisinePicPath'], $_POST['CurrentCuisinePrice'],$_POST['CurrentCuisineSecondLevel']); }
 /*******************************************Fetch Temp order Items ************************************************/
@@ -223,21 +229,32 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
     }
 
 
-/****************************************Co - Mobile end *****************************************************/
+/************************************************************Co - Mobile end *****************************************************/
+    //register manager or Deliver
+    if(isset($_POST['Manager_Deliverer_Register']) && isset($_POST['Manager_DeliverEmail']) && isset($_POST['Manager_DeliverPassword']) && isset($_POST['Manager_Deliver_Name']) && isset($_POST['Manager_Deliver_Phone']) && isset($_POST['Manager_Deliver_Type'])){
+        $Manager_DelivererID=$RegisterUserClass->GenerateRandomUserID();
+        echo $ManagerDelivererClass -> RegisterManagerOrDeliverer($Manager_DelivererID,strtolower($_POST['Manager_DeliverEmail']),$_POST['Manager_DeliverPassword'],$_POST['Manager_Deliver_Name'],$_POST['Manager_Deliver_Phone'],$_POST['Manager_Deliver_Type']);
+
+    }
+
+    if(isset($_POST['refreshManagerTable'])){
+        echo $ManagerDelivererClass -> qViewManagerOrDelivererTable($_POST['refreshType']);
+    }
+
+
+
+
+
     //add record
     if(isset($_POST['managerAJAX']) && isset($_POST['managerInputFiled']) && isset($_POST['SelectedLocationID'])){
         $MangerID = 'M'.$RegisterUserClass->GenerateRandomUserID();
-        echo $ManagerClass -> FetchParamerAndReadyInsert($MangerID, $_POST['managerInputFiled'], $_POST['SelectedLocationID']);
+        echo $ManagerDelivererClass -> FetchParamerAndReadyInsert($MangerID, $_POST['managerInputFiled'], $_POST['SelectedLocationID']);
     }
     //delete reocrd
     if(isset($_POST['ManagerDelete']) && isset($_POST['GetManagerID'])){
-        echo $ManagerClass -> DeleteMnager($_POST['GetManagerID']);
+        echo $ManagerDelivererClass -> DeleteMnager($_POST['GetManagerID']);
     }
 
-    //refresh manager table
-    if(isset($_POST['refreshManagerTable'])){
-        echo $ManagerClass -> qViewTable();
-    }
 
 
 }

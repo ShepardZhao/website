@@ -19,11 +19,11 @@ $fb_key = 'fbsr_'.$facebookConfig['422446111188481'];
 setcookie($fb_key, '', time()-3600);
 $facebook->destroySession();
 
-setcookie('fbs_'.$facebook->getAppId(),'', time()-100, '/', 'cometome.com.au');
+setcookie('fbs_'.$facebook->getAppId(),'', time()-100, '/', 'www.cometome.com.au');
 session_destroy();
 
 
-header('Location: http://cometome.com.au/');
+header('Location: http://www.cometome.com.au/');
 exit;
 
 

@@ -160,5 +160,35 @@
     </div>
 
 
+    <div class="row-fluid"><div class="span12"></div></div>
+    <div class="row-fluid">
+        <div class="span12 text-left">
+            <h4 class="text-left">Applying for My Restaurant join to Promotion list</h4>
+            <?php
+                if($PromotionClass -> FetchPromotionDataWithRestaruant($_SESSION['RestaruantID'])[0]['Status'] === 0){
+                    if($PromotionClass -> FetchPromotionDataWithRestaruant($_SESSION['RestaruantID'])[0]['Status'] === 0 && $PromotionClass -> FetchPromotionDataWithRestaruant($_SESSION['RestaruantID'])[0]['RequestingDel'] === 1){
+                        echo '<button class="button" type="button">Requesting to Cancel ...</button>';
+                    }
+                    else{
+                        echo '<button class="button" type="button">Pending...</button>';
+                    }
+                }
+                elseif($PromotionClass -> FetchPromotionDataWithRestaruant($_SESSION['RestaruantID'])[0]['Status'] === 1){
+                    echo '<div class="ResPromotionWrap">';
+                    echo '<span style="background:rgb(223,240,216); height:38px; padding:11px;">Successfully applied</span>';
+                    echo '  <button class="button RestPromotion-cancel" id='.$_SESSION['RestaruantID'].' type="button">Cancel</button>';
+                    echo '</div>';
+                }
+
+                else{
+                    echo '<button id="Applyfor" class="button" type="button">Apply for</button>';
+
+                }
+
+            ?>
+
+        </div>
+    </div>
+
 
 </div>
