@@ -287,7 +287,7 @@ class InitialLocationSelect extends Location{
                     echo "<input type='hidden' class='sublocation_hiden' value='$SecondArray'>";
                 }
                 if($secondkey==='LevelTwo'){
-                        echo "<a href='#'>$SecondArray</a>";
+                        echo "<a>$SecondArray</a>";
 
                     }
 

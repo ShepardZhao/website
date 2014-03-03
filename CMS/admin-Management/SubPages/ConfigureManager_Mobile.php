@@ -2,27 +2,36 @@
     <div class="row-fluid">
         <div class="span12">
 
-            <div class="divhead"><h4><i class="fa fa-list-alt">  Added a manager and binded with Root ID</i><h4></div>
+            <div class="divhead"><h4><i class="fa fa-list-alt">  Binding a manager with the Root ID</i><h4></div>
             <div class="basicInfo-box">
                 <div class="row-fluid">
                     <div class="span12">
                         <div class="input-append">
-                            <select class="span8">
+                            <!------------------------------Location selection ----------------------------------->
+                            <select class="span8 SelectLocationID">
                             <?php
                                 foreach($LocationClass -> GetRootLocationWithIDAskey() as $rootkey => $subvalue){
                                     foreach ($subvalue as $key => $value){
-                                        echo "<option class='SelectedLocationID' id='$key' value='$value'>$value</option>";
+                                        echo "<option value='$key'>$value($key)</option>";
                                     }
                                 }
 
                             ?>
                             </select>
 
+                            <!--------------------------------Selection ----------------------------------------->
+                            <select class="span8 SelectionManagerID">
+                                <?php
+                                foreach ($ManagerDelivererClass -> SelectManagerOrDeliverer('Manager') as $rootkey => $subvalue){
+                                        echo "<option  value='$subvalue[UserID]'>$subvalue[UserMail]($subvalue[UserID])</option>";
 
-                            <input class="input-xlarge" id="managerInputFiled" type="text">
+
+                                }
+                                ?>
+                            </select>
                             <div class="btn-group">
                                 <button class="btn submitManager">
-                                    Add
+                                    Binding
                                 </button>
                             </div>
                         </div>

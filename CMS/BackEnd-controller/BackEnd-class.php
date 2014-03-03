@@ -4021,6 +4021,88 @@ class Promotion{
     }
 
 
+    // Block active
+    /**
+     *
+     * _FC ---- means Featured Cuisines
+     * _FR ---- means Featured Restaurant
+     * @param $IDArray
+     * @param $type
+     *
+     * @return mixed
+     */
+    public function _UpdateActive($IDArray,$type){
+        foreach ($IDArray as $value){
+          $this -> _OpUpdate($value);
+
+        }
+
+        if($type === '_FC'){
+        return $this -> FeaturedManagementTable_cuisine();
+        }
+        if($type === '_FR'){
+        return $this -> FeaturedManagementTable_Restaruant();
+
+        }
+    }
+
+
+
+    private function _OpUpdate($value){
+        if($stmt = $this -> DataBaseCon -> prepare ("UPDATE Featured SET Status=1 WHERE FeaturedID=?")){
+            $stmt -> bind_param('s',$value);
+            $stmt -> execute();
+            $stmt -> close();
+        }
+
+    }
+
+
+    //end
+
+
+
+    //block Delete
+
+    /**
+     * @param $IDArray
+     * @param $type
+     */
+    public function _UpdateDelete($IDArray,$type){
+        foreach ($IDArray as $value){
+            $this -> _OpDelete($value);
+
+        }
+
+        if($type === '_FC'){
+            return $this -> FeaturedManagementTable_cuisine();
+        }
+        if($type === '_FR'){
+            return $this -> FeaturedManagementTable_Restaruant();
+
+        }
+    }
+
+
+
+    private function _OpDelete($value){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Featured WHERE FeaturedID=?")){
+            $stmt -> bind_param('s',$value);
+            $stmt -> execute();
+            $stmt -> close();
+        }
+
+
+    }
+
+    //end
+
+
+
+
+
+
+
 
     /**
      * @param $getResID
@@ -4066,7 +4148,7 @@ class Promotion{
                 if($key==='CuID'){
                     echo '<td>';
                     if($SubArray['RequestingDel'] === 0){
-                        echo "<button class='button text-right Requesting-delete' id='$value' type='button'>Pending...</button>";
+                        echo "<button class='button text-right Requesting-delete' id='$value' type='button'>Delete</button>";
                     }
                     elseif($SubArray['RequestingDel'] === 1){
                         echo "<button class='button text-right' type='button'>Requesting to Cancel ...</button>";
@@ -4118,7 +4200,7 @@ class Promotion{
                 if($key==='CuID'){
                     echo '<td>';
                     echo '<label class="checkbox">';
-                    echo "<input id='$value' type='checkbox'>";
+                    echo "<input value='$value' class='FeaturedCuisineCheckBox' type='checkbox'>";
                     echo '</label>';
 
 
@@ -4147,7 +4229,7 @@ class Promotion{
                     echo '<td>InActive</td>';
                     }
                     elseif($value === 1){
-                    echo '<td>Active</td>';
+                    echo '<td><b>Active</b></td>';
                     }
                 }
 
@@ -4170,7 +4252,8 @@ class Promotion{
         echo '</tbody>';
 
         echo '</table>';
-        echo "<button class='btn text-right ' type='button'>Active</button>";
+        echo "<button class='btn text-right FeatureCuisineActive' type='button'>Active</button>";
+        echo " <button class='btn text-right FeatureCuisineDelete' type='button'>Delete</button>";
 
     }
 
@@ -4200,7 +4283,7 @@ class Promotion{
                 if($key==='RestID'){
                     echo '<td>';
                     echo '<label class="checkbox">';
-                    echo "<input id='$value' type='checkbox'>";
+                    echo "<input value='$value' class='FeaturedRestaurantCheckBox' type='checkbox'>";
                     echo '</label>';
                     echo '</td>';
 
@@ -4214,7 +4297,7 @@ class Promotion{
                 }
 
                 if($key==='ResAddress'){
-                    echo '<td>$'.$value.'</td>';
+                    echo '<td>'.$value.'</td>';
                 }
                 if($key==='Type'){
                     echo '<td>'.$value.'</td>';
@@ -4244,7 +4327,8 @@ class Promotion{
 
         echo '</tbody>';
         echo '</table>';
-        echo "<button class='btn text-right' type='button'>Active</button>";
+        echo "<button class='btn text-right FeatureRestaurantActive' type='button'>Active</button>";
+        echo " <button class='btn text-right FeatureRestaurantDelete' type='button'>Delete</button>";
 
     }
 }
@@ -4335,7 +4419,7 @@ class _ManagerDeliverer{
      *
      * @param $Type
      */
-    private function SelectManagerOrDeliverer($Type){
+    public function SelectManagerOrDeliverer($Type){
         if($stmt = $this -> DataBaseCon -> prepare ("SELECT UserID, UserName, UserMail, UserPhone, UserType FROM User WHERE UserType=?")){
             $stmt->bind_param('s',$Type);
             $stmt->execute();
@@ -4348,29 +4432,17 @@ class _ManagerDeliverer{
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * Fetch the paramters then validates them first if okay then insert record else return failure
+     * Fetch the paramters then validates them first if okay then insert record else return failure - Manager
      * @param $UniqueID
      * @param $Name
      * @param $RootID
      *
      * @return string
      */
-    public function FetchParamerAndReadyInsert($UniqueID, $Name, $RootID){
-        if($this -> Validation($Name)){
-            return $this -> InsertNewManager($UniqueID, $Name, $RootID);
+    public function FetchParamerAndReadyInsert_Manager($Manager_UniqueID, $Name, $RootID){
+        if($this -> Manager_Validation($Name)){
+            return $this -> InsertNewManager($Manager_UniqueID, $Name, $RootID);
         }
         else{
             return json_encode(array('status'=>'failed'));
@@ -4378,7 +4450,41 @@ class _ManagerDeliverer{
     }
 
 
+    /**
+     *
+     * Bing the data delverer and managerID and manager its root ID
+     * @param $Deliverer_UniqueID
+     * @param $ManagerID
+     * @param $DeliververID
+     *
+     * @return string|void
+     */
+    public function FetchParamerAndReadyInsert_Deliverer($Deliverer_UniqueID, $ManagerID,$DeliververID){
+        if($this -> Deliverer_Validation($DeliververID)){
+            return $this -> InsertNewDeliverer($Deliverer_UniqueID,$ManagerID,$DeliververID);
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
 
+    }
+
+
+    /**
+     * Insert the paramters into the database
+     * @param $Index
+     * @param $ManagerID
+     * @param $DelivererID
+     */
+
+    private function InsertNewDeliverer($Index,$ManagerID,$DelivererID){
+        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO Deliverer (IndexID,ManagerID,DelivererID) VALUES (?,?,?)")){
+            $stmt -> bind_param('sss',$Index, $ManagerID, $DelivererID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+    }
     /**
      *
      * This function is getting the paramters from front end and inserts the record into the db
@@ -4386,7 +4492,7 @@ class _ManagerDeliverer{
      * @param $RootID
      */
     private function InsertNewManager($UniqueID, $Name, $RootID){
-        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO Manager (ManagerID,Manager,RootID) VALUES (?,?,?)")){
+        if($stmt = $this -> DataBaseCon -> prepare ("INSERT INTO Manager (IndexID,ManagerID,RootID) VALUES (?,?,?)")){
             $stmt -> bind_param('sss',$UniqueID, $Name, $RootID);
             $stmt -> execute();
             $stmt -> close();
@@ -4396,13 +4502,41 @@ class _ManagerDeliverer{
 
     /**
      *
+     * Deliverer
+     * @param $p
+     *
+     * @return bool
+     */
+    private function Deliverer_Validation($p){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Deliverer WHERE DelivererID=?")){
+            $stmt->bind_param('s',$p);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            if(count($object)>0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
+
+
+
+    /**
+     *
      * do validation if it is possible
      * @param $Name
      *
      * @return bool
      */
-    private function Validation($Name){
-        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Manager WHERE Manager=?")){
+    private function Manager_Validation($Name){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Manager WHERE ManagerID=?")){
             $stmt->bind_param('s',$Name);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -4425,7 +4559,7 @@ class _ManagerDeliverer{
      * return the whole table
      * @return array
      */
-    private function GenerateQueryInfo(){
+    private function GenerateQueryInfo_ManagerOnly(){
         if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Manager")){
             $stmt->execute();
             $result = $stmt->get_result();
@@ -4439,7 +4573,40 @@ class _ManagerDeliverer{
     }
 
     /**
-     * This function is only displying the view of Manager table that comes from User table
+     *
+     */
+    private function GenerateQueryInfo_Manager_Deliverer(){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT * FROM Deliverer")){
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $object=array();
+            while($row=$result->fetch_assoc()){
+                array_push($object,$row);
+            }
+            $stmt->close();
+            return $object;
+        }
+    }
+
+
+    private function _GetNameOf($PassID){
+        if($stmt = $this -> DataBaseCon -> prepare ("SELECT UserMail FROM User WHERE UserID=?")){
+            $stmt -> bind_param('s',$PassID);
+            $stmt -> execute();
+            $stmt -> bind_result($UserMail);
+            while($stmt -> fetch()){
+                $result = $UserMail;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+    }
+
+
+
+    /**
+     * This function is only displying the view of Manager or deliverer table that comes from User table
      */
     public function qViewManagerOrDelivererTable($type){
            echo  '<table class="table table-striped">';
@@ -4457,7 +4624,7 @@ class _ManagerDeliverer{
                echo  '<tr>';
                foreach ($subarray as $key => $value){
                    if($key === 'UserID'){
-                       echo '<td class="ManagerID">'.$value.'</td>';
+                       echo '<td class="ManagerOrDeliververID">'.$value.'</td>';
                    }
                    if($key === 'UserMail'){
                        echo '<td>'.$value.'</td>';
@@ -4465,15 +4632,11 @@ class _ManagerDeliverer{
                    if($key === 'UserName'){
                        echo '<td>'.$value.'</td>';
                    }
-                   if($key === 'UserPhone'){
-                       echo '<td>'.$value.'</td>';
-                   }
-
                    if($key === 'UserType'){
                        echo '<td>'.$value.'</td>';
                    }
                }
-               echo '<td><button class="button deleteManager" type="button">Delete</button></td>';
+               echo '<td><button class="button deleteManagerOrDeliverer" type="button">Delete</button></td>';
                echo '</tr>';
            }
 
@@ -4484,37 +4647,79 @@ class _ManagerDeliverer{
     }
 
     /**
-     * This function is only generating the query view by table
+     * This function is only generating the query view by table - manager with location
      */
-    public function qViewTable(){
+    public function qManagerTable(){
 
       echo  '<table class="table table-striped">';
       echo  '<thead>';
       echo  '<tr>';
-      echo  '<th>Manager ID</th>';
+      echo  '<th>Index</th>';
       echo  '<th>Current Root ID</th>';
+      echo  '<th>Manager ID</th>';
       echo  '<th>Manager Name</th>';
-      echo  '<th>Change</th>';
       echo  '<th>Delete</th>';
       echo  '</tr>';
       echo  '</thead>';
       echo  '<tbody>';
-      foreach ($this -> GenerateQueryInfo() as $index => $subarray){
+      foreach ($this -> GenerateQueryInfo_ManagerOnly() as $index => $subarray){
           echo  '<tr>';
           foreach ($subarray as $key => $value){
-              if($key === 'ManagerID'){
-                  echo '<td class="ManagerID">'.$value.'</td>';
+              if($key === 'IndexID'){
+                  echo '<td class="IndexID">'.$value.'</td>';
               }
               if($key === 'RootID'){
                   echo '<td>'.$value.'</td>';
               }
-              if($key === 'Manager'){
+              if($key === 'ManagerID'){
                   echo '<td>'.$value.'</td>';
+                  echo '<td>'.$this -> _GetNameOf($value).'</td>';
+
               }
 
           }
-          echo '<td><button class="button ChangeManager" type="button">Change</button></td>';
           echo '<td><button class="button deleteManager" type="button">Delete</button></td>';
+          echo '</tr>';
+      }
+
+     echo  '</tbody>';
+     echo  '</table>';
+     }
+    /**
+     * This function is only generating the query view by table - Deliverer with Manager
+     */
+    public function qDelivererTable(){
+
+      echo  '<table class="table table-striped">';
+      echo  '<thead>';
+      echo  '<tr>';
+      echo  '<th>Index</th>';
+      echo  '<th>Manager ID</th>';
+      echo  '<th>Manager Name</th>';
+      echo  '<th>Deliverver ID</th>';
+      echo  '<th>Deliverver Name</th>';
+      echo  '<th>Delete</th>';
+      echo  '</tr>';
+      echo  '</thead>';
+      echo  '<tbody>';
+      foreach ($this -> GenerateQueryInfo_Manager_Deliverer() as $index => $subarray){
+          echo  '<tr>';
+          foreach ($subarray as $key => $value){
+              if($key === 'IndexID'){
+                  echo '<td class="IndexID">'.$value.'</td>';
+              }
+              if($key === 'ManagerID'){
+                  echo '<td>'.$value.'</td>';
+                  echo '<td>'.$this -> _GetNameOf($value).'</td>';
+              }
+              if($key === 'DelivererID'){
+                  echo '<td>'.$value.'</td>';
+                  echo '<td>'.$this -> _GetNameOf($value).'</td>';
+
+              }
+
+          }
+          echo '<td><button class="button deleteDeliverer" type="button">Delete</button></td>';
           echo '</tr>';
       }
 
@@ -4525,12 +4730,111 @@ class _ManagerDeliverer{
     /**
      * Delete current Manager according ID
      * @param $getID
-     *
      * @return string
      */
-    public function DeleteMnager($getID){
-        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM User WHERE UserID=? ")){
-            $stmt -> bind_param('i',$getID);
+    public function DeleteManager($getID,$type){
+       if ($type === 'User_Manager_Or_Deliverer'){
+           return $this -> DeleteUserManagerOrDeliverer($getID);
+       }
+       else if($type === 'Delete_Manager_location'){
+           return $this -> DeleteBindingManagerAndLocationOnly($getID);
+       }
+       else if($type === 'Delete_Deliverer_Manager_location'){
+           return $this -> DeleteBindingDelivererAndManagerOnly($getID);
+
+       }
+
+
+    }
+
+
+    /**
+     * @param $getID
+     * Delete user manager or develiverer
+     * @return string
+     */
+
+    private function DeleteUserManagerOrDeliverer($getID){
+
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM User WHERE UserID=?")){
+            $stmt -> bind_param('s',$getID);
+            $stmt -> execute();
+            $stmt -> close();
+
+            if($this -> DeleteManagerAccountIn_Binding($getID)){
+                $condition = 1;
+            }
+            if($this -> _ManagerID_DeleteDelivererAccountIn_Binding($getID)){
+                $condiiton1 = 1;
+            }
+            if($this -> _DelivererID_DeleteDelivererAccountIn_Binding($getID)){
+                $condition2 = 1;
+            }
+
+            if($condition === 1 || $condiiton1 === 1 || $condition2 === 1){
+                return json_encode(array('status'=>'successed'));
+            }
+            else{
+                return json_encode(array('status'=>'failed'));
+
+            }
+
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
+
+    }
+
+
+    private function DeleteManagerAccountIn_Binding($ID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Manager WHERE ManagerID=?")){
+            $stmt -> bind_param('s',$ID);
+            $stmt -> execute();
+            $stmt -> close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    private function _ManagerID_DeleteDelivererAccountIn_Binding($ID){
+            if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Deliverer WHERE ManagerID=?")){
+                $stmt -> bind_param('s',$ID);
+                $stmt -> execute();
+                $stmt -> close();
+                return true;
+            }
+            else{
+                return false;
+            }
+
+    }
+
+    private function _DelivererID_DeleteDelivererAccountIn_Binding($ID){
+            if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Deliverer WHERE DelivererID=?")){
+                $stmt -> bind_param('s',$ID);
+                $stmt -> execute();
+                $stmt -> close();
+                return true;
+            }
+            else{
+                return false;
+            }
+
+    }
+
+
+
+    /**
+     * Delete function {Delete binded manager and location}
+     */
+
+    private function DeleteBindingManagerAndLocationOnly($getID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Manager WHERE IndexID=?")){
+            $stmt -> bind_param('s',$getID);
             $stmt -> execute();
             $stmt -> close();
             return json_encode(array('status'=>'successed'));
@@ -4538,8 +4842,41 @@ class _ManagerDeliverer{
         else{
             return json_encode(array('status'=>'failed'));
         }
-
     }
+
+    /**
+     * Delete function {Delete binded manager and Deliverer}
+     */
+
+    private function DeleteBindingDelivererAndManagerOnly($getID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Deliverer WHERE IndexID=?")){
+            $stmt -> bind_param('s',$getID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
+    }
+
+
+    /**
+     * Delete function {Delete binded deliverer and location and its manager }
+     */
+    private function DeleteBindingDeliverAndLocation($getID){
+        if($stmt = $this -> DataBaseCon -> prepare ("DELETE FROM Deliverer WHERE IndexID=?")){
+            $stmt -> bind_param('s',$getID);
+            $stmt -> execute();
+            $stmt -> close();
+            return json_encode(array('status'=>'successed'));
+        }
+        else{
+            return json_encode(array('status'=>'failed'));
+        }
+    }
+
+
 
 }
 

@@ -98,6 +98,7 @@ $(document).ready(function(){
      * Fecthing the result
      */
     function onLoadData(data){
+        console.log(data);
         $('.AjaxLoading').fadeOut();
         isLoading = false;
         var html = '';

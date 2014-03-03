@@ -186,7 +186,7 @@ if ($user) {
 
                                 <?php }?>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'http://www.cometome.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
+                                <li><a href="<?php echo $facebook->getLogoutUrl(array( 'next' =>'https://www.cometome.com.au/Login-Logout/logoff.php','access_token'=>$facebook->getAccessToken()));?>" onclick="fb_logff();">Log Out</a></li>
 
 
                             </ul>

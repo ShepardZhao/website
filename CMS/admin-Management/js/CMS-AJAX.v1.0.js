@@ -117,6 +117,14 @@ $(document).ready(function(){
         __hidenDiv();
         $(this).find('a').addClass('achieve');
         $('#ConfigureManagerAndBinded').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+        AjaxViewManagerOrDeliveryTable({viewManagerTable:'viewManagerTable'},'#refreshManagerTable');
+
+    });
+    $('body').on('click','#ConfigureDelivererAndManagerBinded-clicked',function(){
+        __hidenDiv();
+        $(this).find('a').addClass('achieve');
+        $('#ConfigureDeliververAndManager').fadeIn(200);// when #addedCuisines-clicked is cliked, the #addedCuisines will be showing
+        AjaxViewManagerOrDeliveryTable({viewDelivererTable:'viewDelivererTable'},'#refreshDeliververTable');
 
     });
 
@@ -148,6 +156,7 @@ $(document).ready(function(){
         $('#addedRestaurant').fadeOut(200);//hiding the addsRestaurant page
         $('#addedCuisines').fadeOut(200);//hiding the addedCuisines page
         $('#ConfigureManagerAndBinded').fadeOut(200);//hiding the  $('#ConfigureManagerAndBinded')
+        $('#ConfigureDeliververAndManager').fadeOut(200);//hiding the  $('#ConfigureManagerAndBinded')
         $('#MobileEndOnline').fadeOut(200);//hiding the $('#MobileEndOnline')
         $('#RegisterNewManager_Deliver').fadeOut(200);//hiding the $('#RegisterNewManager_Deliver')
         $('#FeaturedManagement').fadeOut(200);//hiding the $('#FeaturedManagement-clicked')
@@ -930,6 +939,7 @@ $('body').on('click','#UserListDelete',function(){
 
 
 
+
     /*****************************************Cop - Mobile end js******************************/
 
     /**
@@ -999,18 +1009,20 @@ $('body').on('click','#UserListDelete',function(){
     }
 
 
-
+    /**
+     * Manager binding
+     */
 
 
     $('.submitManager').on('click',function(){
         //input field
-        var managerInputFiled = $('#managerInputFiled').val();
+        var ManagerSelectID = $('.SelectionManagerID').val();
         //select LocationID
-        var SelectedLocationID = $('.SelectedLocationID').attr('id');
+        var SelectedLocationID = $('.SelectLocationID').val();
         var managerAJAXVariable = {};
 
         managerAJAXVariable['managerAJAX'] = 'managerAJAX';
-        managerAJAXVariable['managerInputFiled'] = managerInputFiled;
+        managerAJAXVariable['ManagerSelectID'] = ManagerSelectID;
         managerAJAXVariable['SelectedLocationID'] = SelectedLocationID;
         managerAJAX(managerAJAXVariable);
 
@@ -1030,12 +1042,12 @@ $('body').on('click','#UserListDelete',function(){
 
         request.done(function(data){
             if(data.status === 'successed'){
-                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.DisplayForm')).fadeIn(200);
-                refresh_query_table();
+                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.input-append')).fadeIn(200);
+                AjaxViewManagerOrDeliveryTable({viewManagerTable:'viewManagerTable'},'#refreshManagerTable');
                 setTimeout(function(){$('.alert-success').fadeOut(); },5000);
             }
             if(data.status === 'failed'){
-                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').insertAfter($('.DisplayForm')).fadeIn(200);
+                $('<div class="alert alert-error"><strong>Sorry, Current Manager already been binded</div>').insertAfter($('.input-append')).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
             }
         });
@@ -1043,13 +1055,87 @@ $('body').on('click','#UserListDelete',function(){
 
 
     /**
-     * Delete current Manager
+     * Deliverer binding
+     */
+    $('.submitDeliverver').on('click',function(){
+        var ManagerSelectID = $('._SelectionManagerID').val();
+        //select Deliverer
+        var DelivererSelectID = $('._SelectionDelivererID').val();
+        var DelivererAJAXVariable = {};
+
+        DelivererAJAXVariable['DelivererAJAX'] = 'DelivererAJAX';
+        DelivererAJAXVariable['ManagerSelectID'] = ManagerSelectID;
+        DelivererAJAXVariable['DelivererSelectID'] = DelivererSelectID;
+        DelivererAJAX(DelivererAJAXVariable);
+
+    });
+
+    /**
+     * ajax submit ---- insert record
+     */
+    function DelivererAJAX(p){
+        var request= $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            data:p,
+            dataType: "json"
+        });
+
+        request.done(function(data){
+            if(data.status === 'successed'){
+                $('<div class="alert alert-success"><strong>Operateion is sucessfully</div>').insertAfter($('.input-append')).fadeIn(200);
+                AjaxViewManagerOrDeliveryTable({viewDelivererTable:'viewDelivererTable'},'#refreshDeliververTable');
+                setTimeout(function(){$('.alert-success').fadeOut(); },5000);
+            }
+            if(data.status === 'failed'){
+                $('<div class="alert alert-error"><strong>Sorry, Current Manager already been binded</div>').insertAfter($('.input-append')).fadeIn(200);
+                setTimeout(function(){$('.alert-error').fadeOut(); },5000);
+            }
+        });
+    }
+
+
+
+    /**
+     *
+     */
+    $('body').on('click','.deleteManagerOrDeliverer',function(){
+        var GetIndexID = $(this).parent().parent().find('.ManagerOrDeliververID').text();
+        var tmp = {};
+        tmp['ManagerOrDelivererDelete'] = 'yes';
+        tmp['GetIndexID'] = GetIndexID;
+        tmp['DeleteType'] = 'User_Manager_Or_Deliverer';
+        AjaxManagerDeletefunction(tmp,$(this).parent().parent());
+
+    });
+
+    /**
+     * Deleteing current Manager that had been binded already
      */
     $('body').on('click','.deleteManager',function(){
-        var GetManagerID = $(this).parent().parent().find('.ManagerID').text();
+        var GetIndexID = $(this).parent().parent().find('.IndexID').text();
         var tmp = {};
-        tmp['ManagerDelete'] = 'yes';
-        tmp['GetManagerID'] = GetManagerID;
+        tmp['ManagerOrDelivererDelete'] = 'yes';
+        tmp['GetIndexID'] = GetIndexID;
+        tmp['DeleteType'] = 'Delete_Manager_location';
+
+        AjaxManagerDeletefunction(tmp,$(this).parent().parent());
+
+    });
+
+
+    /**
+     * Deleting current Deliverer that had been binded already
+     */
+
+    $('body').on('click','.deleteDeliverer',function(){
+        var GetIndexID = $(this).parent().parent().find('.IndexID').text();
+        var tmp = {};
+        tmp['ManagerOrDelivererDelete'] = 'yes';
+        tmp['GetIndexID'] = GetIndexID;
+        tmp['DeleteType'] = 'Delete_Deliverer_Manager_location';
+
         AjaxManagerDeletefunction(tmp,$(this).parent().parent());
 
     });
@@ -1075,13 +1161,125 @@ $('body').on('click','#UserListDelete',function(){
             }
             if(data.status === 'failed'){
                 getThis.empty();
-                $('<div class="alert alert-error"><strong>Sorry, replated Manger name</div>').appendTo(getThis).fadeIn(200);
+                $('<div class="alert alert-error"><strong>Sorry, system error, please contract to Admin</div>').appendTo(getThis).fadeIn(200);
                 setTimeout(function(){$('.alert-error').fadeOut(); },5000);
             }
 
+        });
 
+
+    }
+
+    /**
+     * Ajax view the manager or delivery's table
+     * @constructor
+     */
+    function AjaxViewManagerOrDeliveryTable(tmp,elementForDisplay){
+        var request = $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            data:tmp
+        });
+
+        request.done(function(data){
+            $(elementForDisplay).empty().append(data);
 
         });
+    }
+
+/************************************** Management Featured **************************************/
+   $('body').on('click','.FeatureCuisineActive',function(){
+
+       var values = $('input:checkbox:checked.FeaturedCuisineCheckBox').map(function () {
+           return this.value;//return each value
+       }).get();
+       //set up the new object array
+        var containter = {};
+       containter['ActiveFecture'] = 'yes';
+       containter['FeatureCuisineIDArray'] = values;
+       featuredAJAX(containter,'FecturendCusine');
+   });
+
+
+   $('body').on('click','.FeatureCuisineDelete',function(){
+       var values = $('input:checkbox:checked.FeaturedCuisineCheckBox').map(function () {
+           return this.value;//return each value
+       }).get();
+       var containter = {};
+       containter['FectureDelete'] = 'yes';
+       containter['FeatureCuisineIDArray'] = values;
+       featuredAJAX(containter,'FecturendCusineDelete');
+       console.log(containter);
+   });
+
+
+
+
+
+
+
+   $('body').on('click','.FeatureRestaurantActive',function(){
+
+       var values = $('input:checkbox:checked.FeaturedRestaurantCheckBox').map(function () {
+           return this.value;//return each value
+       }).get();
+       //set up the new object array
+        var containter = {};
+       containter['ActiveFecture'] = 'yes';
+       containter['FeatureRestaurantIDArray'] = values;
+       featuredAJAX(containter,'FecturendRestaurant');
+   });
+
+
+   $('body').on('click','.FeatureRestaurantDelete',function(){
+       var values = $('input:checkbox:checked.FeaturedRestaurantCheckBox').map(function () {
+           return this.value;//return each value
+       }).get();
+       var containter = {};
+       containter['FectureDelete'] = 'yes';
+       containter['FeatureRestaurantIDArray'] = values;
+       featuredAJAX(containter,'FeatureRestaurantDelete');
+
+   });
+
+
+
+
+    function featuredAJAX(_p,_t){
+        var request = $.ajax({
+            url:'../BackEnd-controller/BackEnd-controller.php',
+            type: "POST",
+            cache: false,
+            dataType: "html",
+            data:_p
+        });
+
+        request.done(function(data){
+            //append
+
+            if(_t === 'FecturendCusine'){
+                $('.Featured_cuisine_Management_table').empty().append(data);
+            }
+
+            if(_t === 'FecturendRestaurant'){
+                $('.Featured_restaurant_Management_table').empty().append(data);
+            }
+
+
+            //delete
+
+            if(_t === 'FecturendCusineDelete'){
+                $('.Featured_cuisine_Management_table').empty().append(data);
+            }
+
+            if(_t === 'FeatureRestaurantDelete'){
+                $('.Featured_restaurant_Management_table').empty().append(data);
+            }
+
+        });
+
 
 
     }

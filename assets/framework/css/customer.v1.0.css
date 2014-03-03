@@ -90,7 +90,7 @@ a{
     position: relative;
 }
 .header{
-    background-color: #f47063;/*rgb(255, 238, 204);*/
+    background-color: rgb(232,106,86);/*rgb(255, 238, 204);*/
     z-index: 99999;
 }
 
@@ -487,7 +487,6 @@ label.text {
 }
 .tabContent{
     background-color:rgb(255,255,255);
-    overflow-x:hidden;
 }
 .ContentRight{
     background-color:rgb(255,169,93);
@@ -736,7 +735,6 @@ label.text {
 }
 
 .FeatureTopBackground{
-    background:rgb(255,255,255);
     padding: 19px;
 
 

@@ -15,7 +15,8 @@
         <ul class="Nav-list">
             <li id="MobileEndOnline-clicked"><a title="Check current mobile online">Current Online staffs</a></li>
             <li id="RegisterNewManagerOrDelivery-clicked"><a title="Manually add the new manager or deliver ">Register Manager&Deliver</a></li>
-            <li id="ConfigureManagerAndBinded-clicked"><a title="Binding Manager and Root location">Binding Manager and Root location</a></li>
+            <li id="ConfigureManagerAndBinded-clicked"><a title="Binding Manager and Root location">Binding Manager with Root location</a></li>
+            <li id="ConfigureDelivererAndManagerBinded-clicked"><a title="Binding Deliverer and Manager">Binding Deliverer with Manager</a></li>
         </ul>
     </li>
 

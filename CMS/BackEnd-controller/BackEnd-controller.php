@@ -241,21 +241,64 @@ if(isset($_POST['ConstructOfActiveMail']) && isset($_POST['ConstructOfActiveMail
         echo $ManagerDelivererClass -> qViewManagerOrDelivererTable($_POST['refreshType']);
     }
 
+    //end
 
 
 
-
-    //add record
-    if(isset($_POST['managerAJAX']) && isset($_POST['managerInputFiled']) && isset($_POST['SelectedLocationID'])){
+    //binding record between manager and root location
+         //binding
+    if(isset($_POST['managerAJAX']) && isset($_POST['ManagerSelectID']) && isset($_POST['SelectedLocationID'])){
         $MangerID = 'M'.$RegisterUserClass->GenerateRandomUserID();
-        echo $ManagerDelivererClass -> FetchParamerAndReadyInsert($MangerID, $_POST['managerInputFiled'], $_POST['SelectedLocationID']);
+        echo $ManagerDelivererClass -> FetchParamerAndReadyInsert_Manager($MangerID, $_POST['ManagerSelectID'], $_POST['SelectedLocationID']);
     }
-    //delete reocrd
-    if(isset($_POST['ManagerDelete']) && isset($_POST['GetManagerID'])){
-        echo $ManagerDelivererClass -> DeleteMnager($_POST['GetManagerID']);
+
+        //delete
+    if(isset($_POST['ManagerOrDelivererDelete']) && isset($_POST['GetIndexID'])){
+        echo $ManagerDelivererClass -> DeleteManager($_POST['GetIndexID'],$_POST['DeleteType']);
+    }
+        //query table
+    if(isset($_POST['viewManagerTable'])){
+        echo $ManagerDelivererClass -> qManagerTable();
+    }
+    //end
+
+
+
+
+    //binding reocrd between devliverver and manager
+        //Binding Manager
+    if(isset($_POST['DelivererAJAX']) && isset($_POST['ManagerSelectID']) && isset($_POST['DelivererSelectID'])){
+        $MangerID = 'D'.$RegisterUserClass->GenerateRandomUserID();
+        echo $ManagerDelivererClass -> FetchParamerAndReadyInsert_Deliverer($MangerID, $_POST['ManagerSelectID'], $_POST['DelivererSelectID']);
     }
 
 
+    if(isset($_POST['viewDelivererTable'])){
+        echo $ManagerDelivererClass -> qDelivererTable();
+    }
+
+    //end
+/*********************************************** Featured active  or Delete **************************************/
+    if(isset($_POST['ActiveFecture'])){
+        if(isset($_POST['FeatureCuisineIDArray'])){
+            echo $PromotionClass -> _UpdateActive($_POST['FeatureCuisineIDArray'],'_FC');
+        }
+
+        if(isset($_POST['FeatureRestaurantIDArray'])){
+            echo $PromotionClass -> _UpdateActive($_POST['FeatureRestaurantIDArray'],'_FR');
+        }
+    }
+
+
+    if(isset($_POST['FectureDelete'])){
+        if(isset($_POST['FeatureCuisineIDArray'])){
+            echo $PromotionClass -> _UpdateDelete($_POST['FeatureCuisineIDArray'],'_FC');
+        }
+
+        if(isset($_POST['FeatureRestaurantIDArray'])){
+            echo $PromotionClass -> _UpdateDelete($_POST['FeatureRestaurantIDArray'],'_FR');
+        }
+    }
 
 }
 

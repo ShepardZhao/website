@@ -34,6 +34,7 @@
     <?php require_once 'SubPages/MobileEndOnline.php'?>
     <?php require_once 'SubPages/RegisterNewManager_Deliver.php'?>
     <?php require_once 'SubPages/ConfigureManager_Mobile.php'?>
+    <?php require_once 'SubPages/ConfigureDeliverver_Mobile.php'?>
     <!-----------------------------------------Restaurant&Cuisines Management------------------------------>
     <!-----------------------------------------Register Restaurant----------------------------------------->
     <?php require_once 'SubPages/Register_restaurant.php'?>
